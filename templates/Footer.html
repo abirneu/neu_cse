@@ -1,0 +1,42 @@
+<!-- Footer -->
+<footer class="bg-gray-800 text-white py-8">
+    <div class="container mx-auto px-4">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div>
+                <h3 class="text-xl font-bold mb-4">Contact Us</h3>
+                <p><i class="fas fa-map-marker-alt mr-2"></i> Department of CSE</p>
+                <p class="ml-6">Netrokona University</p>
+                <p class="ml-6">City, Country</p>
+                <p class="mt-2"><i class="fas fa-phone mr-2"></i> +880 XXXX-XXXXXX</p>
+                <p><i class="fas fa-envelope mr-2"></i> cse@neu.edu.bd</p>
+            </div>
+            <div>
+                <h3 class="text-xl font-bold mb-4">Quick Links</h3>
+                <ul class="space-y-2">
+                    <li><a href="{% url 'home' %}" class="hover:text-blue-300">Home</a></li>
+                    <li><a href="{% url 'notice_list' %}" class="hover:text-blue-300">Notices</a></li>
+                    <li><a href="{% url 'faculty_list' %}" class="hover:text-blue-300">Faculty Members</a></li>
+                    <li><a href="{% url 'publications' %}" class="hover:text-blue-300">Publications</a></li>
+                    <li><a href="{% url 'projects' %}" class="hover:text-blue-300">Projects</a></li>
+                </ul>
+            </div>
+            <div>
+                <h3 class="text-xl font-bold mb-4">Connect With Us</h3>
+                <div class="flex space-x-4 mb-4">
+                    <a href="#" class="text-2xl hover:text-blue-300"><i class="fab fa-facebook"></i></a>
+                    <a href="#" class="text-2xl hover:text-blue-300"><i class="fab fa-twitter"></i></a>
+                    <a href="#" class="text-2xl hover:text-blue-300"><i class="fab fa-linkedin"></i></a>
+                    <a href="#" class="text-2xl hover:text-blue-300"><i class="fab fa-youtube"></i></a>
+                </div>
+                <p>Subscribe to our newsletter:</p>
+                <form class="mt-2 flex">
+                    <input type="email" placeholder="Your email" class="px-2 py-1 text-gray-800 rounded-l w-full">
+                    <button class="bg-blue-700 px-4 py-1 rounded-r hover:bg-blue-600">Subscribe</button>
+                </form>
+            </div>
+        </div>
+        <div class="border-t border-gray-700 mt-8 pt-4 text-center">
+            <p>&copy; {% now "Y" %} Department of CSE, Netrokona University. All rights reserved.</p>
+        </div>
+    </div>
+</footer>

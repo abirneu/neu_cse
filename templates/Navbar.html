@@ -1,0 +1,45 @@
+{% load static %}
+<!-- Header -->
+<header class="bg-blue-800 text-white">
+    <div class="container mx-auto px-4 py-2">
+        <div class="flex justify-between items-center">
+            <div class="flex items-center">
+                <img src="{% static 'images/logo/neulogo.jpg' %}" alt="NeU Logo" class="h-16 mr-4">
+                <div>
+                    <h1 class="text-2xl font-bold">Department of Computer Science & Engineering</h1>
+                    <p class="text-sm">Netrokona University</p>
+                </div>
+            </div>
+            <div class="hidden md:block">
+                <p class="text-sm"><i class="fas fa-envelope mr-2"></i>cse@neu.edu.bd</p>
+                <p class="text-sm"><i class="fas fa-phone mr-2"></i>+880 XXXX-XXXXXX</p>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- Navigation -->
+<nav class="bg-blue-700 text-white shadow-lg">
+    <div class="container mx-auto px-4">
+        <div class="flex justify-between">
+            <div class="flex space-x-1">
+                <a href="{% url 'home' %}" class="py-4 px-4 hover:bg-blue-600 {% if request.path == '/' %}bg-blue-900{% endif %}">Home</a>
+                <a href="{% url 'notice_list' %}" class="py-4 px-4 hover:bg-blue-600 {% if request.path == '/notices/' %}bg-blue-900{% endif %}">Notices</a>
+                <a href="{% url 'faculty_list' %}" class="py-4 px-4 hover:bg-blue-600 {% if request.path == '/faculty/' %}bg-blue-900{% endif %}">Faculty</a>
+                <a href="{% url 'chairman_message' %}" class="py-4 px-4 hover:bg-blue-600 {% if request.path == '/chairman/' %}bg-blue-900{% endif %}">Chairman</a>
+                <a href="{% url 'publications' %}" class="py-4 px-4 hover:bg-blue-600 {% if request.path == '/publications/' %}bg-blue-900{% endif %}">Publications</a>
+                <a href="{% url 'projects' %}" class="py-4 px-4 hover:bg-blue-600 {% if request.path == '/projects/' %}bg-blue-900{% endif %}">Projects</a>
+                <a href="{% url 'tech_news' %}" class="py-4 px-4 hover:bg-blue-600 {% if request.path == '/tech-news/' %}bg-blue-900{% endif %}">Tech News</a>
+                <a href="{% url 'about' %}" class="py-4 px-4 hover:bg-blue-600 {% if request.path == '/about/' %}bg-blue-900{% endif %}">About</a>
+            </div>
+            <div class="flex items-center">
+                <form class="flex">
+                    <input type="text" placeholder="Search..." class="px-4 py-2 text-gray-800 rounded-l">
+                    <button class="bg-blue-800 px-4 py-2 rounded-r hover:bg-blue-600">
+                        <i class="fas fa-search"></i>
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+</nav>

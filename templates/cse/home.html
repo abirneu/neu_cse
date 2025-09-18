@@ -1,0 +1,195 @@
+{% extends 'base.html' %} {% load static %} {% block content %}
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+  <!-- Main Content -->
+  <div class="lg:col-span-2">
+    <!-- Welcome Section -->
+    <div class="bg-white rounded-lg shadow-md p-6 mb-8">
+      <h2 class="text-2xl font-bold text-blue-800 mb-4">
+        Welcome to the Department of CSE
+      </h2>
+      <p class="text-gray-700 mb-4">
+        The Department of Computer Science and Engineering (CSE) at Northern
+        Engineering University is committed to providing quality education,
+        conducting cutting-edge research, and serving the community through
+        innovation and technology transfer.
+      </p>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mt-6">
+        <div class="bg-blue-100 p-4 rounded-lg text-center">
+          <i class="fas fa-graduation-cap text-4xl text-blue-700 mb-2"></i>
+          <h3 class="font-bold">Programs</h3>
+          <p>Undergraduate and Graduate programs</p>
+        </div>
+        <div class="bg-blue-100 p-4 rounded-lg text-center">
+          <i class="fas fa-flask text-4xl text-blue-700 mb-2"></i>
+          <h3 class="font-bold">Research</h3>
+          <p>Cutting-edge research projects</p>
+        </div>
+        <div class="bg-blue-100 p-4 rounded-lg text-center">
+          <i class="fas fa-users text-4xl text-blue-700 mb-2"></i>
+          <h3 class="font-bold">Faculty</h3>
+          <p>Experienced and dedicated faculty</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Tech News Section -->
+    <div class="bg-white rounded-lg shadow-md p-6 mb-8">
+      <h2
+        class="text-2xl font-bold text-blue-800 mb-4 flex justify-between items-center"
+      >
+        <span>Latest Tech News</span>
+        <a
+          href="{% url 'tech_news' %}"
+          class="text-sm font-normal text-blue-600 hover:underline"
+          >View All</a
+        >
+      </h2>
+      <div class="space-y-4">
+        {% for news in tech_news %}
+        <div class="border-l-4 border-blue-500 pl-4 py-2">
+          <h3 class="font-semibold">{{ news.title }}</h3>
+          <p class="text-sm text-gray-600">
+            {{ news.content|striptags|truncatewords:20 }}
+          </p>
+          <p class="text-xs text-gray-500 mt-1">
+            {{ news.published_date|date:"M d, Y" }}{% if news.source %} |
+            Source: {{ news.source }}{% endif %}
+          </p>
+        </div>
+        {% empty %}
+        <p class="text-gray-600">No tech news available.</p>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+
+  <!-- Sidebar -->
+  <div class="lg:col-span-1">
+    <!-- Important Notices -->
+    <div class="bg-white rounded-lg shadow-md p-6 mb-8">
+      <h2
+        class="text-2xl font-bold text-red-700 mb-4 flex justify-between items-center"
+      >
+        <span>Important Notices</span>
+        <a
+          href="{% url 'notice_list' %}?important=1"
+          class="text-sm font-normal text-blue-600 hover:underline"
+          >View All</a
+        >
+      </h2>
+      <div class="space-y-3">
+        {% for notice in important_notices %}
+        <div class="border-l-4 border-red-500 pl-4 py-3 bg-red-50">
+          <h3 class="font-semibold">
+            <a
+              href="{% url 'notice_detail' notice.id %}"
+              class="text-blue-600 hover:underline"
+              >{{ notice.title }}</a
+            >
+          </h3>
+          <p class="text-sm text-gray-600">
+            {{ notice.published_date|date:"M d, Y" }}
+          </p>
+          <p class="text-sm text-gray-700 mt-1">
+            {{ notice.content|striptags|truncatewords:15 }}
+          </p>
+          <div class="mt-2 flex space-x-2">
+            <a
+              href="{% url 'notice_detail' notice.id %}"
+              class="text-xs text-blue-600 hover:underline"
+              >View Details</a
+            >
+            {% if notice.file %}
+            <span class="text-gray-400">|</span>
+            <a
+              href="{{ notice.file.url }}"
+              class="text-xs text-blue-600 hover:underline"
+              >Download</a
+            >
+            {% endif %}
+          </div>
+        </div>
+        {% empty %}
+        <p class="text-gray-600">No important notices.</p>
+        {% endfor %}
+      </div>
+    </div>
+
+    <!-- Latest Notices -->
+    <div class="bg-white rounded-lg shadow-md p-6 mb-8">
+      <h2
+        class="text-2xl font-bold text-blue-800 mb-4 flex justify-between items-center"
+      >
+        <span>Latest Notices</span>
+        <a
+          href="{% url 'notice_list' %}"
+          class="text-sm font-normal text-blue-600 hover:underline"
+          >View All</a
+        >
+      </h2>
+      <div class="space-y-3">
+        {% for notice in latest_notices %}
+        <div class="border-b border-gray-200 pb-3">
+          <h3 class="font-semibold">
+            <a
+              href="{% url 'notice_detail' notice.id %}"
+              class="text-blue-600 hover:underline"
+              >{{ notice.title }}</a
+            >
+          </h3>
+          <p class="text-sm text-gray-600">
+            {{ notice.published_date|date:"M d, Y" }}
+          </p>
+          <p class="text-sm text-gray-700 mt-1">
+            {{ notice.content|striptags|truncatewords:15 }}
+          </p>
+          <div class="mt-2 flex space-x-2">
+            <a
+              href="{% url 'notice_detail' notice.id %}"
+              class="text-xs text-blue-600 hover:underline"
+              >View Details</a
+            >
+            {% if notice.file %}
+            <span class="text-gray-400">|</span>
+            <a
+              href="{{ notice.file.url }}"
+              class="text-xs text-blue-600 hover:underline"
+              >Download</a
+            >
+            {% endif %}
+          </div>
+        </div>
+        {% empty %}
+        <p class="text-gray-600">No notices available.</p>
+        {% endfor %}
+      </div>
+    </div>
+
+    <!-- Chairman Message -->
+    {% if current_chairman %}
+    <div class="bg-white rounded-lg shadow-md p-6 mb-8">
+      <h2 class="text-2xl font-bold text-blue-800 mb-4">Chairman's Message</h2>
+      <div class="flex items-center mb-4">
+        <img
+          src="{{ current_chairman.faculty.image.url }}"
+          alt="{{ current_chairman.faculty.name }}"
+          class="w-16 h-16 rounded-full mr-4 object-cover"
+        />
+        <div>
+          <h3 class="font-semibold">{{ current_chairman.faculty.name }}</h3>
+          <p class="text-sm text-gray-600">Chairman, Department of CSE</p>
+        </div>
+      </div>
+      <p class="text-gray-700">
+        {{ current_chairman.message|striptags|truncatewords:30 }}
+      </p>
+      <a
+        href="{% url 'chairman_message' %}"
+        class="inline-block mt-2 text-blue-600 hover:underline"
+        >Read More</a
+      >
+    </div>
+    {% endif %}
+  </div>
+</div>
+{% endblock %}

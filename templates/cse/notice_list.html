@@ -1,0 +1,48 @@
+{% extends '../base.html' %}
+
+{% block content %}
+<div class="bg-white rounded-lg shadow-md p-6">
+    <div class="flex justify-between items-center mb-6">
+        <h1 class="text-3xl font-bold text-blue-800">
+            {% if important_only %}Important {% endif %}Notices
+        </h1>
+        {% if important_only %}
+        <a href="{% url 'notice_list' %}" class="text-blue-600 hover:underline">View All Notices</a>
+        {% else %}
+        <a href="{% url 'notice_list' %}?important=1" class="text-blue-600 hover:underline">View Important Only</a>
+        {% endif %}
+    </div>
+    
+    <div class="space-y-4">
+        {% for notice in notices %}
+        <div class="border-l-4 {% if notice.is_important %}border-red-500 bg-red-50{% else %}border-blue-500{% endif %} pl-4 py-4">
+            <div class="flex justify-between items-start">
+                <div class="flex-1">
+                    <h2 class="text-xl font-semibold">
+                        <a href="{% url 'notice_detail' notice.id %}" class="hover:underline">{{ notice.title }}</a>
+                        {% if notice.is_important %}
+                        <span class="bg-red-500 text-white text-xs px-2 py-1 rounded ml-2">Important</span>
+                        {% endif %}
+                    </h2>
+                    <p class="text-sm text-gray-600 mt-1">{{ notice.published_date|date:"F d, Y" }}</p>
+                    <p class="mt-2 text-gray-700">{{ notice.content|striptags|truncatewords:30 }}</p>
+                </div>
+                
+                <div class="ml-4 flex flex-col items-end space-y-2">
+                    <a href="{% url 'notice_detail' notice.id %}" class="px-3 py-1 bg-blue-100 text-blue-700 rounded text-sm hover:bg-blue-200">
+                        View Details
+                    </a>
+                    {% if notice.file %}
+                    <a href="{{ notice.file.url }}" class="px-3 py-1 bg-green-100 text-green-700 rounded text-sm hover:bg-green-200 inline-flex items-center">
+                        <i class="fas fa-download mr-1 text-xs"></i> Download
+                    </a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        {% empty %}
+        <p class="text-gray-600 py-4 text-center">No notices available.</p>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}
