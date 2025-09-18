@@ -2,7 +2,7 @@
 {% load static %} 
 {% block content %}
 {% include 'cse/carousel.html' %}
-<div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+
   <!-- Main Content -->
   <div class="lg:col-span-2">
     <!-- Welcome Section -->
@@ -34,141 +34,22 @@
         </div>
       </div>
     </div>
+      
+        <!-- About Section -->
+        {% include 'cse/about.html' %}
 
-    <!-- Tech News Section -->
+ 
+
+    {% comment %} <!-- Events Section -->
     <div class="bg-white rounded-lg shadow-md p-6 mb-8">
-      <h2
-        class="text-2xl font-bold text-blue-800 mb-4 flex justify-between items-center"
-      >
-        <span>Latest Tech News</span>
-        <a
-          href="{% url 'tech_news' %}"
-          class="text-sm font-normal text-blue-600 hover:underline"
-          >View All</a
-        >
-      </h2>
-      <div class="space-y-4">
-        {% for news in tech_news %}
-        <div class="border-l-4 border-blue-500 pl-4 py-2">
-          <h3 class="font-semibold">{{ news.title }}</h3>
-          <p class="text-sm text-gray-600">
-            {{ news.content|striptags|truncatewords:20 }}
-          </p>
-          <p class="text-xs text-gray-500 mt-1">
-            {{ news.published_date|date:"M d, Y" }}{% if news.source %} |
-            Source: {{ news.source }}{% endif %}
-          </p>
-        </div>
-        {% empty %}
-        <p class="text-gray-600">No tech news available.</p>
-        {% endfor %}
+      <div class="flex justify-between items-center mb-6">
+        <h2 class="text-2xl font-bold text-blue-800">Upcoming Events</h2>
+        <a href="{% url 'all_events' %}" class="text-blue-600 hover:text-blue-800">View All Events →</a>
       </div>
-    </div>
-  </div>
+      {% include 'cse/events.html' %}
+    </div> {% endcomment %}
 
-  <!-- Sidebar -->
-  <div class="lg:col-span-1">
-    <!-- Important Notices -->
-    <div class="bg-white rounded-lg shadow-md p-6 mb-8">
-      <h2
-        class="text-2xl font-bold text-red-700 mb-4 flex justify-between items-center"
-      >
-        <span>Important Notices</span>
-        <a
-          href="{% url 'notice_list' %}?important=1"
-          class="text-sm font-normal text-blue-600 hover:underline"
-          >View All</a
-        >
-      </h2>
-      <div class="space-y-3">
-        {% for notice in important_notices %}
-        <div class="border-l-4 border-red-500 pl-4 py-3 bg-red-50">
-          <h3 class="font-semibold">
-            <a
-              href="{% url 'notice_detail' notice.id %}"
-              class="text-blue-600 hover:underline"
-              >{{ notice.title }}</a
-            >
-          </h3>
-          <p class="text-sm text-gray-600">
-            {{ notice.published_date|date:"M d, Y" }}
-          </p>
-          <p class="text-sm text-gray-700 mt-1">
-            {{ notice.content|striptags|truncatewords:15 }}
-          </p>
-          <div class="mt-2 flex space-x-2">
-            <a
-              href="{% url 'notice_detail' notice.id %}"
-              class="text-xs text-blue-600 hover:underline"
-              >View Details</a
-            >
-            {% if notice.file %}
-            <span class="text-gray-400">|</span>
-            <a
-              href="{{ notice.file.url }}"
-              class="text-xs text-blue-600 hover:underline"
-              >Download</a
-            >
-            {% endif %}
-          </div>
-        </div>
-        {% empty %}
-        <p class="text-gray-600">No important notices.</p>
-        {% endfor %}
-      </div>
-    </div>
-
-    <!-- Latest Notices -->
-    <div class="bg-white rounded-lg shadow-md p-6 mb-8">
-      <h2
-        class="text-2xl font-bold text-blue-800 mb-4 flex justify-between items-center"
-      >
-        <span>Latest Notices</span>
-        <a
-          href="{% url 'notice_list' %}"
-          class="text-sm font-normal text-blue-600 hover:underline"
-          >View All</a
-        >
-      </h2>
-      <div class="space-y-3">
-        {% for notice in latest_notices %}
-        <div class="border-b border-gray-200 pb-3">
-          <h3 class="font-semibold">
-            <a
-              href="{% url 'notice_detail' notice.id %}"
-              class="text-blue-600 hover:underline"
-              >{{ notice.title }}</a
-            >
-          </h3>
-          <p class="text-sm text-gray-600">
-            {{ notice.published_date|date:"M d, Y" }}
-          </p>
-          <p class="text-sm text-gray-700 mt-1">
-            {{ notice.content|striptags|truncatewords:15 }}
-          </p>
-          <div class="mt-2 flex space-x-2">
-            <a
-              href="{% url 'notice_detail' notice.id %}"
-              class="text-xs text-blue-600 hover:underline"
-              >View Details</a
-            >
-            {% if notice.file %}
-            <span class="text-gray-400">|</span>
-            <a
-              href="{{ notice.file.url }}"
-              class="text-xs text-blue-600 hover:underline"
-              >Download</a
-            >
-            {% endif %}
-          </div>
-        </div>
-        {% empty %}
-        <p class="text-gray-600">No notices available.</p>
-        {% endfor %}
-      </div>
-    </div>
-
-    <!-- Chairman Message -->
+    <!-- Chairman Message Section -->
     {% if current_chairman %}
     <div class="bg-white rounded-lg shadow-md p-6 mb-8">
       <h2 class="text-2xl font-bold text-blue-800 mb-4">Chairman's Message</h2>
@@ -193,6 +74,32 @@
       >
     </div>
     {% endif %}
+    <!-- Events Section -->
+    <div class="bg-white rounded-lg shadow-md p-6 mb-8">
+      <!-- Add this where you want the events section to appear in your home page -->
+  <section class="my-12">
+      <div class="container mx-auto px-4">
+          <div class="flex justify-between items-center mb-8">
+            <div class="max-w-lg flex flex-col">
+              <h2 class="text-2xl font-bold text-gray-800">Upcoming Events</h2>
+              <h3>In the department of CSE, NeU frequently held different events and many other academic activities.</h3>
+
+           </div>
+
+             <a href="{% url 'all_events' %}" class="text-blue-600 hover:text-blue-800 font-medium flex items-center">
+                View All Events
+                 <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                 </svg>
+             </a>
+         </div>
+
+          {% include 'cse/events.html' %}
+     </div>
+  </section>
+      
+
+    </div>
   </div>
 </div>
 {% endblock %}

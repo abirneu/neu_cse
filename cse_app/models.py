@@ -133,3 +133,42 @@ class ViewCount(models.Model):
     def increment(self):
         self.count += 1
         self.save()
+        
+class Event(models.Model):
+    EVENT_TYPES = (
+        ('conference', 'Conference'),
+        ('workshop', 'Workshop'),
+        ('seminar', 'Seminar'),
+        ('webinar', 'Webinar'),
+        ('competition', 'Competition'),
+        ('programming_contest', 'Programming Contest'),
+        ('hackathon', 'Hackathon'),
+        ('other', 'Other'),
+    )
+    
+    title = models.CharField(max_length=200)
+    description = RichTextField()
+    event_type = models.CharField(max_length=20, choices=EVENT_TYPES)
+    start_date = models.DateTimeField()
+    end_date = models.DateTimeField()
+    location = models.CharField(max_length=200)
+    organizer = models.CharField(max_length=200, blank=True)
+    image = models.ImageField(upload_to='events/', blank=True, null=True)
+    registration_link = models.URLField(blank=True)
+    is_upcoming = models.BooleanField(default=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+    
+    def __str__(self):
+        return self.title
+    
+    def save(self, *args, **kwargs):
+        # Automatically update is_upcoming based on end_date
+        if self.end_date < timezone.now():
+            self.is_upcoming = False
+        else:
+            self.is_upcoming = True
+        super().save(*args, **kwargs)
+    
+    class Meta:
+        ordering = ['start_date']

@@ -2,14 +2,48 @@
 
 {% block content %}
 <div class="bg-white rounded-lg shadow-md p-6">
-    <div class="flex justify-between items-center mb-6">
-        <h1 class="text-3xl font-bold text-blue-800">
-            {% if important_only %}Important {% endif %}Notices
-        </h1>
-        {% if important_only %}
-        <a href="{% url 'notice_list' %}" class="text-blue-600 hover:underline">View All Notices</a>
-        {% else %}
-        <a href="{% url 'notice_list' %}?important=1" class="text-blue-600 hover:underline">View Important Only</a>
+    <div class="space-y-4 mb-6">
+        <div class="flex justify-between items-center">
+            <h1 class="text-3xl font-bold text-blue-800">
+                {% if notice_type == 'important' %}Important {% elif notice_type == 'latest' %}Latest {% endif %}Notices
+            </h1>
+            <div class="space-x-4">
+                <a href="{% url 'notice_list' %}?type=important" class="text-blue-600 hover:underline {% if notice_type == 'important' %}font-bold{% endif %}">Important Notices</a>
+                <a href="{% url 'notice_list' %}?type=latest" class="text-blue-600 hover:underline {% if notice_type == 'latest' %}font-bold{% endif %}">Latest Notices</a>
+                <a href="{% url 'notice_list' %}" class="text-blue-600 hover:underline {% if not notice_type %}font-bold{% endif %}">All Notices</a>
+            </div>
+        </div>
+        
+        <!-- Search Form -->
+        <form method="GET" class="flex items-center space-x-4">
+            {% if notice_type %}
+            <input type="hidden" name="type" value="{{ notice_type }}">
+            {% endif %}
+            <div class="flex-1">
+                <input type="text" 
+                       name="search" 
+                       value="{{ search_query }}" 
+                       placeholder="Search notices by title..." 
+                       class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+            </div>
+            <button type="submit" 
+                    class="px-6 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                Search
+            </button>
+            {% if search_query %}
+            <a href="{% url 'notice_list' %}{% if notice_type %}?type={{ notice_type }}{% endif %}" 
+               class="px-4 py-2 text-gray-600 hover:text-gray-800">
+                Clear
+            </a>
+            {% endif %}
+        </form>
+
+        {% if search_query %}
+        <div class="text-sm text-gray-600">
+            {% with notices.count as total_count %}
+            Found {{ total_count }} result{{ total_count|pluralize }} for "{{ search_query }}"
+            {% endwith %}
+        </div>
         {% endif %}
     </div>
     

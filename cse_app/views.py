@@ -1,11 +1,16 @@
 from django.shortcuts import render, get_object_or_404
 from django.http import JsonResponse
 from django.db.models import Q
+from django.utils import timezone
 from .models import *
 import os
 from django.http import HttpResponse, Http404
 from django.conf import settings
 from .models import Notice_Board, FacultyMember, Chairman, Publication, Project, TechNews, ViewCount
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from .models import Event
+
+
 
 def home(request):
     # Get important notices
@@ -26,6 +31,19 @@ def home(request):
     # Get latest tech news
     tech_news = TechNews.objects.all()[:3]
     
+    # Get upcoming events first, then fill with latest events if needed
+    upcoming_events = list(Event.objects.filter(
+        is_upcoming=True,
+        start_date__gte=timezone.now()
+    ).order_by('start_date')[:3])
+
+    # If we have less than 3 upcoming events, add latest events
+    if len(upcoming_events) < 3:
+        latest_events = Event.objects.exclude(
+            id__in=[event.id for event in upcoming_events]
+        ).order_by('-start_date')[:3 - len(upcoming_events)]
+        upcoming_events.extend(latest_events)
+
     # Update view count for home page
     page_view, created = ViewCount.objects.get_or_create(page_name='home')
     page_view.increment()
@@ -36,23 +54,57 @@ def home(request):
         'faculty_members': faculty_members,
         'current_chairman': current_chairman,
         'tech_news': tech_news,
+        'events': upcoming_events,  # Pass events to the template
+
     }
     
     return render(request, 'cse/home.html', context)
 
+#About nav bar
+def why_neu_cse(request):
+    return render(request, 'cse/about/why_neu_cse.html')
+def message_from_department(request):
+    return render(request, 'cse/about/message_from_department.html')
+def message_from_chairman(request):
+    return render(request, 'cse/about/message_from_chairman.html')
+def facilities(request):
+    return render(request, 'cse/about/facilities.html')
+def history_neu_cse(request):
+    return render(request, 'cse/about/history_neu_cse.html')
+def mission_vision(request):
+    return render(request, 'cse/about/mission_vision.html')
+def history_neu(request):
+    return render(request, 'cse/about/history_neu.html')
+def achievements(request):
+    return render(request, 'cse/about/achievements.html')
+
+
 def notice_list(request):
-    important_only = request.GET.get('important')
+    notice_type = request.GET.get('type')
+    search_query = request.GET.get('search', '').strip()
     
-    if important_only:
-        notices = Notice_Board.objects.filter(is_important=True)
-    else:
-        notices = Notice_Board.objects.all()
+    # Base queryset
+    notices = Notice_Board.objects.all()
+    
+    # Apply type filter
+    if notice_type == 'important':
+        notices = notices.filter(is_important=True)
+    elif notice_type == 'latest':
+        notices = notices.order_by('-created_at')
+    
+    # Apply search filter if query exists
+    if search_query:
+        notices = notices.filter(title__icontains=search_query)
     
     # Update view count for notices page
     page_view, created = ViewCount.objects.get_or_create(page_name='notices')
     page_view.increment()
     
-    return render(request, 'cse/notice_list.html', {'notices': notices, 'important_only': important_only})
+    return render(request, 'cse/notice_list.html', {
+        'notices': notices, 
+        'notice_type': notice_type,
+        'search_query': search_query
+    })
 
 def notice_detail(request, pk):
     notice = get_object_or_404(Notice_Board, pk=pk)
@@ -171,3 +223,66 @@ def about(request):
     page_view.increment()
     
     return render(request, 'cse/about.html')
+
+def events(request):
+    # Get all upcoming events
+    events_list = Event.objects.filter(is_upcoming=True).order_by('start_date')
+    
+    # Pagination - show 6 events per page
+    paginator = Paginator(events_list, 6)
+    page = request.GET.get('page')
+    
+    try:
+        events = paginator.page(page)
+    except PageNotAnInteger:
+        events = paginator.page(1)
+    except EmptyPage:
+        events = paginator.page(paginator.num_pages)
+    
+    context = {
+        'events': events,
+        'is_paginated': events.has_other_pages(),
+    }
+    return render(request, 'events/events.html', context)
+
+def all_events(request):
+    # Get search query
+    query = request.GET.get('q')
+    
+    # Get all events, ordered by start date (upcoming first)
+    events_list = Event.objects.all().order_by('start_date')
+    
+    # Apply search filter if query exists
+    if query:
+        events_list = events_list.filter(
+            Q(title__icontains=query) |
+            Q(description__icontains=query) |
+            Q(location__icontains=query) |
+            Q(organizer__icontains=query) |
+            Q(event_type__icontains=query)
+        )
+    
+    # Pagination
+    paginator = Paginator(events_list, 12)
+    page = request.GET.get('page')
+    
+    try:
+        events = paginator.page(page)
+    except PageNotAnInteger:
+        events = paginator.page(1)
+    except EmptyPage:
+        events = paginator.page(paginator.num_pages)
+    
+    context = {
+        'events': events,
+        'query': query,
+        'is_paginated': events.has_other_pages(),
+    }
+    return render(request, 'cse/all_events.html', context)
+
+def event_detail(request, event_id):
+    event = get_object_or_404(Event, id=event_id)
+    context = {
+        'event': event
+    }
+    return render(request, 'cse/event_detail.html', context)

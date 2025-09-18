@@ -1,10 +1,6 @@
 {% load static %}
 
-
 {% block content %}
-    
-
-    
 <!-- Navigation -->
 <nav class="bg-custom-green text-white shadow-lg">
     <!-- Header --> 
@@ -43,7 +39,7 @@
         <div class="hidden md:flex justify-center items-center w-full">
             <div class="flex space-x-1 ">
                 <!-- Home -->
-                <a href="{% url 'home' %}" class="py-4 px-4 hover:bg-custom-green-hover {% if request.path == '/' %}{% endif %}">Home</a>
+                <a href="{% url 'home' %}" class="py-4 px-4 hover:bg-green-600 {% if request.path == '/' %}{% endif %}">Home</a>
                 
                 <!-- About Dropdown -->
                 <div class="relative group">
@@ -53,15 +49,15 @@
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
                         </svg>
                     </button>
-                    <div class="absolute hidden group-hover:block bg-gray-200 min-w-48 rounded-md shadow-lg z-10">
-                        <a href="{% url 'about' %}?section=why" class="block px-4 py- text-black  hover:bg-green-600">Why NeU CSE?</a>
-                        <a href="{% url 'about' %}?section=dept-message" class="block text-black  px-4 py-3 hover:bg-green-600">Message from Department</a>
-                        <a href="{% url 'chairman_message' %}" class="block px-4 py-3 text-black  hover:bg-green-600">Message from Chairman</a>
-                        <a href="{% url 'about' %}?section=history-dept" class="block text-black  px-4 py-3 hover:bg-green-600">History of NeU CSE</a>
-                        <a href="{% url 'about' %}?section=mission" class="block px-4  text-black py-3 hover:bg-green-600">Mission and Vision</a>
-                        <a href="{% url 'about' %}?section=history-univ" class="block text-black  px-4 py-3 hover:bg-green-600">History of University</a>
-                        <a href="{% url 'about' %}?section=achievements" class="block text-black  px-4 py-3 hover:bg-green-600">Achievements</a>
-                        <a href="{% url 'about' %}?section=facilities" class="block  text-black px-4 py-3 hover:bg-green-600">Facilities</a>
+                    <div class="absolute hidden group-hover:block bg-gray-200 min-w-48 rounded-md shadow-lg z-50">
+                        <a href="{% url 'why_neu_cse' %}?section=why" class="block px-4 py- text-black  hover:bg-green-600">Why NeU CSE?</a>
+                        <a href="{% url 'message_from_department' %}?section=dept-message" class="block text-black  px-4 py-3 hover:bg-green-600">Message from Department</a>
+                        <a href="{% url 'message_from_chairman' %}" class="block px-4 py-3 text-black  hover:bg-green-600">Message from Chairman</a>
+                        <a href="{% url 'history_neu_cse' %}?section=history-dept" class="block text-black  px-4 py-3 hover:bg-green-600">History of NeU CSE</a>
+                        <a href="{% url 'mission_vision' %}" class="block px-4  text-black py-3 hover:bg-green-600">Mission and Vision</a>
+                        <a href="{% url 'history_neu' %}" class="block text-black  px-4 py-3 hover:bg-green-600">History of University</a>
+                        <a href="{% url 'achievements' %}?section=achievements" class="block text-black  px-4 py-3 hover:bg-green-600">Achievements</a>
+                        <a href="{% url 'facilities' %}" class="block  text-black px-4 py-3 hover:bg-green-600">Facilities</a>
                     </div>
                 </div>
                 
@@ -89,34 +85,53 @@
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
                         </svg>
                     </button>
-                    <div class="absolute hidden group-hover:block bg-blue-800 min-w-48 rounded-md shadow-lg z-10">
-                        <a href="{% url 'publications' %}" class="block px-4 py-3 hover:bg-blue-700">Publications</a>
-                        <a href="{% url 'projects' %}" class="block px-4 py-3 hover:bg-blue-700">Projects</a>
+                    <div class="absolute hidden group-hover:block bg-gray-200 text-black min-w-48 rounded-md shadow-lg z-50">
+                        <a href="{% url 'publications' %}" class="block px-4 py-3 hover:bg-green-600">Publications</a>
+                        <a href="{% url 'projects' %}" class="block px-4 py-3 hover:bg-green-600">Projects</a>
                     </div>
                 </div>
                 
                 <!-- Notice Dropdown -->
                 <div class="relative group">
-                    <button class="py-4 px-4 hover:bg-blue-600 flex items-center {% if request.path == '/notices/' %}bg-blue-900{% endif %}">
+                    <button class="py-4 px-4 hover:bg-green-600 flex items-center {% if request.path == '/notices/' %}bg-blue-900{% endif %}">
                         Notice
                         <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
                         </svg>
                     </button>
-                    <div class="absolute hidden group-hover:block bg-blue-800 min-w-48 rounded-md shadow-lg z-10">
-                        <a href="{% url 'notice_list' %}?type=important" class="block px-4 py-3 hover:bg-blue-700">Important Notice</a>
-                        <a href="{% url 'notice_list' %}?type=latest" class="block px-4 py-3 hover:bg-blue-700">Latest Notices</a>
+                    <div class="absolute hidden group-hover:block bg-gray-200 min-w-48 rounded-md shadow-lg z-10">
+                        <a href="{% url 'notice_list' %}?type=important" class="block text-black px-4 py-3 hover:bg-green-600">Important Notice</a>
+                        <a href="{% url 'notice_list' %}?type=latest" class="block px-4 text-black py-3 hover:bg-green-600">Latest Notices</a>
+                    </div>
+                </div>
+                 
+                <!-- Faculty and Staff dropdown -->
+                
+                <div class="relative group">
+                    <button class="py-4 px-4 hover:bg-green-600 flex items-center">
+                        Faculty & Staff
+                        <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                        </svg>
+                    </button>
+                    <div class="absolute hidden group-hover:block bg-gray-200 min-w-48 rounded-md shadow-lg z-10">
+                        <a href="#" class="block text-black px-4 py-3 hover:bg-green-600">Active Faculty</a>
+                        <a href="#" class="block text-black px-4 py-3 hover:bg-green-600">Faculty(on Leave)</a>
+                        <a href="#" class="block text-black px-4 py-3 hover:bg-green-600">Past Faculty</a>
+                        <a href="#" class="block text-black px-4 py-3 hover:bg-green-600">Ex Head</a>
+                        <a href="#" class="block text-black px-4 py-3 hover:bg-green-600">Officer & Staff</a>
+
                     </div>
                 </div>
                 
                 <!-- Alumni -->
-                <a href="#" class="py-4 px-4 hover:bg-blue-600">Alumni</a>
+                <a href="#" class="py-4 px-4 hover:bg-green-600">Alumni</a>
                 
                 <!-- Club -->
-                <a href="#" class="py-4 px-4 hover:bg-blue-600">Club</a>
+                <a href="#" class="py-4 px-4 hover:bg-green-600">Club</a>
                 
                 <!-- Contact Us -->
-                <a href="#" class="py-4 px-4 hover:bg-blue-600">Contact Us</a>
+                <a href="#" class="py-4 px-4 hover:bg-green-600">Contact Us</a>
             </div>
            
         </div>

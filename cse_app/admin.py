@@ -41,3 +41,25 @@ class TechNewsAdmin(admin.ModelAdmin):
 class ViewCountAdmin(admin.ModelAdmin):
     list_display = ('page_name', 'count', 'last_updated')
     readonly_fields = ('page_name', 'count', 'last_updated')
+
+@admin.register(Event)
+class EventAdmin(admin.ModelAdmin):
+    list_display = ('title', 'event_type', 'start_date', 'end_date', 'location', 'is_upcoming')
+    list_filter = ('event_type', 'is_upcoming', 'start_date')
+    search_fields = ('title', 'description', 'location', 'organizer')
+    date_hierarchy = 'start_date'
+    ordering = ('-start_date',)
+    fieldsets = (
+        (None, {
+            'fields': ('title', 'description', 'event_type')
+        }),
+        ('Date & Time', {
+            'fields': ('start_date', 'end_date')
+        }),
+        ('Location & Organizer', {
+            'fields': ('location', 'organizer')
+        }),
+        ('Media & Links', {
+            'fields': ('image', 'registration_link')
+        }),
+    )
