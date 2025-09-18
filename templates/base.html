@@ -7,9 +7,24 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     {% block extra_css %}{% endblock %}
+    <style>
+  :root {
+    --custom-green: #02644A;
+    --custom-green-hover: #00916a;
+  }
+
+  /* Optional: create Tailwind-like utility classes */
+  .bg-custom-green { background-color: var(--custom-green); }
+  .bg-custom-green-hover { background-color: var(--custom-green-hover); }
+  
+  .text-custom-green { color: var(--custom-green); }
+  .border-custom-green { border-color: var(--custom-green); }
+</style>
+
 </head>
 <body class="bg-gray-50">
     {% include 'Navbar.html' %}
+    
 
     <!-- Main Content -->
     <main class="container mx-auto px-4 py-8">
@@ -18,12 +33,12 @@
     </main>
 
     {% include 'Footer.html' %}
-                <p>&copy; {% now "Y" %} Department of CSE, Netrokona University. All rights reserved.</p>
             </div>
         </div>
     </footer>
 
     <!-- JavaScript -->
+    <script src="https://unpkg.com/flowbite@1.4.0/dist/flowbite.js"></script>
     <script>
         // Mobile menu toggle (if needed)
         function toggleMenu() {
