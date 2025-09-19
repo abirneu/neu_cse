@@ -1,6 +1,13 @@
 from django.contrib import admin
 from .models import *
-from .models import ScrollingNotice
+from .models import ScrollingNotice, CarouselItem
+
+@admin.register(CarouselItem)
+class CarouselItemAdmin(admin.ModelAdmin):
+    list_display = ('title', 'order', 'is_active', 'created_at')
+    list_filter = ('is_active', 'created_at')
+    search_fields = ('title', 'description')
+    ordering = ('order', '-created_at')
 
 @admin.register(ScrollingNotice)
 class ScrollingNoticeAdmin(admin.ModelAdmin):

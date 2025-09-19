@@ -148,6 +148,49 @@ class Staff(models.Model):
         ('past_staff', 'Past Staff'),
     )
     
+class CarouselItem(models.Model):
+    title = models.CharField(max_length=200)
+    description = models.TextField()
+    image = models.ImageField(upload_to='carousel/')
+    order = models.IntegerField(default=0)
+    is_active = models.BooleanField(default=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        ordering = ['order', '-created_at']
+
+    def __str__(self):
+        return self.title
+
+class Staff(models.Model):
+    STAFF_TYPE_CHOICES = (
+        ('officer', 'Officer'),
+        ('staff', 'Staff'),
+    )
+    
+    OFFICER_DESIGNATION_CHOICES = (
+        ('administrative_officer', 'Administrative Officer'),
+        ('accounts_officer', 'Accounts Officer'),
+        ('academic_officer', 'Academic Officer'),
+        ('lab_officer', 'Lab Officer'),
+        ('other', 'Other'),
+    )
+    
+    STAFF_DESIGNATION_CHOICES = (
+        ('lab_assistant', 'Lab Assistant'),
+        ('office_assistant', 'Office Assistant'),
+        ('computer_operator', 'Computer Operator'),
+        ('mlss', 'MLSS'),
+        ('other', 'Other'),
+    )
+    
+    STATUS_CHOICES = (
+        ('active', 'Active'),
+        ('on_leave', 'On Leave'),
+        ('past_staff', 'Past Staff'),
+    )
+    
     user = models.OneToOneField(User, on_delete=models.CASCADE, null=True, blank=True)
     name = models.CharField(max_length=100)
     staff_type = models.CharField(max_length=20, choices=STAFF_TYPE_CHOICES)

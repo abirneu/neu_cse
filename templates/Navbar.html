@@ -209,15 +209,16 @@
             
             <!-- Notice mobile dropdown -->
             <div class="relative">
-                <button onclick="toggleMobileDropdown('notice-mobile-dropdown')" class="w-full text-left py-3 px-4 hover:bg-green-500 flex justify-between items-center {% if request.path == '/notices/' %}bg-custom-green{% endif %}">
+                <button onclick="toggleMobileDropdown('notice-mobile-dropdown')" class="w-full text-left py-3 px-4 hover:bg-green-500 flex justify-between items-center {% if request.path == '/notices/' %}bg-green-700{% endif %}">
                     Notice
-                    <svg id="notice-mobile-arrow" class="w-4 h-4 transform rotate-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <svg id="notice-mobile-arrow" class="w-4 h-4 transform rotate-0 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
                     </svg>
                 </button>
-                <div id="notice-mobile-dropdown" class="hidden bg-green-700 pl-6">
-                    <a href="{% url 'notice_list' %}?type=important" class="block py-3 px-4 hover:bg-green-500">Important Notice</a>
-                    <a href="{% url 'notice_list' %}?type=latest" class="block py-3 px-4 hover:bg-green-500">Latest Notices</a>
+                <div id="notice-mobile-dropdown" class="hidden bg-green-700 pl-6 transition-all duration-200 ease-in-out">
+                    <a href="{% url 'notice_list' %}?type=important" class="block py-3 px-4 text-white hover:bg-green-600 transition-colors duration-200">Important Notice</a>
+                    <a href="{% url 'notice_list' %}?type=latest" class="block py-3 px-4 text-white hover:bg-green-600 transition-colors duration-200">Latest Notices</a>
+                    <a href="{% url 'notice_list' %}?type=all" class="block py-3 px-4 text-white hover:bg-green-600 transition-colors duration-200">All Notices</a>
                 </div>
             </div>
             
@@ -242,14 +243,45 @@
         closeIcon.classList.toggle('hidden');
     });
     
-    // Function to toggle mobile dropdowns
+    // Function to toggle mobile dropdowns with improved visibility
     function toggleMobileDropdown(id) {
         const dropdown = document.getElementById(id);
         const arrowId = id.replace('dropdown', 'arrow');
         const arrow = document.getElementById(arrowId);
         
+        // Close all other dropdowns first
+        document.querySelectorAll('[id$="-mobile-dropdown"]').forEach(element => {
+            if (element.id !== id && !element.classList.contains('hidden')) {
+                element.classList.add('hidden');
+                const otherArrowId = element.id.replace('dropdown', 'arrow');
+                const otherArrow = document.getElementById(otherArrowId);
+                if (otherArrow) {
+                    otherArrow.classList.remove('rotate-180');
+                }
+            }
+        });
+
+        // Toggle current dropdown
         dropdown.classList.toggle('hidden');
-        arrow.classList.toggle('rotate-180');
+        if (arrow) {
+            arrow.classList.toggle('rotate-180');
+        }
+
+        // Ensure dropdown is visible
+        if (!dropdown.classList.contains('hidden')) {
+            dropdown.style.opacity = '1';
+            dropdown.style.display = 'block';
+        }
     }
+
+    // Initialize mobile dropdowns
+    document.addEventListener('DOMContentLoaded', function() {
+        const dropdowns = document.querySelectorAll('[id$="-mobile-dropdown"]');
+        dropdowns.forEach(dropdown => {
+            if (!dropdown.classList.contains('hidden')) {
+                dropdown.classList.add('hidden');
+            }
+        });
+    });
 </script>
 {% endblock %}

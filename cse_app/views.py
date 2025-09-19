@@ -13,6 +13,9 @@ from .models import ScrollingNotice
 from django.core.paginator import Paginator
 
 def home(request):
+    # Get active carousel items ordered by their specified order
+    carousel_items = CarouselItem.objects.filter(is_active=True).order_by('order')
+
     # Get important notices
     important_notices = Notice_Board.objects.filter(is_important=True)[:5]
     
@@ -53,6 +56,7 @@ def home(request):
     # Update view count for home page
     
     context = {
+        'carousel_items': carousel_items,
         'important_notices': important_notices,
         'latest_notices': latest_notices,
         'faculty_members': faculty_members,

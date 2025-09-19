@@ -9,17 +9,26 @@
         display: inline-block;
         white-space: nowrap;
         position: relative;
-        width: max-content;
     }
     .notice-container {
-        width: 100%;
+        width: 100vw;
+        position: relative;
+        overflow: hidden;
+        left: 50%;
+        right: 50%;
+        margin-left: -50vw;
+        margin-right: -50vw;
+    }
+    .notice-wrapper {
+        max-width: 100%;
         position: relative;
         overflow: hidden;
     }
 </style>
 
-<div class="w-auto m-3  bg-white border-2 border-red-600 bg-gradient-to-r from-slate-50 to-slate-100 shadow-md rounded-lg overflow-hidden">
-    <div class="px-6 py-3 notice-container">
+<div class="notice-container mt-2 mb-4 rounded-lg">
+    <div class="bg-white border-y-2  border-red-600 bg-gradient-to-r from-slate-50 to-slate-100 shadow-md overflow-hidden">
+    <div class="py-3 notice-wrapper">
         <div class="animate-scroll">
             <span class="text-slate-900">
                 <span class="font-semibold text-indigo-600 mr-2">Notice:</span>

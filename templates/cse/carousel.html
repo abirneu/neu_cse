@@ -5,48 +5,19 @@
     <div id="modern-carousel" class="relative w-full" data-carousel="slide" data-carousel-interval="5000">
         <!-- Carousel wrapper -->
         <div class="relative h-64 overflow-hidden md:h-[600px] transition-all duration-300">
-            <!-- Item 1 -->
-            <div class="hidden duration-1000 ease-in-out" data-carousel-item="active">
-                <img src="{% static 'images/caro/IMG_2073.JPG' %}" 
+            {% for item in carousel_items %}
+            <div class="hidden duration-1000 ease-in-out" data-carousel-item{% if forloop.first %} data-carousel-item="active"{% endif %}>
+                <img src="{{ item.image.url }}" 
                      class="absolute block w-full h-full object-cover -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2" 
-                     alt="NEU Campus">
+                     alt="{{ item.title }}">
                 <div class="absolute inset-0 bg-gradient-to-b from-transparent to-black/60">
                     <div class="absolute bottom-8 left-8 text-white">
-                        <h2 class="text-3xl font-bold mb-2">Welcome to NEU</h2>
-                        <p class="text-lg">Shaping the future through innovation</p>
+                        <h2 class="text-3xl font-bold mb-2">{{ item.title }}</h2>
+                        <p class="text-lg">{{ item.description }}</p>
                     </div>
                 </div>
             </div>
-            <!-- Item 2 -->
-            <div class="hidden duration-1000 ease-in-out" data-carousel-item>
-                <img src="{% static 'images/caro/IMG_2076.JPG' %}" 
-                     class="absolute block w-full h-full object-cover -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2" 
-                     alt="Campus Life">
-                <div class="absolute inset-0 bg-gradient-to-b from-transparent to-black/60">
-                    <div class="absolute bottom-8 left-8 text-white">
-                        <h2 class="text-3xl font-bold mb-2">Campus Life</h2>
-                        <p class="text-lg">Experience excellence in education</p>
-                    </div>
-                </div>
-            </div>
-            <!-- Item 3 -->
-            <div class="hidden duration-1000 ease-in-out" data-carousel-item>
-                <img src="{% static 'images/caro/IMG_2951.JPG' %}" 
-                     class="absolute block w-full h-full object-cover -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2" 
-                     alt="Research Activities">
-                <div class="absolute inset-0 bg-gradient-to-b from-transparent to-black/60">
-                    <div class="absolute bottom-8 left-8 text-white">
-                        <h2 class="text-3xl font-bold mb-2">Research Excellence</h2>
-                        <p class="text-lg">Pushing boundaries in technology</p>
-                    </div>
-                </div>
-            </div>
-            <!-- Item 4 -->
-            <div class="hidden duration-1000 ease-in-out" data-carousel-item>
-                <img src="{% static 'images/caro/IMG_7165.JPG' %}" 
-                     class="absolute block w-full h-full object-cover -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2" 
-                     alt="Innovation Hub">
-                <div class="absolute inset-0 bg-gradient-to-b from-transparent to-black/60">
+            {% endfor %}
                     <div class="absolute bottom-8 left-8 text-white">
                         <h2 class="text-3xl font-bold mb-2">Innovation Hub</h2>
                         <p class="text-lg">Where ideas come to life</p>
