@@ -154,26 +154,26 @@
         </div>
         
         <!-- Mobile menu (hidden by default) -->
-        <div id="mobile-menu" class="hidden md:hidden bg-blue-800">
+        <div id="mobile-menu" class="hidden md:hidden bg-custom-green">
             <a href="{% url 'home' %}" class="block py-3 px-4 hover:bg-blue-700 {% if request.path == '/' %}bg-blue-900{% endif %}">Home</a>
             
             <!-- About mobile dropdown -->
             <div class="relative">
-                <button onclick="toggleMobileDropdown('about-mobile-dropdown')" class="w-full text-left py-3 px-4 hover:bg-blue-700 flex justify-between items-center {% if request.path == '/about/' or request.path == '/chairman/' %}bg-blue-900{% endif %}">
+                <button onclick="toggleMobileDropdown('about-mobile-dropdown')" class="w-full text-left py-3 px-4 hover:bg-green-500 flex justify-between items-center {% if request.path == '/about/' or request.path == '/chairman/' %}bg-blue-900{% endif %}">
                     About
                     <svg id="about-mobile-arrow" class="w-4 h-4 transform rotate-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
                     </svg>
                 </button>
-                <div id="about-mobile-dropdown" class="hidden bg-blue-900 pl-6">
-                    <a href="{% url 'about' %}?section=why" class="block py-3 px-4 hover:bg-blue-700">Why NeU CSE?</a>
-                    <a href="{% url 'about' %}?section=dept-message" class="block py-3 px-4 hover:bg-blue-700">Message from Department</a>
-                    <a href="{% url 'chairman_message' %}" class="block py-3 px-4 hover:bg-blue-700">Message from Chairman</a>
-                    <a href="{% url 'about' %}?section=history-dept" class="block py-3 px-4 hover:bg-blue-700">History of NeU CSE</a>
-                    <a href="{% url 'about' %}?section=mission" class="block py-3 px-4 hover:bg-blue-700">Mission and Vision</a>
-                    <a href="{% url 'about' %}?section=history-univ" class="block py-3 px-4 hover:bg-blue-700">History of University</a>
-                    <a href="{% url 'about' %}?section=achievements" class="block py-3 px-4 hover:bg-blue-700">Achievements</a>
-                    <a href="{% url 'about' %}?section=facilities" class="block py-3 px-4 hover:bg-blue-700">Facilities</a>
+                <div id="about-mobile-dropdown" class="hidden bg-green-700 pl-6">
+                    <a href="{% url 'why_neu_cse' %}?section=why" class="block py-3 px-4 hover:bg-green-500">Why NeU CSE?</a>
+                    <a href="{% url 'message_from_department' %}?section=dept-message" class="block py-3 px-4 hover:bg-green-500">Message from Department</a>
+                    <a href="{% url 'message_from_chairman' %}" class="block py-3 px-4 hover:bg-green-500">Message from Chairman</a>
+                    <a href="{% url 'history_neu_cse' %}?section=history-dept" class="block py-3 px-4 hover:bg-green-500">History of NeU CSE</a>
+                    <a href="{% url 'mission_vision' %}?section=mission" class="block py-3 px-4 hover:bg-green-500">Mission and Vision</a>
+                    <a href="{% url 'history_neu' %}?section=history-univ" class="block py-3 px-4 hover:bg-green-500">History of University</a>
+                    <a href="{% url 'achievements' %}?section=achievements" class="block py-3 px-4 hover:bg-green-500">Achievements</a>
+                    <a href="{% url 'facilities' %}?section=facilities" class="block py-3 px-4 hover:bg-green-500">Facilities</a>
                 </div>
             </div>
             
@@ -195,7 +195,7 @@
             
             <!-- Research mobile dropdown -->
             <div class="relative">
-                <button onclick="toggleMobileDropdown('research-mobile-dropdown')" class="w-full text-left py-3 px-4 hover:bg-blue-700 flex justify-between items-center {% if request.path == '/publications/' or request.path == '/projects/' %}bg-blue-900{% endif %}">
+                <button onclick="toggleMobileDropdown('research-mobile-dropdown')" class="w-full text-left py-3 px-4 hover:bg-blue-700 flex justify-between items-center {% if request.path == '/publications/' or request.path == '/projects/' %}bg-custom-green{% endif %}">
                     Research
                     <svg id="research-mobile-arrow" class="w-4 h-4 transform rotate-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
@@ -209,15 +209,15 @@
             
             <!-- Notice mobile dropdown -->
             <div class="relative">
-                <button onclick="toggleMobileDropdown('notice-mobile-dropdown')" class="w-full text-left py-3 px-4 hover:bg-blue-700 flex justify-between items-center {% if request.path == '/notices/' %}bg-blue-900{% endif %}">
+                <button onclick="toggleMobileDropdown('notice-mobile-dropdown')" class="w-full text-left py-3 px-4 hover:bg-green-500 flex justify-between items-center {% if request.path == '/notices/' %}bg-custom-green{% endif %}">
                     Notice
                     <svg id="notice-mobile-arrow" class="w-4 h-4 transform rotate-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
                     </svg>
                 </button>
-                <div id="notice-mobile-dropdown" class="hidden bg-blue-900 pl-6">
-                    <a href="{% url 'notice_list' %}?type=important" class="block py-3 px-4 hover:bg-blue-700">Important Notice</a>
-                    <a href="{% url 'notice_list' %}?type=latest" class="block py-3 px-4 hover:bg-blue-700">Latest Notices</a>
+                <div id="notice-mobile-dropdown" class="hidden bg-green-700 pl-6">
+                    <a href="{% url 'notice_list' %}?type=important" class="block py-3 px-4 hover:bg-green-500">Important Notice</a>
+                    <a href="{% url 'notice_list' %}?type=latest" class="block py-3 px-4 hover:bg-green-500">Latest Notices</a>
                 </div>
             </div>
             
