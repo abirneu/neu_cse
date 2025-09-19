@@ -102,8 +102,20 @@ def active_faculty(request):
         'faculty_members': active_faculty_members
     })
 def ex_chairman(request):
-    ex_chairmen = Chairman.objects.filter(is_current=False)
-    return render(request, 'cse/faculty_and_staff/ex_chairman.html', {
+    # Get all ex-chairmen ordered by most recent first
+    ex_chairmen = Chairman.objects.filter(is_current=False).order_by('-to_date')
+    
+    # For each chairman, ensure we have their faculty details
+    for chairman in ex_chairmen:
+        if chairman.faculty:
+            chairman.name = chairman.faculty.name
+            chairman.image = chairman.faculty.image
+            chairman.email = chairman.faculty.email
+            chairman.designation = chairman.faculty.get_designation_display()
+            chairman.tenure_start = chairman.from_date
+            chairman.tenure_end = chairman.to_date
+
+    return render(request, 'cse/faculty_and_staff/ex_chariman.html', {
         'ex_chairmen': ex_chairmen
     })
 def faculty_on_leave(request):
@@ -112,7 +124,7 @@ def faculty_on_leave(request):
         'faculty_members': faculty_on_leave
     })
 def past_faculty(request):
-    past_faculty_members = FacultyMember.objects.filter(status='past')
+    past_faculty_members = FacultyMember.objects.filter(status='past_faculty').order_by('-end_date')
     return render(request, 'cse/faculty_and_staff/past_faculty.html', {
         'faculty_members': past_faculty_members
     })

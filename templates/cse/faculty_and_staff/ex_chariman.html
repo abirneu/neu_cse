@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+{% block title %}Ex-Chairmen of CSE Department{% endblock %}
+{% block content %}
+<!-- Ex Chairman Section -->
+<div class="container mx-auto px-4 py-12">
+    <div class="text-center mb-16">
+        <h1 class="text-5xl font-bold mb-6 text-gray-800 tracking-tight">Former Department Chairmen</h1>
+        <p class="text-xl text-gray-600 max-w-3xl mx-auto">Honoring the visionary leaders who have guided our Computer Science & Engineering department through the years</p>
+    </div>
+
+    <!-- Ex Chairman Grid -->
+    <div class="mb-20">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {% for chairman in ex_chairmen %}
+                <div class="bg-white rounded-lg shadow-lg overflow-hidden transform transition duration-300 hover:scale-105">
+                    {% if chairman.image %}
+                        <img src="{{ chairman.image.url }}" alt="{{ chairman.name }}" class="w-full h-64 object-cover">
+                    {% else %}
+                        <div class="w-full h-64 bg-gray-200 flex items-center justify-center">
+                            <span class="text-gray-400 text-lg">No image available</span>
+                        </div>
+                    {% endif %}
+                    <div class="p-6">
+                        <h3 class="text-2xl font-semibold text-gray-800 mb-2">{{ chairman.name }}</h3>
+                        <p class="text-gray-600 mb-4">{{ chairman.designation }}</p>
+                        {% if chairman.tenure_start and chairman.tenure_end %}
+                            <p class="text-sm text-gray-500">Tenure: {{ chairman.tenure_start|date:"M Y" }} - {{ chairman.tenure_end|date:"M Y" }}</p>
+                        {% endif %}
+                        {% if chairman.email %}
+                            <p class="text-sm text-blue-600 mt-2">
+                                <a href="mailto:{{ chairman.email }}" class="hover:text-blue-800">
+                                    {{ chairman.email }}
+                                </a>
+                            </p>
+                        {% endif %}
+                    </div>
+                </div>
+            {% empty %}
+                <div class="col-span-full text-center py-8">
+                    <p class="text-gray-600">No former chairmen records available at the moment.</p>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% endblock %}
