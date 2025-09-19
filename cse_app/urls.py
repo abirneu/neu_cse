@@ -26,4 +26,10 @@ urlpatterns = [
     path('history-neu/', views.history_neu, name='history_neu'),
     path('achievements/', views.achievements, name='achievements'),
     
+    path('faculty/active/', views.active_faculty, name='active_faculty'),
+    path('faculty/ex-chairman/', views.ex_chairman, name='ex_chairman'),
+    path('faculty/on-leave/', views.faculty_on_leave, name='faculty_on_leave'),
+    path('faculty/past/', views.past_faculty, name='past_faculty'),
+    path('faculty/officer-and-staff/', views.officer_and_staff, name='officer_and_staff'),
+    
 ]

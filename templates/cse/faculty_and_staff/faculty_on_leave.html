@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% block title %}Faculty Members - on Leave{% endblock %}
+{% block content %}
+<!-- Faculty Members Section -->
+<div class="container mx-auto px-4 py-12">
+    <div class="text-center mb-16">
+        <h1 class="text-5xl font-bold mb-6 text-gray-800 tracking-tight">Our Distinguished Faculty</h1>
+        <p class="text-xl text-gray-600 max-w-3xl mx-auto">Meet the accomplished educators and researchers who form the foundation of our Computer Science department</p>
+    </div>
+
+    <!-- Faculty on Leave Section -->
+    <div class="mb-20">
+        <h2 class="text-3xl font-semibold text-center mb-12 text-blue-800 relative inline-block mx-auto">
+            Faculty on Leave
+            <span class="absolute -bottom-2 left-1/2 transform -translate-x-1/2 w-16 h-1 bg-blue-500 rounded-full"></span>
+        </h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {% for faculty in faculty_members %}
+                {% include "cse/faculty_and_staff/faculty_card.html" with faculty=faculty %}
+            {% endfor %}
+        </div>
+    </div>
+</div>
+
+{% endblock %}

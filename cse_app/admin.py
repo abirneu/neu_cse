@@ -1,5 +1,12 @@
 from django.contrib import admin
 from .models import *
+from .models import ScrollingNotice
+
+@admin.register(ScrollingNotice)
+class ScrollingNoticeAdmin(admin.ModelAdmin):
+    list_display = ('text', 'is_active', 'created_at', 'updated_at')
+    list_filter = ('is_active', 'created_at')
+    search_fields = ('text',)
 
 @admin.register(Notice_Board)
 class NoticeAdmin(admin.ModelAdmin):
@@ -22,9 +29,23 @@ class ProjectAdmin(admin.ModelAdmin):
 
 @admin.register(FacultyMember)
 class FacultyMemberAdmin(admin.ModelAdmin):
-    list_display = ('name', 'designation', 'email', 'is_chairman')
-    list_filter = ('designation', 'is_chairman')
-    search_fields = ('name', 'research_interest')
+    list_display = ('name', 'designation', 'status', 'email', 'is_chairman')
+    list_filter = ('designation', 'status', 'is_chairman')
+    search_fields = ('name', 'email', 'research_interest', 'bio')
+    fieldsets = (
+        (None, {
+            'fields': ('name', 'designation', 'status', 'is_chairman')
+        }),
+        ('Contact Information', {
+            'fields': ('email', 'phone', 'room_no')
+        }),
+        ('Profile', {
+            'fields': ('bio', 'education', 'research_interest', 'image')
+        }),
+        ('Dates', {
+            'fields': ('joined_date', 'end_date')
+        }),
+    )
 
 @admin.register(Chairman)
 class ChairmanAdmin(admin.ModelAdmin):
@@ -61,5 +82,25 @@ class EventAdmin(admin.ModelAdmin):
         }),
         ('Media & Links', {
             'fields': ('image', 'registration_link')
+        }),
+    )
+
+@admin.register(Staff)
+class StaffAdmin(admin.ModelAdmin):
+    list_display = ('name', 'staff_type', 'designation', 'status', 'email')
+    list_filter = ('staff_type', 'status', 'designation')
+    search_fields = ('name', 'email', 'bio', 'responsibilities')
+    fieldsets = (
+        (None, {
+            'fields': ('name', 'staff_type', 'designation', 'status')
+        }),
+        ('Contact Information', {
+            'fields': ('email', 'phone', 'room_no')
+        }),
+        ('Details', {
+            'fields': ('bio', 'responsibilities', 'image')
+        }),
+        ('Dates', {
+            'fields': ('joined_date', 'end_date')
         }),
     )

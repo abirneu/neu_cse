@@ -9,8 +9,7 @@ from django.conf import settings
 from .models import Notice_Board, FacultyMember, Chairman, Publication, Project, TechNews, ViewCount
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from .models import Event
-
-
+from .models import ScrollingNotice
 
 def home(request):
     # Get important notices
@@ -45,8 +44,6 @@ def home(request):
         upcoming_events.extend(latest_events)
 
     # Update view count for home page
-    page_view, created = ViewCount.objects.get_or_create(page_name='home')
-    page_view.increment()
     
     context = {
         'important_notices': important_notices,
@@ -55,10 +52,13 @@ def home(request):
         'current_chairman': current_chairman,
         'tech_news': tech_news,
         'events': upcoming_events,  # Pass events to the template
-
     }
     
+    page_view, created = ViewCount.objects.get_or_create(page_name='home')
+    page_view.increment()
+    
     return render(request, 'cse/home.html', context)
+
 
 #About nav bar
 def why_neu_cse(request):
@@ -66,7 +66,16 @@ def why_neu_cse(request):
 def message_from_department(request):
     return render(request, 'cse/about/message_from_department.html')
 def message_from_chairman(request):
-    return render(request, 'cse/about/message_from_chairman.html')
+    # Get current chairman
+    current_chairman = Chairman.objects.filter(is_current=True).first()
+    
+    # Update view count for chairman's message page
+    page_view, created = ViewCount.objects.get_or_create(page_name='chairman_message')
+    page_view.increment()
+    
+    return render(request, 'cse/about/message_from_chairman.html', {
+        'current_chairman': current_chairman
+    })
 def facilities(request):
     return render(request, 'cse/about/facilities.html')
 def history_neu_cse(request):
@@ -78,6 +87,33 @@ def history_neu(request):
 def achievements(request):
     return render(request, 'cse/about/achievements.html')
 
+#faculty and staff nav bar
+def active_faculty(request):
+    active_faculty_members = FacultyMember.objects.filter(status='active')
+    return render(request, 'cse/faculty_and_staff/active_faculty.html', {
+        'faculty_members': active_faculty_members
+    })
+def ex_chairman(request):
+    ex_chairmen = Chairman.objects.filter(is_current=False)
+    return render(request, 'cse/faculty_and_staff/ex_chairman.html', {
+        'ex_chairmen': ex_chairmen
+    })
+def faculty_on_leave(request):
+    faculty_on_leave = FacultyMember.objects.filter(status='on_leave')
+    return render(request, 'cse/faculty_and_staff/faculty_on_leave.html', {
+        'faculty_members': faculty_on_leave
+    })
+def past_faculty(request):
+    past_faculty_members = FacultyMember.objects.filter(status='past')
+    return render(request, 'cse/faculty_and_staff/past_faculty.html', {
+        'faculty_members': past_faculty_members
+    })
+    
+def officer_and_staff(request):
+    staff_members = Staff.objects.all()
+    return render(request, 'cse/faculty_and_staff/officer_and_staff.html', {
+        'staff_members': staff_members
+    })
 
 def notice_list(request):
     notice_type = request.GET.get('type')
@@ -159,26 +195,80 @@ def download_notice(request, pk):
     raise Http404("File does not exist")
 
 def faculty_list(request):
+    # Get filter parameter from request
+    status = request.GET.get('status', 'active')  # Default to active
+    
+    # Start with all faculty members
     faculty_members = FacultyMember.objects.all()
+    
+    # Apply status filter
+    if status != 'all':
+        faculty_members = faculty_members.filter(status=status)
+    
+    # Get distinct statuses for filter options
+    statuses = FacultyMember.objects.values_list('status', flat=True).distinct()
     
     # Update view count for faculty page
     page_view, created = ViewCount.objects.get_or_create(page_name='faculty')
     page_view.increment()
     
-    return render(request, 'cse/faculty_list.html', {'faculty_members': faculty_members})
+    context = {
+        'faculty_members': faculty_members,
+        'statuses': statuses,
+        'current_status': status,
+    }
+    
+    return render(request, 'cse/faculty_list.html', context)
+
+def staff_list(request):
+    # Get filter parameters from request
+    staff_type = request.GET.get('type', 'all')  # Default to all
+    status = request.GET.get('status', 'active')  # Default to active
+    
+    # Start with all staff members
+    staff_members = Staff.objects.all()
+    
+    # Apply filters
+    if staff_type != 'all':
+        staff_members = staff_members.filter(staff_type=staff_type)
+    
+    if status != 'all':
+        staff_members = staff_members.filter(status=status)
+    
+    # Get distinct statuses for filter options
+    statuses = Staff.objects.values_list('status', flat=True).distinct()
+    
+    # Update view count for staff page
+    page_view, created = ViewCount.objects.get_or_create(page_name='staff')
+    page_view.increment()
+    
+    context = {
+        'staff_members': staff_members,
+        'staff_types': dict(Staff.STAFF_TYPE_CHOICES),
+        'statuses': statuses,
+        'current_type': staff_type,
+        'current_status': status,
+    }
+    
+    return render(request, 'cse/staff_list.html', context)
 
 def faculty_detail(request, pk):
     faculty = get_object_or_404(FacultyMember, pk=pk)
     return render(request, 'cse/faculty_detail.html', {'faculty': faculty})
 
 def chairman_message(request):
+    # Get current chairman
     current_chairman = Chairman.objects.filter(is_current=True).first()
     
     # Update view count for chairman page
     page_view, created = ViewCount.objects.get_or_create(page_name='chairman')
     page_view.increment()
     
-    return render(request, 'cse/chairman_message.html', {'chairman': current_chairman})
+    context = {
+        'current_chairman': current_chairman,
+        'page_view': page_view,
+    }
+    return render(request, 'message_from_chairman.html', context)
 
 def publications(request):
     publications = Publication.objects.all()

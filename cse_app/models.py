@@ -1,9 +1,22 @@
 from django.db import models
 from django.contrib.auth.models import User
 from django.utils import timezone
+from django.core.exceptions import ValidationError
 from ckeditor.fields import RichTextField  # For rich text content
 
 # Create your models here.
+class ScrollingNotice(models.Model):
+    text = models.TextField()
+    is_active = models.BooleanField(default=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return self.text[:50]
+
+    class Meta:
+        ordering = ['-created_at']
+
 class Notice_Board(models.Model):
     title = models.CharField(max_length=200)
     content = RichTextField()
@@ -75,9 +88,17 @@ class FacultyMember(models.Model):
         ('chairman', 'Chairman'),
     )
     
+    STATUS_CHOICES = (
+        ('active', 'Active'),
+        ('on_leave', 'On Leave'),
+        ('ex_chairman', 'Ex-Chairman'),
+        ('past_faculty', 'Past Faculty'),
+    )
+    
     user = models.OneToOneField(User, on_delete=models.CASCADE, null=True, blank=True)
     name = models.CharField(max_length=100)
     designation = models.CharField(max_length=30, choices=DESIGNATION_CHOICES)
+    status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='active')
     email = models.EmailField()
     phone = models.CharField(max_length=15, blank=True)
     room_no = models.CharField(max_length=10, blank=True)
@@ -86,7 +107,67 @@ class FacultyMember(models.Model):
     education = RichTextField(blank=True)
     research_interest = models.TextField(blank=True)
     joined_date = models.DateField(blank=True, null=True)
+    end_date = models.DateField(blank=True, null=True)
     is_chairman = models.BooleanField(default=False)
+
+class Staff(models.Model):
+    STAFF_TYPE_CHOICES = (
+        ('officer', 'Officer'),
+        ('staff', 'Staff'),
+    )
+    
+    OFFICER_DESIGNATION_CHOICES = (
+        ('administrative_officer', 'Administrative Officer'),
+        ('accounts_officer', 'Accounts Officer'),
+        ('academic_officer', 'Academic Officer'),
+        ('lab_officer', 'Lab Officer'),
+        ('other', 'Other'),
+    )
+    
+    STAFF_DESIGNATION_CHOICES = (
+        ('lab_assistant', 'Lab Assistant'),
+        ('office_assistant', 'Office Assistant'),
+        ('computer_operator', 'Computer Operator'),
+        ('mlss', 'MLSS'),
+        ('other', 'Other'),
+    )
+    
+    STATUS_CHOICES = (
+        ('active', 'Active'),
+        ('on_leave', 'On Leave'),
+        ('past_staff', 'Past Staff'),
+    )
+    
+    user = models.OneToOneField(User, on_delete=models.CASCADE, null=True, blank=True)
+    name = models.CharField(max_length=100)
+    staff_type = models.CharField(max_length=20, choices=STAFF_TYPE_CHOICES)
+    designation = models.CharField(max_length=30)  # Will be validated in clean method
+    status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='active')
+    email = models.EmailField(blank=True)
+    phone = models.CharField(max_length=15, blank=True)
+    room_no = models.CharField(max_length=10, blank=True)
+    image = models.ImageField(upload_to='staff/', blank=True)
+    bio = models.TextField(blank=True)
+    responsibilities = models.TextField(blank=True)
+    joined_date = models.DateField(blank=True, null=True)
+    end_date = models.DateField(blank=True, null=True)
+    
+    def clean(self):
+        if self.staff_type == 'officer' and self.designation not in dict(self.OFFICER_DESIGNATION_CHOICES):
+            raise ValidationError('Invalid designation for officer')
+        if self.staff_type == 'staff' and self.designation not in dict(self.STAFF_DESIGNATION_CHOICES):
+            raise ValidationError('Invalid designation for staff')
+    
+    def save(self, *args, **kwargs):
+        self.clean()
+        super().save(*args, **kwargs)
+    
+    def __str__(self):
+        return f"{self.name} - {self.get_staff_type_display()} ({self.designation})"
+    
+    class Meta:
+        ordering = ['staff_type', 'name']
+        verbose_name_plural = 'Staff'
     
     def __str__(self):
         return self.name
@@ -98,6 +179,19 @@ class FacultyMember(models.Model):
 class Chairman(models.Model):
     faculty = models.OneToOneField(FacultyMember, on_delete=models.CASCADE)
     message = RichTextField()
+    signature = models.ImageField(upload_to='signatures/', blank=True, null=True)
+    from_date = models.DateField()
+    to_date = models.DateField(null=True, blank=True)
+    is_current = models.BooleanField(default=False)
+    
+    def save(self, *args, **kwargs):
+        if self.is_current:
+            # Set all other chairmen to not current
+            Chairman.objects.filter(is_current=True).update(is_current=False)
+        super().save(*args, **kwargs)
+
+    def __str__(self):
+        return f"{self.faculty.name} - {'Current' if self.is_current else 'Former'} Chairman"
     from_date = models.DateField()
     to_date = models.DateField(blank=True, null=True)
     is_current = models.BooleanField(default=True)
@@ -172,3 +266,6 @@ class Event(models.Model):
     
     class Meta:
         ordering = ['start_date']
+        
+from django.utils import timezone
+

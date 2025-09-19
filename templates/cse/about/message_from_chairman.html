@@ -1,1 +1,114 @@
-<h1>This is message from charman</h1>
+{% extends 'base.html' %}
+{% block title %}Message from the Chairman{% endblock %}
+{% block content %}
+<section class="min-h-screen py-16 bg-gradient-to-br from-slate-50 to-blue-50/30">
+    <div class="container mx-auto px-4 max-w-6xl">
+        <!-- Section Header -->
+        <div class="text-center mb-16">
+            <span class="text-blue-600 font-semibold tracking-wide uppercase mb-3 block">Leadership</span>
+            <h2 class="text-4xl md:text-5xl font-bold text-slate-800 mb-4">Message from the Chairman</h2>
+            <div class="w-32 h-1 bg-gradient-to-r from-blue-500 to-indigo-600 mx-auto rounded-full"></div>
+        </div>
+
+        <!-- Chairman Card -->
+        <div class="bg-white rounded-2xl shadow-xl overflow-hidden transform transition-all duration-500 hover:shadow-2xl">
+            <div class="lg:flex">
+                <!-- Chairman Photo and Details -->
+                <div class="lg:w-2/5 p-10 bg-gradient-to-br from-slate-900 to-blue-900 text-white flex flex-col justify-center relative">
+                    <!-- Decorative elements -->
+                    <div class="absolute top-0 right-0 w-32 h-32 bg-blue-700/10 rounded-full -translate-y-16 translate-x-16"></div>
+                    <div class="absolute bottom-0 left-0 w-24 h-24 bg-indigo-600/10 rounded-full translate-y-12 -translate-x-12"></div>
+                    
+                    <div class="text-center mb-8 relative z-10">
+                        <div class="w-44 h-44 mx-auto rounded-full bg-gradient-to-r from-blue-500 to-indigo-600 p-1 mb-6 shadow-xl">
+                            <div class="w-full h-full rounded-full bg-gray-200 overflow-hidden border-4 border-white">
+                                <!-- Dynamic Image -->
+                                {% if current_chairman %}
+                                <img src="{{ current_chairman.faculty.image.url }}" alt="{{ current_chairman.faculty.name }}" class="w-full h-full object-cover">
+                                {% else %}
+                                <div class="w-full h-full bg-gray-300 flex items-center justify-center">
+                                    <i class="fas fa-user text-5xl text-gray-500"></i>
+                                </div>
+                                {% endif %}
+                            </div>
+                        </div>
+                        <h3 class="text-2xl font-bold text-white mb-2">
+                            {% if current_chairman %}{{ current_chairman.faculty.name }}{% else %}Chairman{% endif %}
+                        </h3>
+                        <p class="text-blue-200/90 font-medium">Department of CSE</p>
+                        <div class="mt-3 inline-flex items-center bg-blue-700/30 px-4 py-1 rounded-full text-sm">
+                            <i class="fas fa-award mr-2 text-yellow-400"></i>
+                            <span>Current Chairman</span>
+                        </div>
+                    </div>
+                    
+                    <div class="mt-8 space-y-4 relative z-10">
+                        <div class="flex items-center p-3 bg-slate-800/50 rounded-lg">
+                            <div class="flex-shrink-0 w-10 h-10 bg-blue-700/30 rounded-full flex items-center justify-center mr-3">
+                                <i class="fas fa-calendar-alt text-blue-300"></i>
+                            </div>
+                            <div>
+                                <p class="text-sm text-blue-200/80">From Date</p>
+                                <p class="font-medium">{% if current_chairman %}{{ current_chairman.from_date|date:"F j, Y" }}{% else %}N/A{% endif %}</p>
+                            </div>
+                        </div>
+                        
+                        {% if current_chairman and current_chairman.to_date %}
+                        <div class="flex items-center p-3 bg-slate-800/50 rounded-lg">
+                            <div class="flex-shrink-0 w-10 h-10 bg-blue-700/30 rounded-full flex items-center justify-center mr-3">
+                                <i class="fas fa-calendar-times text-blue-300"></i>
+                            </div>
+                            <div>
+                                <p class="text-sm text-blue-200/80">To Date</p>
+                                <p class="font-medium">{{ current_chairman.to_date|date:"F j, Y" }}</p>
+                            </div>
+                        </div>
+                        {% endif %}
+                    </div>
+                </div>
+                
+                <!-- Chairman Message -->
+                <div class="lg:w-3/5 p-10">
+                    <div class="flex items-center mb-8">
+                        <div class="mr-4 text-blue-600">
+                            <i class="fas fa-quote-left text-4xl opacity-20"></i>
+                        </div>
+                        <h3 class="text-3xl font-semibold text-slate-800">Chairman's Message</h3>
+                    </div>
+                    
+                    <div class="text-slate-700 leading-relaxed text-justify message-content space-y-5">
+                        {% if current_chairman %}
+                            {% if current_chairman.message %}
+                                {{ current_chairman.message|safe }}
+                            {% else %}
+                                <p class="text-slate-500 italic">No message available from the chairman at this time.</p>
+                            {% endif %}
+                        {% else %}
+                            <p class="text-slate-500 italic">No current chairman information available.</p>
+                        {% endif %}
+                    </div>
+                    
+                    <!-- Signature -->
+                    {% if current_chairman %}
+                    <div class="mt-12 pt-8 border-t border-slate-200">
+                        <div class="flex flex-col items-end">
+                            <div class="h-12 w-48 bg-slate-200 mb-2 flex items-center justify-center italic text-slate-500">
+                                {% if current_chairman.signature %}
+                            <div class="h-12 w-48 mb-2">
+                                <img src="{{ current_chairman.signature.url }}" alt="Signature of {{ current_chairman.faculty.name }}" class="h-full w-full object-contain">
+                            </div>
+                            {% endif %}
+                            </div>
+                            <p class="text-sm text-slate-600">
+                                {{ current_chairman.faculty.name }}<br>
+                                <span class="text-slate-500">Chairman, Department of CSE</span>
+                            </p>
+                        </div>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
