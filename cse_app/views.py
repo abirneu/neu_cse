@@ -10,6 +10,7 @@ from .models import Notice_Board, FacultyMember, Chairman, Publication, Project,
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from .models import Event
 from .models import ScrollingNotice
+from django.core.paginator import Paginator
 
 def home(request):
     # Get important notices
@@ -136,11 +137,19 @@ def notice_list(request):
     page_view, created = ViewCount.objects.get_or_create(page_name='notices')
     page_view.increment()
     
-    return render(request, 'cse/notice_list.html', {
-        'notices': notices, 
+    # Pagination - 7 notices per page
+    paginator = Paginator(notices, 7)
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+    
+    context = {
+        'page_obj': page_obj,
+        'notices': page_obj,  # This allows backward compatibility with existing template
         'notice_type': notice_type,
-        'search_query': search_query
-    })
+        'search_query': search_query,
+    }
+    
+    return render(request, 'cse/notice_list.html', context)
 
 def notice_detail(request, pk):
     notice = get_object_or_404(Notice_Board, pk=pk)

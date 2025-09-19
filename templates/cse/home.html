@@ -70,25 +70,24 @@
         {{ current_chairman.message|striptags|truncatewords:30 }}
       </p>
       <a
-        href="{% url 'chairman_message' %}"
+        href="{% url 'message_from_chairman' %}"
         class="inline-block mt-2 text-blue-600 hover:underline"
         >Read More</a
       >
     </div>
     {% endif %}
     <!-- Events Section -->
-    <div class="bg-white rounded-lg shadow-md p-6 mb-8">
       <!-- Add this where you want the events section to appear in your home page -->
-  <section class="my-12">
+     <section class="my-12">
       <div class="container mx-auto px-4">
-          <div class="flex justify-between items-center mb-8">
+          <div class="flex justify-between items-center mb-8 bg-stone-100 p-4 rounded-lg ">
             <div class="max-w-lg flex flex-col">
               <h2 class="text-2xl font-bold text-gray-800">Upcoming Events</h2>
               <h3>In the department of CSE, NeU frequently held different events and many other academic activities.</h3>
 
            </div>
 
-             <a href="{% url 'all_events' %}" class="text-blue-600 hover:text-blue-800 font-medium flex items-center">
+             <a href="{% url 'all_events' %}" class="text-green-600  hover:text-green-800 font-medium flex items-center">
                 View All Events
                  <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
@@ -98,10 +97,8 @@
 
           {% include 'cse/events.html' %}
      </div>
-  </section>
-      
-
-    </div>
+     </section>
+  
   </div>
 </div>
 {% endblock %}

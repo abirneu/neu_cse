@@ -7,6 +7,8 @@
     <title>{% block title %}Department of CSE, NEU{% endblock %}</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- AOS CSS -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     {% block extra_css %}{% endblock %}
     <style>
   :root {
@@ -23,7 +25,19 @@
 </style>
 
 </head>
-<body class="bg-gray-50">
+<body class="bg-stone-200">
+    <!-- AOS JS -->
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+<script>
+  // Initialize AOS
+  document.addEventListener('DOMContentLoaded', function() {
+    AOS.init({
+      duration: 800, // Animation duration in milliseconds
+      easing: 'ease-in-out', // Easing type
+      once: true, // Whether animation should happen only once
+    });
+  });
+</script>
     {% include 'Navbar.html' %}
     
 
