@@ -21,9 +21,15 @@ class Notice_Board(models.Model):
     title = models.CharField(max_length=200)
     content = RichTextField()
     file = models.FileField(upload_to='notices/', blank=True, null=True)  # For download option
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
+    created_at = models.DateTimeField(null=True, blank=True)
+    updated_at = models.DateTimeField(null=True, blank=True)
     is_important = models.BooleanField(default=False)
+    
+    def save(self, *args, **kwargs):
+        if not self.created_at:
+            self.created_at = timezone.now()
+        self.updated_at = timezone.now()
+        super().save(*args, **kwargs)
 
 
     def __str__(self):
@@ -69,6 +75,7 @@ class Project(models.Model):
     project_type = models.CharField(max_length=20, choices=PROJECT_TYPES)
     members = models.ManyToManyField('FacultyMember', related_name='projects', blank=True)
     start_date = models.DateField()
+    image = models.ImageField(upload_to='projects/', blank=True, null=True)
     end_date = models.DateField(blank=True, null=True)
     is_ongoing = models.BooleanField(default=False)
     funding_agency = models.CharField(max_length=200, blank=True)

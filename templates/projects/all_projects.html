@@ -1,0 +1,74 @@
+{% extends '../base.html' %}
+{% block content %}
+<section class="py-12 px-4 md:px-8 lg:px-16 bg-gradient-to-br from-gray-50 to-gray-100">
+  <div class="max-w-7xl mx-auto">
+    <!-- Header Section -->
+    <div class="mb-10">
+      <h2 class="text-4xl font-bold text-gray-800 mb-3">All Projects</h2>
+      <nav class="flex" aria-label="Breadcrumb">
+        <ol class="flex items-center space-x-2 text-sm">
+          <li><a href="{% url 'home' %}" class="text-blue-600 hover:text-blue-800 transition-colors">Home</a></li>
+          <li class="flex items-center">
+            <svg class="h-4 w-4 mx-1 text-gray-400" fill="currentColor" viewBox="0 0 20 20">
+              <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"></path>
+            </svg>
+          </li>
+          <li class="text-gray-500">Projects</li>
+        </ol>
+      </nav>
+    </div>
+
+    <!-- Projects Grid -->
+    {% if projects %}
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+      {% for project in projects %}
+      <div class="bg-white rounded-xl overflow-hidden shadow-lg transition-all duration-300 hover:shadow-xl hover:-translate-y-1 flex flex-col h-full">
+        <!-- Project Image -->
+        <div class="relative overflow-hidden h-56">
+          {% if project.image %}
+          <img src="{{ project.image.url }}" alt="{{ project.title }}" 
+               class="w-full h-full object-cover transition-transform duration-500 hover:scale-105">
+          {% else %}
+          <div class="w-full h-full bg-gradient-to-r from-blue-50 to-indigo-100 flex items-center justify-center">
+            <svg class="w-16 h-16 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+            </svg>
+          </div>
+          {% endif %}
+          <div class="absolute top-4 right-4">
+            <span class="bg-blue-500 text-white text-xs font-semibold px-3 py-1 rounded-full">Project</span>
+          </div>
+        </div>
+        
+        <!-- Project Content -->
+        <div class="p-6 flex flex-col flex-grow">
+          <h3 class="text-xl font-bold text-gray-800 mb-2">{{ project.title }}</h3>
+          <p class="text-gray-600 mb-4 flex-grow">{{ project.description|truncatewords:20 }}</p>
+          
+          <div class="flex items-center justify-between mt-auto pt-4 border-t border-gray-100">
+            <span class="text-sm text-gray-500">{{ project.created_at|date:"F d, Y" }}</span>
+            <a href="{% url 'project_detail' project.id %}" 
+               class="inline-flex items-center px-4 py-2 bg-blue-600 text-white text-sm font-medium rounded-lg hover:bg-blue-700 transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+              View Details
+              <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
+              </svg>
+            </a>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+    {% else %}
+    <!-- Empty State -->
+    <div class="bg-white rounded-xl p-8 text-center shadow-sm">
+      <svg class="w-16 h-16 mx-auto text-gray-400 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+      </svg>
+      <h3 class="text-xl font-semibold text-gray-700 mb-2">No projects available</h3>
+      <p class="text-gray-500">Check back later for new projects.</p>
+    </div>
+    {% endif %}
+  </div>
+</section>
+{% endblock %}

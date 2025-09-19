@@ -16,13 +16,20 @@
         <h1 class="text-3xl font-bold text-gray-800 mb-2">{{ notice.title }}</h1>
         
         <div class="flex items-center text-sm text-gray-600 mb-4">
+            {% if notice.created_at %}
             <i class="far fa-calendar-alt mr-2"></i>
-            <span>Published: {{ notice.published_date|date:"F d, Y" }}</span>
+            <span>Created: {{ notice.created_at|date:"F d, Y H:i" }}</span>
+            {% endif %}
+            {% if notice.updated_at and notice.updated_at != notice.created_at %}
+            <span class="mx-2">|</span>
+            <i class="fas fa-edit mr-2"></i>
+            <span>Updated: {{ notice.updated_at|date:"F d, Y H:i" }}</span>
+            {% endif %}
         </div>
         
         {% if notice.file %}
         <div class="mb-4">
-            <a href="{% url 'download_notice' notice.pk %}" class="inline-flex items-center px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition-colors">
+            <a href="{% url 'download_notice' notice.pk %}" class="inline-flex items-center px-4 py-2 bg-green-600 text-white rounded hover:bg-blue-700 transition-colors">
                 <i class="fas fa-file-download mr-2"></i> Download Attachment
             </a>
         </div>
@@ -43,22 +50,22 @@
             </div>
         {% elif file_type == 'pdf' %}
             <div class="mb-4">
-                <object data="{% url 'view_notice_file' notice.pk %}" type="application/pdf" class="w-full h-screen rounded-lg shadow-lg">
+                <object data="{% url 'view_notice_file' notice.pk %}" type="application/pdf" class="w-full h-30 rounded-lg shadow-lg">
                     <div class="bg-gray-100 p-4 rounded-lg text-center">
-                        <p class="text-gray-600">Unable to display PDF directly.</p>
+                        <p class="text-red-600">Unable to display PDF directly.</p>
                         <a href="{% url 'view_notice_file' notice.pk %}" class="text-blue-500 hover:underline" target="_blank">Open PDF in new tab</a>
                     </div>
                 </object>
             </div>
         {% endif %}
         
-        <a href="{% url 'download_notice' notice.pk %}" class="inline-flex items-center p-3 border rounded-lg hover:bg-gray-50">
+        {% comment %} <a href="{% url 'download_notice' notice.pk %}" class="inline-flex items-center p-3 border rounded-lg hover:bg-gray-50">
             <i class="fas fa-file-download text-blue-500 text-2xl mr-3"></i>
             <div>
                 <p class="font-medium">Download Attachment</p>
                 <p class="text-sm text-gray-500">{{ notice.file.name|cut:"notices/" }}</p>
             </div>
-        </a>
+        </a> {% endcomment %}
     </div>
     {% endif %}
 </div>

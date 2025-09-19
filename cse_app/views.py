@@ -1,4 +1,4 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from django.http import JsonResponse
 from django.db.models import Q
 from django.utils import timezone
@@ -18,6 +18,12 @@ def home(request):
     
     # Get latest notices (excluding important ones to avoid duplication)
     latest_notices = Notice_Board.objects.exclude(is_important=True)[:5]
+    
+    # Get the latest 3 projects
+    latest_projects = Project.objects.all().order_by('-start_date')[:3]
+
+    # Get the latest events
+    latest_events = Event.objects.all().order_by('-start_date')[:3]
     
     # Get latest notices
     latest_notices = Notice_Board.objects.all()[:5]
@@ -53,6 +59,7 @@ def home(request):
         'current_chairman': current_chairman,
         'tech_news': tech_news,
         'events': upcoming_events,  # Pass events to the template
+        'latest_projects': latest_projects,
     }
     
     page_view, created = ViewCount.objects.get_or_create(page_name='home')
@@ -305,7 +312,7 @@ def projects(request):
     page_view, created = ViewCount.objects.get_or_create(page_name='projects')
     page_view.increment()
     
-    return render(request, 'cse/projects.html', {'projects': projects})
+    return render(request, 'cse/projects/projects.html', {'projects': projects})
 
 def tech_news(request):
     news = TechNews.objects.all()
@@ -378,6 +385,44 @@ def all_events(request):
         'is_paginated': events.has_other_pages(),
     }
     return render(request, 'cse/all_events.html', context)
+
+def event_detail(request, event_id):
+    event = get_object_or_404(Event, id=event_id)
+    context = {
+        'event': event
+    }
+    return render(request, 'cse/event_detail.html', context)
+
+def project_detail(request, project_id):
+    project = get_object_or_404(Project, id=project_id)
+    context = {
+        'project': project
+    }
+    return render(request, 'projects/project_detail.html', context)
+
+def all_projects(request):
+    projects_list = Project.objects.all().order_by('-start_date')
+    
+    # Pagination
+    paginator = Paginator(projects_list, 9)  # Show 9 projects per page
+    page = request.GET.get('page')
+    
+    try:
+        projects = paginator.page(page)
+    except PageNotAnInteger:
+        projects = paginator.page(1)
+    except EmptyPage:
+        projects = paginator.page(paginator.num_pages)
+        
+    context = {
+        'projects': projects,
+        'is_paginated': projects.has_other_pages(),
+    }
+    return render(request, 'projects/all_projects.html', context)
+
+def projects(request):
+    # Redirect to all_projects view
+    return redirect('all_projects')
 
 def event_detail(request, event_id):
     event = get_object_or_404(Event, id=event_id)
