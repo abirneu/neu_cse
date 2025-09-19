@@ -109,6 +109,9 @@ class FacultyMember(models.Model):
     joined_date = models.DateField(blank=True, null=True)
     end_date = models.DateField(blank=True, null=True)
     is_chairman = models.BooleanField(default=False)
+    
+    def __str__(self):
+        return f"{self.name} - {self.get_designation_display()}"
 
 class Staff(models.Model):
     STAFF_TYPE_CHOICES = (

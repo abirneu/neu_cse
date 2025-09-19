@@ -61,7 +61,7 @@
                     </div>
                     
                     <div class="flex flex-wrap gap-4 mt-8">
-                        <a href="#" class="px-6 py-3 bg-blue-600 text-white font-medium rounded-md hover:bg-blue-700 transition-colors flex items-center">
+                        <a href="{% url 'why_neu_cse' %}" class="px-6 py-3 bg-green-600 text-white font-medium rounded-md hover:bg-green-700 transition-colors flex items-center">
                             Read More
                             <i class="fas fa-arrow-right ml-2"></i>
                         </a>
@@ -95,123 +95,7 @@
         </div>
     </section>
 
-    <!-- Mission & Vision Section -->
-    <section class="py-16 bg-gray-100 px-4 md:px-8 lg:px-16">
-        <div class="max-w-6xl mx-auto">
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                <!-- Mission -->
-                <div class="bg-white rounded-2xl p-8 shadow-md hover-lift">
-                    <div class="w-16 h-16 bg-blue-100 rounded-2xl flex items-center justify-center mb-6">
-                        <i class="fas fa-bullseye text-blue-600 text-2xl"></i>
-                    </div>
-                    <h3 class="text-2xl font-bold text-gray-800 mb-4">Our Mission</h3>
-                    <p class="text-gray-600">
-                        To provide quality education in computer science and engineering that prepares students for successful careers, fosters innovation, and addresses the technological challenges of society through cutting-edge research and ethical practices.
-                    </p>
-                </div>
-                
-                <!-- Vision -->
-                <div class="bg-white rounded-2xl p-8 shadow-md hover-lift">
-                    <div class="w-16 h-16 bg-blue-100 rounded-2xl flex items-center justify-center mb-6">
-                        <i class="fas fa-eye text-blue-600 text-2xl"></i>
-                    </div>
-                    <h3 class="text-2xl font-bold text-gray-800 mb-4">Our Vision</h3>
-                    <p class="text-gray-600">
-                        To be a center of excellence in computer science education and research, recognized for producing skilled professionals who contribute to technological advancement and digital transformation in Bangladesh and beyond.
-                    </p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Programs Offered -->
-    <section class="py-16 px-4 md:px-8 lg:px-16">
-        <div class="max-w-6xl mx-auto">
-            <h2 class="text-3xl font-bold text-center text-gray-800 mb-12">Programs Offered</h2>
-            
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                <!-- Undergraduate -->
-                <div class="bg-gradient-to-br from-blue-600 to-blue-800 text-white rounded-2xl p-8 shadow-xl hover-lift">
-                    <div class="w-16 h-16 bg-white bg-opacity-20 rounded-2xl flex items-center justify-center mb-6">
-                        <i class="fas fa-user-graduate text-2xl"></i>
-                    </div>
-                    <h3 class="text-2xl font-bold mb-4">Undergraduate</h3>
-                    <p class="mb-6">B.Sc. in Computer Science & Engineering</p>
-                    <ul class="space-y-2 mb-6">
-                        <li class="flex items-center">
-                            <i class="fas fa-check-circle mr-2 text-blue-200"></i>
-                            <span>4-year program</span>
-                        </li>
-                        <li class="flex items-center">
-                            <i class="fas fa-check-circle mr-2 text-blue-200"></i>
-                            <span>160 credits</span>
-                        </li>
-                        <li class="flex items-center">
-                            <i class="fas fa-check-circle mr-2 text-blue-200"></i>
-                            <span>Thesis option available</span>
-                        </li>
-                    </ul>
-                    <a href="#" class="inline-flex items-center text-white font-medium mt-4">
-                        Learn More
-                        <i class="fas fa-arrow-right ml-2"></i>
-                    </a>
-                </div>
-                
-                <!-- Graduate -->
-                <div class="bg-white border border-gray-200 rounded-2xl p-8 shadow-md hover-lift">
-                    <div class="w-16 h-16 bg-blue-100 rounded-2xl flex items-center justify-center mb-6">
-                        <i class="fas fa-graduation-cap text-blue-600 text-2xl"></i>
-                    </div>
-                    <h3 class="text-2xl font-bold text-gray-800 mb-4">Graduate</h3>
-                    <p class="text-gray-600 mb-6">M.Sc. in Computer Science & Engineering</p>
-                    <ul class="space-y-2 mb-6">
-                        <li class="flex items-center text-gray-600">
-                            <i class="fas fa-check-circle mr-2 text-blue-500"></i>
-                            <span>Thesis and Non-thesis options</span>
-                        </li>
-                        <li class="flex items-center text-gray-600">
-                            <i class="fas fa-check-circle mr-2 text-blue-500"></i>
-                            <span>Evening program available</span>
-                        </li>
-                        <li class="flex items-center text-gray-600">
-                            <i class="fas fa-check-circle mr-2 text-blue-500"></i>
-                            <span>Research focused</span>
-                        </li>
-                    </ul>
-                    <a href="#" class="inline-flex items-center text-blue-600 font-medium mt-4">
-                        Learn More
-                        <i class="fas fa-arrow-right ml-2"></i>
-                    </a>
-                </div>
-                
-                <!-- Short Courses -->
-                <div class="bg-white border border-gray-200 rounded-2xl p-8 shadow-md hover-lift">
-                    <div class="w-16 h-16 bg-blue-100 rounded-2xl flex items-center justify-center mb-6">
-                        <i class="fas fa-certificate text-blue-600 text-2xl"></i>
-                    </div>
-                    <h3 class="text-2xl font-bold text-gray-800 mb-4">Short Courses</h3>
-                    <p class="text-gray-600 mb-6">Professional development programs</p>
-                    <ul class="space-y-2 mb-6">
-                        <li class="flex items-center text-gray-600">
-                            <i class="fas fa-check-circle mr-2 text-blue-500"></i>
-                            <span>Web Development</span>
-                        </li>
-                        <li class="flex items-center text-gray-600">
-                            <i class="fas fa-check-circle mr-2 text-blue-500"></i>
-                            <span>Data Science</span>
-                        </li>
-                        <li class="flex items-center text-gray-600">
-                            <i class="fas fa-check-circle mr-2 text-blue-500"></i>
-                            <span>Cybersecurity</span>
-                        </li>
-                    </ul>
-                    <a href="#" class="inline-flex items-center text-blue-600 font-medium mt-4">
-                        Learn More
-                        <i class="fas fa-arrow-right ml-2"></i>
-                    </a>
-                </div>
-            </div>
-        </div>
+    
     </section>
 
     <script>
