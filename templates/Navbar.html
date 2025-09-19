@@ -3,9 +3,13 @@
 {% block content %}
 <!-- Navigation -->
 <nav class="bg-custom-green text-white shadow-lg ">
+     
+  </div>
     <!-- Header --> 
 <header class="bg-white text-black">
+    
     <div class="container mx-auto px-4 py-4">
+        
         <div class="flex justify-between items-center">
             <div class="flex items-center">
                 <img src="{% static 'images/logo/neulogo.jpg' %}" alt="NeU Logo" class="h-16 mr-4">
@@ -127,13 +131,24 @@
                 </div>
                 
                 <!-- Alumni -->
-                <a href="#" class="py-4 px-4 hover:bg-green-600">Alumni</a>
+                <a href="{% url 'alumni' %}" class="py-4 px-4 hover:bg-green-600">Alumni</a>
                 
                 <!-- Club -->
-                <a href="#" class="py-4 px-4 hover:bg-green-600">Club</a>
+                <div class="relative group">
+                    <button class="py-4 px-4 hover:bg-green-600 flex items-center {% if request.path == '/publications/' or request.path == '/projects/' %}bg-blue-900{% endif %}">
+                        Club
+                        <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                        </svg>
+                    </button>
+                    <div class="absolute hidden group-hover:block bg-gray-200 text-black min-w-48 rounded-md shadow-lg z-50">
+                        <a href="{% url 'computer_club' %}" class="block px-4 py-3 hover:bg-green-600">Computer Club</a>
+                        <a href="{% url 'programming_club' %}" class="block px-4 py-3 hover:bg-green-600">Programming Club</a>
+                    </div>
+                </div>
                 
                 <!-- Contact Us -->
-                <a href="#" class="py-4 px-4 hover:bg-green-600">Contact Us</a>
+                <a href="{% url 'contact_us' %}" class="py-4 px-4 hover:bg-green-600">Contact Us</a>
             </div>
            
         </div>

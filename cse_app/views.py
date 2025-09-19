@@ -430,3 +430,15 @@ def event_detail(request, event_id):
         'event': event
     }
     return render(request, 'cse/event_detail.html', context)
+
+def alumni(request):
+    return render(request, 'cse/alumni.html')
+
+def computer_club(request):
+    return render(request, 'cse/club/computer_club.html')
+
+def programming_club(request):
+    return render(request, 'cse/club/programming_club.html')
+
+def contact_us(request):
+    return render(request, 'cse/contact_us.html')
