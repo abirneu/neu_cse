@@ -1,6 +1,13 @@
 from django.contrib import admin
 from .models import *
-from .models import ScrollingNotice, CarouselItem, ImageGallery
+from .models import ScrollingNotice, CarouselItem, ImageGallery, ComputerClubMember
+
+@admin.register(ComputerClubMember)
+class ComputerClubMemberAdmin(admin.ModelAdmin):
+    list_display = ('name', 'position', 'session')
+    list_filter = ('position',)
+    search_fields = ('name', 'session')
+    ordering = ('position', 'name')
 
 @admin.register(ImageGallery)
 class ImageGalleryAdmin(admin.ModelAdmin):

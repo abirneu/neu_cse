@@ -497,7 +497,21 @@ def alumni(request):
     return render(request, 'cse/alumni.html')
 
 def computer_club(request):
-    return render(request, 'cse/club/computer_club.html')
+    # Get all club members and sort them by priority level and position
+    club_members = ComputerClubMember.objects.all()
+    
+    # Group members by priority level
+    core_leadership = [m for m in club_members if m.get_priority_level() == 1]
+    key_operations = [m for m in club_members if m.get_priority_level() == 2]
+    support_roles = [m for m in club_members if m.get_priority_level() == 3]
+    
+    context = {
+        'core_leadership': core_leadership,
+        'key_operations': key_operations,
+        'support_roles': support_roles,
+    }
+    
+    return render(request, 'cse/club/computer_club.html', context)
 
 def programming_club(request):
     return render(request, 'cse/club/programming_club.html')

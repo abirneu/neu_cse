@@ -317,3 +317,61 @@ class ImageGallery(models.Model):
 
 from django.utils import timezone
 
+
+class ComputerClubMember(models.Model):
+    POSITION_CHOICES = [
+        # High Priority (Core Leadership)
+        ('president', 'President'),
+        ('vice_president', 'Vice President'),
+        ('general_secretary', 'General Secretary'),
+        ('assistant_general_secretary', 'Assistant General Secretary'),
+        ('treasurer', 'Treasurer'),
+        
+        # Mid Priority (Key Operations)
+        ('editor_secretary', 'Editor Secretary'),
+        ('programming_secretary', 'Programming Secretary'),
+        ('assistant_programming_secretary', 'Assistant Programming Secretary'),
+        ('sports_secretary', 'Sports Secretary'),
+        ('assistant_sports_secretary', 'Assistant Sports Secretary'),
+        ('event_management_secretary', 'Event Management Secretary'),
+        
+        # Support / Communication Roles
+        ('publicity_secretary', 'Publicity & Publication Secretary'),
+        ('assistant_publicity_secretary', 'Assistant Publicity & Publication Secretary'),
+        ('assistant_information_secretary', 'Assistant Information Secretary'),
+        ('assistant_organizing_secretary', 'Assistant Organizing Secretary'),
+    ]
+
+    PRIORITY_LEVELS = {
+        'president': 1,
+        'vice_president': 1,
+        'general_secretary': 1,
+        'assistant_general_secretary': 1,
+        'treasurer': 1,
+        'editor_secretary': 2,
+        'programming_secretary': 2,
+        'assistant_programming_secretary': 2,
+        'sports_secretary': 2,
+        'assistant_sports_secretary': 2,
+        'event_management_secretary': 2,
+        'publicity_secretary': 3,
+        'assistant_publicity_secretary': 3,
+        'assistant_information_secretary': 3,
+        'assistant_organizing_secretary': 3,
+    }
+
+    name = models.CharField(max_length=100)
+    session = models.CharField(max_length=20)
+    image = models.ImageField(upload_to='club/computer_club/', blank=True, null=True)
+    position = models.CharField(max_length=50, choices=POSITION_CHOICES)
+
+    class Meta:
+        ordering = ['position']
+        verbose_name = 'Computer Club Member'
+        verbose_name_plural = 'Computer Club Members'
+
+    def get_priority_level(self):
+        return self.PRIORITY_LEVELS.get(self.position, 999)
+
+    def __str__(self):
+        return f"{self.name} - {self.get_position_display()}"
