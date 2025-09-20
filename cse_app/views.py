@@ -460,7 +460,7 @@ def project_detail(request, project_id):
     context = {
         'project': project
     }
-    return render(request, 'projects/project_detail.html', context)
+    return render(request, 'cse/projects/project_detail.html', context)
 
 def all_projects(request):
     projects_list = Project.objects.all().order_by('-start_date')
@@ -475,12 +475,12 @@ def all_projects(request):
         projects = paginator.page(1)
     except EmptyPage:
         projects = paginator.page(paginator.num_pages)
-        
+    
     context = {
         'projects': projects,
         'is_paginated': projects.has_other_pages(),
     }
-    return render(request, 'projects/all_projects.html', context)
+    return render(request, 'cse/projects/all_projects.html', context)
 
 def projects(request):
     # Redirect to all_projects view

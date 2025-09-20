@@ -18,7 +18,8 @@
                     src="{{ image.image.url }}" 
                     alt="{{ image.title }}"
                     class="w-full h-60 object-cover transition-transform duration-500 group-hover:scale-105 cursor-pointer"
-                    onclick="openImageModal('{{ image.image.url }}', '{{ image.title }}')"
+                    onclick="openImageModal({{ forloop.counter0 }})"
+                    data-index="{{ forloop.counter0 }}"
                 >
             </div>
             <div class="p-5">
@@ -26,7 +27,7 @@
                 <p class="text-gray-500 text-sm">{{ image.upload_time|date:"F d, Y" }}</p>
             </div>
             <div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-20 transition-all duration-300 flex items-center justify-center opacity-0 group-hover:opacity-100">
-                <button onclick="openImageModal('{{ image.image.url }}', '{{ image.title }}')" class="bg-white rounded-full p-3 shadow-lg transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300">
+                <button onclick="openImageModal({{ forloop.counter0 }})" class="bg-white rounded-full p-3 shadow-lg transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-gray-800" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v3m0 0v3m0-3h3m-3-3H7" />
                     </svg>
@@ -61,37 +62,91 @@
 </div>
 
 <!-- Modal for Image Preview -->
-<div id="imageModal" class="fixed inset-0 bg-black bg-opacity-90 z-50 flex items-center justify-center p-4 hidden">
-    <div class="bg-white rounded-xl max-w-4xl w-full max-h-screen overflow-hidden">
-        <div class="flex justify-between items-center p-4 border-b">
-            <h3 id="imageModalLabel" class="text-xl font-semibold text-gray-800"></h3>
-            <button onclick="closeModal()" class="text-gray-500 hover:text-gray-700">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-                </svg>
-            </button>
+<div id="imageModal" class="fixed inset-0 bg-black bg-opacity-95 z-50 flex items-center justify-center p-4 hidden">
+    <div class="bg-gray-900 rounded-xl max-w-6xl w-full max-h-screen overflow-hidden relative modal-container">
+        <!-- Close button -->
+        <button onclick="closeModal()" class="absolute top-4 right-4 z-50 text-white bg-black bg-opacity-50 rounded-full p-2 hover:bg-opacity-75 transition-all duration-300">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+            </svg>
+        </button>
+        
+        <!-- Navigation arrows -->
+        <button id="prevButton" class="absolute left-4 top-1/2 transform -translate-y-1/2 z-50 text-white bg-black bg-opacity-50 rounded-full p-3 hover:bg-opacity-75 transition-all duration-300">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+            </svg>
+        </button>
+        
+        <button id="nextButton" class="absolute right-4 top-1/2 transform -translate-y-1/2 z-50 text-white bg-black bg-opacity-50 rounded-full p-3 hover:bg-opacity-75 transition-all duration-300">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+            </svg>
+        </button>
+        
+        <!-- Image counter -->
+        <div class="absolute top-4 left-4 z-50 text-white bg-black bg-opacity-50 rounded-full px-3 py-1 text-sm">
+            <span id="imageCounter"></span>
         </div>
-        <div class="p-4 max-h-[70vh] overflow-auto">
-            <img src="" id="modalImage" class="w-full object-contain max-h-[60vh]" alt="Full size image">
-        </div>
-        <div class="flex justify-end p-4 border-t">
-            <a href="" id="downloadLink" class="flex items-center px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors duration-300" download>
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
-                </svg>
-                Download Image
-            </a>
+        
+        <!-- Content area -->
+        <div class="flex flex-col h-full">
+            <div class="p-6 pb-2">
+                <h3 id="imageModalLabel" class="text-xl font-semibold text-white"></h3>
+            </div>
+            
+            <div class="flex-1 p-4 overflow-auto flex items-center justify-center">
+                <img src="" id="modalImage" class="max-w-full max-h-[65vh] object-contain transition-opacity duration-300" alt="Full size image">
+            </div>
+            
+            <div class="p-4 pt-2 flex justify-between items-center">
+                <p id="imageDate" class="text-gray-400 text-sm"></p>
+                <a href="" id="downloadLink" class="flex items-center px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors duration-300" download>
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+                    </svg>
+                    Download
+                </a>
+            </div>
         </div>
     </div>
 </div>
 
 <script>
-function openImageModal(imageUrl, title) {
-    document.getElementById('modalImage').src = imageUrl;
-    document.getElementById('imageModalLabel').textContent = title;
-    document.getElementById('downloadLink').href = imageUrl;
+// Store all image data for navigation
+const imageData = [
+    {% for image in images %}
+    {
+        url: "{{ image.image.url }}",
+        title: "{{ image.title }}",
+        date: "{{ image.upload_time|date:'F d, Y' }}"
+    },
+    {% endfor %}
+];
+
+let currentIndex = 0;
+
+function openImageModal(index) {
+    currentIndex = index;
+    updateModal();
     document.getElementById('imageModal').classList.remove('hidden');
     document.body.style.overflow = 'hidden';
+}
+
+function updateModal() {
+    const image = imageData[currentIndex];
+    document.getElementById('modalImage').src = image.url;
+    document.getElementById('imageModalLabel').textContent = image.title;
+    document.getElementById('imageDate').textContent = image.date;
+    document.getElementById('downloadLink').href = image.url;
+    document.getElementById('imageCounter').textContent = `${currentIndex + 1} / ${imageData.length}`;
+    
+    // Smooth fade in effect for the image
+    const imgElement = document.getElementById('modalImage');
+    imgElement.style.opacity = 0;
+    setTimeout(() => {
+        imgElement.style.opacity = 1;
+    }, 50);
 }
 
 function closeModal() {
@@ -99,14 +154,90 @@ function closeModal() {
     document.body.style.overflow = 'auto';
 }
 
+function navigate(direction) {
+    currentIndex += direction;
+    
+    // Loop around if at the beginning or end
+    if (currentIndex < 0) {
+        currentIndex = imageData.length - 1;
+    } else if (currentIndex >= imageData.length) {
+        currentIndex = 0;
+    }
+    
+    updateModal();
+}
+
+// Set up event listeners
+document.addEventListener('DOMContentLoaded', function() {
+    // Navigation buttons
+    document.getElementById('prevButton').addEventListener('click', () => navigate(-1));
+    document.getElementById('nextButton').addEventListener('click', () => navigate(1));
+    
+    // Keyboard navigation
+    document.addEventListener('keydown', function(e) {
+        if (document.getElementById('imageModal').classList.contains('hidden')) return;
+        
+        if (e.key === 'Escape') closeModal();
+        if (e.key === 'ArrowLeft') navigate(-1);
+        if (e.key === 'ArrowRight') navigate(1);
+    });
+    
+    // Swipe support for touch devices
+    let touchStartX = 0;
+    let touchEndX = 0;
+    
+    const modalContainer = document.querySelector('.modal-container');
+    
+    modalContainer.addEventListener('touchstart', e => {
+        touchStartX = e.changedTouches[0].screenX;
+    }, false);
+    
+    modalContainer.addEventListener('touchend', e => {
+        touchEndX = e.changedTouches[0].screenX;
+        handleSwipe();
+    }, false);
+    
+    function handleSwipe() {
+        const minSwipeDistance = 50; // Minimum distance for a swipe to count
+        if (touchStartX - touchEndX > minSwipeDistance) {
+            navigate(1); // Swipe left -> next image
+        } else if (touchEndX - touchStartX > minSwipeDistance) {
+            navigate(-1); // Swipe right -> previous image
+        }
+    }
+});
+
 // Close modal when clicking outside the content
 document.getElementById('imageModal').addEventListener('click', function(e) {
     if (e.target === this) closeModal();
 });
-
-// Close modal with Escape key
-document.addEventListener('keydown', function(e) {
-    if (e.key === 'Escape') closeModal();
-});
 </script>
+
+<style>
+/* Smooth transitions for modal */
+#imageModal {
+    transition: opacity 0.3s ease;
+}
+
+.modal-container {
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+}
+
+/* Animation for navigation */
+#modalImage {
+    transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .modal-container {
+        margin: 1rem;
+    }
+    
+    #prevButton, #nextButton {
+        padding: 2;
+        transform: translateY(-50%) scale(0.8);
+    }
+}
+</style>
 {% endblock %}
