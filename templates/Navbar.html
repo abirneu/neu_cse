@@ -2,35 +2,29 @@
 
 {% block content %}
 <!-- Navigation -->
-<nav class="bg-custom-green text-white shadow-lg ">
-     
-  </div>
+<nav class="bg-custom-green text-white shadow-lg">
     <!-- Header --> 
-<header class="bg-white text-black">
-    
-    <div class="container mx-auto px-4 py-4">
-        
-        <div class="flex justify-between items-center">
-            <div class="flex items-center">
-                <img src="{% static 'images/logo/neulogo.jpg' %}" alt="NeU Logo" class="h-16 mr-4">
-                <div>
-                    <h1 class="text-2xl font-bold">Department of Computer Science & Engineering</h1>
-                    <p class="text-sm">Netrokona University</p>
+    <header class="bg-white text-black">
+        <div class="container mx-auto px-4 py-4">
+            <div class="flex justify-between items-center">
+                <div class="flex items-center">
+                    <img src="{% static 'images/logo/neulogo.jpg' %}" alt="NeU Logo" class="h-16 mr-4">
+                    <div>
+                        <h1 class="text-2xl font-bold">Department of Computer Science & Engineering</h1>
+                        <p class="text-sm">Netrokona University</p>
+                    </div>
+                </div>
+                <div class="hidden md:block">
+                    <p class="text-sm"><i class="fas fa-envelope mr-2"></i>cse@neu.edu.bd</p>
+                    <p class="text-sm"><i class="fas fa-phone mr-2"></i>+880 XXXX-XXXXXX</p>
                 </div>
             </div>
-            <div class="hidden md:block">
-                <p class="text-sm"><i class="fas fa-envelope mr-2"></i>cse@neu.edu.bd</p>
-                <p class="text-sm"><i class="fas fa-phone mr-2"></i>+880 XXXX-XXXXXX</p>
-            </div>
         </div>
-    </div>
-</header>
+    </header>
+    
     <div class="container mx-auto px-4">
         <!-- Mobile menu button -->
         <div class="md:hidden flex justify-between items-center">
-            {% comment %} <div class="flex">
-                <a href="{% url 'home' %}" class="py-4 px-2 hover:bg-blue-600 {% if request.path == '/' %}bg-blue-900{% endif %}">Home</a>
-            </div> {% endcomment %}
             <button id="mobile-menu-button" class="py-4 px-2 focus:outline-none">
                 <svg class="h-6 w-6 fill-current" viewBox="0 0 24 24">
                     <path id="menu-icon" fill-rule="evenodd" d="M4 5h16a1 1 0 0 1 0 2H4a1 1 0 1 1 0-2zm0 6h16a1 1 0 0 1 0 2H4a1 1 0 0 1 0-2zm0 6h16a1 1 0 0 1 0 2H4a1 1 0 0 1 0-2z"/>
@@ -107,12 +101,10 @@
                         <a href="{% url 'notice_list' %}?type=important" class="block text-black px-4 py-3 hover:bg-green-600">Important Notice</a>
                         <a href="{% url 'notice_list' %}?type=latest" class="block px-4 text-black py-3 hover:bg-green-600">Latest Notices</a>
                         <a href="{% url 'notice_list' %}?type=all" class="block text-black px-4 py-3 hover:bg-green-600">All Notices</a>
-
                     </div>
                 </div>
                  
                 <!-- Faculty and Staff dropdown -->
-                
                 <div class="relative group">
                     <button class="py-4 px-4 hover:bg-green-600 flex items-center">
                         Faculty & Staff
@@ -126,7 +118,6 @@
                         <a href="{% url 'past_faculty' %}" class="block text-black px-4 py-3 hover:bg-green-600">Past Faculty</a>
                         <a href="{% url 'ex_chairman' %}" class="block text-black px-4 py-3 hover:bg-green-600">Ex Chairman</a>
                         <a href="{% url 'officer_and_staff' %}" class="block text-black px-4 py-3 hover:bg-green-600">Officer & Staff</a>
-
                     </div>
                 </div>
                 
@@ -150,83 +141,114 @@
                 <!-- Contact Us -->
                 <a href="{% url 'contact_us' %}" class="py-4 px-4 hover:bg-green-600">Contact Us</a>
             </div>
-           
         </div>
         
         <!-- Mobile menu (hidden by default) -->
         <div id="mobile-menu" class="hidden md:hidden bg-custom-green">
-            <a href="{% url 'home' %}" class="block py-3 px-4 hover:bg-blue-700 {% if request.path == '/' %}bg-blue-900{% endif %}">Home</a>
+            <!-- Home -->
+            <a href="{% url 'home' %}" class="block py-3 px-4 hover:bg-green-600 {% if request.path == '/' %}bg-green-700{% endif %}">Home</a>
             
             <!-- About mobile dropdown -->
             <div class="relative">
-                <button onclick="toggleMobileDropdown('about-mobile-dropdown')" class="w-full text-left py-3 px-4 hover:bg-green-500 flex justify-between items-center {% if request.path == '/about/' or request.path == '/chairman/' %}bg-blue-900{% endif %}">
+                <button onclick="toggleMobileDropdown('about-mobile-dropdown')" class="w-full text-left py-3 px-4 hover:bg-green-600 flex justify-between items-center {% if request.path == '/about/' or request.path == '/chairman/' %}bg-green-700{% endif %}">
                     About
-                    <svg id="about-mobile-arrow" class="w-4 h-4 transform rotate-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <svg id="about-mobile-arrow" class="w-4 h-4 transform rotate-0 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
                     </svg>
                 </button>
-                <div id="about-mobile-dropdown" class="hidden bg-green-700 pl-6">
-                    <a href="{% url 'why_neu_cse' %}?section=why" class="block py-3 px-4 hover:bg-green-500">Why NeU CSE?</a>
-                    <a href="{% url 'message_from_department' %}?section=dept-message" class="block py-3 px-4 hover:bg-green-500">Message from Department</a>
-                    <a href="{% url 'message_from_chairman' %}" class="block py-3 px-4 hover:bg-green-500">Message from Chairman</a>
-                    <a href="{% url 'history_neu_cse' %}?section=history-dept" class="block py-3 px-4 hover:bg-green-500">History of NeU CSE</a>
-                    <a href="{% url 'mission_vision' %}?section=mission" class="block py-3 px-4 hover:bg-green-500">Mission and Vision</a>
-                    <a href="{% url 'history_neu' %}?section=history-univ" class="block py-3 px-4 hover:bg-green-500">History of University</a>
-                    <a href="{% url 'achievements' %}?section=achievements" class="block py-3 px-4 hover:bg-green-500">Achievements</a>
-                    <a href="{% url 'facilities' %}?section=facilities" class="block py-3 px-4 hover:bg-green-500">Facilities</a>
+                <div id="about-mobile-dropdown" class="hidden bg-green-800 pl-6">
+                    <a href="{% url 'why_neu_cse' %}?section=why" class="block py-3 px-4 hover:bg-green-600">Why NeU CSE?</a>
+                    <a href="{% url 'message_from_department' %}?section=dept-message" class="block py-3 px-4 hover:bg-green-600">Message from Department</a>
+                    <a href="{% url 'message_from_chairman' %}" class="block py-3 px-4 hover:bg-green-600">Message from Chairman</a>
+                    <a href="{% url 'history_neu_cse' %}?section=history-dept" class="block py-3 px-4 hover:bg-green-600">History of NeU CSE</a>
+                    <a href="{% url 'mission_vision' %}" class="block py-3 px-4 hover:bg-green-600">Mission and Vision</a>
+                    <a href="{% url 'history_neu' %}" class="block py-3 px-4 hover:bg-green-600">History of University</a>
+                    <a href="{% url 'achievements' %}?section=achievements" class="block py-3 px-4 hover:bg-green-600">Achievements</a>
+                    <a href="{% url 'facilities' %}" class="block py-3 px-4 hover:bg-green-600">Facilities</a>
                 </div>
             </div>
             
             <!-- Academic mobile dropdown -->
             <div class="relative">
-                <button onclick="toggleMobileDropdown('academic-mobile-dropdown')" class="w-full text-left py-3 px-4 hover:bg-blue-700 flex justify-between items-center">
+                <button onclick="toggleMobileDropdown('academic-mobile-dropdown')" class="w-full text-left py-3 px-4 hover:bg-green-600 flex justify-between items-center">
                     Academic
-                    <svg id="academic-mobile-arrow" class="w-4 h-4 transform rotate-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <svg id="academic-mobile-arrow" class="w-4 h-4 transform rotate-0 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
                     </svg>
                 </button>
-                <div id="academic-mobile-dropdown" class="hidden bg-blue-900 pl-6">
-                    <a href="#" class="block py-3 px-4 hover:bg-blue-700">Program</a>
-                    <a href="#" class="block py-3 px-4 hover:bg-blue-700">Admission</a>
-                    <a href="#" class="block py-3 px-4 hover:bg-blue-700">Curriculum</a>
-                    <a href="#" class="block py-3 px-4 hover:bg-blue-700">Calendar</a>
+                <div id="academic-mobile-dropdown" class="hidden bg-green-800 pl-6">
+                    <a href="#" class="block py-3 px-4 hover:bg-green-600">Program</a>
+                    <a href="#" class="block py-3 px-4 hover:bg-green-600">Admission</a>
+                    <a href="#" class="block py-3 px-4 hover:bg-green-600">Curriculum</a>
+                    <a href="#" class="block py-3 px-4 hover:bg-green-600">Calendar</a>
                 </div>
             </div>
             
             <!-- Research mobile dropdown -->
             <div class="relative">
-                <button onclick="toggleMobileDropdown('research-mobile-dropdown')" class="w-full text-left py-3 px-4 hover:bg-blue-700 flex justify-between items-center {% if request.path == '/publications/' or request.path == '/projects/' %}bg-custom-green{% endif %}">
+                <button onclick="toggleMobileDropdown('research-mobile-dropdown')" class="w-full text-left py-3 px-4 hover:bg-green-600 flex justify-between items-center {% if request.path == '/publications/' or request.path == '/projects/' %}bg-green-700{% endif %}">
                     Research
-                    <svg id="research-mobile-arrow" class="w-4 h-4 transform rotate-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <svg id="research-mobile-arrow" class="w-4 h-4 transform rotate-0 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
                     </svg>
                 </button>
-                <div id="research-mobile-dropdown" class="hidden bg-blue-900 pl-6">
-                    <a href="{% url 'publications' %}" class="block py-3 px-4 hover:bg-blue-700">Publications</a>
-                    <a href="{% url 'projects' %}" class="block py-3 px-4 hover:bg-blue-700">Projects</a>
+                <div id="research-mobile-dropdown" class="hidden bg-green-800 pl-6">
+                    <a href="{% url 'publications' %}" class="block py-3 px-4 hover:bg-green-600">Publications</a>
+                    <a href="{% url 'projects' %}" class="block py-3 px-4 hover:bg-green-600">Projects</a>
                 </div>
             </div>
             
             <!-- Notice mobile dropdown -->
             <div class="relative">
-                <button onclick="toggleMobileDropdown('notice-mobile-dropdown')" class="w-full text-left py-3 px-4 hover:bg-green-500 flex justify-between items-center {% if request.path == '/notices/' %}bg-green-700{% endif %}">
+                <button onclick="toggleMobileDropdown('notice-mobile-dropdown')" class="w-full text-left py-3 px-4 hover:bg-green-600 flex justify-between items-center {% if request.path == '/notices/' %}bg-green-700{% endif %}">
                     Notice
-                    <svg id="notice-mobile-arrow" class="w-4 h-4 transform rotate-0 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <svg id="notice-mobile-arrow" class="w-4 h-4 transform rotate-0 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
                     </svg>
                 </button>
-                <div id="notice-mobile-dropdown" class="hidden bg-green-700 pl-6 transition-all duration-200 ease-in-out">
-                    <a href="{% url 'notice_list' %}?type=important" class="block py-3 px-4 text-white hover:bg-green-600 transition-colors duration-200">Important Notice</a>
-                    <a href="{% url 'notice_list' %}?type=latest" class="block py-3 px-4 text-white hover:bg-green-600 transition-colors duration-200">Latest Notices</a>
-                    <a href="{% url 'notice_list' %}?type=all" class="block py-3 px-4 text-white hover:bg-green-600 transition-colors duration-200">All Notices</a>
+                <div id="notice-mobile-dropdown" class="hidden bg-green-800 pl-6">
+                    <a href="{% url 'notice_list' %}?type=important" class="block py-3 px-4 hover:bg-green-600">Important Notice</a>
+                    <a href="{% url 'notice_list' %}?type=latest" class="block py-3 px-4 hover:bg-green-600">Latest Notices</a>
+                    <a href="{% url 'notice_list' %}?type=all" class="block py-3 px-4 hover:bg-green-600">All Notices</a>
                 </div>
             </div>
             
-            <a href="#" class="block py-3 px-4 hover:bg-blue-700">Alumni</a>
-            <a href="#" class="block py-3 px-4 hover:bg-blue-700">Club</a>
-            <a href="#" class="block py-3 px-4 hover:bg-blue-700">Contact Us</a>
+            <!-- Faculty & Staff mobile dropdown -->
+            <div class="relative">
+                <button onclick="toggleMobileDropdown('faculty-mobile-dropdown')" class="w-full text-left py-3 px-4 hover:bg-green-600 flex justify-between items-center">
+                    Faculty & Staff
+                    <svg id="faculty-mobile-arrow" class="w-4 h-4 transform rotate-0 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                    </svg>
+                </button>
+                <div id="faculty-mobile-dropdown" class="hidden bg-green-800 pl-6">
+                    <a href="{% url 'active_faculty' %}" class="block py-3 px-4 hover:bg-green-600">Active Faculty</a>
+                    <a href="{% url 'faculty_on_leave' %}" class="block py-3 px-4 hover:bg-green-600">Faculty (on Leave)</a>
+                    <a href="{% url 'past_faculty' %}" class="block py-3 px-4 hover:bg-green-600">Past Faculty</a>
+                    <a href="{% url 'ex_chairman' %}" class="block py-3 px-4 hover:bg-green-600">Ex Chairman</a>
+                    <a href="{% url 'officer_and_staff' %}" class="block py-3 px-4 hover:bg-green-600">Officer & Staff</a>
+                </div>
+            </div>
             
+            <!-- Alumni -->
+            <a href="{% url 'alumni' %}" class="block py-3 px-4 hover:bg-green-600">Alumni</a>
             
+            <!-- Club mobile dropdown -->
+            <div class="relative">
+                <button onclick="toggleMobileDropdown('club-mobile-dropdown')" class="w-full text-left py-3 px-4 hover:bg-green-600 flex justify-between items-center {% if request.path == '/computer_club/' or request.path == '/programming_club/' %}bg-green-700{% endif %}">
+                    Club
+                    <svg id="club-mobile-arrow" class="w-4 h-4 transform rotate-0 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                    </svg>
+                </button>
+                <div id="club-mobile-dropdown" class="hidden bg-green-800 pl-6">
+                    <a href="{% url 'computer_club' %}" class="block py-3 px-4 hover:bg-green-600">Computer Club</a>
+                    <a href="{% url 'programming_club' %}" class="block py-3 px-4 hover:bg-green-600">Programming Club</a>
+                </div>
+            </div>
+            
+            <!-- Contact Us -->
+            <a href="{% url 'contact_us' %}" class="block py-3 px-4 hover:bg-green-600">Contact Us</a>
         </div>
     </div>
 </nav>
@@ -243,7 +265,7 @@
         closeIcon.classList.toggle('hidden');
     });
     
-    // Function to toggle mobile dropdowns with improved visibility
+    // Function to toggle mobile dropdowns
     function toggleMobileDropdown(id) {
         const dropdown = document.getElementById(id);
         const arrowId = id.replace('dropdown', 'arrow');
@@ -266,21 +288,25 @@
         if (arrow) {
             arrow.classList.toggle('rotate-180');
         }
-
-        // Ensure dropdown is visible
-        if (!dropdown.classList.contains('hidden')) {
-            dropdown.style.opacity = '1';
-            dropdown.style.display = 'block';
-        }
     }
+
+    // Close dropdowns when clicking outside
+    document.addEventListener('click', function(event) {
+        if (!event.target.closest('#mobile-menu') && !event.target.closest('#mobile-menu-button')) {
+            document.querySelectorAll('[id$="-mobile-dropdown"]').forEach(dropdown => {
+                dropdown.classList.add('hidden');
+            });
+            document.querySelectorAll('[id$="-arrow"]').forEach(arrow => {
+                arrow.classList.remove('rotate-180');
+            });
+        }
+    });
 
     // Initialize mobile dropdowns
     document.addEventListener('DOMContentLoaded', function() {
         const dropdowns = document.querySelectorAll('[id$="-mobile-dropdown"]');
         dropdowns.forEach(dropdown => {
-            if (!dropdown.classList.contains('hidden')) {
-                dropdown.classList.add('hidden');
-            }
+            dropdown.classList.add('hidden');
         });
     });
 </script>
