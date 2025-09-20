@@ -3,176 +3,320 @@
 {% block content %}
 {% include 'cse/carousel.html' %}
 
-  <!-- Scrolling Notice -->
-  {% include 'cse/scrolling_notice.html' %}
+<!-- Scrolling Notice -->
+{% include 'cse/scrolling_notice.html' %}
 
-  <!-- Main Content -->
-  <div class="lg:col-span-2">
-    <!-- Welcome Section -->
-    <div class="rounded-lg p-6 mb-2">
-  <h2 class="text-center font-bold text-green-700 mb-1">
-  <span class="block text-2xl sm:text-4xl sm:inline">Welcome to the</span>
-  <span class="block text-xl sm:text-4xl sm:inline whitespace-nowrap">Department of Computer Science &amp; <br > Engineering</span>
-</h2>
+<!-- Main Content -->
+<div class="lg:col-span-2 ">
+  <!-- Welcome Section -->
+  <div class="rounded-lg p-4 sm:p-6 mb-2">
+    <h2 class="text-center font-bold text-green-800 mb-1">
+      <span class="block text-2xl sm:text-3xl md:text-4xl sm:inline tracking-wide">Welcome to the</span>
+      <span class="block text-xl sm:text-2xl md:text-3xl lg:text-4xl sm:inline bg-gradient-to-r from-green-700 to-emerald-600 bg-clip-text text-transparent font-bold">Department of Computer Science &amp; <br class="hidden sm:inline">Engineering</span>
+    </h2>
 
-  <p class="text-center text-gray-600 mb-6">
-    Empowering Future Innovators at Netrokona University
-  </p>
+    <p class="text-center text-gray-600 mb-4 sm:mb-6 text-base sm:text-lg">
+      Empowering Future Innovators at Netrokona University
+    </p>
 
-  <!-- Divider -->
-  <div class="flex justify-center">
-    <div class="w-full border-t-2 border-green-700"></div>
+    <!-- Divider -->
+    <div class="flex justify-center mb-6 sm:mb-8">
+      <div class="w-16 sm:w-24 h-1 bg-gradient-to-r from-green-500 to-emerald-400 rounded-full"></div>
+    </div>
   </div>
-</div>
 
-    <!-- About Section -->
-    {% include 'cse/about.html' %}
-    <!-- border Section -->
-    <p class="border-b-2 border-green-700  "></p>
+  <!-- About Section -->
+  {% include 'cse/about.html' %}
+  
+  <!-- Divider -->
+  <div class="my-8 sm:my-12 flex justify-center">
+    <div class="w-24 sm:w-32 h-1 bg-gradient-to-r from-green-400 to-emerald-300 rounded-full opacity-50"></div>
+  </div>
 
-    <!-- Chairman Message and Latest Notices Section -->
-    <div class="w-full px-4 md:px-20 mb-10 mt-12">
-      <div class="grid md:grid-cols-2 gap-6">
-        <!-- Chairman Message -->
-        {% if current_chairman %}
-        <div class=" rounded-xl overflow-hidden ">
-          <div class="flex justify-between items-center mb-4 px-6 py-3 bg-gradient-to-r from-green-600 to-green-700 rounded-t-xl">
-            <span class="text-lg font-semibold text-white flex items-center">
-              <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-4l-4 4z"/>
-              </svg>
-              Message from the Chairman
-            </span>
+  <!-- Chairman Message and Latest Notices Section -->
+  <div class="w-full px-4 sm:px-6 md:px-12 lg:px-20 mb-10 sm:mb-16">
+    <div class="grid md:grid-cols-2 gap-6 sm:gap-8">
+      <!-- Chairman Message -->
+      {% if current_chairman %}
+      <div class="bg-white rounded-xl sm:rounded-2xl overflow-hidden shadow-lg hover:shadow-xl transition-all duration-500 border border-gray-100">
+        <div class="flex justify-between items-center px-4 sm:px-6 py-3 sm:py-4 bg-gradient-to-r from-green-600 to-emerald-600 rounded-t-xl sm:rounded-t-2xl">
+          <span class="text-sm sm:text-base md:text-lg font-semibold text-white flex items-center">
+            <svg class="w-4 h-4 sm:w-5 sm:h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-4l-4 4z"/>
+            </svg>
+            Message from the Chairman
+          </span>
+        </div>
+        <div class="p-4 sm:p-6 md:p-8">
+          <div class="flex items-start mb-4 sm:mb-6">
+            <div class="flex-shrink-0 mr-3 sm:mr-5">
+              <div class="relative">
+                <div class="absolute -inset-1 bg-gradient-to-r from-green-400 to-emerald-400 rounded-full blur opacity-25"></div>
+                <img
+                  src="{{ current_chairman.faculty.image.url }}"
+                  alt="{{ current_chairman.faculty.name }}"
+                  class="relative w-14 h-14 sm:w-16 sm:h-16 md:w-20 md:h-20 rounded-full object-cover border-4 border-white shadow-lg"
+                />
+              </div>
+            </div>
+            <div>
+              <h3 class="text-lg sm:text-xl font-bold text-gray-900">{{ current_chairman.faculty.name }}</h3>
+              <p class="text-xs sm:text-sm text-gray-600">Chairman, Department of CSE</p>
+            </div>
           </div>
-          <div class="p-6 md:p-8">
-            <div class="flex items-start mb-6">
-              <div class="flex-shrink-0 mr-5">
-                <div class="relative">
-                  <img
-                    src="{{ current_chairman.faculty.image.url }}"
-                    alt="{{ current_chairman.faculty.name }}"
-                    class="w-20 h-20 rounded-full object-cover border-4 border-blue-50 shadow-sm"
-                  />
+          
+          <div class="border-l-4 border-emerald-200 pl-3 sm:pl-4 ml-1 mb-4 sm:mb-6 bg-emerald-50 p-2 sm:p-3 rounded-r-lg">
+            <p class="text-gray-700 italic text-sm sm:text-base">
+              "{{ current_chairman.message|striptags|truncatewords:30 }}"
+            </p>
+          </div>
+          
+          <div class="flex items-center justify-between">
+            <a
+              href="{% url 'message_from_chairman' %}"
+              class="inline-flex items-center px-3 py-1.5 sm:px-4 sm:py-2 text-xs sm:text-sm font-medium text-white bg-gradient-to-r from-green-600 to-emerald-600 rounded-lg hover:from-green-700 hover:to-emerald-700 transition-all duration-300 shadow-md hover:shadow-lg transform hover:-translate-y-0.5"
+            >
+              Read Full Message
+              <svg class="w-3 h-3 sm:w-4 sm:h-4 ml-1 sm:ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
+              </svg>
+            </a>
+          </div>
+        </div>
+      </div>
+      {% endif %}
+
+      <!-- Latest Notices -->
+      <div class="bg-white rounded-xl sm:rounded-2xl shadow-lg overflow-hidden transition-all duration-500 border border-gray-100 hover:shadow-xl">
+        <div class="p-4 sm:p-6 md:p-8">
+          <div class="flex justify-between items-center mb-4 sm:mb-6">
+            <div class="flex items-center">
+              <div class="p-1.5 sm:p-2 bg-indigo-100 rounded-lg mr-2 sm:mr-3">
+                <svg class="w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z"></path>
+                </svg>
+              </div>
+              <h3 class="text-xl sm:text-2xl font-bold text-gray-800">Notice Board</h3>
+            </div>
+            <a href="{% url 'notice_list' %}" class="text-indigo-600 hover:text-indigo-800 font-medium flex items-center group transition-colors text-xs sm:text-sm">
+              View All
+              <svg class="w-3 h-3 sm:w-4 sm:h-4 ml-1 transform group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+              </svg>
+            </a>
+          </div>
+          
+          <!-- Search and Filter Bar -->
+          <div class="mb-4 sm:mb-6 flex items-center space-x-2 sm:space-x-4">
+            <div class="relative flex-1">
+              <input type="text" placeholder="Search notices..." class="w-full pl-8 sm:pl-10 pr-3 sm:pr-4 py-2 sm:py-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-indigo-200 focus:border-indigo-400 transition-colors shadow-sm text-xs sm:text-sm">
+              <svg class="w-4 h-4 sm:w-5 sm:h-5 text-gray-400 absolute left-2 sm:left-3 top-2.5 sm:top-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+              </svg>
+            </div>
+          </div>
+          
+          <div class="h-64 sm:h-72 md:h-80 overflow-y-auto pr-1 custom-scrollbar">
+            <div class="space-y-3 sm:space-y-4" id="notice-container">
+              {% for notice in latest_notices %}
+              <div class="bg-white rounded-lg sm:rounded-xl border border-gray-100 p-3 sm:p-4 shadow-sm hover:shadow-md transition-all duration-300 transform hover:-translate-y-0.5 {% if notice.is_important %}border-l-4 border-l-red-500{% endif %}">
+                <div class="flex flex-col">
+                  <div class="flex-1 min-w-0">
+                    <div class="flex justify-between items-start">
+                      <h4 class="text-base sm:text-lg font-semibold text-gray-800 mb-1">
+                        <a href="{% url 'notice_detail' notice.id %}" class="hover:text-indigo-600 transition-colors text-sm sm:text-base">{{ notice.title }}</a>
+                      </h4>
+                      {% if notice.is_important %}
+                      <span class="bg-red-100 text-red-700 text-xs font-medium px-2 py-0.5 rounded-full flex items-center whitespace-nowrap">
+                        <svg class="w-3 h-3 sm:w-4 sm:h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path>
+                        </svg>
+                        Important
+                      </span>
+                      {% endif %}
+                    </div>
+                    {% if notice.created_at %}
+                    <p class="text-xs text-gray-500 mb-2 sm:mb-3 flex items-center">
+                      <svg class="w-3 h-3 sm:w-4 sm:h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                      </svg>
+                      {{ notice.created_at|date:"F d, Y h:i A" }}
+                    </p>
+                    {% endif %}
+                    <p class="text-xs sm:text-sm text-gray-600 mb-3 sm:mb-4 line-clamp-2">{{ notice.content|striptags|truncatewords:20 }}</p>
+                  </div>
+                  <div class="flex items-center space-x-2">
+                    <a href="{% url 'notice_detail' notice.id %}" 
+                       class="text-center px-3 py-1.5 sm:px-4 sm:py-2 bg-indigo-50 text-indigo-700 rounded-lg text-xs sm:text-sm hover:bg-indigo-100 transition-colors flex items-center font-medium">
+                      <svg class="w-3 h-3 sm:w-4 sm:h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                      </svg>
+                      View Details
+                    </a>
+                    {% if notice.file %}
+                    <a href="{% url 'download_notice' notice.pk %}" 
+                       class="text-center px-3 py-1.5 sm:px-4 sm:py-2 bg-emerald-50 text-emerald-700 rounded-lg text-xs sm:text-sm hover:bg-emerald-100 transition-colors flex items-center font-medium">
+                      <svg class="w-3 h-3 sm:w-4 sm:h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path>
+                      </svg>
+                      Download
+                    </a>
+                    {% endif %}
+                  </div>
                 </div>
               </div>
-              <div>
-                
-                <h3 class="text-xl font-bold text-gray-900">{{ current_chairman.faculty.name }}</h3>
-                <p class="text-sm text-gray-600">Chairman, Department of CSE</p>
+              {% empty %}
+              <div class="text-center py-8">
+                <svg class="w-12 h-12 sm:w-16 sm:h-16 text-gray-300 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                </svg>
+                <p class="text-gray-500 text-sm sm:text-lg">No notices available at the moment.</p>
+                <p class="text-gray-400 mt-1 text-xs sm:text-sm">Check back later for updates</p>
               </div>
+              {% endfor %}
             </div>
-            
-            <div class="border-l-4 border-blue-200 pl-4 ml-1 mb-6">
-              <p class="text-gray-700 italic">
-                "{{ current_chairman.message|striptags|truncatewords:30 }}"
-              </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Divider -->
+  <div class="my-8 sm:my-12 flex justify-center">
+    <div class="w-24 sm:w-32 h-1 bg-gradient-to-r from-green-400 to-emerald-300 rounded-full opacity-50"></div>
+  </div>
+  
+  <!-- Events Section -->
+  <section class="mb-10 sm:mb-16">
+    <div class="w-full px-4 sm:px-6 md:px-12 lg:px-20">
+      <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6 sm:mb-8 p-4 sm:p-6 bg-white rounded-xl shadow-sm">
+        <div class="max-w-lg flex flex-col mb-4 sm:mb-0">
+          <h2 class="text-2xl sm:text-3xl font-bold text-green-700">Upcoming Events</h2>
+          <span class="text-gray-600 text-sm sm:text-base">NeU CSE dept. frequently holds different events.</span>
+        </div>
+        <a href="{% url 'all_events' %}" class="text-green-600 hover:text-green-800 font-medium flex items-center group text-sm sm:text-base">
+          View All Events
+          <svg class="w-3 h-3 sm:w-4 sm:h-4 ml-1 transform group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+          </svg>
+        </a>
+      </div>
+      
+      {% include 'cse/events.html' %}
+    </div>
+  </section>
+
+  <!-- Divider -->
+  <div class="my-8 sm:my-12 flex justify-center">
+    <div class="w-24 sm:w-32 h-1 bg-gradient-to-r from-green-400 to-emerald-300 rounded-full opacity-50"></div>
+  </div>
+  
+  <!-- Latest Projects Section -->
+  <section class="mb-10 sm:mb-16">
+    <div class="w-full px-4 sm:px-6 md:px-12 lg:px-20">
+      <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6 sm:mb-8 p-4 sm:p-6 bg-white rounded-xl shadow-sm">
+        <div class="max-w-lg flex flex-col mb-4 sm:mb-0">
+          <h2 class="text-2xl sm:text-3xl font-bold text-green-700">Latest Projects</h2>
+          <h3 class="text-gray-600 text-sm sm:text-base">Explore our latest projects and research work in the Department of CSE.</h3>
+        </div>
+        <a href="{% url 'all_projects' %}" class="text-green-600 hover:text-green-800 font-medium flex items-center group text-sm sm:text-base">
+          View All Projects
+          <svg class="w-3 h-3 sm:w-4 sm:h-4 ml-1 transform group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+          </svg>
+        </a>
+      </div>
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
+        {% for project in latest_projects %}
+          <div class="bg-white rounded-xl shadow-md hover:shadow-xl transition-all duration-500 overflow-hidden group">
+            <div class="overflow-hidden rounded-t-xl">
+              {% if project.image %}
+                <img src="{{ project.image.url }}" class="w-full h-40 sm:h-48 object-cover transform transition duration-500 ease-in-out group-hover:scale-110" alt="{{ project.title }}">
+              {% else %}
+                <img src="{% static 'cse/default_project.jpg' %}" class="w-full h-40 sm:h-48 object-cover transform transition duration-500 ease-in-out group-hover:scale-110" alt="{{ project.title }}">
+              {% endif %}
             </div>
-            
-            <div class="flex items-center justify-between">
-              <a
-                href="{% url 'message_from_chairman' %}"
-                class="inline-flex items-center px-4 py-2 text-sm font-medium text-white bg-green-700 rounded-lg hover:bg-green-800 transition-all duration-300 shadow-sm hover:shadow-md"
-              >
-                Read Full Message
-                <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <div class="p-4 sm:p-5">
+              <h3 class="text-base sm:text-lg font-semibold text-gray-800 group-hover:text-green-700 transition-colors">{{ project.title }}</h3>
+              <p class="text-gray-600 text-xs sm:text-sm mb-3 sm:mb-4">{{ project.description|truncatewords:20 }}</p>
+              <a href="{% url 'project_detail' project.id %}" class="inline-flex items-center px-3 py-1.5 sm:px-4 sm:py-2 text-xs sm:text-sm font-medium text-white bg-gradient-to-r from-green-600 to-emerald-600 rounded-lg hover:from-green-700 hover:to-emerald-700 transition-all duration-300 shadow-md hover:shadow-lg">
+                View Details
+                <svg class="w-3 h-3 sm:w-4 sm:h-4 ml-1 sm:ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
                 </svg>
               </a>
             </div>
           </div>
-        </div>
-        {% endif %}
-
-        <!-- Latest Notices -->
-        <div class="bg-gray-100 rounded-xl shadow-lg overflow-hidden transition-all duration-300 border-2 border-red-500 hover:shadow-xl">
-  <div class="p-6 md:p-8">
-    <div class="flex justify-between items-center mb-6 ">
-      <div class="flex items-center ">
-        <svg class="w-6 h-6 text-indigo-600 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z"></path>
-        </svg>
-        <h3 class="text-2xl font-bold text-gray-800">Notice Board</h3>
-      </div>
-      <a href="{% url 'notice_list' %}" class="text-indigo-600 hover:text-indigo-800 font-medium flex items-center group transition-colors">
-        View All
-        <svg class="w-4 h-4 ml-1 transform group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
-        </svg>
-      </a>
-    </div>
-    
-    <!-- Search and Filter Bar -->
-    <div class="mb-6 flex items-center space-x-4">
-      <div class="relative flex-1">
-        <input type="text" placeholder="Search notices..." class="w-full pl-10 pr-4 py-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-indigo-200 focus:border-indigo-400 transition-colors">
-        <svg class="w-5 h-5 text-gray-400 absolute left-3 top-2.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
-        </svg>
-      </div>
-     
-    </div>
-    
-    <div class="h-[300px] overflow-y-auto pr-1 custom-scrollbar ">
-      <div class="space-y-4" id="notice-container">
-        {% for notice in latest_notices %}
-        <div class="bg-white rounded-lg border border-gray-100 p-4 shadow-sm hover:shadow-md transition-all duration-300 transform hover:-translate-y-0.5 {% if notice.is_important %}border-l-4 border-l-red-500{% endif %}">
-          <div class="flex flex-col">
-            <div class="flex-1 min-w-0">
-              <div class="flex justify-between items-start">
-                <h4 class="text-lg font-semibold text-gray-800 mb-1">
-                  <a href="{% url 'notice_detail' notice.id %}" class="hover:text-indigo-600 transition-colors">{{ notice.title }}</a>
-                </h4>
-                {% if notice.is_important %}
-                <span class="bg-red-100 text-red-700 text-xs font-medium px-2.5 py-0.5 rounded-full flex items-center whitespace-nowrap">
-                  <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path>
-                  </svg>
-                  Important
-                </span>
-                {% endif %}
-              </div>
-              {% if notice.created_at %}
-              <p class="text-xs text-gray-500 mb-3 flex items-center">
-                <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                </svg>
-                {{ notice.created_at|date:"F d, Y h:i A" }}
-              </p>
-              {% endif %}
-              <p class="text-sm text-gray-600 mb-4 line-clamp-2">{{ notice.content|striptags|truncatewords:20 }}</p>
-            </div>
-            <div class="flex items-center space-x-2">
-              <a href="{% url 'notice_detail' notice.id %}" 
-                 class="text-center px-4 py-2 bg-indigo-50 text-indigo-700 rounded-lg text-sm hover:bg-indigo-100 transition-colors flex items-center font-medium">
-                <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
-                </svg>
-                View Details
-              </a>
-              {% if notice.file %}
-              <a href="{% url 'download_notice' notice.pk %}" 
-                 class="text-center px-4 py-2 bg-emerald-50 text-emerald-700 rounded-lg text-sm hover:bg-emerald-100 transition-colors flex items-center font-medium">
-                <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path>
-                </svg>
-                Download
-              </a>
-              {% endif %}
-            </div>
-          </div>
-        </div>
         {% empty %}
-        <div class="text-center py-10">
-          <svg class="w-16 h-16 text-gray-300 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
-          </svg>
-          <p class="text-gray-500 text-lg">No notices available at the moment.</p>
-          <p class="text-gray-400 mt-1">Check back later for updates</p>
-        </div>
+          <div class="col-span-1 sm:col-span-2 lg:col-span-3 text-center py-8">
+            <p class="text-gray-500 text-sm sm:text-base">No projects available at the moment.</p>
+          </div>
         {% endfor %}
       </div>
     </div>
+  </section>
+
+  <!-- Divider -->
+  <div class="my-8 sm:my-12 flex justify-center">
+    <div class="w-24 sm:w-32 h-1 bg-gradient-to-r from-green-400 to-emerald-300 rounded-full opacity-50"></div>
   </div>
+  
+  <!-- Latest Publications Section -->
+  <section class="mb-10 sm:mb-16">
+    <div class="w-full px-4 sm:px-6 md:px-12 lg:px-20">
+      <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6 sm:mb-8 p-4 sm:p-6 bg-white rounded-xl shadow-sm">
+        <div class="max-w-lg flex flex-col mb-4 sm:mb-0">
+          <h2 class="text-2xl sm:text-3xl font-bold text-green-700">Latest Publications</h2>
+          <h3 class="text-gray-600 text-sm sm:text-base">Browse our recent academic publications and research work.</h3>
+        </div>
+        <a href="{% url 'all_publications' %}" class="text-green-600 hover:text-green-800 font-medium flex items-center group text-sm sm:text-base">
+          View All Publications
+          <svg class="w-3 h-3 sm:w-4 sm:h-4 ml-1 transform group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+          </svg>
+        </a>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
+        {% for publication in latest_publications %}
+          <div class="bg-white rounded-xl shadow-md hover:shadow-xl transition-all duration-500 p-4 sm:p-6 group border border-gray-100">
+            <div class="flex justify-between items-start mb-3 sm:mb-4">
+              <h3 class="text-base sm:text-lg font-semibold text-gray-800 group-hover:text-green-700 transition-colors">{{ publication.title|truncatechars:70 }}</h3>
+              <span class="px-2 py-0.5 sm:px-3 sm:py-1 bg-green-100 text-green-800 rounded-full text-xs font-medium ml-2 whitespace-nowrap">
+                {{ publication.get_publication_type_display }}
+              </span>
+            </div>
+            <p class="text-green-600 text-xs sm:text-sm mb-2 sm:mb-3">{{ publication.authors|truncatechars:100 }}</p>
+            <p class="text-gray-600 text-xs sm:text-sm mb-2">
+              <span class="font-medium">Published:</span> {{ publication.publication_date|date:"F Y" }}
+            </p>
+            <p class="text-gray-600 text-xs sm:text-sm mb-3 sm:mb-4">
+              <span class="font-medium">In:</span> {{ publication.journal_or_conference_name|default:publication.publisher|truncatechars:50 }}
+            </p>
+            <a href="{% url 'publication_detail' publication.pk %}" class="inline-flex items-center px-3 py-1.5 sm:px-4 sm:py-2 text-xs sm:text-sm font-medium text-white bg-gradient-to-r from-green-600 to-emerald-600 rounded-lg hover:from-green-700 hover:to-emerald-700 transition-all duration-300 shadow-md hover:shadow-lg">
+              View Details
+              <svg class="w-3 h-3 sm:w-4 sm:h-4 ml-1 sm:ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
+              </svg>
+            </a>
+          </div>
+        {% empty %}
+          <div class="col-span-1 md:col-span-2 lg:col-span-3 text-center py-8">
+            <p class="text-gray-500 text-sm sm:text-base">No publications available at the moment.</p>
+          </div>
+        {% endfor %}
+      </div>
+    </div>
+  </section>
+
+  <!-- Divider -->
+  <div class="my-8 sm:my-12 flex justify-center">
+    <div class="w-24 sm:w-32 h-1 bg-gradient-to-r from-green-400 to-emerald-300 rounded-full opacity-50"></div>
+  </div>
+  
+  <!-- Image Gallery Section -->
+  <section class="py-5 mb-10 sm:mb-16">
+    {% include 'cse/image_gallery/home_page_image.html' %}
+  </section>
 </div>
 
 <style>
@@ -182,17 +326,17 @@
   }
   
   .custom-scrollbar::-webkit-scrollbar {
-    width: 6px;
+    width: 4px;
   }
   
   .custom-scrollbar::-webkit-scrollbar-track {
     background: #f1f5f9;
-    border-radius: 3px;
+    border-radius: 2px;
   }
   
   .custom-scrollbar::-webkit-scrollbar-thumb {
     background: #cbd5e1;
-    border-radius: 3px;
+    border-radius: 2px;
   }
   
   .custom-scrollbar::-webkit-scrollbar-thumb:hover {
@@ -246,134 +390,4 @@
     }
   });
 </script>
-      </div>
-    </div>
-    <!-- border Section -->
-    <p class="border-b-2 border-green-700"></p>
-
-    
-    <!-- Events Section -->
-      <!-- Add this where you want the events section to appear in your home page -->
-     <section class="my-12 ">
-      <div class="w-full lg:px-20 px-4">
-          <div class="flex justify-between items-center mb-8  p-4 rounded-lg ">
-            <div class="max-w-lg flex flex-col">
-              <h2 class="text-3xl font-bold text-green-600">Upcoming Events</h2>
-              <span>NeU CSE dept. frequently held different events.</span>
-
-           </div>
-
-             <a href="{% url 'all_events' %}" class="text-green-600  hover:text-green-800 font-medium flex items-center">
-                View All Events
-                 <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
-                 </svg>
-             </a>
-         </div>
-
-         
-
-          {% include 'cse/events.html' %}
-           <!-- border Section -->
-    <p class="border-b-2 border-green-700 mt-10"></p>
-          
-          <!-- Latest Projects Section -->
-          <div class="mt-12">
-            <div class="flex justify-between items-center mb-8  p-4 rounded-lg">
-                <div class="max-w-lg flex flex-col">
-                    <h2 class="text-3xl font-bold text-green-600">Latest Projects</h2>
-                    <h3>Explore our latest projects and research work in the Department of CSE.</h3>
-                </div>
-                <a href="{% url 'all_projects' %}" class="text-green-600 hover:text-green-800 font-medium flex items-center">
-                    View All Projects
-                    <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
-                    </svg>
-                </a>
-            </div>
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                {% for project in latest_projects %}
-                    <div class="bg-white rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300">
-                        <div class="overflow-hidden rounded-t-lg">
-                            {% if project.image %}
-                                <img src="{{ project.image.url }}" class="w-full h-48 object-cover transform transition duration-500 ease-in-out hover:scale-105" alt="{{ project.title }}">
-                            {% else %}
-                                <img src="{% static 'cse/default_project.jpg' %}" class="w-full h-48 object-cover" alt="{{ project.title }}">
-                            {% endif %}
-                        </div>
-                        <div class="p-4">
-                            <h3 class="text-lg font-semibold text-gray-800 mb-2">{{ project.title }}</h3>
-                            <p class="text-gray-600 text-sm mb-4">{{ project.description|truncatewords:20 }}</p>
-                            <a href="{% url 'project_detail' project.id %}" class="inline-flex items-center px-4 py-2 text-sm font-medium text-white bg-green-700 rounded-lg hover:bg-green-800 transition-all duration-300">
-                                View Details
-                                <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
-                                </svg>
-                            </a>
-                        </div>
-                    </div>
-                {% empty %}
-                    <div class="col-span-3 text-center py-8">
-                        <p class="text-gray-500">No projects available at the moment.</p>
-                    </div>
-                {% endfor %}
-            </div>
-          </div>
- <!-- border Section -->
-    <p class="border-b-2 border-green-700 mt-10"></p>
-          <!-- Latest Publications Section -->
-          <div class="mt-12">
-            <div class="flex justify-between items-center mb-8  p-4 rounded-lg">
-                <div class="max-w-lg flex flex-col">
-                    <h2 class="text-3xl font-bold text-green-">Latest Publications</h2>
-                    <h3>Browse our recent academic publications and research work.</h3>
-                </div>
-                <a href="{% url 'all_publications' %}" class="text-green-600 hover:text-green-800 font-medium flex items-center">
-                    View All Publications
-                    <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
-                    </svg>
-                </a>
-            </div>
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                {% for publication in latest_publications %}
-                    <div class="bg-white rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300 p-6">
-                        <div class="flex justify-between items-start mb-4">
-                            <h3 class="text-lg font-semibold text-gray-800">{{ publication.title|truncatechars:70 }}</h3>
-                            <span class="px-3 py-1 bg-green-100 text-green-800 rounded-full text-xs font-medium ml-2">
-                                {{ publication.get_publication_type_display }}
-                            </span>
-                        </div>
-                        <p class="text-green-600 text-sm mb-3">{{ publication.authors|truncatechars:100 }}</p>
-                        <p class="text-gray-600 text-sm mb-2">
-                            <span class="font-medium">Published:</span> {{ publication.publication_date|date:"F Y" }}
-                        </p>
-                        <p class="text-gray-600 text-sm mb-4">
-                            <span class="font-medium">In:</span> {{ publication.journal_or_conference_name|default:publication.publisher|truncatechars:50 }}
-                        </p>
-                        <a href="{% url 'publication_detail' publication.pk %}" class="inline-flex items-center px-4 py-2 text-sm font-medium text-white bg-green-700 rounded-lg hover:bg-green-800 transition-all duration-300">
-                            View Details
-                            <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
-                            </svg>
-                        </a>
-                    </div>
-                {% empty %}
-                    <div class="col-span-3 text-center py-8">
-                        <p class="text-gray-500">No publications available at the moment.</p>
-                    </div>
-                {% endfor %}
-            </div>
-          </div>
-     </div>
-     </section>
-     <!-- border Section -->
-    <p class="border-b-2 border-green-700 mt-10"></p>
-     <!-- Image Gallery Section -->
-     <section class="bg-light py-5">
-         {% include 'cse/image_gallery/home_page_image.html' %}
-     </section>
-  
-  </div>
-</div>
 {% endblock %}
