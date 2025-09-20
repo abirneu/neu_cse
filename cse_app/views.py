@@ -99,7 +99,7 @@ def facilities(request):
 def history_neu_cse(request):
     return render(request, 'cse/about/history_neu_cse.html')
 def mission_vision(request):
-    return render(request, 'cse/about/mission_vision.html')
+    return render(request, 'cse/about/mission_vission.html')
 def history_neu(request):
     return render(request, 'cse/about/history_neu.html')
 def achievements(request):

@@ -1,33 +1,31 @@
 {% extends '../base.html' %}
 {% block content %}
-<section class="py-12 px-4 md:px-8 lg:px-16 bg-gradient-to-br from-gray-50 to-gray-100">
+<section class="py-12 px-4 md:px-8 lg:px-16 ">
+    <!-- Breadcrumb -->
+    <div class="text-sm text-gray-500 mb-1">
+        <a href="{% url 'home' %}" class="text-green-600 hover:underline">Home</a>
+        <span class="mx-1">/</span>
+        <span>All Projects</span>
+    </div>
   <div class="max-w-7xl mx-auto">
     <!-- Header Section -->
     <div class="mb-10">
-      <h2 class="text-4xl font-bold text-gray-800 mb-3">All Projects</h2>
-      <nav class="flex" aria-label="Breadcrumb">
-        <ol class="flex items-center space-x-2 text-sm">
-          <li><a href="{% url 'home' %}" class="text-blue-600 hover:text-blue-800 transition-colors">Home</a></li>
-          <li class="flex items-center">
-            <svg class="h-4 w-4 mx-1 text-gray-400" fill="currentColor" viewBox="0 0 20 20">
-              <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"></path>
-            </svg>
-          </li>
-          <li class="text-gray-500">Projects</li>
-        </ol>
-      </nav>
+      <h2 class="text-4xl font-bold text-gray-800 mb-3 items-center flex">All Projects</h2>
+    
     </div>
 
     <!-- Projects Grid -->
     {% if projects %}
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
       {% for project in projects %}
       <div class="bg-white rounded-xl overflow-hidden shadow-lg transition-all duration-300 hover:shadow-xl hover:-translate-y-1 flex flex-col h-full">
         <!-- Project Image -->
-        <div class="relative overflow-hidden h-56">
+        <div class="relative h-56">
           {% if project.image %}
-          <img src="{{ project.image.url }}" alt="{{ project.title }}" 
-               class="w-full h-full object-cover transition-transform duration-500 hover:scale-105">
+            <div class="overflow-hidden w-full h-full">
+              <img src="{{ project.image.url }}" alt="{{ project.title }}" 
+                class="w-full h-full object-cover transform transition duration-500 ease-in-out hover:scale-105">
+            </div>
           {% else %}
           <div class="w-full h-full bg-gradient-to-r from-blue-50 to-indigo-100 flex items-center justify-center">
             <svg class="w-16 h-16 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">

@@ -6,7 +6,9 @@
     data-aos ="fade-up"
     data-aos-duration="800">
         {% if event.image %}
-        <img src="{{ event.image.url }}" alt="{{ event.title }}" class="w-full h-48 object-cover">
+        <div class="overflow-hidden">
+            <img src="{{ event.image.url }}" alt="{{ event.title }}" class="w-full h-48 object-cover transition-transform duration-300 hover:scale-110">
+        </div>
         {% else %}
         <div class="w-full h-48 bg-gray-200 flex items-center justify-center">
             <span class="text-gray-500">No image available</span>
@@ -40,7 +42,7 @@
             <div class="flex justify-between items-center">
                 <a href="{% url 'event_detail' event.id %}" class="text-green-600 hover:text-green-800 font-medium text-sm">Details</a>
                 {% if event.registration_link %}
-                <a href="{{ event.registration_link }}" target="_blank" class="px-3 py-1 bg-green-600 text-white text-xs font-medium rounded-md hover:bg-blue-700 transition-colors">
+                <a href="{{ event.registration_link }}" target="_blank" class="px-3 py-1 bg-green-600 text-white text-xs font-medium rounded-md hover:bg-green-700 transition-colors">
                     Register
                 </a>
                 {% endif %}

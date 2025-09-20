@@ -1,0 +1,199 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<!-- Facilities Section -->
+<!-- Labs Section -->
+<div class="mb-16 md:mb-20">
+      <!-- Breadcrumb -->
+    <div class="text-sm text-gray-500 mb-1">
+        <a href="{% url 'home' %}" class="text-green-600 hover:underline">Home</a>
+        <span class="mx-1">/</span>
+        <span>Facilities</span>
+    </div>
+    <h2 class="text-2xl md:text-3xl font-bold text-gray-800 mb-8 text-center">Computer Laboratories</h2>
+    
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
+        <!-- Lab 1 -->
+        <div class="bg-white rounded-xl overflow-hidden shadow-md hover:shadow-lg transition-shadow duration-300">
+            <div class="h-48 bg-gray-200 overflow-hidden">
+                <div class="h-full w-full bg-gradient-to-r from-blue-400 to-purple-500 flex items-center justify-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-16 w-16 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2zM9 9h6v6H9V9z" />
+                    </svg>
+                </div>
+            </div>
+            <div class="p-6">
+                <h3 class="text-xl font-semibold text-gray-800 mb-2">Programming Lab</h3>
+                <p class="text-gray-600 mb-4">Equipped with 40 high-performance computers with latest programming tools and software.</p>
+                <div class="flex flex-wrap gap-2">
+                    <span class="bg-blue-100 text-blue-800 text-xs px-3 py-1 rounded-full">C++</span>
+                    <span class="bg-blue-100 text-blue-800 text-xs px-3 py-1 rounded-full">Java</span>
+                    <span class="bg-blue-100 text-blue-800 text-xs px-3 py-1 rounded-full">Python</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Lab 2 -->
+        <div class="bg-white rounded-xl overflow-hidden shadow-md hover:shadow-lg transition-shadow duration-300">
+            <div class="h-48 bg-gray-200 overflow-hidden">
+                <div class="h-full w-full bg-gradient-to-r from-green-400 to-blue-500 flex items-center justify-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-16 w-16 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9" />
+                    </svg>
+                </div>
+            </div>
+            <div class="p-6">
+                <h3 class="text-xl font-semibold text-gray-800 mb-2">Networking Lab</h3>
+                <p class="text-gray-600 mb-4">Dedicated lab for computer networks with routers, switches, and simulation software.</p>
+                <div class="flex flex-wrap gap-2">
+                    <span class="bg-green-100 text-green-800 text-xs px-3 py-1 rounded-full">Cisco</span>
+                    <span class="bg-green-100 text-green-800 text-xs px-3 py-1 rounded-full">Packet Tracer</span>
+                    <span class="bg-green-100 text-green-800 text-xs px-3 py-1 rounded-full">Wireshark</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Lab 3 -->
+        <div class="bg-white rounded-xl overflow-hidden shadow-md hover:shadow-lg transition-shadow duration-300">
+            <div class="h-48 bg-gray-200 overflow-hidden">
+                <div class="h-full w-full bg-gradient-to-r from-purple-400 to-pink-500 flex items-center justify-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-16 w-16 text-white" fill="none" viewBox="0 极速4 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 极速0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
+                    </svg>
+                </div>
+            </div>
+            <div class="p-6">
+                <h3 class="text-xl font-semibold text-gray-800 mb-2">AI & Robotics Lab</h3>
+                <p class="text-gray-600 mb-4">Advanced lab for artificial intelligence, machine learning and robotics research.</p>
+                <div class="flex flex-wrap gap-2">
+                    <span class="bg-purple-100 text-purple-800 text-xs px-3 py-1 rounded-full">TensorFlow</span>
+                    <span class="bg-purple-100 text-purple-800 text-xs px-3 py-1 rounded-full">PyTorch</span>
+                    <span class="bg-purple-100 text-purple-800 text-xs px-3 py-1 rounded-full">ROS</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Specialized Facilities -->
+<div class="mb-16 md:mb-20">
+    <h2 class="text-2xl md:text-3xl font-bold text-gray-800 mb-8 text-center">Specialized Facilities</h2>
+    
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <!-- Facility 1 -->
+        <div class="bg-gray-50 rounded-xl p-6 md:p-8">
+            <div class="flex items-center mb-4">
+                <div class="w-12 h-12 bg-blue-500 rounded-lg flex items-center justify-center mr-4">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin极速round" stroke-width="2" d="M8 9l3 3-3 3m5 0h3M5 20h14a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                    </svg>
+                </div>
+                <h3 class="text-xl font-semibold text-gray-800">High-Speed Internet</h3>
+            </div>
+            <p class="text-gray-600">Gigabit internet connectivity throughout the department with dedicated 24/7 network support and Wi-Fi coverage.</p>
+        </div>
+
+        <!-- Facility 2 -->
+        <div class="bg-gray-50 rounded-xl p-6 md:p-8">
+            <div class="flex items-center mb-4">
+                <div class="w-12 h-12 bg-green-500 rounded-lg flex items-center justify-center mr-4">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 极速0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
+                    </svg>
+                </div>
+                <h3 class="text-xl font-semibold text-gray-800">Server Room</h3>
+            </div>
+            <p class="text-gray-600">Modern server infrastructure with dedicated servers for student projects, research, and department applications.</p>
+        </div>
+
+        <!-- Facility 3 -->
+        <div class="bg-gray-50 rounded-xl p-6 md:p-8">
+            <div class="flex items-center mb-4">
+                <div class="w-12 h-12 bg-purple-500 rounded-lg flex items-center justify-center mr-4">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 01-3-3V5a3 3 0 116 0v6a3 3 0 01-3 3z" />
+                    </svg>
+                </div>
+                <h3 class="text-xl font-semibold text-gray-800">Seminar Hall</h3>
+            </div>
+            <p class="text-gray-600">Audio-visual equipped seminar hall with capacity for 150 people, used for workshops, seminars, and guest lectures.</p>
+        </div>
+
+        <!-- Facility 4 -->
+        <div class="bg-gray-50 rounded-xl p-6 md:p-8">
+            <div class="flex items-center mb-4">
+                <div class="w-12 h-12 bg-red-500 rounded-lg flex items-center justify-center mr-4">
+                    <svg xmlns="http://www.w3.org/2000/s极速" class="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5极速2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
+                    </svg>
+                </div>
+                <h3 class="text-xl font-semibold text-gray-800">Research Center</h3>
+            </div>
+            <p class="text-gray-600">Dedicated space for research activities with specialized equipment for advanced computing research projects.</p>
+        </div>
+    </div>
+</div>
+
+<!-- Software Resources -->
+<div class="mb-16 md:mb-20">
+    <h2 class="text-2xl md:text-3xl font-bold text-gray-800 mb-8 text-center">Software Resources</h2>
+    
+    <div class=" rounded-xl p-6 md:p-8">
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
+            <div class="text-center p-4 bg-gray-50 rounded-lg">
+                <div class="w-12 h-12 bg-orange-500 rounded-full flex items-center justify-center mx-auto mb-3">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />
+                    </svg>
+                </div>
+                <h3 class="font-semibold text-gray-800">Development Tools</h3>
+                <p class="text-sm text-gray-600 mt-2">VS Code, IntelliJ, Eclipse, Android Studio</p>
+            </div>
+
+            <div class="text-center p-4 bg-gray-50 rounded-lg">
+                <div class="w-12 h-12 bg-blue-500 rounded-full flex items-center justify-center mx-auto mb-3">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 5a1 1 0 011-1h14a1 1 0 011 1v2a1 1 0 01-1 1H5a1 1 0 01-1-1V5zM4 13a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H5a1 1 0 01-1-1v-6zM16 13a1 1 0 011-1h2a1 1 0 011 1v6a1 1 0 01-1 1h-2a1 1 0 01-1-1v-6z" />
+                    </svg>
+                </div>
+                <h3 class="font-semibold text-gray-800">Databases</h3>
+                <p class="text-sm text-gray-600 mt-2">Oracle, MySQL, MongoDB, PostgreSQL</p>
+            </div>
+
+            <div class="text-center p-4 bg-gray-50 rounded-lg">
+                <div class="w-12 h-12 bg-green-500 rounded-full flex items-center justify-center mx-auto mb-3">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 12l3-3 3 3 4-4M8 21l4-4 4 4M3 4h18M4 4h16v12a1 1 0 01-1 1H5a1 1 0 01-1-1V4z" />
+                    </svg>
+                </div>
+                <h3 class="font-semibold text-gray-800">Simulation</h3>
+                <p class="text-sm text-gray-600 mt-2">MATLAB, NS3, Packet Tracer, Simulink</p>
+            </div>
+
+            <div class="text-center p-4 bg-gray-50 rounded-lg">
+                <div class="w-12 h-12 bg-purple-500 rounded-full flex items-center justify-center mx-auto mb-3">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
+                    </svg>
+                </div>
+                <h3 class="font-semibold text-gray-800">AI/ML</h3>
+                <p class="text-sm text-gray-600 mt-2">TensorFlow, PyTorch, Keras, OpenCV</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Call to Action -->
+<div class="bg-green-50 rounded-xl p-8 text-center">
+    <h2 class="text-2xl font-bold text-gray-800 mb-4">Experience Our Facilities</h2>
+    <p class="text-gray-600 mb-6 max-w-2xl mx-auto">Interested in seeing our facilities in person? Schedule a visit to our department and experience our learning environment firsthand.</p>
+    <div class="flex flex-col sm:flex-row gap-4 justify-center">
+        <a href="#" class="bg-green-600 hover:bg-green-700 text-white font-semibold py-3 px-6 rounded-lg transition duration-300">
+            Schedule a Visit
+        </a>
+        <a href="#" class="border border-green-600 text-green-600 hover:bg-green-600 hover:text-white font-semibold py-3 px-6 rounded-lg transition duration-300">
+            Virtual Tour
+        </a>
+    </div>
+</div>
+{% endblock %} 

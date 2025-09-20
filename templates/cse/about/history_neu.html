@@ -2,22 +2,167 @@
 {% block title %}History of Netrokona University{% endblock %}
 
 {% block content %}
-<section class="bg-gradient-to-b from-blue-50 to-white py-16 px-4 md:px-8">
-    <div class="max-w-6xl mx-auto">
-        <!-- Header Section -->
-        <div class="text-center mb-16">
-            <h1 class="text-4xl md:text-5xl font-bold text-blue-800 mb-4">History of Netrokona University</h1>
-            <div class="w-24 h-1 bg-blue-600 mx-auto mb-6"></div>
-            <p class="text-xl text-gray-700 max-w-3xl mx-auto">
-                Established to provide quality higher education and research opportunities in the Mymensingh division of Bangladesh.
-            </p>
-        </div>
+<!-- History Section -->
+<div class="container mx-auto  py-8 md:py-12">
+      <!-- Breadcrumb -->
+    <div class="text-sm text-gray-500 mb-1">
+        <a href="{% url 'home' %}" class="text-green-600 hover:underline">Home</a>
+        <span class="mx-1">/</span>
+        <span>History of Netrokona University</span>
+    </div>
+    <!-- Page Header -->
+    <div class="text-center mb-12 md:mb-16">
+        <h1 class="text-3xl md:text-4xl font-bold text-gray-800 mb-4">History of Netrokona University</h1>
+        <h2 class="text-xl md:text-2xl font-semibold text-green-600">Leading Education in Mymensingh Division</h2>
+        <div class="w-24 h-1 bg-green-500 mx-auto mt-4 md:mt-6"></div>
+        <p class="mt-6 text-gray-600 max-w-3xl mx-auto">
+            Established to provide quality higher education and research opportunities in the Mymensingh division of Bangladesh.
+        </p>
+    </div>
         
         <!-- Main Content Grid -->
-        <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start mb-16">
-            <!-- Left Column - Text Content -->
+        <div class="grid grid-cols-1 lg:grid-cols-1 gap-12 items-center mb-16 justify-center">
+            
+            <!-- Timeline Section -->
+            <div class="relative mb-16 md:mb-20 max-w-3xl mx-auto">
+            <!-- Timeline line - Hidden on mobile, visible on medium screens and up -->
+            <div class="hidden md:block absolute left-1/2 transform -translate-x-1/2 h-full w-1 bg-green-200"></div>
+            
+            <!-- Timeline Items Container -->
             <div class="space-y-8">
-                <div class="bg-white p-8 rounded-2xl shadow-lg border border-gray-100 transition-transform duration-300 hover:shadow-xl">
+                <!-- Timeline Item 1 -->
+                <div class="relative">
+                <!-- Mobile number badge -->
+                <div class="flex md:hidden justify-center mb-4">
+                    <div class="w-10 h-10 bg-green-500 rounded-full flex items-center justify-center text-white font-bold">1</div>
+                </div>
+                <div class="flex flex-col md:flex-row items-center justify-center">
+                    <div class="md:w-5/12 md:pr-12 md:text-right order-2 md:order-1">
+                    <h3 class="text-xl md:text-2xl font-bold text-gray-800 text-center md:text-right">2018</h3>
+                    <h4 class="text-lg md:text-xl font-semibold text-green-600 mb-2 text-center md:text-right">University Established</h4>
+                    <p class="text-sm md:text-base text-gray-600 text-center md:text-right">Netrokona University was officially established as a public university by the Government of Bangladesh.</p>
+                    </div>
+                    <div class="hidden md:flex justify-center md:w-2/12 order-1 md:order-2">
+                    <div class="w-12 h-12 bg-green-500 rounded-full flex items-center justify-center text-white font-bold z-10">1</div>
+                    </div>
+                    <div class="md:w-5/12 order-3"></div>
+                </div>
+                </div>
+
+                <!-- Timeline Item 2 -->
+                <div class="relative">
+                <div class="flex md:hidden justify-center mb-4">
+                    <div class="w-10 h-10 bg-green-500 rounded-full flex items-center justify-center text-white font-bold">2</div>
+                </div>
+                <div class="flex flex-col md:flex-row items-center justify-center">
+                    <div class="md:w-5/12 order-2 md:order-1"></div>
+                    <div class="hidden md:flex justify-center md:w-2/12 order-1 md:order-2">
+                    <div class="w-12 h-12 bg-green-500 rounded-full flex items-center justify-center text-white font-bold z-10">2</div>
+                    </div>
+                    <div class="md:w-5/12 md:pl-12 order-2 md:order-3">
+                    <h3 class="text-xl md:text-2xl font-bold text-gray-800 text-center md:text-left">2019</h3>
+                    <h4 class="text-lg md:text-xl font-semibold text-green-600 mb-2 text-center md:text-left">First Academic Session</h4>
+                    <p class="text-sm md:text-base text-gray-600 text-center md:text-left">The first batch of students was admitted, starting classes in Bangla, English, Economics, and CSE departments.</p>
+                    </div>
+                </div>
+                </div>
+
+                <!-- Timeline Item 3 -->
+                <div class="relative">
+                <div class="flex md:hidden justify-center mb-4">
+                    <div class="w-10 h-10 bg-green-500 rounded-full flex items-center justify-center text-white font-bold">3</div>
+                </div>
+                <div class="flex flex-col md:flex-row items-center justify-center">
+                    <div class="md:w-5/12 md:pr-12 order-2 md:order-1">
+                    <h3 class="text-xl md:text-2xl font-bold text-gray-800 text-center md:text-right">2020-2023</h3>
+                    <h4 class="text-lg md:text-xl font-semibold text-green-600 mb-2 text-center md:text-right">Infrastructure Development</h4>
+                    <p class="text-sm md:text-base text-gray-600 text-center md:text-right">Work began on the permanent campus, including academic buildings and administrative offices.</p>
+                    </div>
+                    <div class="hidden md:flex justify-center md:w-2/12 order-1 md:order-2">
+                    <div class="w-12 h-12 bg-green-500 rounded-full flex items-center justify-center text-white font-bold z-10">3</div>
+                    </div>
+                    <div class="md:w-5/12 order-3"></div>
+                </div>
+                </div>
+
+                <!-- Timeline Item 4 -->
+                <div class="relative">
+                <div class="flex md:hidden justify-center mb-4">
+                    <div class="w-10 h-10 bg-green-500 rounded-full flex items-center justify-center text-white font-bold">4</div>
+                </div>
+                <div class="flex flex-col md:flex-row items-center justify-center">
+                    <div class="md:w-5/12 order-2 md:order-1"></div>
+                    <div class="hidden md:flex justify-center md:w-2/12 order-1 md:order-2">
+                    <div class="w-12 h-12 bg-green-500 rounded-full flex items-center justify-center text-white font-bold z-10">4</div>
+                    </div>
+                    <div class="md:w-5/12 md:pl-12 order-2 md:order-3">
+                    <h3 class="text-xl md:text-2xl font-bold text-gray-800 text-center md:text-left">2024</h3>
+                    <h4 class="text-lg md:text-xl font-semibold text-green-600 mb-2 text-center md:text-left">Future Plans</h4>
+                    <p class="text-sm md:text-base text-gray-600 text-center md:text-left">Expansion of faculties, establishment of research centers, and development of student facilities.</p>
+                    </div>
+                </div>
+                </div>
+
+                 <!-- Timeline Item 5 -->
+                <div class="relative">
+                <div class="flex md:hidden justify-center mb-4">
+                    <div class="w-10 h-10 bg-green-500 rounded-full flex items-center justify-center text-white font-bold">5</div>
+                </div>
+                <div class="flex flex-col md:flex-row items-center justify-center">
+                    <div class="md:w-5/12 md:pr-12 order-2 md:order-1">
+                    <h3 class="text-xl md:text-2xl font-bold text-gray-800 text-center md:text-right">2025</h3>
+                    <h4 class="text-lg md:text-xl font-semibold text-green-600 mb-2 text-center md:text-right">Infrastructure Development</h4>
+                    <p class="text-sm md:text-base text-gray-600 text-center md:text-right">Work began on the permanent campus, including academic buildings and administrative offices.</p>
+                    </div>
+                    <div class="hidden md:flex justify-center md:w-2/12 order-1 md:order-2">
+                    <div class="w-12 h-12 bg-green-500 rounded-full flex items-center justify-center text-white font-bold z-10">5</div>
+                    </div>
+                    <div class="md:w-5/12 order-3"></div>
+                </div>
+                </div>
+
+
+
+            </div>
+            </div>
+        </div>
+        
+        <!-- University Facts Section -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 md:gap-8 mb-16 md:mb-20">
+            <div class="text-center p-4 md:p-6 bg-white rounded-lg shadow-sm border border-gray-100">
+                <div class="w-14 h-14 md:w-16 md:h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-3 md:mb-4">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 md:h-8 md:w-8 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path d="M12 14l9-5-9-5-9 5 9 5z" />
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14l9-5-9-5-9 5 9 5zm0 0l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14zm-4 6v-7.5l4-2.222" />
+                    </svg>
+                </div>
+                <h3 class="text-lg md:text-xl font-semibold text-gray-800 mb-2">Academic Programs</h3>
+                <p class="text-sm md:text-base text-gray-600">Programs in Arts, Social Sciences, and Engineering & Technology with plans for expansion.</p>
+            </div>
+            
+            <div class="text-center p-4 md:p-6 bg-white rounded-lg shadow-sm border border-gray-100">
+                <div class="w-14 h-14 md:w-16 md:h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-3 md:mb-4">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 md:h-8 md:w-8 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+                    </svg>
+                </div>
+                <h3 class="text-lg md:text-xl font-semibold text-gray-800 mb-2">Growing Community</h3>
+                <p class="text-sm md:text-base text-gray-600">A steadily growing student body and faculty contributing to education and research.</p>
+            </div>
+            
+            <div class="text-center p-4 md:p-6 bg-white rounded-lg shadow-sm border border-gray-100">
+                <div class="w-14 h-14 md:w-16 md:h-16 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-3 md:mb-4">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 md:h-8 md:w-8 text-purple-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
+                    </svg>
+                </div>
+                <h3 class="text-lg md:text-xl font-semibold text-gray-800 mb-2">Campus Development</h3>
+                <p class="text-sm md:text-base text-gray-600">Infrastructure projects are ongoing to build a permanent, modern campus.</p>
+            </div>
+        </div>
+         <!-- History Content - 3 Boxes in a Row -->
+            <div class="flex flex-col md:flex-row gap-8">
+                <div class="bg-white p-4 rounded-2xl shadow-lg border border-gray-100 transition-transform duration-300 hover:shadow-xl flex-1">
                     <div class="flex items-start mb-4">
                         <div class="bg-blue-100 p-3 rounded-lg mr-4">
                             <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-blue-700" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -36,7 +181,7 @@
                     </div>
                 </div>
                 
-                <div class="bg-white p-8 rounded-2xl shadow-lg border border-gray-100 transition-transform duration-300 hover:shadow-xl">
+                <div class="bg-white p-8 rounded-2xl shadow-lg border border-gray-100 transition-transform duration-300 hover:shadow-xl flex-1">
                     <div class="flex items-start mb-4">
                         <div class="bg-green-100 p-3 rounded-lg mr-4">
                             <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-green-700" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -55,7 +200,7 @@
                     </div>
                 </div>
                 
-                <div class="bg-white p-8 rounded-2xl shadow-lg border border-gray-100 transition-transform duration-300 hover:shadow-xl">
+                <div class="bg-white p-8 rounded-2xl shadow-lg border border-gray-100 transition-transform duration-300 hover:shadow-xl flex-1">
                     <div class="flex items-start mb-4">
                         <div class="bg-purple-100 p-3 rounded-lg mr-4">
                             <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-purple-700" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -75,110 +220,53 @@
                     </div>
                 </div>
             </div>
-            
-            <!-- Right Column - Timeline -->
-            <div class="bg-blue-900 text-white p-8 rounded-2xl shadow-lg">
-                <h3 class="text-2xl font-bold mb-8 text-center">Historical Timeline</h3>
-                <div class="space-y-10 relative before:absolute before:inset-0 before:ml-5 before:-translate-x-px md:before:mx-auto md:before:left-0 md:before:right-0 before:h-full before:w-0.5 before:bg-blue-700">
-                    <!-- Timeline Item 1 -->
-                    <div class="relative flex items-center justify-between md:justify-start md:odd:flex-row-reverse">
-                        <div class="flex items-center justify-center w-12 h-12 rounded-full bg-white border-4 border-blue-300 text-blue-900 font-bold shadow-md shrink-0 md:order-1">
-                            2018
-                        </div>
-                        <div class="w-[calc(100%-4rem)] md:w-[calc(50%-2.5rem)] bg-blue-800 p-5 rounded-xl shadow">
-                            <h4 class="font-semibold mb-2 text-lg">University Established</h4>
-                            <p class="text-blue-100 text-sm">Netrokona University was officially established as a public university by the Government of Bangladesh.</p>
-                        </div>
+
+        <!-- Mission & Vision Section -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mt-6 md:gap-12 mb-16 md:mb-20">
+            <div class="bg-blue-50 p-6 md:p-8 rounded-lg shadow-sm">
+                <div class="flex items-center mb-4 md:mb-6">
+                    <div class="w-10 h-10 md:w-12 md:h-12 bg-blue-500 rounded-full flex items-center justify-center mr-3 md:mr-4">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 md:h-6 md:w-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+                        </svg>
                     </div>
-                    
-                    <!-- Timeline Item 2 -->
-                    <div class="relative flex items-center justify-between md:justify-start md:odd:flex-row-reverse">
-                        <div class="flex items-center justify-center w-12 h-12 rounded-full bg-white border-4 border-blue-300 text-blue-900 font-bold shadow-md shrink-0 md:order-1">
-                            2019
-                        </div>
-                        <div class="w-[calc(100%-4rem)] md:w-[calc(50%-2.5rem)] bg-blue-800 p-5 rounded-xl shadow">
-                            <h4 class="font-semibold mb-2 text-lg">First Academic Session</h4>
-                            <p class="text-blue-100 text-sm">The first batch of students was admitted, starting classes in Bangla, English, Economics, and CSE.</p>
-                        </div>
-                    </div>
-                    
-                    <!-- Timeline Item 3 -->
-                    <div class="relative flex items-center justify-between md:justify-start md:odd:flex-row-reverse">
-                        <div class="flex items-center justify-center w-12 h-12 rounded-full bg-white border-4 border-blue-300 text-blue-900 font-bold shadow-md shrink-0 md:order-1">
-                            2020–2023
-                        </div>
-                        <div class="w-[calc(100%-4rem)] md:w-[calc(50%-2.5rem)] bg-blue-800 p-5 rounded-xl shadow">
-                            <h4 class="font-semibold mb-2 text-lg">Infrastructure Development</h4>
-                            <p class="text-blue-100 text-sm">Work began on the permanent campus, including academic buildings and administrative offices.</p>
-                        </div>
-                    </div>
-                    
-                    <!-- Timeline Item 4 -->
-                    <div class="relative flex items-center justify-between md:justify-start md:odd:flex-row-reverse">
-                        <div class="flex items-center justify-center w-12 h-12 rounded-full bg-white border-4 border-blue-300 text-blue-900 font-bold shadow-md shrink-0 md:order-1">
-                            2024+
-                        </div>
-                        <div class="w-[calc(100%-4rem)] md:w-[calc(50%-2.5rem)] bg-blue-800 p-5 rounded-xl shadow">
-                            <h4 class="font-semibold mb-2 text-lg">Future Plans</h4>
-                            <p class="text-blue-100 text-sm">Expansion of faculties, establishment of research centers, and development of student facilities.</p>
-                        </div>
-                    </div>
+                    <h3 class="text-xl md:text-2xl font-bold text-gray-800">Our Vision</h3>
                 </div>
+                <p class="text-sm md:text-base text-gray-600">
+                    Netrokona University aims to become a center of excellence in higher education and research. 
+                    The university is committed to producing skilled graduates who will contribute to national development 
+                    and address global challenges with knowledge and innovation.
+                </p>
+            </div>
+
+            <div class="bg-blue-50 p-6 md:p-8 rounded-lg shadow-sm">
+                <div class="flex items-center mb-4 md:mb-6">
+                    <div class="w-10 h-10 md:w-12 md:h-12 bg-blue-500 rounded-full flex items-center justify-center mr-3 md:mr-4">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 md:h-6 md:w-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z" />
+                        </svg>
+                    </div>
+                    <h3 class="text-xl md:text-2xl font-bold text-gray-800">Our Mission</h3>
+                </div>
+                <p class="text-sm md:text-base text-gray-600">
+                    To provide quality education through innovative teaching and research. We are committed to 
+                    creating an environment that fosters academic excellence, critical thinking, and personal growth 
+                    while serving the educational needs of our region and beyond.
+                </p>
             </div>
         </div>
-        
-        <!-- University Facts -->
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-16">
-            <div class="bg-white p-6 rounded-2xl shadow-lg text-center border border-gray-100 hover:shadow-xl transition-shadow">
-                <div class="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-blue-700" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path d="M12 14l9-5-9-5-9 5 9 5z" />
-                        <path d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z" />
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14l9-5-9-5-9 5 9 5zm0 0l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14zm-4 6v-7.5l4-2.222" />
-                    </svg>
-                </div>
-                <h3 class="text-xl font-semibold text-gray-800 mb-2">Academic Programs</h3>
-                <p class="text-gray-600">Programs in Arts, Social Sciences, and Engineering & Technology with plans for expansion.</p>
-            </div>
-            
-            <div class="bg-white p-6 rounded-2xl shadow-lg text-center border border-gray-100 hover:shadow-xl transition-shadow">
-                <div class="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-green-700" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
-                    </svg>
-                </div>
-                <h3 class="text-xl font-semibold text-gray-800 mb-2">Growing Community</h3>
-                <p class="text-gray-600">A steadily growing student body and faculty contributing to education and research.</p>
-            </div>
-            
-            <div class="bg-white p-6 rounded-2xl shadow-lg text-center border border-gray-100 hover:shadow-xl transition-shadow">
-                <div class="w-16 h-16 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-purple-700" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
-                    </svg>
-                </div>
-                <h3 class="text-xl font-semibold text-gray-800 mb-2">Campus Development</h3>
-                <p class="text-gray-600">Infrastructure projects are ongoing to build a permanent, modern campus.</p>
-            </div>
-        </div>
-        
-        <!-- Vision Section -->
-        <div class="bg-gradient-to-r from-blue-600 to-blue-800 rounded-2xl shadow-lg p-10 text-white">
-            <h3 class="text-3xl font-bold mb-6 text-center">Our Vision for the Future</h3>
-            <p class="text-xl leading-relaxed text-center max-w-4xl mx-auto">
-                Netrokona University aims to become a center of excellence in higher education and research. 
-                The university is committed to producing skilled graduates who will contribute to national development 
-                and address global challenges with knowledge and innovation.
+
+        <!-- Call to Action -->
+        <div class="bg-blue-50 rounded-lg p-6 md:p-8 text-center">
+            <h2 class="text-xl md:text-2xl font-bold text-gray-800 mb-4">Learn More About Us</h2>
+            <p class="text-sm md:text-base text-gray-600 mb-6 max-w-2xl mx-auto">
+                Discover our programs, research initiatives, and opportunities at Netrokona University.
             </p>
-            <div class="flex justify-center mt-8">
-                <a href="https://neu.ac.bd/" class="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-blue-900 bg-white hover:bg-blue-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-colors duration-300">
-                    Visit Official Website
-                    <svg xmlns="http://www.w3.org/2000/svg" class="ml-2 -mr-1 h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
-                    </svg>
-                </a>
-            </div>
+            <a href="https://neu.ac.bd/" target="_blank" class="inline-block bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 md:py-3 md:px-6 rounded-lg transition duration-300 text-sm md:text-base">
+                Visit Official Website
+            </a>
         </div>
     </div>
-</section>
+</div>
+
 {% endblock %}

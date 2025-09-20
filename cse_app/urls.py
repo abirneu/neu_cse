@@ -23,6 +23,7 @@ urlpatterns = [
     path('events/', views.events, name='events'),
     path('events/all/', views.all_events, name='all_events'),
     path('events/<int:event_id>/', views.event_detail, name='event_detail'),
+    
     path('why-neu-cse/', views.why_neu_cse, name='why_neu_cse'),
     path('message-from-department/', views.message_from_department, name='message_from_department'),
     path('message-from-chairman/', views.message_from_chairman, name='message_from_chairman'),
