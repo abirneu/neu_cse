@@ -46,4 +46,7 @@ urlpatterns = [
 
     path('contact-us/', views.contact_us, name='contact_us'),
     
+    # Image Gallery URLs
+    path('gallery/', views.image_gallery_home, name='image_gallery_home'),
+    path('gallery/all/', views.all_images, name='all_images'),
 ]

@@ -6,7 +6,7 @@ from .models import *
 import os
 from django.http import HttpResponse, Http404
 from django.conf import settings
-from .models import Notice_Board, FacultyMember, Chairman, Publication, Project, TechNews, ViewCount
+from .models import Notice_Board, FacultyMember, Chairman, Publication, Project, TechNews, ViewCount, ImageGallery
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from .models import Event
 from .models import ScrollingNotice
@@ -17,6 +17,9 @@ from django.core.paginator import Paginator
 def home(request):
     # Get active carousel items ordered by their specified order
     carousel_items = CarouselItem.objects.filter(is_active=True).order_by('order')
+    
+    # Get the latest 6 images for the gallery section
+    latest_images = ImageGallery.objects.all().order_by('-upload_time')[:6]
 
     # Get important notices
     important_notices = Notice_Board.objects.filter(is_important=True)[:5]
@@ -70,10 +73,15 @@ def home(request):
         'events': upcoming_events,  # Pass events to the template
         'latest_projects': latest_projects,
         'latest_publications': latest_publications,
+        'images': latest_images,
+        
     }
     
     page_view, created = ViewCount.objects.get_or_create(page_name='home')
     page_view.increment()
+    
+    # Add latest images to context
+    # context['images'] = latest_images
     
     return render(request, 'cse/home.html', context)
 
@@ -496,3 +504,22 @@ def programming_club(request):
 
 def contact_us(request):
     return render(request, 'cse/contact_us.html')
+
+def image_gallery_home(request):
+    # Get the latest 6 images for the home page
+    images = ImageGallery.objects.all().order_by('-upload_time')[:6]
+    return render(request, 'cse/image_gallery/home_page_image.html', {'images': images})
+
+def all_images(request):
+    image_list = ImageGallery.objects.all().order_by('-upload_time')
+    paginator = Paginator(image_list, 9)  # Show 9 images per page
+    
+    page = request.GET.get('page')
+    try:
+        images = paginator.page(page)
+    except PageNotAnInteger:
+        images = paginator.page(1)
+    except EmptyPage:
+        images = paginator.page(paginator.num_pages)
+    
+    return render(request, 'cse/image_gallery/all_image.html', {'images': images})

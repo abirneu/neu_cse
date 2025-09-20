@@ -303,5 +303,17 @@ class Event(models.Model):
     class Meta:
         ordering = ['start_date']
         
+class ImageGallery(models.Model):
+    title = models.CharField(max_length=200)
+    image = models.ImageField(upload_to='gallery/')
+    upload_time = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return self.title
+
+    class Meta:
+        ordering = ['-upload_time']
+        verbose_name_plural = 'Image Gallery'
+
 from django.utils import timezone
 

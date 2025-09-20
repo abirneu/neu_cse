@@ -325,7 +325,7 @@
           <div class="mt-12">
             <div class="flex justify-between items-center mb-8  p-4 rounded-lg">
                 <div class="max-w-lg flex flex-col">
-                    <h2 class="text-3xl font-bold text-green-600">Latest Publications</h2>
+                    <h2 class="text-3xl font-bold text-green-">Latest Publications</h2>
                     <h3>Browse our recent academic publications and research work.</h3>
                 </div>
                 <a href="{% url 'all_publications' %}" class="text-green-600 hover:text-green-800 font-medium flex items-center">
@@ -366,6 +366,10 @@
             </div>
           </div>
      </div>
+     </section>
+     <!-- Image Gallery Section -->
+     <section class="bg-light py-5">
+         {% include 'cse/image_gallery/home_page_image.html' %}
      </section>
   
   </div>

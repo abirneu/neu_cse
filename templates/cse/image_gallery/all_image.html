@@ -1,0 +1,112 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container mx-auto px-4 py-8">
+    <!-- Header -->
+    <div class="text-center mb-12">
+        <h2 class="text-4xl font-bold text-gray-800 mb-4">Image Gallery</h2>
+        <p class="text-gray-600 max-w-2xl mx-auto">Explore our collection of stunning images showcasing campus life, events, and achievements</p>
+    </div>
+    
+    <!-- Gallery Grid -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
+        {% for image in images %}
+        <div class="group relative bg-white rounded-xl shadow-md overflow-hidden transition-all duration-300 hover:shadow-xl">
+            <div class="overflow-hidden">
+                <img 
+                    src="{{ image.image.url }}" 
+                    alt="{{ image.title }}"
+                    class="w-full h-60 object-cover transition-transform duration-500 group-hover:scale-105 cursor-pointer"
+                    onclick="openImageModal('{{ image.image.url }}', '{{ image.title }}')"
+                >
+            </div>
+            <div class="p-5">
+                <h3 class="font-semibold text-lg text-gray-800 mb-1">{{ image.title }}</h3>
+                <p class="text-gray-500 text-sm">{{ image.upload_time|date:"F d, Y" }}</p>
+            </div>
+            <div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-20 transition-all duration-300 flex items-center justify-center opacity-0 group-hover:opacity-100">
+                <button onclick="openImageModal('{{ image.image.url }}', '{{ image.title }}')" class="bg-white rounded-full p-3 shadow-lg transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-gray-800" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v3m0 0v3m0-3h3m-3-3H7" />
+                    </svg>
+                </button>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+
+    <!-- Pagination -->
+    <div class="flex justify-center mt-8">
+        <nav class="flex items-center space-x-2">
+            {% if images.has_previous %}
+            <a href="?page={{ images.previous_page_number }}" class="px-4 py-2 text-gray-700 bg-white rounded-md border border-gray-300 hover:bg-gray-100 transition-colors duration-300">
+                <span>&laquo;</span>
+            </a>
+            {% endif %}
+            
+            {% for num in images.paginator.page_range %}
+            <a href="?page={{ num }}" class="px-4 py-2 text-gray-700 bg-white rounded-md border {% if images.number == num %}border-blue-600 bg-blue-50 text-blue-600 font-medium{% else %}border-gray-300 hover:bg-gray-100{% endif %} transition-colors duration-300">
+                {{ num }}
+            </a>
+            {% endfor %}
+            
+            {% if images.has_next %}
+            <a href="?page={{ images.next_page_number }}" class="px-4 py-2 text-gray-700 bg-white rounded-md border border-gray-300 hover:bg-gray-100 transition-colors duration-300">
+                <span>&raquo;</span>
+            </a>
+            {% endif %}
+        </nav>
+    </div>
+</div>
+
+<!-- Modal for Image Preview -->
+<div id="imageModal" class="fixed inset-0 bg-black bg-opacity-90 z-50 flex items-center justify-center p-4 hidden">
+    <div class="bg-white rounded-xl max-w-4xl w-full max-h-screen overflow-hidden">
+        <div class="flex justify-between items-center p-4 border-b">
+            <h3 id="imageModalLabel" class="text-xl font-semibold text-gray-800"></h3>
+            <button onclick="closeModal()" class="text-gray-500 hover:text-gray-700">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                </svg>
+            </button>
+        </div>
+        <div class="p-4 max-h-[70vh] overflow-auto">
+            <img src="" id="modalImage" class="w-full object-contain max-h-[60vh]" alt="Full size image">
+        </div>
+        <div class="flex justify-end p-4 border-t">
+            <a href="" id="downloadLink" class="flex items-center px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors duration-300" download>
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+                </svg>
+                Download Image
+            </a>
+        </div>
+    </div>
+</div>
+
+<script>
+function openImageModal(imageUrl, title) {
+    document.getElementById('modalImage').src = imageUrl;
+    document.getElementById('imageModalLabel').textContent = title;
+    document.getElementById('downloadLink').href = imageUrl;
+    document.getElementById('imageModal').classList.remove('hidden');
+    document.body.style.overflow = 'hidden';
+}
+
+function closeModal() {
+    document.getElementById('imageModal').classList.add('hidden');
+    document.body.style.overflow = 'auto';
+}
+
+// Close modal when clicking outside the content
+document.getElementById('imageModal').addEventListener('click', function(e) {
+    if (e.target === this) closeModal();
+});
+
+// Close modal with Escape key
+document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') closeModal();
+});
+</script>
+{% endblock %}

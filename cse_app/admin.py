@@ -1,6 +1,12 @@
 from django.contrib import admin
 from .models import *
-from .models import ScrollingNotice, CarouselItem
+from .models import ScrollingNotice, CarouselItem, ImageGallery
+
+@admin.register(ImageGallery)
+class ImageGalleryAdmin(admin.ModelAdmin):
+    list_display = ('title', 'upload_time')
+    search_fields = ('title',)
+    ordering = ('-upload_time',)
 
 @admin.register(CarouselItem)
 class CarouselItemAdmin(admin.ModelAdmin):
