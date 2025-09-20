@@ -10,9 +10,9 @@
                      class="absolute block w-full h-full object-cover -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2" 
                      alt="{{ item.title }}">
                 <div class="absolute inset-0 bg-gradient-to-b from-transparent to-black/60">
-                    <div class="absolute bottom-8 left-8 text-white">
-                        <h2 class="text-3xl font-bold mb-2">{{ item.title }}</h2>
-                        <p class="text-lg">{{ item.description }}</p>
+                    <div class="absolute bottom-4 md:bottom-8 left-4 md:left-8 text-white">
+                        <h2 class="text-xl md:text-3xl font-bold mb-1 md:mb-2">{{ item.title }}</h2>
+                        <p class="text-sm md:text-lg line-clamp-2 md:line-clamp-none">{{ item.description }}</p>
                     </div>
                 </div>
             </div>
