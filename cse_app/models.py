@@ -148,6 +148,12 @@ class Staff(models.Model):
         ('past_staff', 'Past Staff'),
     )
     
+    
+    
+    def __str__(self):
+        return f"{self.name} - {self.get_designation_display()}"
+    
+    
 class CarouselItem(models.Model):
     title = models.CharField(max_length=200)
     description = models.TextField()
@@ -169,22 +175,6 @@ class Staff(models.Model):
         ('staff', 'Staff'),
     )
     
-    OFFICER_DESIGNATION_CHOICES = (
-        ('administrative_officer', 'Administrative Officer'),
-        ('accounts_officer', 'Accounts Officer'),
-        ('academic_officer', 'Academic Officer'),
-        ('lab_officer', 'Lab Officer'),
-        ('other', 'Other'),
-    )
-    
-    STAFF_DESIGNATION_CHOICES = (
-        ('lab_assistant', 'Lab Assistant'),
-        ('office_assistant', 'Office Assistant'),
-        ('computer_operator', 'Computer Operator'),
-        ('mlss', 'MLSS'),
-        ('other', 'Other'),
-    )
-    
     STATUS_CHOICES = (
         ('active', 'Active'),
         ('on_leave', 'On Leave'),
@@ -194,7 +184,7 @@ class Staff(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, null=True, blank=True)
     name = models.CharField(max_length=100)
     staff_type = models.CharField(max_length=20, choices=STAFF_TYPE_CHOICES)
-    designation = models.CharField(max_length=30)  # Will be validated in clean method
+    designation = models.CharField(max_length=100)  # Free text field for designation
     status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='active')
     email = models.EmailField(blank=True)
     phone = models.CharField(max_length=15, blank=True)
@@ -205,14 +195,7 @@ class Staff(models.Model):
     joined_date = models.DateField(blank=True, null=True)
     end_date = models.DateField(blank=True, null=True)
     
-    def clean(self):
-        if self.staff_type == 'officer' and self.designation not in dict(self.OFFICER_DESIGNATION_CHOICES):
-            raise ValidationError('Invalid designation for officer')
-        if self.staff_type == 'staff' and self.designation not in dict(self.STAFF_DESIGNATION_CHOICES):
-            raise ValidationError('Invalid designation for staff')
-    
     def save(self, *args, **kwargs):
-        self.clean()
         super().save(*args, **kwargs)
     
     def __str__(self):

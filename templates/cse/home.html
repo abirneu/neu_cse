@@ -10,9 +10,11 @@
   <div class="lg:col-span-2">
     <!-- Welcome Section -->
     <div class="rounded-lg p-6 mb-2">
-  <h2 class="text-4xl font-bold text-green-700 mb-1 text-center">
-    Welcome to the Department of Computer Science & Engineering
-  </h2>
+  <h2 class="text-center font-bold text-green-700 mb-1">
+  <span class="block text-2xl sm:text-4xl sm:inline">Welcome to the</span>
+  <span class="block text-xl sm:text-4xl sm:inline whitespace-nowrap">Department of Computer Science &amp; <br>Engineering</span>
+</h2>
+
   <p class="text-center text-gray-600 mb-6">
     Empowering Future Innovators at Netrokona University
   </p>
@@ -295,6 +297,51 @@
                 {% empty %}
                     <div class="col-span-3 text-center py-8">
                         <p class="text-gray-500">No projects available at the moment.</p>
+                    </div>
+                {% endfor %}
+            </div>
+          </div>
+
+          <!-- Latest Publications Section -->
+          <div class="mt-12">
+            <div class="flex justify-between items-center mb-8 bg-stone-100 p-4 rounded-lg">
+                <div class="max-w-lg flex flex-col">
+                    <h2 class="text-2xl font-bold text-gray-800">Latest Publications</h2>
+                    <h3>Browse our recent academic publications and research work.</h3>
+                </div>
+                <a href="{% url 'all_publications' %}" class="text-green-600 hover:text-green-800 font-medium flex items-center">
+                    View All Publications
+                    <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                    </svg>
+                </a>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                {% for publication in latest_publications %}
+                    <div class="bg-white rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300 p-6">
+                        <div class="flex justify-between items-start mb-4">
+                            <h3 class="text-lg font-semibold text-gray-800">{{ publication.title|truncatechars:70 }}</h3>
+                            <span class="px-3 py-1 bg-green-100 text-green-800 rounded-full text-xs font-medium ml-2">
+                                {{ publication.get_publication_type_display }}
+                            </span>
+                        </div>
+                        <p class="text-green-600 text-sm mb-3">{{ publication.authors|truncatechars:100 }}</p>
+                        <p class="text-gray-600 text-sm mb-2">
+                            <span class="font-medium">Published:</span> {{ publication.publication_date|date:"F Y" }}
+                        </p>
+                        <p class="text-gray-600 text-sm mb-4">
+                            <span class="font-medium">In:</span> {{ publication.journal_or_conference_name|default:publication.publisher|truncatechars:50 }}
+                        </p>
+                        <a href="{% url 'publication_detail' publication.pk %}" class="inline-flex items-center px-4 py-2 text-sm font-medium text-white bg-green-700 rounded-lg hover:bg-green-800 transition-all duration-300">
+                            View Details
+                            <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
+                            </svg>
+                        </a>
+                    </div>
+                {% empty %}
+                    <div class="col-span-3 text-center py-8">
+                        <p class="text-gray-500">No publications available at the moment.</p>
                     </div>
                 {% endfor %}
             </div>

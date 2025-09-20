@@ -12,6 +12,8 @@ from .models import Event
 from .models import ScrollingNotice
 from django.core.paginator import Paginator
 
+
+
 def home(request):
     # Get active carousel items ordered by their specified order
     carousel_items = CarouselItem.objects.filter(is_active=True).order_by('order')
@@ -24,6 +26,9 @@ def home(request):
     
     # Get the latest 3 projects
     latest_projects = Project.objects.all().order_by('-start_date')[:3]
+
+    # Get the latest 3 publications
+    latest_publications = Publication.objects.all().order_by('-publication_date')[:3]
 
     # Get the latest events
     latest_events = Event.objects.all().order_by('-start_date')[:3]
@@ -64,6 +69,7 @@ def home(request):
         'tech_news': tech_news,
         'events': upcoming_events,  # Pass events to the template
         'latest_projects': latest_projects,
+        'latest_publications': latest_publications,
     }
     
     page_view, created = ViewCount.objects.get_or_create(page_name='home')
@@ -302,14 +308,46 @@ def chairman_message(request):
     }
     return render(request, 'message_from_chairman.html', context)
 
-def publications(request):
+def publications_home(request):
+    latest_publications = Publication.objects.all().order_by('-publication_date')[:3]
+    return render(request, 'cse/publications.html', {'latest_publications': latest_publications})
+
+def all_publications(request):
     publications = Publication.objects.all()
     
-    # Filter by type if provided
-    pub_type = request.GET.get('type')
-    if pub_type:
-        publications = publications.filter(publication_type=pub_type)
+    # Search functionality
+    search_query = request.GET.get('search')
+    if search_query:
+        publications = publications.filter(title__icontains=search_query)
     
+    # Sort publications
+    sort_by = request.GET.get('sort', 'date')  # Default sort by date
+    if sort_by == 'date':
+        publications = publications.order_by('-publication_date')
+    elif sort_by == 'title':
+        publications = publications.order_by('title')
+    
+    # Pagination
+    paginator = Paginator(publications, 8)  # Show 8 publications per page
+    page = request.GET.get('page')
+    try:
+        publications = paginator.page(page)
+    except PageNotAnInteger:
+        # If page is not an integer, deliver first page.
+        publications = paginator.page(1)
+    except EmptyPage:
+        # If page is out of range, deliver last page of results.
+        publications = paginator.page(paginator.num_pages)
+        
+    return render(request, 'cse/all_publications.html', {'publications': publications})
+
+def publication_detail(request, pk):
+    publication = get_object_or_404(Publication, pk=pk)
+    return render(request, 'cse/publication_detail.html', {'publication': publication})
+    if sort_by == 'date':
+        publications = publications.order_by('-publication_date')
+    elif sort_by == 'title':
+        publications = publications.order_by('title')
     # Update view count for publications page
     page_view, created = ViewCount.objects.get_or_create(page_name='publications')
     page_view.increment()

@@ -84,7 +84,7 @@
                         </svg>
                     </button>
                     <div class="absolute hidden group-hover:block bg-gray-200 text-black min-w-48 rounded-md shadow-lg z-50">
-                        <a href="{% url 'publications' %}" class="block px-4 py-3 hover:bg-green-600">Publications</a>
+                        <a href="{% url 'all_publications' %}" class="block px-4 py-3 hover:bg-green-600">Publications</a>
                         <a href="{% url 'projects' %}" class="block px-4 py-3 hover:bg-green-600">Projects</a>
                     </div>
                 </div>
@@ -193,7 +193,7 @@
                     </svg>
                 </button>
                 <div id="research-mobile-dropdown" class="hidden bg-green-800 pl-6">
-                    <a href="{% url 'publications' %}" class="block py-3 px-4 hover:bg-green-600">Publications</a>
+                    <a href="{% url 'publications_home' %}" class="block py-3 px-4 hover:bg-green-600">Publications</a>
                     <a href="{% url 'projects' %}" class="block py-3 px-4 hover:bg-green-600">Projects</a>
                 </div>
             </div>

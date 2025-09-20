@@ -1,0 +1,92 @@
+{% extends 'base.html' %}
+{% block title %}Faculty Publications{% endblock %}
+{% block content %}
+<!-- Publications Section -->
+<div class="container mx-auto px-4 py-12">
+    <div class="text-center mb-8">
+        <h1 class="text-5xl font-bold mb-6 text-gray-800 tracking-tight">Faculty Publications</h1>
+        <p class="text-xl text-gray-600 max-w-3xl mx-auto">Explore the latest research and publications from our esteemed faculty members</p>
+    </div>
+
+    <!-- Filter and Sort Options -->
+    <div class="mb-8 flex flex-wrap gap-4 justify-center">
+        <!-- Publication Type Filter -->
+        <div class="flex gap-2">
+            <a href="?type=all" class="px-4 py-2 rounded-full {% if not request.GET.type or request.GET.type == 'all' %}bg-green-600 text-white{% else %}bg-gray-200 text-gray-700{% endif %} hover:bg-green-700 hover:text-white transition">
+                All
+            </a>
+            <a href="?type=journal" class="px-4 py-2 rounded-full {% if request.GET.type == 'journal' %}bg-green-600 text-white{% else %}bg-gray-200 text-gray-700{% endif %} hover:bg-green-700 hover:text-white transition">
+                Journal Articles
+            </a>
+            <a href="?type=conference" class="px-4 py-2 rounded-full {% if request.GET.type == 'conference' %}bg-green-600 text-white{% else %}bg-gray-200 text-gray-700{% endif %} hover:bg-green-700 hover:text-white transition">
+                Conference Papers
+            </a>
+            <a href="?type=book" class="px-4 py-2 rounded-full {% if request.GET.type == 'book' %}bg-green-600 text-white{% else %}bg-gray-200 text-gray-700{% endif %} hover:bg-green-700 hover:text-white transition">
+                Books
+            </a>
+            <a href="?type=chapter" class="px-4 py-2 rounded-full {% if request.GET.type == 'chapter' %}bg-green-600 text-white{% else %}bg-gray-200 text-gray-700{% endif %} hover:bg-green-700 hover:text-white transition">
+                Book Chapters
+            </a>
+        </div>
+
+        <!-- Sort Options -->
+        <div class="flex gap-2">
+            <a href="?{% if request.GET.type %}type={{ request.GET.type }}&{% endif %}sort=date" class="px-4 py-2 rounded-full {% if request.GET.sort == 'date' %}bg-blue-600 text-white{% else %}bg-gray-200 text-gray-700{% endif %} hover:bg-blue-700 hover:text-white transition">
+                Newest First
+            </a>
+            <a href="?{% if request.GET.type %}type={{ request.GET.type }}&{% endif %}sort=title" class="px-4 py-2 rounded-full {% if request.GET.sort == 'title' %}bg-blue-600 text-white{% else %}bg-gray-200 text-gray-700{% endif %} hover:bg-blue-700 hover:text-white transition">
+                Sort by Title
+            </a>
+        </div>
+    </div>
+
+    <!-- Publications Grid -->
+    <div class="grid grid-cols-1 gap-8">
+        {% for publication in publications %}
+        <div class="bg-white rounded-xl shadow-lg overflow-hidden transform transition-all duration-300 hover:shadow-xl p-8">
+            <!-- Title and Type -->
+            <div class="flex justify-between items-start mb-4">
+                <h3 class="text-2xl font-bold text-gray-900 flex-grow">{{ publication.title }}</h3>
+                <span class="px-4 py-1 bg-green-100 text-green-800 rounded-full text-sm font-medium ml-4">
+                    {{ publication.get_publication_type_display }}
+                </span>
+            </div>
+
+            <!-- Authors -->
+            <p class="text-lg text-green-600 mb-4">{{ publication.authors }}</p>
+
+            <!-- Publication Details -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6 text-sm text-gray-600">
+                <div>
+                    <p><span class="font-semibold">Publisher:</span> {{ publication.publisher }}</p>
+                    <p><span class="font-semibold">Publication Date:</span> {{ publication.publication_date|date:"F Y" }}</p>
+                    {% if publication.journal_or_conference_name %}
+                    <p><span class="font-semibold">Journal/Conference:</span> {{ publication.journal_or_conference_name }}</p>
+                    {% endif %}
+                </div>
+                <div>
+                    {% if publication.doi %}
+                    <p><span class="font-semibold">DOI:</span> <a href="https://doi.org/{{ publication.doi }}" class="text-blue-600 hover:underline" target="_blank">{{ publication.doi }}</a></p>
+                    {% endif %}
+                    {% if publication.link %}
+                    <p><span class="font-semibold">External Link:</span> <a href="{{ publication.link }}" class="text-blue-600 hover:underline" target="_blank">View Publication</a></p>
+                    {% endif %}
+                </div>
+            </div>
+
+            <!-- Abstract -->
+            {% if publication.abstract %}
+            <div class="mt-4">
+                <h4 class="font-semibold text-gray-900 mb-2">Abstract</h4>
+                <p class="text-gray-700">{{ publication.abstract }}</p>
+            </div>
+            {% endif %}
+        </div>
+        {% empty %}
+        <div class="text-center py-12">
+            <p class="text-gray-600 text-lg">No publications available at the moment.</p>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

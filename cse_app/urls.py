@@ -10,7 +10,11 @@ urlpatterns = [
     path('faculty/', views.faculty_list, name='faculty_list'),
     path('faculty/<int:pk>/', views.faculty_detail, name='faculty_detail'),
     path('chairman/', views.chairman_message, name='chairman_message'),
-    path('publications/', views.publications, name='publications'),
+    
+    path('publications/', views.publications_home, name='publications_home'),
+    path('publications/all/', views.all_publications, name='all_publications'),
+    path('publications/<int:pk>/', views.publication_detail, name='publication_detail'),
+    
     path('projects/', views.projects, name='projects'),
     path('projects/all/', views.all_projects, name='all_projects'),
     path('projects/<int:project_id>/', views.project_detail, name='project_detail'),
