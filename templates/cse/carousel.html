@@ -2,7 +2,6 @@
 <!-- Modern Carousel Section -->
 <div class="relative w-screen -mx-[calc((100vw-100%)/2)] -mt-8" style="z-index: 0;">
     <div id="modern-carousel" class="relative w-full" data-carousel="slide" data-carousel-interval="5000">
-    <div id="modern-carousel" class="relative w-full" data-carousel="slide" data-carousel-interval="5000">
         <!-- Carousel wrapper -->
         <div class="relative h-64 overflow-hidden md:h-[600px] transition-all duration-300 ease-in-out">
             {% for item in carousel_items %}
@@ -18,12 +17,6 @@
                 </div>
             </div>
             {% endfor %}
-                    <div class="absolute bottom-8 left-8 text-white">
-                        <h2 class="text-3xl font-bold mb-2">Innovation Hub</h2>
-                        <p class="text-lg">Where ideas come to life</p>
-                    </div>
-                </div>
-            </div>
         </div>
 
         <!-- Slider indicators -->
@@ -58,4 +51,12 @@
     </div>
 </div>
 
-<script src="https://unpkg.com/flowbite@1.4.0/dist/flowbite.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.0.0/flowbite.min.js"></script>
+<script>
+    // Initialize the carousel
+    const carousel = new Carousel(document.getElementById('modern-carousel'), {
+        interval: 5000,
+        indicators: true,
+        ride: 'carousel'
+    });
+</script>
