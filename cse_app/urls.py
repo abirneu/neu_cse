@@ -2,6 +2,17 @@ from django.urls import path
 from . import views
 
 urlpatterns = [
+    # Staff URLs
+    path('staff/login/', views.staff_login, name='staff_login'),
+    path('staff/logout/', views.staff_logout, name='staff_logout'),
+    path('staff/dashboard/', views.staff_dashboard, name='staff_dashboard'),
+    path('staff/create-notice/', views.create_notice, name='create_notice'),
+    path('staff/edit-notice/<int:pk>/', views.edit_notice, name='edit_notice'),
+    path('staff/delete-notice/<int:pk>/', views.delete_notice, name='delete_notice'),
+    path('staff/create-scrolling-notice/', views.create_scrolling_notice, name='create_scrolling_notice'),
+    path('staff/edit-scrolling-notice/<int:pk>/', views.edit_scrolling_notice, name='edit_scrolling_notice'),
+    path('staff/delete-scrolling-notice/<int:pk>/', views.delete_scrolling_notice, name='delete_scrolling_notice'),
+    
     path('', views.home, name='home'),
     path('notices/', views.notice_list, name='notice_list'),
     path('notices/<int:pk>/', views.notice_detail, name='notice_detail'),
@@ -49,4 +60,9 @@ urlpatterns = [
     # Image Gallery URLs
     path('gallery/', views.image_gallery_home, name='image_gallery_home'),
     path('gallery/all/', views.all_images, name='all_images'),
+
+    # Staff URLs
+    path('staff/login/', views.staff_login, name='staff_login'),
+    path('staff/dashboard/', views.staff_dashboard, name='staff_dashboard'),
+    path('staff/logout/', views.staff_logout, name='staff_logout'),
 ]

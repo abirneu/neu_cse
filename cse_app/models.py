@@ -10,12 +10,31 @@ class ScrollingNotice(models.Model):
     is_active = models.BooleanField(default=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+    created_by = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True)
 
     def __str__(self):
         return self.text[:50]
 
     class Meta:
         ordering = ['-created_at']
+
+class StaffProfile(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    staff_id = models.CharField(max_length=20, unique=True)
+    designation = models.CharField(max_length=100)
+    phone_number = models.CharField(max_length=15)
+    address = models.TextField()
+    profile_image = models.ImageField(upload_to='staff/profiles/', null=True, blank=True)
+    join_date = models.DateField()
+    is_active = models.BooleanField(default=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return f"{self.user.get_full_name()} - {self.staff_id}"
+
+    class Meta:
+        ordering = ['user__first_name', 'user__last_name']
 
 class Notice_Board(models.Model):
     title = models.CharField(max_length=200)
@@ -24,6 +43,7 @@ class Notice_Board(models.Model):
     created_at = models.DateTimeField(null=True, blank=True)
     updated_at = models.DateTimeField(null=True, blank=True)
     is_important = models.BooleanField(default=False)
+    created_by = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True)
     
     def save(self, *args, **kwargs):
         if not self.created_at:

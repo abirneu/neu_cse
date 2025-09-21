@@ -6,11 +6,106 @@ from .models import *
 import os
 from django.http import HttpResponse, Http404
 from django.conf import settings
-from .models import Notice_Board, FacultyMember, Chairman, Publication, Project, TechNews, ViewCount, ImageGallery
+from .models import Notice_Board, FacultyMember, Chairman, Publication, Project, TechNews, ViewCount, ImageGallery, StaffProfile
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from .models import Event
 from .models import ScrollingNotice
 from django.core.paginator import Paginator
+from django.contrib.auth import login, logout, authenticate
+from django.contrib.auth.decorators import login_required
+from django.contrib import messages
+from .forms import NoticeForm, ScrollingNoticeForm
+
+def staff_login(request):
+    if request.method == 'POST':
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+        user = authenticate(request, username=username, password=password)
+        
+        if user is not None:
+            try:
+                staff_profile = StaffProfile.objects.get(user=user)
+                if staff_profile.is_active:
+                    login(request, user)
+                    return redirect('staff_dashboard')
+                else:
+                    messages.error(request, 'Your account is not active. Please contact the administrator.')
+            except StaffProfile.DoesNotExist:
+                messages.error(request, 'You are not registered as staff.')
+        else:
+            messages.error(request, 'Invalid username or password.')
+    
+    return render(request, 'cse/staff/login.html')
+
+@login_required
+def staff_logout(request):
+    logout(request)
+    return redirect('staff_login')
+
+@login_required
+def create_notice(request):
+    if request.method == 'POST':
+        form = NoticeForm(request.POST, request.FILES)
+        if form.is_valid():
+            notice = form.save(commit=False)
+            notice.created_by = request.user
+            notice.created_at = timezone.now()
+            notice.save()
+            messages.success(request, 'Notice created successfully!')
+            return redirect('staff_dashboard')
+        else:
+            messages.error(request, 'Error creating notice. Please check the form.')
+    return redirect('staff_dashboard')
+
+@login_required
+@login_required
+def create_scrolling_notice(request):
+    if request.method == 'POST':
+        form = ScrollingNoticeForm(request.POST)
+        if form.is_valid():
+            notice = form.save(commit=False)
+            notice.created_by = request.user
+            notice.save()
+            messages.success(request, 'Scrolling notice created successfully!')
+            return redirect('staff_dashboard')
+        else:
+            messages.error(request, 'Error creating scrolling notice. Please check the form.')
+    return redirect('staff_dashboard')
+
+@login_required
+@login_required(login_url='staff_login')
+def staff_dashboard(request):
+    try:
+        staff_profile = StaffProfile.objects.get(user=request.user)
+        if not staff_profile.is_active:
+            messages.error(request, 'Your account is not active. Please contact the administrator.')
+            logout(request)
+            return redirect('staff_login')
+            
+        notice_form = NoticeForm()
+        scrolling_notice_form = ScrollingNoticeForm()
+        
+        # Get all statistics
+        total_notices = Notice_Board.objects.count()
+        total_scrolling_notices = ScrollingNotice.objects.count()
+        staff_notices = Notice_Board.objects.filter(created_by=request.user).count()
+        staff_scrolling_notices = ScrollingNotice.objects.filter(created_by=request.user).count()
+        
+        context = {
+            'staff_profile': staff_profile,
+            'total_notices': total_notices,
+            'total_scrolling_notices': total_scrolling_notices,
+            'staff_notices': staff_notices,
+            'staff_scrolling_notices': staff_scrolling_notices,
+            'notice_form': notice_form,
+            'scrolling_notice_form': scrolling_notice_form,
+            'recent_notices': Notice_Board.objects.order_by('-created_at')[:5],
+        }
+        return render(request, 'cse/staff/dashboard.html', context)
+    except StaffProfile.DoesNotExist:
+        logout(request)
+        messages.error(request, 'You are not registered as staff.')
+        return redirect('staff_login')
 
 
 

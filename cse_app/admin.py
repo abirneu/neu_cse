@@ -1,6 +1,18 @@
 from django.contrib import admin
 from .models import *
-from .models import ScrollingNotice, CarouselItem, ImageGallery, ComputerClubMember
+from .models import ScrollingNotice, CarouselItem, ImageGallery, ComputerClubMember, StaffProfile
+
+@admin.register(StaffProfile)
+class StaffProfileAdmin(admin.ModelAdmin):
+    list_display = ('staff_id', 'get_full_name', 'designation', 'phone_number', 'is_active', 'join_date')
+    list_filter = ('is_active', 'designation', 'join_date')
+    search_fields = ('staff_id', 'user__first_name', 'user__last_name', 'phone_number')
+    ordering = ('user__first_name', 'user__last_name')
+    date_hierarchy = 'join_date'
+
+    def get_full_name(self, obj):
+        return obj.user.get_full_name()
+    get_full_name.short_description = 'Full Name'
 
 @admin.register(ComputerClubMember)
 class ComputerClubMemberAdmin(admin.ModelAdmin):
