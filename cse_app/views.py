@@ -14,6 +14,7 @@ from django.core.paginator import Paginator
 from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
+from django.core.exceptions import PermissionDenied
 from .forms import NoticeForm, ScrollingNoticeForm
 
 def staff_login(request):
@@ -42,7 +43,7 @@ def staff_logout(request):
     logout(request)
     return redirect('staff_login')
 
-@login_required
+@login_required(login_url='staff_login')
 def create_notice(request):
     if request.method == 'POST':
         form = NoticeForm(request.POST, request.FILES)
@@ -85,11 +86,15 @@ def staff_dashboard(request):
         notice_form = NoticeForm()
         scrolling_notice_form = ScrollingNoticeForm()
         
+        # Get user's notices and statistics
+        user_notices = Notice_Board.objects.filter(created_by=request.user).order_by('-created_at')
+        user_scrolling_notices = ScrollingNotice.objects.filter(created_by=request.user).order_by('-created_at')
+        
         # Get all statistics
         total_notices = Notice_Board.objects.count()
         total_scrolling_notices = ScrollingNotice.objects.count()
-        staff_notices = Notice_Board.objects.filter(created_by=request.user).count()
-        staff_scrolling_notices = ScrollingNotice.objects.filter(created_by=request.user).count()
+        staff_notices = user_notices.count()
+        staff_scrolling_notices = user_scrolling_notices.count()
         
         context = {
             'staff_profile': staff_profile,
@@ -99,6 +104,8 @@ def staff_dashboard(request):
             'staff_scrolling_notices': staff_scrolling_notices,
             'notice_form': notice_form,
             'scrolling_notice_form': scrolling_notice_form,
+            'user_notices': user_notices,
+            'user_scrolling_notices': user_scrolling_notices,
             'recent_notices': Notice_Board.objects.order_by('-created_at')[:5],
         }
         return render(request, 'cse/staff/dashboard.html', context)
@@ -108,6 +115,98 @@ def staff_dashboard(request):
         return redirect('staff_login')
 
 
+
+@login_required(login_url='staff_login')
+def edit_notice(request, pk):
+    notice = get_object_or_404(Notice_Board, pk=pk)
+    
+    # Check if the user is the creator of the notice
+    if notice.created_by != request.user:
+        messages.error(request, "You don't have permission to edit this notice.")
+        return redirect('staff_dashboard')
+    
+    if request.method == 'POST':
+        form = NoticeForm(request.POST, request.FILES, instance=notice)
+        if form.is_valid():
+            notice = form.save(commit=False)
+            notice.created_by = request.user  # Ensure created_by is set
+            notice.save()
+            messages.success(request, 'Notice updated successfully!')
+            return redirect('staff_dashboard')
+        else:
+            messages.error(request, 'Error updating notice. Please check the form.')
+    else:
+        form = NoticeForm(instance=notice)
+    
+    return render(request, 'cse/staff/edit_notice.html', {
+        'form': form,
+        'notice': notice
+    })
+
+@login_required(login_url='staff_login')
+def delete_notice(request, pk):
+    notice = get_object_or_404(Notice_Board, pk=pk)
+    
+    # Check if the user is the creator of the notice
+    if notice.created_by != request.user:
+        messages.error(request, "You don't have permission to delete this notice.")
+        return redirect('staff_dashboard')
+    
+    if request.method == 'POST':
+        # Delete the associated file if it exists
+        if notice.file:
+            if os.path.isfile(notice.file.path):
+                try:
+                    os.remove(notice.file.path)
+                except (OSError, FileNotFoundError):
+                    pass  # Ignore file deletion errors
+        
+        notice.delete()
+        messages.success(request, 'Notice deleted successfully!')
+        return redirect('staff_dashboard')
+    
+    return render(request, 'cse/staff/delete_notice_confirm.html', {
+        'notice': notice
+    })
+
+@login_required(login_url='staff_login')
+def edit_scrolling_notice(request, pk):
+    notice = get_object_or_404(ScrollingNotice, pk=pk)
+    
+    # Check if the user is the creator of the notice
+    if notice.created_by != request.user:
+        raise PermissionDenied("You don't have permission to edit this scrolling notice.")
+    
+    if request.method == 'POST':
+        form = ScrollingNoticeForm(request.POST, instance=notice)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Scrolling notice updated successfully!')
+            return redirect('staff_dashboard')
+    else:
+        form = ScrollingNoticeForm(instance=notice)
+    
+    return render(request, 'cse/staff/edit_scrolling_notice.html', {
+        'form': form,
+        'notice': notice
+    })
+
+@login_required(login_url='staff_login')
+def delete_scrolling_notice(request, pk):
+    notice = get_object_or_404(ScrollingNotice, pk=pk)
+    
+    # Check if the user is the creator of the notice
+    if notice.created_by != request.user:
+        raise PermissionDenied("You don't have permission to delete this scrolling notice.")
+    
+    if request.method == 'POST':
+        notice.delete()
+        messages.success(request, 'Scrolling notice deleted successfully!')
+        return redirect('staff_dashboard')
+    
+    return render(request, 'cse/staff/delete_scrolling_notice_confirm.html', {
+        'notice': notice
+    })
 
 def home(request):
     # Get active carousel items ordered by their specified order
