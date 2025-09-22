@@ -2,33 +2,40 @@
 {% block title %}Ex-Chairmen of CSE Department{% endblock %}
 {% block content %}
 <!-- Ex Chairman Section -->
-<div class="container mx-auto px-4 py-12">
-    <div class="text-center mb-16">
-        <h1 class="text-5xl font-bold mb-6 text-gray-800 tracking-tight">Former Department Chairmen</h1>
-        <p class="text-xl text-gray-600 max-w-3xl mx-auto">Honoring the visionary leaders who have guided our Computer Science & Engineering department through the years</p>
+<div class="container mx-auto px-4 py-8">
+    <div class="text-center mb-12">
+        <h1 class="text-4xl font-bold mb-4 text-gray-800">Former Department Chairmen</h1>
+        <div class="w-24 h-1 bg-blue-600 mx-auto mb-4"></div>
+        <p class="text-lg text-gray-600 max-w-2xl mx-auto leading-relaxed">Department of Computer Science and Engineering</p>
     </div>
 
     <!-- Ex Chairman Grid -->
-    <div class="mb-20">
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+    <div class="mb-16">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {% for chairman in ex_chairmen %}
-                <div class="bg-white rounded-lg shadow-lg overflow-hidden transform transition duration-300 hover:scale-105">
+                <div class="bg-white border border-gray-200 shadow-md overflow-hidden">
                     {% if chairman.image %}
-                        <img src="{{ chairman.image.url }}" alt="{{ chairman.name }}" class="w-full h-64 object-cover">
+                        <img src="{{ chairman.image.url }}" alt="{{ chairman.name }}" class="w-full h-56 object-cover">
                     {% else %}
-                        <div class="w-full h-64 bg-gray-200 flex items-center justify-center">
-                            <span class="text-gray-400 text-lg">No image available</span>
+                        <div class="w-full h-56 bg-gray-100 flex items-center justify-center border-b border-gray-200">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-16 w-16 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                            </svg>
                         </div>
                     {% endif %}
-                    <div class="p-6">
-                        <h3 class="text-2xl font-semibold text-gray-800 mb-2">{{ chairman.name }}</h3>
-                        <p class="text-gray-600 mb-4">{{ chairman.designation }}</p>
+                    <div class="p-5">
+                        <h3 class="text-lg font-bold text-gray-900 mb-2">{{ chairman.name }}</h3>
+                        <p class="text-blue-600 font-medium mb-3">{{ chairman.designation }}</p>
                         {% if chairman.tenure_start and chairman.tenure_end %}
-                            <p class="text-sm text-gray-500">Tenure: {{ chairman.tenure_start|date:"M Y" }} - {{ chairman.tenure_end|date:"M Y" }}</p>
+                            <p class="text-sm text-gray-700 mb-2">
+                                <i class="fas fa-calendar text-blue-600 mr-2"></i>
+                                Tenure: {{ chairman.tenure_start|date:"M Y" }} - {{ chairman.tenure_end|date:"M Y" }}
+                            </p>
                         {% endif %}
                         {% if chairman.email %}
-                            <p class="text-sm text-blue-600 mt-2">
-                                <a href="mailto:{{ chairman.email }}" class="hover:text-blue-800">
+                            <p class="text-sm text-gray-700">
+                                <i class="fas fa-envelope text-blue-600 mr-2"></i>
+                                <a href="mailto:{{ chairman.email }}" class="text-blue-600 hover:text-blue-800">
                                     {{ chairman.email }}
                                 </a>
                             </p>
@@ -36,7 +43,7 @@
                     </div>
                 </div>
             {% empty %}
-                <div class="col-span-full text-center py-8">
+                <div class="col-span-full text-center py-12">
                     <p class="text-gray-600">No former chairmen records available at the moment.</p>
                 </div>
             {% endfor %}

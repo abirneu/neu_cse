@@ -2,62 +2,60 @@
 {% block title %}Past Faculty Members - Department of CSE{% endblock %}
 {% block content %}
 <!-- Past Faculty Members Section -->
-<div class="container mx-auto px-4 py-12">
-    <div class="text-center mb-16">
-        <h1 class="text-5xl font-bold mb-6 text-gray-800 tracking-tight">Past Faculty Members</h1>
-        <p class="text-xl text-gray-600 max-w-3xl mx-auto">Honoring the educators who have contributed to our department's legacy</p>
+<div class="container mx-auto px-4 py-8">
+    <div class="text-center mb-12">
+        <h1 class="text-4xl font-bold mb-4 text-gray-800">Past Faculty Members</h1>
+        <div class="w-24 h-1 bg-blue-600 mx-auto mb-4"></div>
+        <p class="text-lg text-gray-600 max-w-2xl mx-auto leading-relaxed">Department of Computer Science and Engineering</p>
     </div>
 
     <!-- Past Faculty Grid -->
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {% for faculty in faculty_members %}
-        <div class="bg-white rounded-xl shadow-lg overflow-hidden transform transition-all duration-300 hover:shadow-xl">
+        <div class="bg-white border border-gray-200 shadow-md overflow-hidden">
             <div class="relative">
                 {% if faculty.image %}
-                    <img src="{{ faculty.image.url }}" alt="{{ faculty.name }}" class="w-full h-64 object-cover">
+                    <img src="{{ faculty.image.url }}" alt="{{ faculty.name }}" class="w-full h-56 object-cover">
                 {% else %}
-                    <div class="w-full h-64 bg-gradient-to-br from-blue-50 to-gray-100 flex items-center justify-center">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-24 w-24 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <div class="w-full h-56 bg-gray-100 flex items-center justify-center border-b border-gray-200">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-16 w-16 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
                         </svg>
                     </div>
                 {% endif %}
             </div>
-            <div class="p-6">
-                <h3 class="text-2xl font-bold text-gray-900 mb-2">{{ faculty.name }}</h3>
-                <p class="text-lg text-blue-600 mb-4">{{ faculty.get_designation_display }}</p>
+            <div class="p-5">
+                <h3 class="text-lg font-bold text-gray-900 mb-1">{{ faculty.name }}</h3>
+                <p class="text-blue-600 font-medium mb-3">{{ faculty.get_designation_display }}</p>
                 
-                <div class="space-y-2 text-gray-600">
+                <div class="space-y-2 text-gray-700 text-sm">
                     <p class="flex items-center">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-3 text-blue-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
-                        </svg>
+                        <i class="fas fa-calendar text-blue-600 mr-3 w-4"></i>
                         {% if faculty.end_date %}
                             Served until: {{ faculty.end_date|date:"F Y" }}
                         {% endif %}
                     </p>
                     {% if faculty.email %}
                         <p class="flex items-center">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-3 text-blue-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-                            </svg>
-                            {{ faculty.email }}
+                            <i class="fas fa-envelope text-blue-600 mr-3 w-4"></i>
+                            <span class="truncate">{{ faculty.email }}</span>
                         </p>
                     {% endif %}
                 </div>
 
                 {% if faculty.bio %}
-                    <div class="mt-4 pt-4 border-t border-gray-200">
-                        <p class="text-gray-700">{{ faculty.bio|truncatewords:30 }}</p>
+                    <div class="mt-3 pt-3 border-t border-gray-200">
+                        <p class="text-gray-700 text-sm leading-relaxed">{{ faculty.bio|truncatewords:30 }}</p>
                     </div>
                 {% endif %}
             </div>
         </div>
         {% empty %}
         <div class="col-span-full text-center py-12">
-            <p class="text-xl text-gray-600">No past faculty members to display at this time.</p>
+            <p class="text-lg text-gray-600">No past faculty members to display at this time.</p>
         </div>
         {% endfor %}
     </div>
 </div>
+{% endblock %}
 {% endblock %}

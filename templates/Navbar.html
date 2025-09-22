@@ -396,8 +396,8 @@
         </div>
         
         <!-- Mobile menu (hidden by default) -->
-        <div id="mobile-menu" class="hidden md:hidden bg-gradient-to-b from-slate-900 to-slate-800 border-t border-slate-700 max-h-[calc(100vh-120px)] overflow-y-auto">
-            <div class="px-4 py-4 space-y-2">
+        <div id="mobile-menu" class="hidden md:hidden bg-gradient-to-b from-slate-900 to-slate-800 border-t border-slate-700 max-h-[calc(100vh-140px)] overflow-y-auto scrollbar-custom">
+            <div class="px-4 py-4 space-y-2 min-h-0">
                 <!-- Home -->
                 <a href="{% url 'home' %}" 
                    class="block py-3 px-4 rounded-xl font-medium text-sm transition-all duration-300 hover:bg-slate-700/50 {% if request.path == '/' %}bg-gradient-to-r from-emerald-500 to-teal-500 text-white shadow-lg{% else %}text-slate-200 hover:text-white{% endif %}">
@@ -695,103 +695,184 @@
 (function() {
     'use strict';
     
-    // Simple mobile menu toggle
+    // Cache DOM elements
+    let button, menu, menuIcon, closeIcon;
+    
+    // Lightweight mobile menu toggle
     function initMobileMenu() {
-        const button = document.getElementById('mobile-menu-button');
-        const menu = document.getElementById('mobile-menu');
-        const menuIcon = document.getElementById('menu-icon');
-        const closeIcon = document.getElementById('close-icon');
+        button = document.getElementById('mobile-menu-button');
+        menu = document.getElementById('mobile-menu');
+        menuIcon = document.getElementById('menu-icon');
+        closeIcon = document.getElementById('close-icon');
         
         if (!button || !menu || !menuIcon || !closeIcon) return;
         
-        button.addEventListener('click', function(e) {
-            e.preventDefault();
-            e.stopPropagation();
-            
-            const isHidden = menu.classList.contains('hidden');
-            
-            if (isHidden) {
-                // Open menu
-                menu.classList.remove('hidden');
-                menuIcon.classList.add('hidden');
-                closeIcon.classList.remove('hidden');
-                button.classList.add('rotate-180');
-                document.body.classList.add('overflow-hidden');
-            } else {
-                // Close menu
-                menu.classList.add('hidden');
-                menuIcon.classList.remove('hidden');
-                closeIcon.classList.add('hidden');
-                button.classList.remove('rotate-180');
-                document.body.classList.remove('overflow-hidden');
-                closeAllDropdowns();
-            }
-        });
+        // Use single event listener with delegation
+        button.addEventListener('click', toggleMenu);
+        document.addEventListener('click', handleOutsideClick);
     }
     
-    // Simple dropdown toggle
+    // Optimized menu toggle
+    function toggleMenu(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        
+        const isHidden = menu.classList.contains('hidden');
+        
+        // Toggle menu visibility
+        menu.classList.toggle('hidden', !isHidden);
+        menuIcon.classList.toggle('hidden', isHidden);
+        closeIcon.classList.toggle('hidden', !isHidden);
+        button.classList.toggle('rotate-180', isHidden);
+        
+        if (!isHidden) {
+            closeAllDropdowns();
+        }
+        
+        // Ensure menu is scrollable when opened
+        if (isHidden) {
+            requestAnimationFrame(() => {
+                menu.scrollTop = 0;
+            });
+        }
+    }
+    
+    // Optimized dropdown toggle
     function toggleMobileDropdown(id) {
         const dropdown = document.getElementById(id);
-        const arrowId = id.replace('dropdown', 'arrow');
-        const arrow = document.getElementById(arrowId);
-        
         if (!dropdown) return;
         
+        const arrowId = id.replace('dropdown', 'arrow');
+        const arrow = document.getElementById(arrowId);
         const isHidden = dropdown.classList.contains('hidden');
         
-        // Close all other dropdowns
-        const allDropdowns = document.querySelectorAll('[id$="-mobile-dropdown"]');
-        const allArrows = document.querySelectorAll('[id$="-mobile-arrow"]');
-        
-        allDropdowns.forEach(el => {
-            if (el.id !== id) {
-                el.classList.add('hidden');
-            }
+        // Close other dropdowns efficiently
+        document.querySelectorAll('[id$="-mobile-dropdown"]:not(#' + id + ')').forEach(el => {
+            el.classList.add('hidden');
         });
         
-        allArrows.forEach(el => {
-            if (el.id !== arrowId) {
-                el.classList.remove('rotate-180');
-            }
+        document.querySelectorAll('[id$="-mobile-arrow"]:not(#' + arrowId + ')').forEach(el => {
+            el.classList.remove('rotate-180');
         });
         
         // Toggle current dropdown
-        if (isHidden) {
-            dropdown.classList.remove('hidden');
-            if (arrow) arrow.classList.add('rotate-180');
-        } else {
-            dropdown.classList.add('hidden');
-            if (arrow) arrow.classList.remove('rotate-180');
+        dropdown.classList.toggle('hidden', !isHidden);
+        if (arrow) {
+            arrow.classList.toggle('rotate-180', isHidden);
+        }
+        
+        // Ensure dropdown is visible when opened
+        if (isHidden && menu) {
+            requestAnimationFrame(() => {
+                const dropdownRect = dropdown.getBoundingClientRect();
+                const menuRect = menu.getBoundingClientRect();
+                
+                if (dropdownRect.bottom > menuRect.bottom) {
+                    dropdown.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                }
+            });
         }
     }
     
-    // Close all dropdowns
+    // Lightweight dropdown closer
     function closeAllDropdowns() {
-        const dropdowns = document.querySelectorAll('[id$="-mobile-dropdown"]');
-        const arrows = document.querySelectorAll('[id$="-mobile-arrow"]');
-        
-        dropdowns.forEach(dropdown => dropdown.classList.add('hidden'));
-        arrows.forEach(arrow => arrow.classList.remove('rotate-180'));
+        document.querySelectorAll('[id$="-mobile-dropdown"]').forEach(dropdown => {
+            dropdown.classList.add('hidden');
+        });
+        document.querySelectorAll('[id$="-mobile-arrow"]').forEach(arrow => {
+            arrow.classList.remove('rotate-180');
+        });
     }
     
-    // Close menu when clicking outside
+    // Optimized outside click handler
     function handleOutsideClick(e) {
-        const menu = document.getElementById('mobile-menu');
-        const button = document.getElementById('mobile-menu-button');
+        if (!menu || menu.classList.contains('hidden')) return;
         
-        if (!menu || !button) return;
-        
-        if (!menu.classList.contains('hidden') && 
-            !menu.contains(e.target) && 
-            !button.contains(e.target)) {
-            
+        if (!menu.contains(e.target) && !button.contains(e.target)) {
             menu.classList.add('hidden');
-            document.getElementById('menu-icon').classList.remove('hidden');
-            document.getElementById('close-icon').classList.add('hidden');
+            menuIcon.classList.remove('hidden');
+            closeIcon.classList.add('hidden');
             button.classList.remove('rotate-180');
-            document.body.classList.remove('overflow-hidden');
             closeAllDropdowns();
         }
+    }
+    
+    // Efficient initialization
+    function init() {
+        initMobileMenu();
+        
+        // Make toggleMobileDropdown globally available
+        window.toggleMobileDropdown = toggleMobileDropdown;
+        
+        // Add optimized styles for mobile menu
+        const style = document.createElement('style');
+        style.textContent = `
+            .rotate-180 {
+                transform: rotate(180deg);
+            }
+            
+            nav {
+                z-index: 9999;
+                position: relative;
+            }
+            
+            #mobile-menu {
+                -webkit-overflow-scrolling: touch;
+                overscroll-behavior: contain;
+                scroll-behavior: smooth;
+                position: relative;
+            }
+            
+            /* Custom scrollbar for better UX */
+            .scrollbar-custom {
+                scrollbar-width: thin;
+                scrollbar-color: rgba(16, 185, 129, 0.6) transparent;
+            }
+            
+            .scrollbar-custom::-webkit-scrollbar {
+                width: 6px;
+            }
+            
+            .scrollbar-custom::-webkit-scrollbar-track {
+                background: rgba(51, 65, 85, 0.3);
+                border-radius: 3px;
+            }
+            
+            .scrollbar-custom::-webkit-scrollbar-thumb {
+                background: rgba(16, 185, 129, 0.6);
+                border-radius: 3px;
+                transition: background 0.3s ease;
+            }
+            
+            .scrollbar-custom::-webkit-scrollbar-thumb:hover {
+                background: rgba(16, 185, 129, 0.8);
+            }
+            
+            /* Smooth transitions */
+            .transition-all {
+                transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            }
+            
+            /* Better mobile touch targets */
+            @media (max-width: 768px) {
+                #mobile-menu a, #mobile-menu button {
+                    min-height: 48px;
+                    touch-action: manipulation;
+                }
+                
+                #mobile-menu {
+                    max-height: calc(100vh - 140px);
+                    min-height: 200px;
+                }
+            }
+            
+            /* Ensure dropdown content is accessible */
+            [id$="-mobile-dropdown"] {
+                max-height: none;
+                overflow: visible;
+            }
+        `;
+        document.head.appendChild(style);
     }
     
     // Initialize when DOM is ready
@@ -799,48 +880,6 @@
         document.addEventListener('DOMContentLoaded', init);
     } else {
         init();
-    }
-    
-    function init() {
-        initMobileMenu();
-        document.addEventListener('click', handleOutsideClick);
-        
-        // Make toggleMobileDropdown globally available
-        window.toggleMobileDropdown = toggleMobileDropdown;
-        
-        // Add basic styles
-        const style = document.createElement('style');
-        style.textContent = `
-            .overflow-hidden {
-                overflow: hidden !important;
-            }
-            
-            .rotate-180 {
-                transform: rotate(180deg);
-            }
-            
-            nav {
-                z-index: 9999;
-            }
-            
-            #mobile-menu {
-                -webkit-overflow-scrolling: touch;
-            }
-            
-            #mobile-menu::-webkit-scrollbar {
-                width: 4px;
-            }
-            
-            #mobile-menu::-webkit-scrollbar-thumb {
-                background: rgba(16, 185, 129, 0.5);
-                border-radius: 2px;
-            }
-            
-            .transition-all {
-                transition: all 0.3s ease;
-            }
-        `;
-        document.head.appendChild(style);
     }
 })();
 </script>
