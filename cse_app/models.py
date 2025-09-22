@@ -40,15 +40,12 @@ class Notice_Board(models.Model):
     title = models.CharField(max_length=200)
     content = RichTextField()
     file = models.FileField(upload_to='notices/', blank=True, null=True)  # For download option
-    created_at = models.DateTimeField(null=True, blank=True)
-    updated_at = models.DateTimeField(null=True, blank=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
     is_important = models.BooleanField(default=False)
     created_by = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True)
     
     def save(self, *args, **kwargs):
-        if not self.created_at:
-            self.created_at = timezone.now()
-        self.updated_at = timezone.now()
         super().save(*args, **kwargs)
 
 

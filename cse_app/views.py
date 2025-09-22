@@ -54,7 +54,6 @@ def create_notice(request):
         if form.is_valid():
             notice = form.save(commit=False)
             notice.created_by = request.user
-            notice.created_at = timezone.now()
             notice.save()
             request.session['temp_message'] = {
                 'type': 'success',

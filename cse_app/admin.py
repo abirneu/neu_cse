@@ -42,17 +42,19 @@ class ScrollingNoticeAdmin(admin.ModelAdmin):
 
 @admin.register(Notice_Board)
 class NoticeAdmin(admin.ModelAdmin):
-    list_display = ('title', 'created_at', 'updated_at', 'is_important')
-    list_filter = ('created_at', 'is_important')
+    list_display = ('title', 'created_at', 'updated_at', 'is_important', 'created_by')
+    list_filter = ('created_at', 'is_important', 'created_by')
     search_fields = ('title', 'content')
+    readonly_fields = ('created_at', 'updated_at')
     fieldsets = (
         (None, {
-            'fields': ('title', 'content', 'file', 'is_important','created_at', 'updated_at')
+            'fields': ('title', 'content', 'file', 'is_important', 'created_by')
         }),
-        # ('Timestamp Information', {
-        #     'fields': ('created_at', 'updated_at'),
-        #     'classes': ('collapse',)
-        # })
+        ('Timestamp Information', {
+            'fields': ('created_at', 'updated_at'),
+            'classes': ('collapse',),
+            'description': 'These fields are automatically managed by the system.'
+        })
     )
 
 @admin.register(Publication)

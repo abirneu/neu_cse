@@ -18,13 +18,13 @@
         <div class="flex items-center text-sm text-gray-600 mb-4">
             {% if notice.created_at %}
             <i class="far fa-calendar-alt mr-2"></i>
-            <span>Created: {{ notice.created_at|date:"F d, Y H:i" }}</span>
+            <span>Published: {{ notice.created_at|date:"F d, Y H:i" }}</span>
             {% endif %}
-            {% if notice.updated_at and notice.updated_at != notice.created_at %}
+            {% comment %} {% if notice.updated_at and notice.updated_at != notice.created_at %}
             <span class="mx-2">|</span>
             <i class="fas fa-edit mr-2"></i>
             <span>Updated: {{ notice.updated_at|date:"F d, Y H:i" }}</span>
-            {% endif %}
+            {% endif %} {% endcomment %}
         </div>
         
         {% if notice.file %}
