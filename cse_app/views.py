@@ -40,6 +40,10 @@ def staff_login(request):
 
 @login_required
 def staff_logout(request):
+    # Clear any pending messages before logout
+    if 'dashboard_message' in request.session:
+        del request.session['dashboard_message']
+    request.session.flush()
     logout(request)
     return redirect('staff_login')
 
@@ -52,10 +56,10 @@ def create_notice(request):
             notice.created_by = request.user
             notice.created_at = timezone.now()
             notice.save()
-            messages.success(request, 'Notice created successfully!')
+            request.session['dashboard_message'] = {'level': 'success', 'text': 'Notice created successfully!'}
             return redirect('staff_dashboard')
         else:
-            messages.error(request, 'Error creating notice. Please check the form.')
+            request.session['dashboard_message'] = {'level': 'error', 'text': 'Error creating notice. Please check the form.'}
     return redirect('staff_dashboard')
 
 @login_required
@@ -67,10 +71,10 @@ def create_scrolling_notice(request):
             notice = form.save(commit=False)
             notice.created_by = request.user
             notice.save()
-            messages.success(request, 'Scrolling notice created successfully!')
+            request.session['dashboard_message'] = {'level': 'success', 'text': 'Scrolling notice created successfully!'}
             return redirect('staff_dashboard')
         else:
-            messages.error(request, 'Error creating scrolling notice. Please check the form.')
+            request.session['dashboard_message'] = {'level': 'error', 'text': 'Error creating scrolling notice. Please check the form.'}
     return redirect('staff_dashboard')
 
 @login_required
@@ -95,6 +99,20 @@ def staff_dashboard(request):
         total_scrolling_notices = ScrollingNotice.objects.count()
         staff_notices = user_notices.count()
         staff_scrolling_notices = user_scrolling_notices.count()
+        
+        # Handle dashboard messages
+        dashboard_message = request.session.pop('dashboard_message', None)
+        if dashboard_message:
+            level = dashboard_message.get('level', 'info')
+            text = dashboard_message.get('text', '')
+            if level == 'error':
+                messages.error(request, text)
+            elif level == 'success':
+                messages.success(request, text)
+            elif level == 'warning':
+                messages.warning(request, text)
+            else:
+                messages.info(request, text)
         
         context = {
             'staff_profile': staff_profile,
@@ -122,7 +140,7 @@ def edit_notice(request, pk):
     
     # Check if the user is the creator of the notice
     if notice.created_by != request.user:
-        messages.error(request, "You don't have permission to edit this notice.")
+        request.session['dashboard_message'] = {'level': 'error', 'text': "You don't have permission to edit this notice."}
         return redirect('staff_dashboard')
     
     if request.method == 'POST':
@@ -131,10 +149,10 @@ def edit_notice(request, pk):
             notice = form.save(commit=False)
             notice.created_by = request.user  # Ensure created_by is set
             notice.save()
-            messages.success(request, 'Notice updated successfully!')
+            request.session['dashboard_message'] = {'level': 'success', 'text': 'Notice updated successfully!'}
             return redirect('staff_dashboard')
         else:
-            messages.error(request, 'Error updating notice. Please check the form.')
+            request.session['dashboard_message'] = {'level': 'error', 'text': 'Error updating notice. Please check the form.'}
     else:
         form = NoticeForm(instance=notice)
     
@@ -149,7 +167,7 @@ def delete_notice(request, pk):
     
     # Check if the user is the creator of the notice
     if notice.created_by != request.user:
-        messages.error(request, "You don't have permission to delete this notice.")
+        request.session['dashboard_message'] = {'level': 'error', 'text': "You don't have permission to delete this notice."}
         return redirect('staff_dashboard')
     
     if request.method == 'POST':
@@ -162,7 +180,7 @@ def delete_notice(request, pk):
                     pass  # Ignore file deletion errors
         
         notice.delete()
-        messages.success(request, 'Notice deleted successfully!')
+        request.session['dashboard_message'] = {'level': 'success', 'text': 'Notice deleted successfully!'}
         return redirect('staff_dashboard')
     
     return render(request, 'cse/staff/delete_notice_confirm.html', {
