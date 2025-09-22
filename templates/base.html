@@ -52,6 +52,27 @@
       transition-duration: 0.1s !important;
     }
   }
+  
+  /* Line clamp utilities for text truncation */
+  .line-clamp-2 {
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+  }
+  
+  .line-clamp-3 {
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 3;
+  }
+  
+  /* Enhanced focus states for accessibility */
+  .focus-visible:focus-visible {
+    outline: 2px solid var(--custom-green);
+    outline-offset: 2px;
+  }
 </style>
 
 </head>

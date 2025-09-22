@@ -1,72 +1,407 @@
 <!-- Footer -->
-<footer class="bg-gray-800 text-white py-8">
-    <div class="container mx-auto px-4">
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div>
-                <h3 class="text-xl font-bold mb-4">Contact Us</h3>
-                <p><i class="fas fa-map-marker-alt mr-2"></i> Department of CSE</p>
-                <p class="ml-6">Netrokona University</p>
-                <p class="ml-6">Netrokona, Bangladesh</p>
-                <p class="mt-2"><i class="fas fa-phone mr-2"></i> +880 XXXX-XXXXXX</p>
-                <p><i class="fas fa-envelope mr-2"></i> cse@neu.edu.bd</p>
+<footer class="relative bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 text-white">
+    <!-- Decorative top border -->
+    <div class="h-1 bg-gradient-to-r from-custom-green via-emerald-500 to-custom-green"></div>
+    
+    <!-- Main footer content -->
+    <div class="py-16 px-4 lg:px-8">
+        <div class="max-w-7xl mx-auto">
+            <!-- University branding section -->
+            <div class="text-center mb-16">
+                <h2 class="text-3xl lg:text-4xl font-bold text-white mb-4">
+                    <span class="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-custom-green">
+                        Department of CSE
+                    </span>
+                </h2>
+                <p class="text-xl text-gray-300 font-medium">Netrokona University</p>
+                <div class="w-24 h-1 bg-gradient-to-r from-custom-green to-emerald-400 mx-auto mt-4 rounded-full"></div>
             </div>
-            <div>
-                <h3 class="text-xl font-bold mb-4">Quick Links</h3>
-                <ul class="space-y-2">
-                    <li><a href="{% url 'home' %}" class="hover:text-blue-300">Home</a></li>
-                    <li><a href="{% url 'notice_list' %}" class="hover:text-blue-300">Notices</a></li>
-                    <li><a href="{% url 'faculty_list' %}" class="hover:text-blue-300">Faculty Members</a></li>
-                    <li><a href="{% url 'all_publications' %}" class="hover:text-blue-300">Publications</a></li>
-                    <li><a href="{% url 'projects' %}" class="hover:text-blue-300">Projects</a></li>
-                </ul>
-            </div>
-            <div>
-                <h3 class="text-xl font-bold mb-4">Connect With Us</h3>
-                <div class="flex space-x-4 mb-4">
-                    <a href="#" class="text-2xl hover:text-blue-300"><i class="fab fa-facebook"></i></a>
-                    <a href="#" class="text-2xl hover:text-blue-300"><i class="fab fa-twitter"></i></a>
-                    <a href="#" class="text-2xl hover:text-blue-300"><i class="fab fa-linkedin"></i></a>
-                    <a href="#" class="text-2xl hover:text-blue-300"><i class="fab fa-youtube"></i></a>
+
+            <!-- Footer main sections -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
+                <!-- Contact Information -->
+                <div class="space-y-6">
+                    <h3 class="text-xl font-bold text-white mb-6 flex items-center">
+                        <div class="w-8 h-8 bg-custom-green rounded-lg flex items-center justify-center mr-3">
+                            <i class="fas fa-map-marker-alt text-sm"></i>
+                        </div>
+                        Contact Us
+                    </h3>
+                    <div class="space-y-4">
+                        <div class="flex items-start space-x-4 group">
+                            <div class="w-10 h-10 bg-gray-700 group-hover:bg-custom-green rounded-lg flex items-center justify-center transition-colors duration-300">
+                                <i class="fas fa-university text-sm"></i>
+                            </div>
+                            <div>
+                                <p class="text-gray-300 leading-relaxed">
+                                    Department of CSE<br>
+                                    Netrokona University<br>
+                                    Netrokona, Bangladesh
+                                </p>
+                            </div>
+                        </div>
+                        <div class="flex items-center space-x-4 group">
+                            <div class="w-10 h-10 bg-gray-700 group-hover:bg-custom-green rounded-lg flex items-center justify-center transition-colors duration-300">
+                                <i class="fas fa-phone text-sm"></i>
+                            </div>
+                            <p class="text-gray-300">+880 XXXX-XXXXXX</p>
+                        </div>
+                        <div class="flex items-center space-x-4 group">
+                            <div class="w-10 h-10 bg-gray-700 group-hover:bg-custom-green rounded-lg flex items-center justify-center transition-colors duration-300">
+                                <i class="fas fa-envelope text-sm"></i>
+                            </div>
+                            <a href="mailto:cse@neu.edu.bd" class="text-gray-300 hover:text-custom-green transition-colors">
+                                cse@neu.edu.bd
+                            </a>
+                        </div>
+                    </div>
                 </div>
-                <p>Subscribe to our newsletter:</p>
-                <form class="mt-2 flex">
-                    <input type="email" placeholder="Your email" class="px-2 py-1 text-gray-800 rounded-l w-full">
-                    <button class="bg-blue-700 px-4 py-1 rounded-r hover:bg-blue-600">Subscribe</button>
-                </form>
+
+                <!-- Quick Links -->
+                <div class="space-y-6">
+                    <h3 class="text-xl font-bold text-white mb-6 flex items-center">
+                        <div class="w-8 h-8 bg-custom-green rounded-lg flex items-center justify-center mr-3">
+                            <i class="fas fa-link text-sm"></i>
+                        </div>
+                        Quick Links
+                    </h3>
+                    <ul class="space-y-3">
+                        <li>
+                            <a href="{% url 'home' %}" class="text-gray-300 hover:text-custom-green transition-all duration-300 flex items-center group">
+                                <i class="fas fa-chevron-right text-xs mr-3 group-hover:translate-x-1 transition-transform duration-300"></i>
+                                Home
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{% url 'notice_list' %}" class="text-gray-300 hover:text-custom-green transition-all duration-300 flex items-center group">
+                                <i class="fas fa-chevron-right text-xs mr-3 group-hover:translate-x-1 transition-transform duration-300"></i>
+                                Notices
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{% url 'faculty_list' %}" class="text-gray-300 hover:text-custom-green transition-all duration-300 flex items-center group">
+                                <i class="fas fa-chevron-right text-xs mr-3 group-hover:translate-x-1 transition-transform duration-300"></i>
+                                Faculty Members
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{% url 'all_publications' %}" class="text-gray-300 hover:text-custom-green transition-all duration-300 flex items-center group">
+                                <i class="fas fa-chevron-right text-xs mr-3 group-hover:translate-x-1 transition-transform duration-300"></i>
+                                Publications
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{% url 'projects' %}" class="text-gray-300 hover:text-custom-green transition-all duration-300 flex items-center group">
+                                <i class="fas fa-chevron-right text-xs mr-3 group-hover:translate-x-1 transition-transform duration-300"></i>
+                                Projects
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Academic Resources -->
+                <div class="space-y-6">
+                    <h3 class="text-xl font-bold text-white mb-6 flex items-center">
+                        <div class="w-8 h-8 bg-custom-green rounded-lg flex items-center justify-center mr-3">
+                            <i class="fas fa-graduation-cap text-sm"></i>
+                        </div>
+                        Academic
+                    </h3>
+                    <ul class="space-y-3">
+                        <li>
+                            <a href="#" class="text-gray-300 hover:text-custom-green transition-all duration-300 flex items-center group">
+                                <i class="fas fa-chevron-right text-xs mr-3 group-hover:translate-x-1 transition-transform duration-300"></i>
+                                Admissions
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" class="text-gray-300 hover:text-custom-green transition-all duration-300 flex items-center group">
+                                <i class="fas fa-chevron-right text-xs mr-3 group-hover:translate-x-1 transition-transform duration-300"></i>
+                                Curriculum
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" class="text-gray-300 hover:text-custom-green transition-all duration-300 flex items-center group">
+                                <i class="fas fa-chevron-right text-xs mr-3 group-hover:translate-x-1 transition-transform duration-300"></i>
+                                Research
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" class="text-gray-300 hover:text-custom-green transition-all duration-300 flex items-center group">
+                                <i class="fas fa-chevron-right text-xs mr-3 group-hover:translate-x-1 transition-transform duration-300"></i>
+                                Library
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" class="text-gray-300 hover:text-custom-green transition-all duration-300 flex items-center group">
+                                <i class="fas fa-chevron-right text-xs mr-3 group-hover:translate-x-1 transition-transform duration-300"></i>
+                                Student Portal
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Connect & Newsletter -->
+                <div class="space-y-6">
+                    <h3 class="text-xl font-bold text-white mb-6 flex items-center">
+                        <div class="w-8 h-8 bg-custom-green rounded-lg flex items-center justify-center mr-3">
+                            <i class="fas fa-share-alt text-sm"></i>
+                        </div>
+                        Connect With Us
+                    </h3>
+                    
+                    <!-- Social Media Icons -->
+                    <div class="flex space-x-4">
+                        <a href="#" class="w-12 h-12 bg-gray-700 hover:bg-blue-600 rounded-xl flex items-center justify-center transition-all duration-300 transform hover:scale-110 hover:shadow-lg group">
+                            <i class="fab fa-facebook text-xl group-hover:scale-110 transition-transform duration-300"></i>
+                        </a>
+                        <a href="#" class="w-12 h-12 bg-gray-700 hover:bg-blue-400 rounded-xl flex items-center justify-center transition-all duration-300 transform hover:scale-110 hover:shadow-lg group">
+                            <i class="fab fa-twitter text-xl group-hover:scale-110 transition-transform duration-300"></i>
+                        </a>
+                        <a href="#" class="w-12 h-12 bg-gray-700 hover:bg-blue-700 rounded-xl flex items-center justify-center transition-all duration-300 transform hover:scale-110 hover:shadow-lg group">
+                            <i class="fab fa-linkedin text-xl group-hover:scale-110 transition-transform duration-300"></i>
+                        </a>
+                        <a href="#" class="w-12 h-12 bg-gray-700 hover:bg-red-600 rounded-xl flex items-center justify-center transition-all duration-300 transform hover:scale-110 hover:shadow-lg group">
+                            <i class="fab fa-youtube text-xl group-hover:scale-110 transition-transform duration-300"></i>
+                        </a>
+                    </div>
+
+                    <!-- Newsletter Subscription -->
+                    <div class="bg-gray-800 rounded-xl p-6 border border-gray-700">
+                        <h4 class="text-lg font-semibold text-white mb-3">Stay Updated</h4>
+                        <p class="text-gray-300 text-sm mb-4">Subscribe to our newsletter for latest updates and announcements.</p>
+                        <form class="space-y-3">
+                            <div class="relative">
+                                <input type="email" placeholder="Enter your email" 
+                                       class="w-full px-4 py-3 bg-gray-700 text-white rounded-lg border border-gray-600 focus:border-custom-green focus:ring-2 focus:ring-custom-green focus:ring-opacity-20 transition-all duration-300 placeholder-gray-400">
+                                <div class="absolute inset-y-0 right-0 flex items-center pr-3">
+                                    <i class="fas fa-envelope text-gray-400"></i>
+                                </div>
+                            </div>
+                            <button type="submit" class="w-full bg-gradient-to-r from-custom-green to-emerald-500 hover:from-emerald-600 hover:to-custom-green text-white px-6 py-3 rounded-lg font-semibold transition-all duration-300 transform hover:scale-105 hover:shadow-lg">
+                                <i class="fas fa-paper-plane mr-2"></i>
+                                Subscribe Now
+                            </button>
+                        </form>
+                    </div>
+                </div>
             </div>
         </div>
-        <div class="border-t border-gray-700 mt-8 pt-4 text-center">
-            <p>&copy; {% now "Y" %} Department of CSE, Netrokona University. All rights reserved.</p>
-            <p class="text-sm text-gray-400 mt-2">Developed by <a href="https://abirsportfolio.netlify.app/" class="text-stone-400 font-bold hover:underline" target="_blank">Abir Hasan</a>, NeU CSE 1st Batch</p>
+    </div>
+
+    <!-- Bottom section -->
+    <div class="bg-gray-900 border-t border-gray-700">
+        <div class="max-w-7xl mx-auto px-4 lg:px-8 py-8">
+            <div class="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
+                <div class="text-center md:text-left">
+                    <p class="text-gray-300">
+                        &copy; {% now "Y" %} Department of CSE, Netrokona University. All rights reserved.
+                    </p>
+                </div>
+                <div class="text-center md:text-right">
+                    <p class="text-sm text-gray-400">
+                        Developed  by 
+                        <a href="https://abirsportfolio.netlify.app/" 
+                           class="text-custom-green font-semibold hover:text-emerald-400 transition-colors duration-300 hover:underline" 
+                           target="_blank" rel="noopener noreferrer">
+                            Abir Hasan
+                        </a>
+                        <span class="text-gray-300">• Maintained by NeU CSE Department</span>
+                    </p>
+                </div>
+            </div>
         </div>
     </div>
     
     <!-- Back to Top Button -->
-    <button id="backToTop" class="fixed bottom-6 right-6 bg-custom-green hover:bg-green-600 text-white p-3 rounded-full shadow-lg opacity-0 transition-opacity duration-300">
-        <i class="fas fa-arrow-up"></i>
+    <button id="backToTop" class="fixed bottom-8 right-8 w-14 h-14 bg-gradient-to-br from-custom-green to-emerald-500 hover:from-emerald-600 hover:to-custom-green text-white rounded-full shadow-2xl opacity-0 transition-all duration-500 transform hover:scale-110 z-50 backdrop-blur-sm">
+        <i class="fas fa-chevron-up text-lg"></i>
+        <div class="absolute inset-0 rounded-full border-2 border-white opacity-20"></div>
     </button>
 </footer>
 
 <script>
-    // Back to Top functionality
+    // Enhanced Back to Top functionality with smooth animations
     const backToTopButton = document.getElementById('backToTop');
+    let scrollTimeout;
     
-    // Show button when scrolling down
-    window.addEventListener('scroll', () => {
-        if (window.pageYOffset > 300) {
-            backToTopButton.classList.remove('opacity-0');
-            backToTopButton.classList.add('opacity-100');
+    // Show/hide button with enhanced animations
+    function toggleBackToTopButton() {
+        const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+        
+        if (scrollTop > 400) {
+            backToTopButton.classList.remove('opacity-0', 'translate-y-4');
+            backToTopButton.classList.add('opacity-100', 'translate-y-0');
         } else {
-            backToTopButton.classList.remove('opacity-100');
-            backToTopButton.classList.add('opacity-0');
+            backToTopButton.classList.remove('opacity-100', 'translate-y-0');
+            backToTopButton.classList.add('opacity-0', 'translate-y-4');
+        }
+    }
+    
+    // Throttled scroll event for better performance
+    window.addEventListener('scroll', () => {
+        if (!scrollTimeout) {
+            scrollTimeout = setTimeout(() => {
+                toggleBackToTopButton();
+                scrollTimeout = null;
+            }, 10);
         }
     });
     
-    // Scroll to top when clicked
-    backToTopButton.addEventListener('click', () => {
-        window.scrollTo({
-            top: 0,
-            behavior: 'smooth'
+    // Instant scroll to top
+    backToTopButton.addEventListener('click', (e) => {
+        e.preventDefault();
+        
+        // Add click animation
+        backToTopButton.classList.add('animate-pulse');
+        setTimeout(() => {
+            backToTopButton.classList.remove('animate-pulse');
+        }, 300);
+        
+        // Instant scroll to top
+        window.scrollTo(0, 0);
+    });
+
+    // Newsletter form enhancement
+    document.addEventListener('DOMContentLoaded', function() {
+        const newsletterForm = document.querySelector('footer form');
+        const emailInput = document.querySelector('footer input[type="email"]');
+        const submitButton = document.querySelector('footer button[type="submit"]');
+        
+        if (newsletterForm && emailInput && submitButton) {
+            // Email validation on input
+            emailInput.addEventListener('input', function() {
+                const email = this.value;
+                const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                
+                if (email && emailRegex.test(email)) {
+                    this.classList.remove('border-red-500');
+                    this.classList.add('border-custom-green');
+                    submitButton.disabled = false;
+                    submitButton.classList.remove('opacity-50', 'cursor-not-allowed');
+                } else if (email) {
+                    this.classList.remove('border-custom-green');
+                    this.classList.add('border-red-500');
+                    submitButton.disabled = true;
+                    submitButton.classList.add('opacity-50', 'cursor-not-allowed');
+                } else {
+                    this.classList.remove('border-red-500', 'border-custom-green');
+                    submitButton.disabled = false;
+                    submitButton.classList.remove('opacity-50', 'cursor-not-allowed');
+                }
+            });
+            
+            // Form submission handling
+            newsletterForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                const email = emailInput.value;
+                
+                if (email) {
+                    // Show loading state
+                    const originalText = submitButton.innerHTML;
+                    submitButton.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i>Subscribing...';
+                    submitButton.disabled = true;
+                    
+                    // Simulate API call (replace with actual newsletter subscription logic)
+                    setTimeout(() => {
+                        // Show success message
+                        submitButton.innerHTML = '<i class="fas fa-check mr-2"></i>Subscribed!';
+                        submitButton.classList.add('bg-green-600');
+                        emailInput.value = '';
+                        
+                        // Reset after 3 seconds
+                        setTimeout(() => {
+                            submitButton.innerHTML = originalText;
+                            submitButton.classList.remove('bg-green-600');
+                            submitButton.disabled = false;
+                        }, 3000);
+                    }, 1500);
+                }
+            });
+        }
+    });
+
+    // Add entrance animations to footer elements on scroll
+    const observerOptions = {
+        threshold: 0.1,
+        rootMargin: '0px 0px -50px 0px'
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('animate-fadeIn');
+                entry.target.style.animationDelay = entry.target.dataset.delay || '0ms';
+            }
+        });
+    }, observerOptions);
+
+    // Observe footer sections for animation
+    document.addEventListener('DOMContentLoaded', function() {
+        const footerSections = document.querySelectorAll('footer .space-y-6');
+        footerSections.forEach((section, index) => {
+            section.dataset.delay = `${index * 200}ms`;
+            section.classList.add('opacity-0');
+            observer.observe(section);
         });
     });
 </script>
+
+<style>
+    /* Custom animations for footer */
+    @keyframes fadeIn {
+        from {
+            opacity: 0;
+            transform: translateY(30px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    .animate-fadeIn {
+        animation: fadeIn 0.8s ease-out forwards;
+    }
+
+    /* Smooth transitions for all interactive elements */
+    footer a, footer button, footer input {
+        transition: all 0.3s ease;
+    }
+
+    /* Custom hover effects for social media icons */
+    footer .w-12.h-12:hover {
+        transform: translateY(-2px) scale(1.1);
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+    }
+
+    /* Enhanced gradient animation */
+    @keyframes gradientShift {
+        0% { background-position: 0% 50%; }
+        50% { background-position: 100% 50%; }
+        100% { background-position: 0% 50%; }
+    }
+
+    .bg-gradient-to-r {
+        background-size: 200% 200%;
+        animation: gradientShift 4s ease infinite;
+    }
+
+    /* Custom scrollbar for the page */
+    ::-webkit-scrollbar {
+        width: 8px;
+    }
+
+    ::-webkit-scrollbar-track {
+        background: #1f2937;
+    }
+
+    ::-webkit-scrollbar-thumb {
+        background: linear-gradient(180deg, #02644A, #10b981);
+        border-radius: 10px;
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+        background: linear-gradient(180deg, #10b981, #02644A);
+    }
+</style>

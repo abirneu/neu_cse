@@ -396,7 +396,7 @@
         </div>
         
         <!-- Mobile menu (hidden by default) -->
-        <div id="mobile-menu" class="hidden md:hidden bg-gradient-to-b from-slate-900 to-slate-800 border-t border-slate-700">
+        <div id="mobile-menu" class="hidden md:hidden bg-gradient-to-b from-slate-900 to-slate-800 border-t border-slate-700 max-h-[calc(100vh-120px)] overflow-y-auto">
             <div class="px-4 py-4 space-y-2">
                 <!-- Home -->
                 <a href="{% url 'home' %}" 
@@ -706,11 +706,15 @@
         // Add rotation animation to button
         button.classList.toggle('rotate-180');
         
-        // Add backdrop blur when menu is open
+        // Prevent body scroll when menu is open, but allow menu internal scrolling
         if (!mobileMenu.classList.contains('hidden')) {
             document.body.style.overflow = 'hidden';
+            document.body.style.position = 'fixed';
+            document.body.style.width = '100%';
         } else {
-            document.body.style.overflow = 'auto';
+            document.body.style.overflow = '';
+            document.body.style.position = '';
+            document.body.style.width = '';
         }
     });
     
@@ -776,7 +780,9 @@
                 menuIcon.classList.remove('hidden');
                 closeIcon.classList.add('hidden');
                 button.classList.remove('rotate-180');
-                document.body.style.overflow = 'auto';
+                document.body.style.overflow = '';
+                document.body.style.position = '';
+                document.body.style.width = '';
             }
             
             document.querySelectorAll('[id$="-mobile-dropdown"]').forEach(dropdown => {
@@ -839,6 +845,31 @@
         
         nav .group > div[class*="absolute"] {
             z-index: 9999 !important;
+        }
+        
+        /* Mobile menu scrolling improvements */
+        #mobile-menu {
+            -webkit-overflow-scrolling: touch;
+            scrollbar-width: thin;
+            scrollbar-color: rgba(16, 185, 129, 0.7) rgba(15, 23, 42, 0.3);
+        }
+        
+        #mobile-menu::-webkit-scrollbar {
+            width: 6px;
+        }
+        
+        #mobile-menu::-webkit-scrollbar-track {
+            background: rgba(15, 23, 42, 0.3);
+            border-radius: 3px;
+        }
+        
+        #mobile-menu::-webkit-scrollbar-thumb {
+            background: rgba(16, 185, 129, 0.7);
+            border-radius: 3px;
+        }
+        
+        #mobile-menu::-webkit-scrollbar-thumb:hover {
+            background: rgba(16, 185, 129, 0.9);
         }
         
         @keyframes fadeInUp {
