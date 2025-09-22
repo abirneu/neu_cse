@@ -3,12 +3,21 @@
 {% block title %}Why Choose NEU CSE - Department of CSE, NEU{% endblock %}
 
 {% block content %}
-<section class="bg-gradient-to-b from-blue-50 to-white py-16 px-4 sm:px-6 lg:px-8">
+<section class=" py-16 px-4 sm:px-6 lg:px-8">
+     <!-- Back to Home Button -->
+    <div class="mb-8">
+      <a href="{% url 'home' %}" class="inline-flex items-center text-gray-600 hover:text-blue-600 transition-colors duration-200">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
+        </svg>
+        Back to Home
+      </a>
+    </div>
   <div class="max-w-7xl mx-auto">
     <!-- Header Section -->
     <div class="text-center mb-16">
       <h1 class="text-4xl md:text-5xl font-serif font-bold text-gray-900 mb-6">
-        Why Choose <span class="text-blue-800">Netrokona University</span> CSE Department?
+        Why Choose Netrokona University CSE Department?
       </h1>
       <div class="w-24 h-1 bg-blue-700 mx-auto mb-6"></div>
       <p class="text-xl text-gray-700 max-w-4xl mx-auto leading-relaxed">

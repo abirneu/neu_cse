@@ -3,143 +3,146 @@
 {% block title %}Message from CSE Department - Department of CSE, NEU{% endblock %}
 {% block content %}
 
-<section class="py-16 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-gray-50 to-white">
-  <div class="max-w-7xl mx-auto">
-    <!-- Section Header -->
-    <div class="text-center mb-12">
-      <h2 class="text-3xl md:text-4xl font-serif font-bold text-gray-900 mb-4">
-        Message from the <span class="text-blue-800">Computer Science Department</span>
-      </h2>
-      <div class="w-24 h-1 bg-blue-700 mx-auto mb-6"></div>
-      <p class="text-lg text-gray-600 max-w-3xl mx-auto">
-        Our commitment to excellence in computer science education
+<div class=" min-h-screen py-12">
+     <!-- Back to Home Button -->
+    <div class="mb-8">
+      <a href="{% url 'home' %}" class="inline-flex items-center text-gray-600 hover:text-blue-600 transition-colors duration-200">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
+        </svg>
+        Back to Home
+      </a>
+    </div>
+  <div class="max-w-4xl mx-auto px-6">
+    
+ 
+    
+    <!-- Page Title -->
+    <div class="text-center mb-10">
+      <h1 class="text-4xl font-serif text-gray-800 mb-3">
+        Message from the Department
+      </h1>
+      <p class="text-lg text-gray-600 mb-6">
+        Computer Science and Engineering • Netrokona University
       </p>
+      <div class="w-20 h-px bg-blue-600 mx-auto"></div>
     </div>
 
-    <div class="flex flex-col lg:flex-row gap-10 items-center">
-      <!-- Department Symbol -->
-      <div class="w-full lg:w-2/5 flex justify-center">
-        <div class="relative">
-          <div class="w-64 h-64 md:w-80 md:h-80 bg-blue-100 rounded-full overflow-hidden border-8 border-white shadow-xl flex items-center justify-center">
-            <svg class="w-3/4 h-3/4 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />
-            </svg>
-          </div>
-          <div class="absolute -bottom-2 left-1/2 transform -translate-x-1/2 bg-blue-800 text-white px-6 py-2 rounded-full shadow-md">
-            <h3 class="font-semibold">Department of CSE</h3>
-            <p class="text-xs">Netrokona University</p>
-          </div>
-        </div>
-      </div>
-
-      <!-- Message Content -->
-      <div class="w-full lg:w-3/5 bg-white rounded-2xl p-8 shadow-lg border border-gray-100">
-        <div class="flex items-center mb-6">
-          <div class="w-12 h-12 rounded-full bg-blue-100 flex items-center justify-center mr-4">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-blue-700" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
-            </svg>
-          </div>
-          <div>
-            <h3 class="text-2xl font-serif font-semibold text-gray-900">Our Vision for the Future</h3>
-            <p class="text-gray-600">Department of Computer Science and Engineering</p>
-          </div>
-        </div>
-
-        <div class="border-l-4 border-blue-700 pl-6 mb-6">
-          <p class="text-gray-700 italic text-lg">
+    <!-- Main Content -->
+    <div class="bg-white border border-gray-200 shadow-sm">
+      
+      <!-- Header Quote -->
+      <div class="bg-blue-50 px-10 py-8 border-b border-gray-200">
+        <blockquote class="text-center">
+          <p class="text-xl italic text-gray-700 mb-3">
             "The computer was born to solve problems that did not exist before."
           </p>
-          <p class="text-gray-500 mt-2">- Bill Gates</p>
-        </div>
+          <footer class="text-gray-500">— Bill Gates</footer>
+        </blockquote>
+      </div>
 
-        <div class="prose prose-lg max-w-none text-gray-700">
-          <p class="mb-4">
-            The Department of Computer Science and Engineering at Netrokona University stands as a beacon of innovation and excellence in technological education. Our mission is to cultivate the next generation of computer scientists and engineers who will lead the digital transformation of our society.
+      <!-- Letter Content -->
+      <div class="px-10 py-10">
+        <div class="max-w-none">
+          
+          <p class="text-lg text-gray-800 mb-8">
+            Dear Students, Faculty, and Esteemed Colleagues,
           </p>
-          <p class="mb-4">
-            We believe in providing an education that transcends traditional classroom learning. Our approach integrates theoretical knowledge with practical application, ensuring our students are equipped to tackle real-world challenges. Through our cutting-edge laboratories, industry collaborations, and research initiatives, we create an ecosystem where creativity and innovation flourish.
-          </p>
-          <p class="mb-4">
-            Our curriculum is continuously evolving to keep pace with the rapid advancements in technology. From artificial intelligence and machine learning to cybersecurity and distributed systems, we offer comprehensive programs that prepare students for diverse career paths in the technology sector.
-          </p>
-          <p class="mb-4">
-            The department takes pride in its vibrant community of learners, educators, and researchers. We are committed to fostering an inclusive environment that values diversity, collaboration, and ethical practice in computing.
-          </p>
-          <p>
-            As we look to the future, we remain dedicated to our core values of excellence, innovation, and service to society. We invite you to join us in shaping the future of technology.
-          </p>
-        </div>
 
-        <div class="mt-8 pt-6 border-t border-gray-200 flex items-center">
-          <div class="mr-4">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-blue-700" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
-            </svg>
+          <div class="space-y-6 text-gray-700 leading-relaxed">
+            <p>
+              The Department of Computer Science and Engineering at Netrokona University stands as a beacon of innovation and excellence in technological education. Our mission is to cultivate the next generation of computer scientists and engineers who will lead the digital transformation of our society.
+            </p>
+
+            <p>
+              We believe in providing an education that transcends traditional classroom learning. Our approach integrates theoretical knowledge with practical application, ensuring our students are equipped to tackle real-world challenges. Through our cutting-edge laboratories, industry collaborations, and research initiatives, we create an ecosystem where creativity and innovation flourish.
+            </p>
+
+            <p>
+              Our curriculum is continuously evolving to keep pace with the rapid advancements in technology. From artificial intelligence and machine learning to cybersecurity and distributed systems, we offer comprehensive programs that prepare students for diverse career paths in the technology sector.
+            </p>
+
+            <p>
+              The department takes pride in its vibrant community of learners, educators, and researchers. We are committed to fostering an inclusive environment that values diversity, collaboration, and ethical practice in computing.
+            </p>
+
+            <p>
+              As we look to the future, we remain dedicated to our core values of excellence, innovation, and service to society. We invite you to join us in shaping the future of technology.
+            </p>
           </div>
-          <div>
-            <p class="text-sm text-gray-600">Signed on behalf of the Department</p>
-            <p class="text-blue-800 font-semibold">Department of Computer Science and Engineering</p>
+
+          <!-- Signature -->
+          <div class="mt-12 pt-8 border-t border-gray-200">
+            <p class="text-gray-600 mb-2">With warm regards,</p>
+            <div class="mt-6">
+              <p class="font-semibold text-gray-800 text-lg">
+                Department of Computer Science and Engineering
+              </p>
+              <p class="text-gray-600">Netrokona University</p>
+            </div>
           </div>
         </div>
       </div>
     </div>
 
-    <!-- Department Stats -->
-    <div class="grid grid-cols-2 md:grid-cols-4 gap-6 mt-16">
-      <div class="bg-white rounded-xl p-6 text-center shadow-md border border-gray-100 hover:shadow-lg transition-shadow">
-        <div class="text-3xl font-bold text-blue-800 mb-2">15+</div>
-        <p class="text-gray-600">Years of Excellence</p>
-      </div>
-      <div class="bg-white rounded-xl p-6 text-center shadow-md border border-gray-100 hover:shadow-lg transition-shadow">
-        <div class="text-3xl font-bold text-blue-800 mb-2">95%</div>
-        <p class="text-gray-600">Graduation Rate</p>
-      </div>
-      <div class="bg-white rounded-xl p-6 text-center shadow-md border border-gray-100 hover:shadow-lg transition-shadow">
-        <div class="text-3xl font-bold text-blue-800 mb-2">50+</div>
-        <p class="text-gray-600">Research Publications</p>
-      </div>
-      <div class="bg-white rounded-xl p-6 text-center shadow-md border border-gray-100 hover:shadow-lg transition-shadow">
-        <div class="text-3xl font-bold text-blue-800 mb-2">12</div>
-        <p class="text-gray-600">Specialized Labs</p>
-      </div>
-    </div>
-
-    <!-- Department Values -->
+    <!-- Department Statistics -->
     <div class="mt-16">
-      <h3 class="text-2xl font-serif font-semibold text-center text-gray-900 mb-8">Our Core Values</h3>
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        <div class="bg-blue-50 p-6 rounded-lg border border-blue-100">
-          <div class="w-10 h-10 rounded-full bg-blue-200 flex items-center justify-center mb-4">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-blue-700" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
-            </svg>
-          </div>
-          <h4 class="text-lg font-semibold text-gray-900 mb-2">Innovation</h4>
-          <p class="text-gray-700">Fostering creativity and pioneering new approaches to computing challenges.</p>
+      <h2 class="text-2xl font-serif text-center text-gray-800 mb-10">At a Glance</h2>
+      <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
+        
+        <div class="bg-white border border-gray-200 p-8 text-center">
+          <div class="text-3xl font-bold text-blue-700 mb-2">15+</div>
+          <p class="text-gray-600">Years of Service</p>
         </div>
         
-        <div class="bg-blue-50 p-6 rounded-lg border border-blue-100">
-          <div class="w-10 h-10 rounded-full bg-blue-200 flex items-center justify-center mb-4">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-blue-700" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
-            </svg>
-          </div>
-          <h4 class="text-lg font-semibold text-gray-900 mb-2">Excellence</h4>
-          <p class="text-gray-700">Committing to the highest standards in education, research, and practice.</p>
+        <div class="bg-white border border-gray-200 p-8 text-center">
+          <div class="text-3xl font-bold text-blue-700 mb-2">500+</div>
+          <p class="text-gray-600">Alumni</p>
         </div>
         
-        <div class="bg-blue-50 p-6 rounded-lg border border-blue-100">
-          <div class="w-10 h-10 rounded-full bg-blue-200 flex items-center justify-center mb-4">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-blue-700" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
-            </svg>
-          </div>
-          <h4 class="text-lg font-semibold text-gray-900 mb-2">Community</h4>
-          <p class="text-gray-700">Building an inclusive, collaborative environment that supports all members.</p>
+        <div class="bg-white border border-gray-200 p-8 text-center">
+          <div class="text-3xl font-bold text-blue-700 mb-2">50+</div>
+          <p class="text-gray-600">Research Projects</p>
         </div>
+        
+        <div class="bg-white border border-gray-200 p-8 text-center">
+          <div class="text-3xl font-bold text-blue-700 mb-2">12</div>
+          <p class="text-gray-600">Laboratory Facilities</p>
+        </div>
+        
       </div>
     </div>
+
+    <!-- Core Principles -->
+    <div class="mt-16">
+      <h2 class="text-2xl font-serif text-center text-gray-800 mb-10">Our Founding Principles</h2>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        
+        <div class="bg-white border border-gray-200 p-8 text-center">
+          <h3 class="text-xl font-semibold text-gray-800 mb-4">Academic Excellence</h3>
+          <p class="text-gray-600 leading-relaxed">
+            Maintaining the highest standards in teaching, learning, and scholarly pursuit in computer science education.
+          </p>
+        </div>
+        
+        <div class="bg-white border border-gray-200 p-8 text-center">
+          <h3 class="text-xl font-semibold text-gray-800 mb-4">Innovation & Research</h3>
+          <p class="text-gray-600 leading-relaxed">
+            Fostering a culture of inquiry, creativity, and technological advancement through cutting-edge research.
+          </p>
+        </div>
+        
+        <div class="bg-white border border-gray-200 p-8 text-center">
+          <h3 class="text-xl font-semibold text-gray-800 mb-4">Community Service</h3>
+          <p class="text-gray-600 leading-relaxed">
+            Building an inclusive academic community that serves society through knowledge and technological solutions.
+          </p>
+        </div>
+        
+      </div>
+    </div>
+
   </div>
-</section>
+</div>
+
 {% endblock %}

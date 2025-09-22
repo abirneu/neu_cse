@@ -1,164 +1,238 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block content %}
-<!-- Mission Section -->
-<div class="bg-green-50 rounded-xl p-6 md:p-8 mb-12 md:mb-16 shadow-md">
-    <div class="flex flex-col md:flex-row items-center md:items-start mb-6">
-        <div class="w-16 h-16 md:w-20 md:h-20 bg-green-500 rounded-full flex items-center justify-center mr-0 md:mr-6 mb-4 md:mb-0">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 md:h-10 md:w-10 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+<!-- Hero Section -->
+<div class="py-16">
+  <div class="container mx-auto px-6">
+    <!-- Back to Home Button -->
+    <div class="mb-8">
+      <a href="{% url 'home' %}" class="inline-flex items-center text-gray-600 hover:text-blue-600 transition-colors duration-200">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
+        </svg>
+        Back to Home
+      </a>
+    </div>
+    
+    <!-- Page Header -->
+    <div class="text-center mb-1">
+      <h1 class="text-4xl md:text-5xl font-bold text-slate-800 mb-4">Mission & Vision</h1>
+      <div class="w-24 h-1 bg-blue-600 mx-auto mb-4"></div>
+      <p class="text-xl text-slate-600 max-w-3xl mx-auto">
+        Guiding principles that shape our academic excellence and drive our commitment to innovation in computer science education
+      </p>
+    </div>
+  </div>
+</div>
+
+<!-- Main Content -->
+<div class="container mx-auto px-6 py-16">
+  
+  <!-- Mission Section -->
+  <div class="max-w-6xl mx-auto mb-20">
+    <!-- Mission Card -->
+    <div class="bg-white rounded-2xl shadow-lg border border-slate-100 overflow-hidden">
+      <!-- Header -->
+      <div class="bg-emerald-600 px-8 py-6">
+        <div class="flex items-center">
+          <div class="w-16 h-16 bg-white/20 rounded-full flex items-center justify-center mr-6">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+            </svg>
+          </div>
+          <div>
+            <h2 class="text-3xl font-bold text-white mb-1">Our Mission</h2>
+            <p class="text-emerald-100 text-lg">What drives us forward</p>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Content -->
+      <div class="p-8">
+        <p class="text-slate-700 text-lg leading-relaxed mb-8">
+          To provide quality education in computer science and engineering through innovative teaching, research, 
+          and collaboration with industry, preparing students to become competent professionals capable of addressing 
+          technological challenges and contributing to society. We strive to create an academic environment that 
+          fosters critical thinking, creativity, and ethical practices in computing.
+        </p>
+        
+        <!-- Key Objectives -->
+        <div>
+          <h3 class="text-2xl font-semibold text-slate-800 mb-6 flex items-center">
+            <span class="w-8 h-8 bg-emerald-100 rounded-full flex items-center justify-center mr-3">
+              <span class="text-emerald-600 font-bold text-sm">★</span>
+            </span>
+            Key Objectives
+          </h3>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div class="flex items-start group">
+              <div class="bg-emerald-100 p-3 rounded-lg mr-4 group-hover:bg-emerald-200 transition-colors">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-emerald-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.746 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+                </svg>
+              </div>
+              <p class="text-slate-700">Deliver comprehensive and up-to-date curriculum</p>
+            </div>
+            <div class="flex items-start group">
+              <div class="bg-emerald-100 p-3 rounded-lg mr-4 group-hover:bg-emerald-200 transition-colors">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-emerald-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
+                </svg>
+              </div>
+              <p class="text-slate-700">Promote research and innovation in computing fields</p>
+            </div>
+            <div class="flex items-start group">
+              <div class="bg-emerald-100 p-3 rounded-lg mr-4 group-hover:bg-emerald-200 transition-colors">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-emerald-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
+                </svg>
+              </div>
+              <p class="text-slate-700">Establish strong industry-academia collaboration</p>
+            </div>
+            <div class="flex items-start group">
+              <div class="bg-emerald-100 p-3 rounded-lg mr-4 group-hover:bg-emerald-200 transition-colors">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-emerald-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+                </svg>
+              </div>
+              <p class="text-slate-700">Develop ethical and socially responsible professionals</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Vision Section -->
+  <div class="max-w-6xl mx-auto mb-20">
+    <!-- Vision Card -->
+    <div class="bg-white rounded-2xl shadow-lg border border-slate-100 overflow-hidden">
+      <!-- Header -->
+      <div class="bg-blue-600 px-8 py-6">
+        <div class="flex items-center">
+          <div class="w-16 h-16 bg-white/20 rounded-full flex items-center justify-center mr-6">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+            </svg>
+          </div>
+          <div>
+            <h2 class="text-3xl font-bold text-white mb-1">Our Vision</h2>
+            <p class="text-blue-100 text-lg">Where we aim to be</p>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Content -->
+      <div class="p-8">
+        <p class="text-slate-700 text-lg leading-relaxed mb-8">
+          To be a center of excellence in computer science and engineering education, recognized for producing 
+          innovative professionals, generating new knowledge through research, and serving as a resource for 
+          technological advancement in the region and beyond. We envision a department that leads in cutting-edge 
+          research while addressing local and global challenges through technology.
+        </p>
+        
+        <!-- Strategic Goals -->
+        <div>
+          <h3 class="text-2xl font-semibold text-slate-800 mb-6 flex items-center">
+            <span class="w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center mr-3">
+              <span class="text-blue-600 font-bold text-sm">🎯</span>
+            </span>
+            Strategic Goals
+          </h3>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div class="flex items-start group">
+              <div class="bg-blue-100 p-3 rounded-lg mr-4 min-w-[3rem] group-hover:bg-blue-200 transition-colors">
+                <span class="text-blue-600 font-bold text-lg">01</span>
+              </div>
+              <p class="text-slate-700">Achieve international recognition for academic excellence</p>
+            </div>
+            <div class="flex items-start group">
+              <div class="bg-blue-100 p-3 rounded-lg mr-4 min-w-[3rem] group-hover:bg-blue-200 transition-colors">
+                <span class="text-blue-600 font-bold text-lg">02</span>
+              </div>
+              <p class="text-slate-700">Establish advanced research centers in emerging technologies</p>
+            </div>
+            <div class="flex items-start group">
+              <div class="bg-blue-100 p-3 rounded-lg mr-4 min-w-[3rem] group-hover:bg-blue-200 transition-colors">
+                <span class="text-blue-600 font-bold text-lg">03</span>
+              </div>
+              <p class="text-slate-700">Produce graduates who become leaders in the tech industry</p>
+            </div>
+            <div class="flex items-start group">
+              <div class="bg-blue-100 p-3 rounded-lg mr-4 min-w-[3rem] group-hover:bg-blue-200 transition-colors">
+                <span class="text-blue-600 font-bold text-lg">04</span>
+              </div>
+              <p class="text-slate-700">Contribute to national development through technology innovation</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Values Section -->
+  <div class="max-w-6xl mx-auto">
+    <div class="bg-white rounded-2xl shadow-lg border border-slate-100 overflow-hidden">
+      <!-- Header -->
+      <div class="bg-slate-800 px-8 py-6 text-center">
+        <h2 class="text-3xl font-bold text-white mb-2">Our Core Values</h2>
+        <p class="text-slate-300 text-lg">The principles that guide our actions</p>
+      </div>
+      
+      <!-- Content -->
+      <div class="p-8">
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+          <div class="text-center group">
+            <div class="w-16 h-16 bg-gradient-to-br from-purple-100 to-purple-200 rounded-2xl flex items-center justify-center mx-auto mb-4 group-hover:from-purple-200 group-hover:to-purple-300 transition-all duration-300 transform group-hover:scale-105">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-purple-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z" />
+              </svg>
+            </div>
+            <h3 class="text-xl font-semibold text-slate-800 mb-3">Excellence</h3>
+            <p class="text-slate-600 leading-relaxed">Striving for the highest quality in education and research</p>
+          </div>
+          
+          <div class="text-center group">
+            <div class="w-16 h-16 bg-gradient-to-br from-red-100 to-red-200 rounded-2xl flex items-center justify-center mx-auto mb-4 group-hover:from-red-200 group-hover:to-red-300 transition-all duration-300 transform group-hover:scale-105">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-red-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
+              </svg>
+            </div>
+            <h3 class="text-xl font-semibold text-slate-800 mb-3">Innovation</h3>
+            <p class="text-slate-600 leading-relaxed">Encouraging creativity and novel approaches to problems</p>
+          </div>
+          
+          <div class="text-center group">
+            <div class="w-16 h-16 bg-gradient-to-br from-emerald-100 to-emerald-200 rounded-2xl flex items-center justify-center mx-auto mb-4 group-hover:from-emerald-200 group-hover:to-emerald-300 transition-all duration-300 transform group-hover:scale-105">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-emerald-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+              </svg>
+            </div>
+            <h3 class="text-xl font-semibold text-slate-800 mb-3">Collaboration</h3>
+            <p class="text-slate-600 leading-relaxed">Working together for greater impact and learning</p>
+          </div>
+          
+          <div class="text-center group">
+            <div class="w-16 h-16 bg-gradient-to-br from-amber-100 to-amber-200 rounded-2xl flex items-center justify-center mx-auto mb-4 group-hover:from-amber-200 group-hover:to-amber-300 transition-all duration-300 transform group-hover:scale-105">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-amber-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
-            </svg>
+              </svg>
+            </div>
+            <h3 class="text-xl font-semibold text-slate-800 mb-3">Integrity</h3>
+            <p class="text-slate-600 leading-relaxed">Maintaining ethical standards in all endeavors</p>
+          </div>
         </div>
-        <div class="text-center md:text-left">
-            <h2 class="text-2xl md:text-3xl font-bold text-gray-800 mb-2">Our Mission</h2>
-            <p class="text-green-600 font-medium">What drives us forward</p>
+        
+        <!-- Quote Section -->
+        <div class="mt-12 bg-slate-50 rounded-xl p-8 text-center">
+          <blockquote class="text-xl text-slate-700 font-medium mb-4">
+            "Education is the most powerful weapon which you can use to change the world."
+          </blockquote>
+          <cite class="text-slate-500 font-medium">— Nelson Mandela</cite>
         </div>
+      </div>
     </div>
-    <div class="bg-white rounded-lg p-4 md:p-6 shadow-sm">
-        <p class="text-gray-700 text-base md:text-lg leading-relaxed">
-            To provide quality education in computer science and engineering through innovative teaching, research, 
-            and collaboration with industry, preparing students to become competent professionals capable of addressing 
-            technological challenges and contributing to society. We strive to create an academic environment that 
-            fosters critical thinking, creativity, and ethical practices in computing.
-        </p>
-    </div>
-    
-    <!-- Key Objectives -->
-    <div class="mt-8">
-        <h3 class="text-xl md:text-2xl font-semibold text-gray-800 mb-4 text-center md:text-left">Key Objectives</h3>
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <div class="flex items-start">
-                <div class="bg-green-100 p-2 rounded-full mr-3 mt-1">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
-                    </svg>
-                </div>
-                <p class="text-gray-700 text-sm md:text-base">Deliver comprehensive and up-to-date curriculum</p>
-            </div>
-            <div class="flex items-start">
-                <div class="bg-green-100 p-2 rounded-full mr-3 mt-1">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
-                    </svg>
-                </div>
-                <p class="text-gray-700 text-sm md:text-base">Promote research and innovation in computing fields</p>
-            </div>
-            <div class="flex items-start">
-                <div class="bg-green-100 p-2 rounded-full mr-3 mt-1">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
-                    </svg>
-                </div>
-                <p class="text-gray-700 text-sm md:text-base">Establish strong industry-academia collaboration</p>
-            </div>
-            <div class="flex items-start">
-                <div class="bg-green-100 p-2 rounded-full mr-3 mt-1">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
-                    </svg>
-                </div>
-                <p class="text-gray-700 text-sm md:text-base">Develop ethical and socially responsible professionals</p>
-            </div>
-        </div>
-    </div>
+  </div>
 </div>
-
-<!-- Vision Section -->
-<div class="bg-blue-50 rounded-xl p-6 md:p-8 mb-12 md:mb-16 shadow-md">
-    <div class="flex flex-col md:flex-row items-center md:items-start mb-6">
-        <div class="w-16 h-16 md:w-20 md:h-20 bg-blue-500 rounded-full flex items-center justify-center mr-0 md:mr-6 mb-4 md:mb-0">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 md:h-10 md:w-10 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z" />
-            </svg>
-        </div>
-        <div class="text-center md:text-left">
-            <h2 class="text-2xl md:text-3xl font-bold text-gray-800 mb-2">Our Vision</h2>
-            <p class="text-blue-600 font-medium">Where we aim to be</p>
-        </div>
-    </div>
-    <div class="bg-white rounded-lg p-4 md:p-6 shadow-sm">
-        <p class="text-gray-700 text-base md:text-lg leading-relaxed">
-            To be a center of excellence in computer science and engineering education, recognized for producing 
-            innovative professionals, generating new knowledge through research, and serving as a resource for 
-            technological advancement in the region and beyond. We envision a department that leads in cutting-edge 
-            research while addressing local and global challenges through technology.
-        </p>
-    </div>
-    
-    <!-- Strategic Goals -->
-    <div class="mt-8">
-        <h3 class="text-xl md:text-2xl font-semibold text-gray-800 mb-4 text-center md:text-left">Strategic Goals</h3>
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <div class="flex items-start">
-                <div class="bg-blue-100 p-2 rounded-full mr-3 mt-1">
-                    <span class="text-blue-600 font-bold">01</span>
-                </div>
-                <p class="text-gray-700 text-sm md:text-base">Achieve international recognition for academic excellence</p>
-            </div>
-            <div class="flex items-start">
-                <div class="bg-blue-100 p-2 rounded-full mr-3 mt-1">
-                    <span class="text-blue-600 font-bold">02</span>
-                </div>
-                <p class="text-gray-700 text-sm md:text-base">Establish advanced research centers in emerging technologies</p>
-            </div>
-            <div class="flex items-start">
-                <div class="bg-blue-100 p-2 rounded-full mr-3 mt-1">
-                    <span class="text-blue-600 font-bold">03</span>
-                </div>
-                <p class="text-gray-700 text-sm md:text-base">Produce graduates who become leaders in the tech industry</p>
-            </div>
-            <div class="flex items-start">
-                <div class="bg-blue-100 p-2 rounded-full mr-3 mt-1">
-                    <span class="text-blue-600 font-bold">04</span>
-                </div>
-                <p class="text-gray-700 text-sm md:text-base">Contribute to national development through technology innovation</p>
-            </div>
-        </div>
-    </div>
-</div>
-
-<!-- Values Section -->
-<div class="bg-gray-50 rounded-xl p-6 md:p-8 shadow-md">
-    <h2 class="text-2xl md:text-3xl font-bold text-center text-gray-800 mb-8">Our Core Values</h2>
-    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-        <div class="bg-white p-4 rounded-lg text-center shadow-sm">
-            <div class="w-12 h-12 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-3">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-purple-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
-                </svg>
-            </div>
-            <h3 class="font-semibold text-gray-800 mb-2">Excellence</h3>
-            <p class="text-sm text-gray-600">Striving for the highest quality in education and research</p>
-        </div>
-        
-        <div class="bg-white p-4 rounded-lg text-center shadow-sm">
-            <div class="w-12 h-12 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-3">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-red-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
-                </svg>
-            </div>
-            <h3 class="font-semibold text-gray-800 mb-2">Innovation</h3>
-            <p class="text-sm text-gray-600">Encouraging creativity and novel approaches to problems</p>
-        </div>
-        
-        <div class="bg-white p-4 rounded-lg text-center shadow-sm">
-            <div class="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-3">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
-                </svg>
-            </div>
-            <h3 class="font-semibold text-gray-800 mb-2">Collaboration</h3>
-            <p class="text-sm text-gray-600">Working together for greater impact and learning</p>
-        </div>
-        
-        <div class="bg-white p-4 rounded-lg text-center shadow-sm">
-            <div class="w-12 h-12 bg-yellow-100 rounded-full flex items-center justify-center mx-auto mb-3">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-yellow-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
-                </svg>
-            </div>
-            <h3 class="font-semibold text-gray-800 mb-2">Integrity</h3>
-            <p class="text-sm text-gray-600">Maintaining ethical standards in all endeavors</p>
-        </div>
-    </div>
-</div>{% endblock %} 
+{% endblock %} 
