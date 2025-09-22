@@ -3,7 +3,7 @@
 {% block content %}
 <div class="bg-white rounded-lg shadow-md p-6 max-w-4xl mx-auto">
     <div class="mb-6">
-        <a href="{% url 'notice_list' %}" class="text-blue-600 hover:underline flex items-center">
+        <a href="{% url 'notice_list' %}" class="text-green-600 hover:underline flex items-center">
             <i class="fas fa-arrow-left mr-2"></i> Back to Notices
         </a>
     </div>
@@ -18,18 +18,14 @@
         <div class="flex items-center text-sm text-gray-600 mb-4">
             {% if notice.created_at %}
             <i class="far fa-calendar-alt mr-2"></i>
-            <span>Published: {{ notice.created_at|date:"F d, Y H:i" }}</span>
+            <span>Published: {{ notice.created_at|date:"F d, Y " }}</span>
             {% endif %}
-            {% comment %} {% if notice.updated_at and notice.updated_at != notice.created_at %}
-            <span class="mx-2">|</span>
-            <i class="fas fa-edit mr-2"></i>
-            <span>Updated: {{ notice.updated_at|date:"F d, Y H:i" }}</span>
-            {% endif %} {% endcomment %}
+            
         </div>
         
         {% if notice.file %}
         <div class="mb-4">
-            <a href="{% url 'download_notice' notice.pk %}" class="inline-flex items-center px-4 py-2 bg-green-600 text-white rounded hover:bg-blue-700 transition-colors">
+            <a href="{% url 'download_notice' notice.pk %}" class="inline-flex items-center px-4 py-2 bg-green-600 text-white rounded hover:bg-green-700 transition-colors">
                 <i class="fas fa-file-download mr-2"></i> Download Attachment
             </a>
         </div>

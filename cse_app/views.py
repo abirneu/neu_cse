@@ -304,7 +304,7 @@ def home(request):
     current_chairman = Chairman.objects.filter(is_current=True).first()
     
     # Get latest tech news
-    tech_news = TechNews.objects.all()[:3]
+    tech_news = TechNews.objects.all().order_by('-published_date')[:3]
     
     # Get upcoming events first, then fill with latest events if needed
     upcoming_events = list(Event.objects.filter(
@@ -634,14 +634,51 @@ def projects(request):
     
     return render(request, 'cse/projects/projects.html', {'projects': projects})
 
-def tech_news(request):
-    news = TechNews.objects.all()
+def all_tech_news(request):
+    # Get search query
+    query = request.GET.get('q')
+    
+    # Get all tech news ordered by published date
+    news_list = TechNews.objects.all().order_by('-published_date')
+    
+    # Apply search filter if query exists
+    if query:
+        news_list = news_list.filter(
+            Q(title__icontains=query) |
+            Q(content__icontains=query) |
+            Q(source__icontains=query)
+        )
+    
+    # Pagination - show 9 items per page
+    paginator = Paginator(news_list, 9)
+    page = request.GET.get('page')
+    
+    try:
+        tech_news = paginator.page(page)
+    except PageNotAnInteger:
+        tech_news = paginator.page(1)
+    except EmptyPage:
+        tech_news = paginator.page(paginator.num_pages)
     
     # Update view count for tech news page
     page_view, created = ViewCount.objects.get_or_create(page_name='tech_news')
     page_view.increment()
     
-    return render(request, 'cse/tech_news.html', {'news': news})
+    return render(request, 'cse/tech_news/all_tech_news.html', {
+        'tech_news': tech_news,
+        'query': query,
+        'is_paginated': tech_news.has_other_pages()
+    })
+
+def detail_tech_news(request, pk):
+    # Get the specific tech news item
+    news = get_object_or_404(TechNews, pk=pk)
+    
+    # Update view count for this specific tech news
+    page_view, created = ViewCount.objects.get_or_create(page_name=f'tech_news_{pk}')
+    page_view.increment()
+    
+    return render(request, 'cse/tech_news/detail_tech_news.html', {'news': news})
 
 def about(request):
     # Update view count for about page

@@ -2,6 +2,12 @@
 
 {% block content %}
 <div class="bg-white rounded-lg shadow-md p-3 sm:p-4 md:p-6 max-w-7xl mx-auto" >
+      <!-- Breadcrumb -->
+    <div class="text-sm text-gray-500 mb-1">
+        <a href="{% url 'home' %}" class="text-green-600 hover:underline">Home</a>
+        <span class="mx-1">/</span>
+        <span>Notice Board</span>
+    </div>
     <div class="space-y-4 mb-4 sm:mb-6">
         <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center space-y-4 sm:space-y-0">
             <h1 class="text-xl sm:text-2xl md:text-3xl font-bold text-green-700">
@@ -72,11 +78,10 @@
                     </h2>
                     <p class="text-xs sm:text-sm text-gray-600 mt-1">
                         {% if notice.created_at %}
-                        <span>Created: {{ notice.created_at|date:"F d, Y H:i" }}</span>
+                        <span>Published: {{ notice.created_at|date:"F d, Y" }}</span>
                         {% endif %}
                         {% if notice.updated_at and notice.updated_at != notice.created_at %}
-                        <span class="mx-1">|</span>
-                        <span class="text-gray-500">Updated: {{ notice.updated_at|date:"F d, Y H:i" }}</span>
+                        
                         {% endif %}
                     </p>
                     <p class="mt-2 text-sm sm:text-base text-gray-700 line-clamp-2 sm:line-clamp-none">{{ notice.content|striptags|truncatewords:30 }}</p>
@@ -117,7 +122,7 @@
 
         {% for num in page_obj.paginator.page_range %}
             {% if page_obj.number == num %}
-                <span class="px-2 sm:px-3 py-1 text-sm sm:text-base rounded border border-blue-500 bg-blue-500 text-white">{{ num }}</span>
+                <span class="px-2 sm:px-3 py-1 text-sm sm:text-base rounded border border-green-500 bg-green-500 text-white">{{ num }}</span>
             {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
                 <a href="?page={{ num }}{% if notice_type %}&type={{ notice_type }}{% endif %}{% if search_query %}&search={{ search_query }}{% endif %}" 
                    class="px-3 py-1 rounded border border-gray-300 text-gray-700 hover:bg-gray-100">
