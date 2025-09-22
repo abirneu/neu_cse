@@ -692,273 +692,156 @@
 </nav>
 
 <script>
-    // Toggle mobile menu
-    document.getElementById('mobile-menu-button').addEventListener('click', function() {
-        const mobileMenu = document.getElementById('mobile-menu');
+(function() {
+    'use strict';
+    
+    // Simple mobile menu toggle
+    function initMobileMenu() {
+        const button = document.getElementById('mobile-menu-button');
+        const menu = document.getElementById('mobile-menu');
         const menuIcon = document.getElementById('menu-icon');
         const closeIcon = document.getElementById('close-icon');
-        const button = this;
         
-        mobileMenu.classList.toggle('hidden');
-        menuIcon.classList.toggle('hidden');
-        closeIcon.classList.toggle('hidden');
+        if (!button || !menu || !menuIcon || !closeIcon) return;
         
-        // Add rotation animation to button
-        button.classList.toggle('rotate-180');
-        
-        // Prevent body scroll when menu is open, but allow menu internal scrolling
-        if (!mobileMenu.classList.contains('hidden')) {
-            document.body.style.overflow = 'hidden';
-            document.body.style.position = 'fixed';
-            document.body.style.width = '100%';
-        } else {
-            document.body.style.overflow = '';
-            document.body.style.position = '';
-            document.body.style.width = '';
-        }
-    });
+        button.addEventListener('click', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            
+            const isHidden = menu.classList.contains('hidden');
+            
+            if (isHidden) {
+                // Open menu
+                menu.classList.remove('hidden');
+                menuIcon.classList.add('hidden');
+                closeIcon.classList.remove('hidden');
+                button.classList.add('rotate-180');
+                document.body.classList.add('overflow-hidden');
+            } else {
+                // Close menu
+                menu.classList.add('hidden');
+                menuIcon.classList.remove('hidden');
+                closeIcon.classList.add('hidden');
+                button.classList.remove('rotate-180');
+                document.body.classList.remove('overflow-hidden');
+                closeAllDropdowns();
+            }
+        });
+    }
     
-    // Function to toggle mobile dropdowns
+    // Simple dropdown toggle
     function toggleMobileDropdown(id) {
         const dropdown = document.getElementById(id);
         const arrowId = id.replace('dropdown', 'arrow');
         const arrow = document.getElementById(arrowId);
         
-        // Close all other dropdowns first
-        document.querySelectorAll('[id$="-mobile-dropdown"]').forEach(element => {
-            if (element.id !== id && !element.classList.contains('hidden')) {
-                element.classList.add('hidden');
-                const otherArrowId = element.id.replace('dropdown', 'arrow');
-                const otherArrow = document.getElementById(otherArrowId);
-                if (otherArrow) {
-                    otherArrow.classList.remove('rotate-180');
-                }
+        if (!dropdown) return;
+        
+        const isHidden = dropdown.classList.contains('hidden');
+        
+        // Close all other dropdowns
+        const allDropdowns = document.querySelectorAll('[id$="-mobile-dropdown"]');
+        const allArrows = document.querySelectorAll('[id$="-mobile-arrow"]');
+        
+        allDropdowns.forEach(el => {
+            if (el.id !== id) {
+                el.classList.add('hidden');
             }
         });
-
-        // Toggle current dropdown with animation
-        const isHidden = dropdown.classList.contains('hidden');
+        
+        allArrows.forEach(el => {
+            if (el.id !== arrowId) {
+                el.classList.remove('rotate-180');
+            }
+        });
+        
+        // Toggle current dropdown
         if (isHidden) {
             dropdown.classList.remove('hidden');
-            dropdown.style.maxHeight = '0px';
-            dropdown.style.opacity = '0';
-            dropdown.style.transform = 'translateY(-10px)';
-            
-            // Animate in
-            requestAnimationFrame(() => {
-                dropdown.style.transition = 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)';
-                dropdown.style.maxHeight = dropdown.scrollHeight + 'px';
-                dropdown.style.opacity = '1';
-                dropdown.style.transform = 'translateY(0px)';
-            });
+            if (arrow) arrow.classList.add('rotate-180');
         } else {
-            dropdown.style.transition = 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)';
-            dropdown.style.maxHeight = '0px';
-            dropdown.style.opacity = '0';
-            dropdown.style.transform = 'translateY(-10px)';
-            
-            setTimeout(() => {
-                dropdown.classList.add('hidden');
-            }, 300);
-        }
-        
-        if (arrow) {
-            arrow.classList.toggle('rotate-180');
+            dropdown.classList.add('hidden');
+            if (arrow) arrow.classList.remove('rotate-180');
         }
     }
-
-    // Close dropdowns when clicking outside
-    document.addEventListener('click', function(event) {
-        if (!event.target.closest('#mobile-menu') && !event.target.closest('#mobile-menu-button')) {
-            const mobileMenu = document.getElementById('mobile-menu');
-            const menuIcon = document.getElementById('menu-icon');
-            const closeIcon = document.getElementById('close-icon');
-            const button = document.getElementById('mobile-menu-button');
-            
-            if (!mobileMenu.classList.contains('hidden')) {
-                mobileMenu.classList.add('hidden');
-                menuIcon.classList.remove('hidden');
-                closeIcon.classList.add('hidden');
-                button.classList.remove('rotate-180');
-                document.body.style.overflow = '';
-                document.body.style.position = '';
-                document.body.style.width = '';
-            }
-            
-            document.querySelectorAll('[id$="-mobile-dropdown"]').forEach(dropdown => {
-                dropdown.classList.add('hidden');
-            });
-            document.querySelectorAll('[id$="-arrow"]').forEach(arrow => {
-                arrow.classList.remove('rotate-180');
-            });
-        }
-    });
-
-    // Initialize mobile dropdowns
-    document.addEventListener('DOMContentLoaded', function() {
+    
+    // Close all dropdowns
+    function closeAllDropdowns() {
         const dropdowns = document.querySelectorAll('[id$="-mobile-dropdown"]');
-        dropdowns.forEach(dropdown => {
-            dropdown.classList.add('hidden');
-        });
+        const arrows = document.querySelectorAll('[id$="-mobile-arrow"]');
         
-        // Add smooth scrolling
-        document.documentElement.style.scrollBehavior = 'smooth';
-        
-        // Add intersection observer for navbar background blur
-        const nav = document.querySelector('nav');
-        const observer = new IntersectionObserver(
-            ([e]) => {
-                if (e.intersectionRatio < 1) {
-                    nav.classList.add('backdrop-blur-md');
-                } else {
-                    nav.classList.remove('backdrop-blur-md');
-                }
-            },
-            { threshold: [1] }
-        );
-        
-        observer.observe(nav);
-    });
+        dropdowns.forEach(dropdown => dropdown.classList.add('hidden'));
+        arrows.forEach(arrow => arrow.classList.remove('rotate-180'));
+    }
     
-    // Add hover effects for desktop dropdowns
-    document.querySelectorAll('.group').forEach(group => {
-        const dropdown = group.querySelector('[class*="absolute"][class*="opacity-0"]');
-        if (dropdown) {
-            group.addEventListener('mouseenter', () => {
-                dropdown.style.animation = 'fadeInUp 0.3s ease-out forwards';
-            });
+    // Close menu when clicking outside
+    function handleOutsideClick(e) {
+        const menu = document.getElementById('mobile-menu');
+        const button = document.getElementById('mobile-menu-button');
+        
+        if (!menu || !button) return;
+        
+        if (!menu.classList.contains('hidden') && 
+            !menu.contains(e.target) && 
+            !button.contains(e.target)) {
             
-            group.addEventListener('mouseleave', () => {
-                dropdown.style.animation = 'fadeOutDown 0.3s ease-out forwards';
-            });
+            menu.classList.add('hidden');
+            document.getElementById('menu-icon').classList.remove('hidden');
+            document.getElementById('close-icon').classList.add('hidden');
+            button.classList.remove('rotate-180');
+            document.body.classList.remove('overflow-hidden');
+            closeAllDropdowns();
         }
-    });
+    }
     
-    // Add CSS animations
-    const style = document.createElement('style');
-    style.textContent = `
-        /* Navigation z-index fix */
-        nav {
-            position: relative;
-            z-index: 9999 !important;
-        }
+    // Initialize when DOM is ready
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', init);
+    } else {
+        init();
+    }
+    
+    function init() {
+        initMobileMenu();
+        document.addEventListener('click', handleOutsideClick);
         
-        nav .group > div[class*="absolute"] {
-            z-index: 9999 !important;
-        }
+        // Make toggleMobileDropdown globally available
+        window.toggleMobileDropdown = toggleMobileDropdown;
         
-        /* Mobile menu scrolling improvements */
-        #mobile-menu {
-            -webkit-overflow-scrolling: touch;
-            scrollbar-width: thin;
-            scrollbar-color: rgba(16, 185, 129, 0.7) rgba(15, 23, 42, 0.3);
-        }
-        
-        #mobile-menu::-webkit-scrollbar {
-            width: 6px;
-        }
-        
-        #mobile-menu::-webkit-scrollbar-track {
-            background: rgba(15, 23, 42, 0.3);
-            border-radius: 3px;
-        }
-        
-        #mobile-menu::-webkit-scrollbar-thumb {
-            background: rgba(16, 185, 129, 0.7);
-            border-radius: 3px;
-        }
-        
-        #mobile-menu::-webkit-scrollbar-thumb:hover {
-            background: rgba(16, 185, 129, 0.9);
-        }
-        
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translate(-50%, 10px);
+        // Add basic styles
+        const style = document.createElement('style');
+        style.textContent = `
+            .overflow-hidden {
+                overflow: hidden !important;
             }
-            to {
-                opacity: 1;
-                transform: translate(-50%, 0);
+            
+            .rotate-180 {
+                transform: rotate(180deg);
             }
-        }
-        
-        @keyframes fadeOutDown {
-            from {
-                opacity: 1;
-                transform: translate(-50%, 0);
+            
+            nav {
+                z-index: 9999;
             }
-            to {
-                opacity: 0;
-                transform: translate(-50%, 10px);
+            
+            #mobile-menu {
+                -webkit-overflow-scrolling: touch;
             }
-        }
-        
-        .group:hover .group-hover\\:opacity-100 {
-            animation: fadeInUp 0.3s ease-out forwards;
-        }
-        
-        /* Custom scrollbar */
-        ::-webkit-scrollbar {
-            width: 8px;
-        }
-        
-        ::-webkit-scrollbar-track {
-            background: #f1f5f9;
-        }
-        
-        ::-webkit-scrollbar-thumb {
-            background: linear-gradient(to bottom, #10b981, #0d9488);
-            border-radius: 4px;
-        }
-        
-        ::-webkit-scrollbar-thumb:hover {
-            background: linear-gradient(to bottom, #059669, #0f766e);
-        }
-
-        /* Custom logo styles for perfect circle and better mobile display */
-        .logo-img {
-            border-radius: 50% !important;
-            object-fit: cover !important;
-            object-position: center !important;
-            aspect-ratio: 1/1 !important;
-            min-width: 64px !important;
-            min-height: 64px !important;
-        }
-
-        /* Mobile specific logo adjustments */
-        @media (max-width: 640px) {
-            .logo-img {
-                min-width: 64px !important;
-                min-height: 64px !important;
-                width: 64px !important;
-                height: 64px !important;
+            
+            #mobile-menu::-webkit-scrollbar {
+                width: 4px;
             }
-        }
-
-        /* Tablet specific logo adjustments */
-        @media (min-width: 641px) and (max-width: 768px) {
-            .logo-img {
-                width: 80px !important;
-                height: 80px !important;
+            
+            #mobile-menu::-webkit-scrollbar-thumb {
+                background: rgba(16, 185, 129, 0.5);
+                border-radius: 2px;
             }
-        }
-
-        /* Desktop specific logo adjustments */
-        @media (min-width: 769px) {
-            .logo-img {
-                width: 96px !important;
-                height: 96px !important;
+            
+            .transition-all {
+                transition: all 0.3s ease;
             }
-        }
-
-        @media (min-width: 1024px) {
-            .logo-img {
-                width: 80px !important;
-                height: 80px !important;
-            }
-        }
-    `;
-    document.head.appendChild(style);
+        `;
+        document.head.appendChild(style);
+    }
+})();
 </script>
 {% endblock %}
