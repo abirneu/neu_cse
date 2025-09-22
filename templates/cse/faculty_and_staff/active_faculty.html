@@ -17,57 +17,97 @@
                 Department Chairman
             </h2>
             <div class="max-w-4xl mx-auto">
-                <div class="bg-white border border-gray-200 shadow-md overflow-hidden">
+                <div class="bg-white rounded-xl shadow-lg border border-gray-100 overflow-hidden">
                     <div class="md:flex">
-                        <div class="md:w-1/3">
+                        <div class="md:w-1/3 p-6 flex items-center justify-center bg-gradient-to-br from-blue-50 to-blue-100">
                             {% if faculty.image %}
-                                <img src="{{ faculty.image.url }}" alt="{{ faculty.name }}" class="w-full h-80 object-cover">
+                                <div class="relative">
+                                    <img src="{{ faculty.image.url }}" alt="{{ faculty.name }}" class="w-48 h-48 rounded-full object-cover border-8 border-white shadow-xl">
+                                    <div class="absolute -bottom-2 -right-2 w-12 h-12 bg-blue-600 border-4 border-white rounded-full flex items-center justify-center">
+                                        <i class="fas fa-crown text-white text-lg"></i>
+                                    </div>
+                                </div>
                             {% else %}
-                                <div class="w-full h-80 bg-gray-100 flex items-center justify-center border-r border-gray-200">
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-20 w-20 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <div class="w-48 h-48 bg-gradient-to-br from-blue-200 to-blue-300 rounded-full flex items-center justify-center border-8 border-white shadow-xl">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-24 w-24 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
                                     </svg>
+                                    <div class="absolute -bottom-2 -right-2 w-12 h-12 bg-blue-600 border-4 border-white rounded-full flex items-center justify-center">
+                                        <i class="fas fa-crown text-white text-lg"></i>
+                                    </div>
                                 </div>
                             {% endif %}
                         </div>
-                        <div class="md:w-2/3 p-6">
-                            <div class="mb-2">
-                                <span class="inline-block bg-blue-100 text-blue-800 text-sm px-3 py-1 font-medium">
-                                    Chairman
-                                </span>
+                        <div class="md:w-2/3 p-8">
+                            <div class="mb-4">
+                                <div class="inline-flex items-center bg-gradient-to-r from-blue-600 to-blue-700 text-white px-4 py-2 rounded-full text-sm font-bold shadow-md">
+                                    <i class="fas fa-crown mr-2"></i>
+                                    Department Chairman
+                                </div>
                             </div>
-                            <h3 class="text-2xl font-bold text-gray-900 mb-2">{{ faculty.name }}</h3>
-                            <p class="text-lg text-blue-600 mb-4">{{ faculty.get_designation_display }}</p>
+                            <h3 class="text-3xl font-bold text-gray-900 mb-2">{{ faculty.name }}</h3>
+                            <p class="text-xl text-blue-600 mb-6 font-medium">{{ faculty.get_designation_display }}</p>
                             
-                            <div class="mb-4 space-y-2">
-                                {% if faculty.email %}
-                                    <p class="text-gray-700 flex items-center">
-                                        <i class="fas fa-envelope text-blue-600 mr-3"></i>
-                                        {{ faculty.email }}
-                                    </p>
-                                {% endif %}
-                                {% if faculty.phone %}
-                                    <p class="text-gray-700 flex items-center">
-                                        <i class="fas fa-phone text-blue-600 mr-3"></i>
-                                        {{ faculty.phone }}
-                                    </p>
-                                {% endif %}
-                                {% if faculty.room_no %}
-                                    <p class="text-gray-700 flex items-center">
-                                        <i class="fas fa-door-open text-blue-600 mr-3"></i>
-                                        Room: {{ faculty.room_no }}
-                                    </p>
-                                {% endif %}
+                            <div class="mb-6">
+                                <!-- Contact Information in Single Column -->
+                                <div class="space-y-3">
+                                    {% if faculty.email %}
+                                        <div class="flex items-center bg-gray-50 rounded-lg p-3">
+                                            <div class="flex-shrink-0 w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center">
+                                                <i class="fas fa-envelope text-blue-600 text-sm"></i>
+                                            </div>
+                                            <div class="ml-3 flex-1">
+                                                <p class="text-sm font-medium text-gray-900">Email</p>
+                                                <p class="text-sm text-gray-600">{{ faculty.email }}</p>
+                                            </div>
+                                        </div>
+                                    {% endif %}
+                                    {% if faculty.phone %}
+                                        <div class="flex items-center bg-gray-50 rounded-lg p-3">
+                                            <div class="flex-shrink-0 w-8 h-8 bg-green-100 rounded-full flex items-center justify-center">
+                                                <i class="fas fa-phone text-green-600 text-sm"></i>
+                                            </div>
+                                            <div class="ml-3 flex-1">
+                                                <p class="text-sm font-medium text-gray-900">Phone</p>
+                                                <p class="text-sm text-gray-600">{{ faculty.phone }}</p>
+                                            </div>
+                                        </div>
+                                    {% endif %}
+                                    {% if faculty.room_no %}
+                                        <div class="flex items-center bg-gray-50 rounded-lg p-3">
+                                            <div class="flex-shrink-0 w-8 h-8 bg-purple-100 rounded-full flex items-center justify-center">
+                                                <i class="fas fa-door-open text-purple-600 text-sm"></i>
+                                            </div>
+                                            <div class="ml-3 flex-1">
+                                                <p class="text-sm font-medium text-gray-900">Office</p>
+                                                <p class="text-sm text-gray-600">Room {{ faculty.room_no }}</p>
+                                            </div>
+                                        </div>
+                                    {% endif %}
+                                </div>
                             </div>
                             
                             {% if faculty.bio %}
-                                <p class="text-gray-700 mb-4 leading-relaxed text-justify">{{ faculty.bio|truncatewords:50 }}</p>
+                                <div class="mb-6">
+                                    <div class="flex items-center mb-3">
+                                        <div class="flex-shrink-0 w-6 h-6 bg-indigo-100 rounded-full flex items-center justify-center">
+                                            <i class="fas fa-user text-indigo-600 text-xs"></i>
+                                        </div>
+                                        <h4 class="ml-2 font-semibold text-gray-800">Biography</h4>
+                                    </div>
+                                    <p class="text-gray-700 leading-relaxed text-justify pl-8">{{ faculty.bio|truncatewords:50 }}</p>
+                                </div>
                             {% endif %}
                             
                             {% if faculty.research_interest %}
-                                <div class="mt-4 pt-4 border-t border-gray-200">
-                                    <p class="font-semibold text-gray-800 mb-2">Research Interests:</p>
-                                    <p class="text-gray-700 text-justify">{{ faculty.research_interest|truncatewords:30 }}</p>
+                                <div class="border-t border-gray-200 pt-6">
+                                    <div class="flex items-center mb-3">
+                                        <div class="flex-shrink-0 w-6 h-6 bg-orange-100 rounded-full flex items-center justify-center">
+                                            <i class="fas fa-lightbulb text-orange-600 text-xs"></i>
+                                        </div>
+                                        <h4 class="ml-2 font-semibold text-gray-800">Research Interests</h4>
+                                    </div>
+                                    <p class="text-gray-700 text-justify leading-relaxed pl-8">{{ faculty.research_interest|truncatewords:30 }}</p>
                                 </div>
                             {% endif %}
                         </div>
@@ -78,60 +118,96 @@
         {% endif %}
     {% endfor %}
 
+    <!-- Faculty Sections by Designation in Academic Hierarchy Order -->
+    {% regroup faculty_members by designation as grouped_faculty %}
+    
     <!-- Professors Section -->
-    <div class="mb-16">
-        <h2 class="text-2xl font-semibold text-center mb-8 text-blue-800 border-b-2 border-blue-200 pb-2 inline-block">
-            Professors
-        </h2>
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {% for faculty in faculty_members %}
-                {% if faculty.designation == 'professor' and not faculty.is_chairman %}
+    {% for group in grouped_faculty %}
+        {% if group.grouper == 'professor' %}
+            {% comment %}Check if there are non-chairman professors{% endcomment %}
+            {% for faculty in group.list %}
+                {% if not faculty.is_chairman %}
+                    {% if forloop.first %}
+                        <div class="mb-16">
+                            <h2 class="text-2xl font-semibold text-center mb-8 text-blue-800 border-b-2 border-blue-200 pb-2 inline-block">
+                                Professors
+                            </h2>
+                            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    {% endif %}
                     {% include "cse/faculty_and_staff/faculty_card.html" with faculty=faculty %}
+                    {% if forloop.last %}
+                            </div>
+                        </div>
+                    {% endif %}
                 {% endif %}
             {% endfor %}
-        </div>
-    </div>
-
+        {% endif %}
+    {% endfor %}
+    
     <!-- Associate Professors Section -->
-    <div class="mb-16">
-        <h2 class="text-2xl font-semibold text-center mb-8 text-blue-800 border-b-2 border-blue-200 pb-2 inline-block">
-            Associate Professors
-        </h2>
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {% for faculty in faculty_members %}
-                {% if faculty.designation == 'associate_professor' and not faculty.is_chairman %}
+    {% for group in grouped_faculty %}
+        {% if group.grouper == 'associate_professor' %}
+            {% for faculty in group.list %}
+                {% if not faculty.is_chairman %}
+                    {% if forloop.first %}
+                        <div class="mb-16">
+                            <h2 class="text-2xl font-semibold text-center mb-8 text-blue-800 border-b-2 border-blue-200 pb-2 inline-block">
+                                Associate Professors
+                            </h2>
+                            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    {% endif %}
                     {% include "cse/faculty_and_staff/faculty_card.html" with faculty=faculty %}
+                    {% if forloop.last %}
+                            </div>
+                        </div>
+                    {% endif %}
                 {% endif %}
             {% endfor %}
-        </div>
-    </div>
-
+        {% endif %}
+    {% endfor %}
+    
     <!-- Assistant Professors Section -->
-    <div class="mb-16">
-        <h2 class="text-2xl font-semibold text-center mb-8 text-blue-800 border-b-2 border-blue-200 pb-2 inline-block">
-            Assistant Professors
-        </h2>
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {% for faculty in faculty_members %}
-                {% if faculty.designation == 'assistant_professor' and not faculty.is_chairman %}
+    {% for group in grouped_faculty %}
+        {% if group.grouper == 'assistant_professor' %}
+            {% for faculty in group.list %}
+                {% if not faculty.is_chairman %}
+                    {% if forloop.first %}
+                        <div class="mb-16">
+                            <h2 class="text-2xl font-semibold text-center mb-8 text-blue-800 border-b-2 border-blue-200 pb-2 inline-block">
+                                Assistant Professors
+                            </h2>
+                            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    {% endif %}
                     {% include "cse/faculty_and_staff/faculty_card.html" with faculty=faculty %}
+                    {% if forloop.last %}
+                            </div>
+                        </div>
+                    {% endif %}
                 {% endif %}
             {% endfor %}
-        </div>
-    </div>
-
+        {% endif %}
+    {% endfor %}
+    
     <!-- Lecturers Section -->
-    <div class="mb-16">
-        <h2 class="text-2xl font-semibold text-center mb-8 text-blue-800 border-b-2 border-blue-200 pb-2 inline-block">
-            Lecturers
-        </h2>
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {% for faculty in faculty_members %}
-                {% if faculty.designation == 'lecturer' and not faculty.is_chairman %}
+    {% for group in grouped_faculty %}
+        {% if group.grouper == 'lecturer' %}
+            {% for faculty in group.list %}
+                {% if not faculty.is_chairman %}
+                    {% if forloop.first %}
+                        <div class="mb-16">
+                            <h2 class="text-2xl font-semibold text-center mb-8 text-blue-800 border-b-2 border-blue-200 pb-2 inline-block">
+                                Lecturers
+                            </h2>
+                            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    {% endif %}
                     {% include "cse/faculty_and_staff/faculty_card.html" with faculty=faculty %}
+                    {% if forloop.last %}
+                            </div>
+                        </div>
+                    {% endif %}
                 {% endif %}
             {% endfor %}
-        </div>
-    </div>
+        {% endif %}
+    {% endfor %}
 </div>
 {% endblock %}

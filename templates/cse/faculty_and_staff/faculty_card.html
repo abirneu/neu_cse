@@ -1,39 +1,79 @@
 <!-- faculty_card.html -->
-<div class="bg-white border border-gray-200 shadow-md overflow-hidden">
-    <div class="relative">
-        {% if faculty.image %}
-            <img src="{{ faculty.image.url }}" alt="{{ faculty.name }}" class="w-full h-56 object-cover">
-        {% else %}
-            <div class="w-full h-56 bg-gray-100 flex items-center justify-center border-b border-gray-200">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-16 w-16 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
-                </svg>
-            </div>
-        {% endif %}
-    </div>
-    <div class="p-5">
-        <h3 class="text-lg font-bold text-gray-900 mb-1">{{ faculty.name }}</h3>
-        <p class="text-blue-600 font-medium mb-3">{{ faculty.get_designation_display }}</p>
-        
-        <div class="mb-3 space-y-1">
-            {% if faculty.email %}
-                <p class="text-gray-700 text-sm flex items-center">
-                    <i class="fas fa-envelope text-blue-600 mr-2 w-4"></i>
-                    <span class="truncate">{{ faculty.email }}</span>
-                </p>
+<div class="bg-white rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 border border-gray-100">
+    <div class="p-6">
+        <!-- Profile Image Section -->
+        <div class="flex justify-center mb-4">
+            {% if faculty.image %}
+                <div class="relative">
+                    <img src="{{ faculty.image.url }}" alt="{{ faculty.name }}" class="w-24 h-24 rounded-full object-cover border-4 border-blue-100 shadow-md">
+                    <div class="absolute -bottom-1 -right-1 w-6 h-6 bg-green-500 border-2 border-white rounded-full"></div>
+                </div>
+            {% else %}
+                <div class="w-24 h-24 bg-gradient-to-br from-blue-100 to-blue-200 rounded-full flex items-center justify-center border-4 border-blue-100 shadow-md">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 text-blue-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                    </svg>
+                </div>
             {% endif %}
+        </div>
+
+        <!-- Faculty Info -->
+        <div class="text-center mb-4">
+            <h3 class="text-xl font-bold text-gray-900 mb-1">{{ faculty.name }}</h3>
+            <div class="inline-block bg-gradient-to-r from-blue-500 to-blue-600 text-white px-3 py-1 rounded-full text-sm font-medium">
+                {{ faculty.get_designation_display }}
+            </div>
+        </div>
+        
+        <!-- Contact Information -->
+        <div class="space-y-3 mb-4">
+            {% if faculty.email %}
+                <div class="flex items-center text-gray-600 bg-gray-50 rounded-lg p-3">
+                    <div class="flex-shrink-0 w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center">
+                        <i class="fas fa-envelope text-blue-600 text-sm"></i>
+                    </div>
+                    <div class="ml-3 flex-1">
+                        <p class="text-sm font-medium text-gray-900">Email</p>
+                        <p class="text-sm text-gray-600 truncate">{{ faculty.email }}</p>
+                    </div>
+                </div>
+            {% endif %}
+            
+            {% if faculty.phone %}
+                <div class="flex items-center text-gray-600 bg-gray-50 rounded-lg p-3">
+                    <div class="flex-shrink-0 w-8 h-8 bg-green-100 rounded-full flex items-center justify-center">
+                        <i class="fas fa-phone text-green-600 text-sm"></i>
+                    </div>
+                    <div class="ml-3 flex-1">
+                        <p class="text-sm font-medium text-gray-900">Phone</p>
+                        <p class="text-sm text-gray-600">{{ faculty.phone }}</p>
+                    </div>
+                </div>
+            {% endif %}
+            
             {% if faculty.room_no %}
-                <p class="text-gray-700 text-sm flex items-center">
-                    <i class="fas fa-door-open text-blue-600 mr-2 w-4"></i>
-                    Room: {{ faculty.room_no }}
-                </p>
+                <div class="flex items-center text-gray-600 bg-gray-50 rounded-lg p-3">
+                    <div class="flex-shrink-0 w-8 h-8 bg-purple-100 rounded-full flex items-center justify-center">
+                        <i class="fas fa-door-open text-purple-600 text-sm"></i>
+                    </div>
+                    <div class="ml-3 flex-1">
+                        <p class="text-sm font-medium text-gray-900">Office</p>
+                        <p class="text-sm text-gray-600">Room {{ faculty.room_no }}</p>
+                    </div>
+                </div>
             {% endif %}
         </div>
         
+        <!-- Research Interests -->
         {% if faculty.research_interest %}
-            <div class="mt-3 pt-3 border-t border-gray-200">
-                <p class="text-sm font-medium text-gray-800 mb-1">Research Interests:</p>
-                <p class="text-sm text-gray-700 leading-relaxed">{{ faculty.research_interest|truncatewords:15 }}</p>
+            <div class="border-t border-gray-200 pt-4">
+                <div class="flex items-center mb-2">
+                    <div class="flex-shrink-0 w-6 h-6 bg-orange-100 rounded-full flex items-center justify-center">
+                        <i class="fas fa-lightbulb text-orange-600 text-xs"></i>
+                    </div>
+                    <h4 class="ml-2 text-sm font-semibold text-gray-800">Research Interests</h4>
+                </div>
+                <p class="text-sm text-gray-700 leading-relaxed pl-8">{{ faculty.research_interest|truncatewords:15 }}</p>
             </div>
         {% endif %}
     </div>
