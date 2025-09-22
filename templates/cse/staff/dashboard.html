@@ -13,6 +13,12 @@
                 <h1 class="text-3xl font-bold text-green-500">Staff Dashboard</h1>
                 <p class="text-gray-600 mt-2">Welcome back, {{ request.user.get_full_name }}</p>
             </div>
+            {% if temp_message %}
+                <div class="alert {% if temp_message.type == 'success' %}bg-green-50 border-l-4 border-green-400 text-green-700{% elif temp_message.type == 'error' %}bg-red-50 border-l-4 border-red-400 text-red-700{% else %}bg-blue-50 border-l-4 border-blue-400 text-blue-700{% endif %} p-4 mr-4 rounded shadow-sm" role="alert">
+                    <p class="font-medium">{{ temp_message.message }}</p>
+                </div>
+            {% endif %}
+            
             <div class="flex items-center space-x-4">
                 <span class="text-sm text-gray-500">{{ current_date|date:"l, F j, Y" }}</span>
                 <a href="{% url 'staff_logout' %}" class="inline-flex items-center px-4 py-2 bg-red border-2 border-red-500 rounded-lg font-medium text-gray-900 

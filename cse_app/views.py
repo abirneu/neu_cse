@@ -56,10 +56,18 @@ def create_notice(request):
             notice.created_by = request.user
             notice.created_at = timezone.now()
             notice.save()
-            request.session['dashboard_message'] = {'level': 'success', 'text': 'Notice created successfully!'}
+            request.session['temp_message'] = {
+                'type': 'success',
+                'message': 'Notice created successfully!'
+            }
+            request.session.modified = True
             return redirect('staff_dashboard')
         else:
-            request.session['dashboard_message'] = {'level': 'error', 'text': 'Error creating notice. Please check the form.'}
+            request.session['temp_message'] = {
+                'type': 'error',
+                'message': 'Error creating notice. Please check the form.'
+            }
+            request.session.modified = True
     return redirect('staff_dashboard')
 
 @login_required
@@ -71,10 +79,18 @@ def create_scrolling_notice(request):
             notice = form.save(commit=False)
             notice.created_by = request.user
             notice.save()
-            request.session['dashboard_message'] = {'level': 'success', 'text': 'Scrolling notice created successfully!'}
+            request.session['temp_message'] = {
+                'type': 'success',
+                'message': 'Scrolling notice created successfully!'
+            }
+            request.session.modified = True
             return redirect('staff_dashboard')
         else:
-            request.session['dashboard_message'] = {'level': 'error', 'text': 'Error creating scrolling notice. Please check the form.'}
+            request.session['temp_message'] = {
+                'type': 'error',
+                'message': 'Error creating scrolling notice. Please check the form.'
+            }
+            request.session.modified = True
     return redirect('staff_dashboard')
 
 @login_required
@@ -100,20 +116,12 @@ def staff_dashboard(request):
         staff_notices = user_notices.count()
         staff_scrolling_notices = user_scrolling_notices.count()
         
-        # Handle dashboard messages
-        dashboard_message = request.session.pop('dashboard_message', None)
-        if dashboard_message:
-            level = dashboard_message.get('level', 'info')
-            text = dashboard_message.get('text', '')
-            if level == 'error':
-                messages.error(request, text)
-            elif level == 'success':
-                messages.success(request, text)
-            elif level == 'warning':
-                messages.warning(request, text)
-            else:
-                messages.info(request, text)
-        
+        # Get temporary message and remove it from session
+        temp_message = None
+        if 'temp_message' in request.session:
+            temp_message = request.session.pop('temp_message')
+            request.session.modified = True
+
         context = {
             'staff_profile': staff_profile,
             'total_notices': total_notices,
@@ -125,6 +133,7 @@ def staff_dashboard(request):
             'user_notices': user_notices,
             'user_scrolling_notices': user_scrolling_notices,
             'recent_notices': Notice_Board.objects.order_by('-created_at')[:5],
+            'temp_message': temp_message,  # Add temporary message to context
         }
         return render(request, 'cse/staff/dashboard.html', context)
     except StaffProfile.DoesNotExist:
@@ -140,7 +149,11 @@ def edit_notice(request, pk):
     
     # Check if the user is the creator of the notice
     if notice.created_by != request.user:
-        request.session['dashboard_message'] = {'level': 'error', 'text': "You don't have permission to edit this notice."}
+        request.session['temp_message'] = {
+            'type': 'error',
+            'message': "You don't have permission to edit this notice."
+        }
+        request.session.modified = True
         return redirect('staff_dashboard')
     
     if request.method == 'POST':
@@ -149,10 +162,18 @@ def edit_notice(request, pk):
             notice = form.save(commit=False)
             notice.created_by = request.user  # Ensure created_by is set
             notice.save()
-            request.session['dashboard_message'] = {'level': 'success', 'text': 'Notice updated successfully!'}
+            request.session['temp_message'] = {
+                'type': 'success',
+                'message': 'Notice updated successfully!'
+            }
+            request.session.modified = True
             return redirect('staff_dashboard')
         else:
-            request.session['dashboard_message'] = {'level': 'error', 'text': 'Error updating notice. Please check the form.'}
+            request.session['temp_message'] = {
+                'type': 'error',
+                'message': 'Error updating notice. Please check the form.'
+            }
+            request.session.modified = True
     else:
         form = NoticeForm(instance=notice)
     
@@ -167,7 +188,11 @@ def delete_notice(request, pk):
     
     # Check if the user is the creator of the notice
     if notice.created_by != request.user:
-        request.session['dashboard_message'] = {'level': 'error', 'text': "You don't have permission to delete this notice."}
+        request.session['temp_message'] = {
+            'type': 'error',
+            'message': "You don't have permission to delete this notice."
+        }
+        request.session.modified = True
         return redirect('staff_dashboard')
     
     if request.method == 'POST':
@@ -180,7 +205,11 @@ def delete_notice(request, pk):
                     pass  # Ignore file deletion errors
         
         notice.delete()
-        request.session['dashboard_message'] = {'level': 'success', 'text': 'Notice deleted successfully!'}
+        request.session['temp_message'] = {
+            'type': 'success',
+            'message': 'Notice deleted successfully!'
+        }
+        request.session.modified = True
         return redirect('staff_dashboard')
     
     return render(request, 'cse/staff/delete_notice_confirm.html', {
@@ -193,13 +222,22 @@ def edit_scrolling_notice(request, pk):
     
     # Check if the user is the creator of the notice
     if notice.created_by != request.user:
-        raise PermissionDenied("You don't have permission to edit this scrolling notice.")
+        request.session['temp_message'] = {
+            'type': 'error',
+            'message': "You don't have permission to edit this scrolling notice."
+        }
+        request.session.modified = True
+        return redirect('staff_dashboard')
     
     if request.method == 'POST':
         form = ScrollingNoticeForm(request.POST, instance=notice)
         if form.is_valid():
             form.save()
-            messages.success(request, 'Scrolling notice updated successfully!')
+            request.session['temp_message'] = {
+                'type': 'success',
+                'message': 'Scrolling notice updated successfully!'
+            }
+            request.session.modified = True
             return redirect('staff_dashboard')
     else:
         form = ScrollingNoticeForm(instance=notice)
@@ -215,11 +253,20 @@ def delete_scrolling_notice(request, pk):
     
     # Check if the user is the creator of the notice
     if notice.created_by != request.user:
-        raise PermissionDenied("You don't have permission to delete this scrolling notice.")
+        request.session['temp_message'] = {
+            'type': 'error',
+            'message': "You don't have permission to delete this scrolling notice."
+        }
+        request.session.modified = True
+        return redirect('staff_dashboard')
     
     if request.method == 'POST':
         notice.delete()
-        messages.success(request, 'Scrolling notice deleted successfully!')
+        request.session['temp_message'] = {
+            'type': 'success',
+            'message': 'Scrolling notice deleted successfully!'
+        }
+        request.session.modified = True
         return redirect('staff_dashboard')
     
     return render(request, 'cse/staff/delete_scrolling_notice_confirm.html', {
