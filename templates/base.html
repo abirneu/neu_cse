@@ -25,6 +25,33 @@
   
   .text-custom-green { color: var(--custom-green); }
   .border-custom-green { border-color: var(--custom-green); }
+  
+  /* Professional smooth scrolling */
+  html {
+    scroll-behavior: smooth;
+  }
+  
+  /* Enhanced animation performance */
+  [data-aos] {
+    pointer-events: none;
+  }
+  
+  [data-aos].aos-animate {
+    pointer-events: auto;
+  }
+  
+  /* Custom professional hover effects */
+  .aos-animate {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  
+  /* Ensure animations work well with reduced motion preferences */
+  @media (prefers-reduced-motion: reduce) {
+    [data-aos] {
+      animation-duration: 0.1s !important;
+      transition-duration: 0.1s !important;
+    }
+  }
 </style>
 
 </head>
@@ -35,9 +62,22 @@
   // Initialize AOS
   document.addEventListener('DOMContentLoaded', function() {
     AOS.init({
-      duration: 800, // Animation duration in milliseconds
-      easing: 'ease-in-out', // Easing type
-      once: true, // Whether animation should happen only once
+      duration: 800, // Animation duration in milliseconds (optimized for readability)
+      easing: 'ease-out-cubic', // Professional easing for educational content
+      once: true, // Animation happens only once for better performance
+      offset: 50, // Trigger animations 50px before element comes into view
+      delay: 0, // Default delay
+      anchorPlacement: 'top-bottom', // Better for educational content viewing
+      disable: function() {
+        // Disable animations on mobile for better performance if needed
+        var maxWidth = 768;
+        return window.innerWidth < maxWidth;
+      }
+    });
+    
+    // Optional: Refresh AOS when dynamic content is added
+    window.addEventListener('load', function() {
+      AOS.refresh();
     });
   });
 </script>

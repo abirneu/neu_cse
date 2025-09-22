@@ -1,6 +1,6 @@
 <!-- faculty_card.html -->
-<div class="bg-white rounded-xl shadow-lg overflow-hidden transform transition-all duration-300 hover:scale-105 hover:shadow-xl">
-    <div class="relative">
+<div class="bg-white rounded-xl shadow-lg overflow-hidden transform transition-all duration-300 hover:scale-105 hover:shadow-xl" data-aos="fade-up" data-aos-duration="600">
+    <div class="relative" data-aos="zoom-in" data-aos-delay="200">
         {% if faculty.image %}
             <img src="{{ faculty.image.url }}" alt="{{ faculty.name }}" class="w-full h-64 object-cover">
         {% else %}
@@ -12,10 +12,10 @@
         {% endif %}
     </div>
     <div class="p-6">
-        <h3 class="text-xl font-bold text-gray-900 mb-2">{{ faculty.name }}</h3>
-        <p class="text-blue-600 mb-4">{{ faculty.get_designation_display }}</p>
+        <h3 class="text-xl font-bold text-gray-900 mb-2" data-aos="fade-right" data-aos-delay="300">{{ faculty.name }}</h3>
+        <p class="text-blue-600 mb-4" data-aos="fade-left" data-aos-delay="400">{{ faculty.get_designation_display }}</p>
         
-        <div class="mb-4 space-y-1">
+        <div class="mb-4 space-y-1" data-aos="fade-up" data-aos-delay="500">
             {% if faculty.email %}
                 <p class="text-gray-600 text-sm flex items-center">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-2 text-blue-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -35,7 +35,7 @@
         </div>
         
         {% if faculty.research_interest %}
-            <div class="mt-4 pt-4 border-t border-gray-100">
+            <div class="mt-4 pt-4 border-t border-gray-100" data-aos="fade-up" data-aos-delay="600">
                 <p class="text-sm font-medium text-gray-800 mb-1">Research Interests:</p>
                 <p class="text-sm text-gray-700">{{ faculty.research_interest|truncatewords:15 }}</p>
             </div>

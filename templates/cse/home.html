@@ -1,5 +1,6 @@
 {% extends 'base.html' %} 
 {% load static %} 
+{% load custom_filters %}
 {% block content %}
 {% include 'cse/carousel.html' %}
 
@@ -9,18 +10,18 @@
 <!-- Main Content -->
 <div class="lg:col-span-2 ">
   <!-- Welcome Section -->
-  <div class="rounded-lg p-4 sm:p-6 mb-2">
+  <div class="rounded-lg p-4 sm:p-6 mb-2" data-aos="fade-down" data-aos-duration="1000">
     <h2 class="text-center font-bold text-green-800 mb-1">
-      <span class="block text-2xl sm:text-3xl md:text-4xl sm:inline tracking-wide">Welcome to the</span>
-      <span class="block text-xl sm:text-2xl md:text-3xl lg:text-4xl sm:inline bg-gradient-to-r from-green-700 to-emerald-600 bg-clip-text text-transparent font-bold">Department of Computer Science &amp; <br class="hidden sm:inline">Engineering</span>
+      <span class="block text-2xl sm:text-3xl md:text-4xl sm:inline tracking-wide" data-aos="fade-right" data-aos-delay="200">Welcome to the</span>
+      <span class="block text-xl sm:text-2xl md:text-3xl lg:text-4xl sm:inline bg-gradient-to-r from-green-700 to-emerald-600 bg-clip-text text-transparent font-bold" data-aos="fade-left" data-aos-delay="400">Department of Computer Science &amp; <br class="hidden sm:inline">Engineering</span>
     </h2>
 
-    <p class="text-center text-gray-600 mb-4 sm:mb-6 text-base sm:text-lg">
+    <p class="text-center text-gray-600 mb-4 sm:mb-6 text-base sm:text-lg" data-aos="fade-up" data-aos-delay="600">
       Empowering Future Innovators at Netrokona University
     </p>
 
     <!-- Divider -->
-    <div class="flex justify-center mb-2 sm:mb-8">
+    <div class="flex justify-center mb-2 sm:mb-8" data-aos="zoom-in" data-aos-delay="800">
       <div class="w-16 sm:w-24 h-1 bg-gradient-to-r from-green-500 to-emerald-400 rounded-full"></div>
     </div>
   </div>
@@ -29,7 +30,7 @@
   {% include 'cse/about.html' %}
   
   <!-- Divider -->
-  <div class="my-8 sm:my-12 flex justify-center">
+  <div class="my-8 sm:my-12 flex justify-center" data-aos="zoom-in" data-aos-duration="600">
     <div class="w-24 sm:w-32 h-1 bg-gradient-to-r from-green-400 to-emerald-300 rounded-full opacity-50"></div>
   </div>
 
@@ -38,7 +39,7 @@
     <div class="grid md:grid-cols-2 gap-6 sm:gap-8">
       <!-- Chairman Message -->
       {% if current_chairman %}
-      <div class="bg-white rounded-xl sm:rounded-2xl overflow-hidden shadow-lg hover:shadow-xl transition-all duration-500 border border-gray-100">
+      <div class="bg-white rounded-xl sm:rounded-2xl overflow-hidden shadow-lg hover:shadow-xl transition-all duration-500 border border-gray-100" data-aos="fade-right" data-aos-duration="800">
         <div class="flex justify-between items-center px-4 sm:px-6 py-3 sm:py-4 bg-gradient-to-r from-green-600 to-emerald-600 rounded-t-xl sm:rounded-t-2xl">
           <span class="text-sm sm:text-base md:text-lg font-semibold text-white flex items-center">
             <svg class="w-4 h-4 sm:w-5 sm:h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -48,7 +49,7 @@
           </span>
         </div>
         <div class="p-4 sm:p-6 md:p-8">
-          <div class="flex items-start mb-4 sm:mb-6">
+          <div class="flex items-start mb-4 sm:mb-6" data-aos="fade-up" data-aos-delay="200">
             <div class="flex-shrink-0 mr-3 sm:mr-5">
               <div class="relative">
                 <div class="absolute -inset-1 bg-gradient-to-r from-green-400 to-emerald-400 rounded-full blur opacity-25"></div>
@@ -65,13 +66,13 @@
             </div>
           </div>
           
-          <div class="border-l-4 border-emerald-200 pl-3 sm:pl-4 ml-1 mb-4 sm:mb-6 bg-emerald-50 p-2 sm:p-3 rounded-r-lg">
+          <div class="border-l-4 border-emerald-200 pl-3 sm:pl-4 ml-1 mb-4 sm:mb-6 bg-emerald-50 p-2 sm:p-3 rounded-r-lg" data-aos="fade-up" data-aos-delay="400">
             <p class="text-gray-700 italic text-sm sm:text-base">
               "{{ current_chairman.message|striptags|truncatewords:30 }}"
             </p>
           </div>
           
-          <div class="flex items-center justify-between">
+          <div class="flex items-center justify-between" data-aos="fade-up" data-aos-delay="600">
             <a
               href="{% url 'message_from_chairman' %}"
               class="inline-flex items-center px-3 py-1.5 sm:px-4 sm:py-2 text-xs sm:text-sm font-medium text-white bg-gradient-to-r from-green-600 to-emerald-600 rounded-lg hover:from-green-700 hover:to-emerald-700 transition-all duration-300 shadow-md hover:shadow-lg transform hover:-translate-y-0.5"
@@ -87,9 +88,9 @@
       {% endif %}
 
       <!-- Latest Notices -->
-      <div class="bg-white rounded-xl sm:rounded-2xl shadow-lg overflow-hidden transition-all duration-500 border border-gray-100 hover:shadow-xl">
+      <div class="bg-white rounded-xl sm:rounded-2xl shadow-lg overflow-hidden transition-all duration-500 border border-gray-100 hover:shadow-xl" data-aos="fade-left" data-aos-duration="800">\
         <div class="p-4 sm:p-6 md:p-8">
-          <div class="flex justify-between items-center mb-4 sm:mb-6">
+          <div class="flex justify-between items-center mb-4 sm:mb-6" data-aos="fade-down" data-aos-delay="200">
             <div class="flex items-center">
               <div class="p-1.5 sm:p-2 bg-indigo-100 rounded-lg mr-2 sm:mr-3">
                 <svg class="w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -111,7 +112,7 @@
           <div class="h-64 sm:h-72 md:h-80 overflow-y-auto pr-1 custom-scrollbar">
             <div class="space-y-3 sm:space-y-4" id="notice-container">
               {% for notice in latest_notices %}
-              <div class="bg-white rounded-lg sm:rounded-xl border border-gray-100 p-3 sm:p-4 shadow-sm hover:shadow-md transition-all duration-300 transform hover:-translate-y-0.5 {% if notice.is_important %}border-l-4 border-l-red-500{% endif %}">
+              <div class="bg-white rounded-lg sm:rounded-xl border border-gray-100 p-3 sm:p-4 shadow-sm hover:shadow-md transition-all duration-300 transform hover:-translate-y-0.5 {% if notice.is_important %}border-l-4 border-l-red-500{% endif %}" data-aos="fade-up" data-aos-delay="{{ forloop.counter|mul:100 }}">
                 <div class="flex flex-col">
                   <div class="flex-1 min-w-0">
                     <div class="flex justify-between items-start">
@@ -179,9 +180,9 @@
   </div>
   
   <!-- Events Section -->
-  <section class="mb-10 sm:mb-16">
+  <section class="mb-10 sm:mb-16" data-aos="fade-up" data-aos-duration="800">
     <div class="w-full px-4 sm:px-6 md:px-12 lg:px-20">
-      <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6 sm:mb-8 p-4 sm:p-6 bg-white rounded-xl shadow-sm">
+      <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6 sm:mb-8 p-4 sm:p-6 bg-white rounded-xl shadow-sm" data-aos="slide-up" data-aos-delay="200">
         <div class="max-w-lg flex flex-col mb-4 sm:mb-0">
           <h2 class="text-2xl sm:text-3xl font-bold text-green-700">Upcoming Events</h2>
           <span class="text-gray-600 text-sm sm:text-base">NeU CSE dept. frequently holds different events.</span>
@@ -199,14 +200,14 @@
   </section>
 
   <!-- Divider -->
-  <div class="my-8 sm:my-12 flex justify-center">
+  <div class="my-8 sm:my-12 flex justify-center" data-aos="zoom-in" data-aos-duration="600">
     <div class="w-24 sm:w-32 h-1 bg-gradient-to-r from-green-400 to-emerald-300 rounded-full opacity-50"></div>
   </div>
   
   <!-- Latest Projects Section -->
-  <section class="mb-10 sm:mb-16">
+  <section class="mb-10 sm:mb-16" data-aos="fade-up" data-aos-duration="800">
     <div class="w-full px-4 sm:px-6 md:px-12 lg:px-20">
-      <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6 sm:mb-8 p-4 sm:p-6 bg-white rounded-xl shadow-sm">
+      <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6 sm:mb-8 p-4 sm:p-6 bg-white rounded-xl shadow-sm" data-aos="slide-up" data-aos-delay="200">
         <div class="max-w-lg flex flex-col mb-4 sm:mb-0">
           <h2 class="text-2xl sm:text-3xl font-bold text-green-700">Latest Projects</h2>
           <h3 class="text-gray-600 text-sm sm:text-base">Explore our latest projects and research work in the Department of CSE.</h3>
@@ -220,7 +221,7 @@
       </div>
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
         {% for project in latest_projects %}
-          <div class="bg-white rounded-xl shadow-md hover:shadow-xl transition-all duration-500 overflow-hidden group">
+          <div class="bg-white rounded-xl shadow-md hover:shadow-xl transition-all duration-500 overflow-hidden group" data-aos="zoom-in" data-aos-delay="{{ forloop.counter|mul:100 }}">
             <div class="overflow-hidden rounded-t-xl">
               {% if project.image %}
                 <img src="{{ project.image.url }}" class="w-full h-40 sm:h-48 object-cover transform transition duration-500 ease-in-out group-hover:scale-110" alt="{{ project.title }}">
@@ -240,7 +241,7 @@
             </div>
           </div>
         {% empty %}
-          <div class="col-span-1 sm:col-span-2 lg:col-span-3 text-center py-8">
+          <div class="col-span-1 sm:col-span-2 lg:col-span-3 text-center py-8" data-aos="fade-in">
             <p class="text-gray-500 text-sm sm:text-base">No projects available at the moment.</p>
           </div>
         {% endfor %}
@@ -249,14 +250,14 @@
   </section>
 
   <!-- Divider -->
-  <div class="my-8 sm:my-12 flex justify-center">
+  <div class="my-8 sm:my-12 flex justify-center" data-aos="zoom-in" data-aos-duration="600">
     <div class="w-24 sm:w-32 h-1 bg-gradient-to-r from-green-400 to-emerald-300 rounded-full opacity-50"></div>
   </div>
   
   <!-- Latest Publications Section -->
-  <section class="mb-10 sm:mb-16">
+  <section class="mb-10 sm:mb-16" data-aos="fade-up" data-aos-duration="800">
     <div class="w-full px-4 sm:px-6 md:px-12 lg:px-20">
-      <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6 sm:mb-8 p-4 sm:p-6 bg-white rounded-xl shadow-sm">
+      <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6 sm:mb-8 p-4 sm:p-6 bg-white rounded-xl shadow-sm" data-aos="slide-up" data-aos-delay="200">
         <div class="max-w-lg flex flex-col mb-4 sm:mb-0">
           <h2 class="text-2xl sm:text-3xl font-bold text-green-700">Latest Publications</h2>
           <h3 class="text-gray-600 text-sm sm:text-base">Browse our recent academic publications and research work.</h3>
@@ -270,7 +271,7 @@
       </div>
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
         {% for publication in latest_publications %}
-          <div class="bg-white rounded-xl shadow-md hover:shadow-xl transition-all duration-500 p-4 sm:p-6 group border border-gray-100">
+          <div class="bg-white rounded-xl shadow-md hover:shadow-xl transition-all duration-500 p-4 sm:p-6 group border border-gray-100" data-aos="flip-left" data-aos-delay="{{ forloop.counter|mul:150 }}">
             <div class="flex justify-between items-start mb-3 sm:mb-4">
               <h3 class="text-base sm:text-lg font-semibold text-gray-800 group-hover:text-green-700 transition-colors">{{ publication.title|truncatechars:70 }}</h3>
               <span class="px-2 py-0.5 sm:px-3 sm:py-1 bg-green-100 text-green-800 rounded-full text-xs font-medium ml-2 whitespace-nowrap">
@@ -292,7 +293,7 @@
             </a>
           </div>
         {% empty %}
-          <div class="col-span-1 md:col-span-2 lg:col-span-3 text-center py-8">
+          <div class="col-span-1 md:col-span-2 lg:col-span-3 text-center py-8" data-aos="fade-in">
             <p class="text-gray-500 text-sm sm:text-base">No publications available at the moment.</p>
           </div>
         {% endfor %}
@@ -306,17 +307,17 @@
   </div>
   
   <!-- Image Gallery Section -->
-  <section class="py-5 mb-10 sm:mb-16">
+  <section class="py-5 mb-10 sm:mb-16" data-aos="fade-up" data-aos-duration="1000">
     {% include 'cse/image_gallery/home_page_image.html' %}
   </section>
 
   <!-- Divider -->
-  <div class="my-8 sm:my-12 flex justify-center">
+  <div class="my-8 sm:my-12 flex justify-center" data-aos="zoom-in" data-aos-duration="600">
     <div class="w-24 sm:w-32 h-1 bg-gradient-to-r from-green-400 to-emerald-300 rounded-full opacity-50"></div>
   </div>
 
   <!-- Tech News Section -->
-  <section class="mb-10 sm:mb-16">
+  <section class="mb-10 sm:mb-16" data-aos="fade-up" data-aos-duration="800">
     {% include 'cse/tech_news/latest_tech.html' %}
   </section>
 </div>

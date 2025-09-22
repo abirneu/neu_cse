@@ -137,40 +137,6 @@ class FacultyMember(models.Model):
     def __str__(self):
         return f"{self.name} - {self.get_designation_display()}"
 
-class Staff(models.Model):
-    STAFF_TYPE_CHOICES = (
-        ('officer', 'Officer'),
-        ('staff', 'Staff'),
-    )
-    
-    OFFICER_DESIGNATION_CHOICES = (
-        ('administrative_officer', 'Administrative Officer'),
-        ('accounts_officer', 'Accounts Officer'),
-        ('academic_officer', 'Academic Officer'),
-        ('lab_officer', 'Lab Officer'),
-        ('other', 'Other'),
-    )
-    
-    STAFF_DESIGNATION_CHOICES = (
-        ('lab_assistant', 'Lab Assistant'),
-        ('office_assistant', 'Office Assistant'),
-        ('computer_operator', 'Computer Operator'),
-        ('mlss', 'MLSS'),
-        ('other', 'Other'),
-    )
-    
-    STATUS_CHOICES = (
-        ('active', 'Active'),
-        ('on_leave', 'On Leave'),
-        ('past_staff', 'Past Staff'),
-    )
-    
-    
-    
-    def __str__(self):
-        return f"{self.name} - {self.get_designation_display()}"
-    
-    
 class CarouselItem(models.Model):
     title = models.CharField(max_length=200)
     description = models.TextField()
