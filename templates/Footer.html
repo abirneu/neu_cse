@@ -21,17 +21,12 @@
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
                 <!-- Contact Information -->
                 <div class="space-y-6">
-                    <h3 class="text-xl font-bold text-white mb-6 flex items-center">
-                        <div class="w-8 h-8 bg-custom-green rounded-lg flex items-center justify-center mr-3">
-                            <i class="fas fa-map-marker-alt text-sm"></i>
-                        </div>
+                    <h3 class="text-xl font-bold text-white mb-6">
                         Contact Us
                     </h3>
                     <div class="space-y-4">
-                        <div class="flex items-start space-x-4 group">
-                            <div class="w-10 h-10 bg-gray-700 group-hover:bg-custom-green rounded-lg flex items-center justify-center transition-colors duration-300">
-                                <i class="fas fa-university text-sm"></i>
-                            </div>
+                        <div class="flex items-start space-x-3">
+                            <i class="fas fa-university text-custom-green mt-1"></i>
                             <div>
                                 <p class="text-gray-300 leading-relaxed">
                                     Department of CSE<br>
@@ -40,18 +35,14 @@
                                 </p>
                             </div>
                         </div>
-                        <div class="flex items-center space-x-4 group">
-                            <div class="w-10 h-10 bg-gray-700 group-hover:bg-custom-green rounded-lg flex items-center justify-center transition-colors duration-300">
-                                <i class="fas fa-phone text-sm"></i>
-                            </div>
-                            <p class="text-gray-300">+880 XXXX-XXXXXX</p>
+                        <div class="flex items-center space-x-3">
+                            <i class="fas fa-phone text-custom-green"></i>
+                            <p class="text-gray-300">+880 2997735015</p>
                         </div>
-                        <div class="flex items-center space-x-4 group">
-                            <div class="w-10 h-10 bg-gray-700 group-hover:bg-custom-green rounded-lg flex items-center justify-center transition-colors duration-300">
-                                <i class="fas fa-envelope text-sm"></i>
-                            </div>
-                            <a href="mailto:cse@neu.edu.bd" class="text-gray-300 hover:text-custom-green transition-colors">
-                                cse@neu.edu.bd
+                        <div class="flex items-center space-x-3">
+                            <i class="fas fa-envelope text-custom-green"></i>
+                            <a href="mailto:cse@neu.ac.bd" class="text-gray-300 hover:text-custom-green transition-colors">
+                                cse@neu.ac.bd
                             </a>
                         </div>
                     </div>
@@ -59,41 +50,38 @@
 
                 <!-- Quick Links -->
                 <div class="space-y-6">
-                    <h3 class="text-xl font-bold text-white mb-6 flex items-center">
-                        <div class="w-8 h-8 bg-custom-green rounded-lg flex items-center justify-center mr-3">
-                            <i class="fas fa-link text-sm"></i>
-                        </div>
+                    <h3 class="text-xl font-bold text-white mb-6">
                         Quick Links
                     </h3>
                     <ul class="space-y-3">
                         <li>
-                            <a href="{% url 'home' %}" class="text-gray-300 hover:text-custom-green transition-all duration-300 flex items-center group">
-                                <i class="fas fa-chevron-right text-xs mr-3 group-hover:translate-x-1 transition-transform duration-300"></i>
+                            <a href="{% url 'home' %}" class="text-gray-300 hover:text-custom-green transition-colors duration-300">
                                 Home
                             </a>
                         </li>
                         <li>
-                            <a href="{% url 'notice_list' %}" class="text-gray-300 hover:text-custom-green transition-all duration-300 flex items-center group">
-                                <i class="fas fa-chevron-right text-xs mr-3 group-hover:translate-x-1 transition-transform duration-300"></i>
+                            <a href="{% url 'message_from_chairman' %}" class="text-gray-300 hover:text-custom-green transition-colors duration-300">
+                                About Us
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{% url 'active_faculty' %}" class="text-gray-300 hover:text-custom-green transition-colors duration-300">
+                                Faculty
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{% url 'notice_list' %}" class="text-gray-300 hover:text-custom-green transition-colors duration-300">
                                 Notices
                             </a>
                         </li>
                         <li>
-                            <a href="{% url 'faculty_list' %}" class="text-gray-300 hover:text-custom-green transition-all duration-300 flex items-center group">
-                                <i class="fas fa-chevron-right text-xs mr-3 group-hover:translate-x-1 transition-transform duration-300"></i>
-                                Faculty Members
+                            <a href="{% url 'all_publications' %}" class="text-gray-300 hover:text-custom-green transition-colors duration-300">
+                                Research
                             </a>
                         </li>
                         <li>
-                            <a href="{% url 'all_publications' %}" class="text-gray-300 hover:text-custom-green transition-all duration-300 flex items-center group">
-                                <i class="fas fa-chevron-right text-xs mr-3 group-hover:translate-x-1 transition-transform duration-300"></i>
-                                Publications
-                            </a>
-                        </li>
-                        <li>
-                            <a href="{% url 'projects' %}" class="text-gray-300 hover:text-custom-green transition-all duration-300 flex items-center group">
-                                <i class="fas fa-chevron-right text-xs mr-3 group-hover:translate-x-1 transition-transform duration-300"></i>
-                                Projects
+                            <a href="{% url 'contact_us' %}" class="text-gray-300 hover:text-custom-green transition-colors duration-300">
+                                Contact Us
                             </a>
                         </li>
                     </ul>
@@ -101,41 +89,28 @@
 
                 <!-- Academic Resources -->
                 <div class="space-y-6">
-                    <h3 class="text-xl font-bold text-white mb-6 flex items-center">
-                        <div class="w-8 h-8 bg-custom-green rounded-lg flex items-center justify-center mr-3">
-                            <i class="fas fa-graduation-cap text-sm"></i>
-                        </div>
+                    <h3 class="text-xl font-bold text-white mb-6">
                         Academic
                     </h3>
                     <ul class="space-y-3">
                         <li>
-                            <a href="#" class="text-gray-300 hover:text-custom-green transition-all duration-300 flex items-center group">
-                                <i class="fas fa-chevron-right text-xs mr-3 group-hover:translate-x-1 transition-transform duration-300"></i>
+                            <a href="https://neu.ac.bd/admission-2024-2025/" target="_blank" class="text-gray-300 hover:text-custom-green transition-colors duration-300">
                                 Admissions
                             </a>
                         </li>
                         <li>
-                            <a href="#" class="text-gray-300 hover:text-custom-green transition-all duration-300 flex items-center group">
-                                <i class="fas fa-chevron-right text-xs mr-3 group-hover:translate-x-1 transition-transform duration-300"></i>
+                            <a href="#" class="text-gray-300 hover:text-custom-green transition-colors duration-300">
                                 Curriculum
                             </a>
                         </li>
                         <li>
-                            <a href="#" class="text-gray-300 hover:text-custom-green transition-all duration-300 flex items-center group">
-                                <i class="fas fa-chevron-right text-xs mr-3 group-hover:translate-x-1 transition-transform duration-300"></i>
-                                Research
+                            <a href="#" class="text-gray-300 hover:text-custom-green transition-colors duration-300">
+                                Programs
                             </a>
                         </li>
                         <li>
-                            <a href="#" class="text-gray-300 hover:text-custom-green transition-all duration-300 flex items-center group">
-                                <i class="fas fa-chevron-right text-xs mr-3 group-hover:translate-x-1 transition-transform duration-300"></i>
-                                Library
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#" class="text-gray-300 hover:text-custom-green transition-all duration-300 flex items-center group">
-                                <i class="fas fa-chevron-right text-xs mr-3 group-hover:translate-x-1 transition-transform duration-300"></i>
-                                Student Portal
+                            <a href="{% url 'alumni' %}" class="text-gray-300 hover:text-custom-green transition-colors duration-300">
+                                Alumni
                             </a>
                         </li>
                     </ul>
@@ -143,44 +118,35 @@
 
                 <!-- Connect & Newsletter -->
                 <div class="space-y-6">
-                    <h3 class="text-xl font-bold text-white mb-6 flex items-center">
-                        <div class="w-8 h-8 bg-custom-green rounded-lg flex items-center justify-center mr-3">
-                            <i class="fas fa-share-alt text-sm"></i>
-                        </div>
+                    <h3 class="text-xl font-bold text-white mb-6">
                         Connect With Us
                     </h3>
                     
                     <!-- Social Media Icons -->
                     <div class="flex space-x-4">
-                        <a href="#" class="w-12 h-12 bg-gray-700 hover:bg-blue-600 rounded-xl flex items-center justify-center transition-all duration-300 transform hover:scale-110 hover:shadow-lg group">
-                            <i class="fab fa-facebook text-xl group-hover:scale-110 transition-transform duration-300"></i>
+                        <a href="#" class="w-10 h-10 bg-gray-700 hover:bg-blue-600 rounded-lg flex items-center justify-center transition-colors duration-300">
+                            <i class="fab fa-facebook text-lg"></i>
                         </a>
-                        <a href="#" class="w-12 h-12 bg-gray-700 hover:bg-blue-400 rounded-xl flex items-center justify-center transition-all duration-300 transform hover:scale-110 hover:shadow-lg group">
-                            <i class="fab fa-twitter text-xl group-hover:scale-110 transition-transform duration-300"></i>
+                        <a href="#" class="w-10 h-10 bg-gray-700 hover:bg-blue-400 rounded-lg flex items-center justify-center transition-colors duration-300">
+                            <i class="fab fa-twitter text-lg"></i>
                         </a>
-                        <a href="#" class="w-12 h-12 bg-gray-700 hover:bg-blue-700 rounded-xl flex items-center justify-center transition-all duration-300 transform hover:scale-110 hover:shadow-lg group">
-                            <i class="fab fa-linkedin text-xl group-hover:scale-110 transition-transform duration-300"></i>
+                        <a href="#" class="w-10 h-10 bg-gray-700 hover:bg-blue-700 rounded-lg flex items-center justify-center transition-colors duration-300">
+                            <i class="fab fa-linkedin text-lg"></i>
                         </a>
-                        <a href="#" class="w-12 h-12 bg-gray-700 hover:bg-red-600 rounded-xl flex items-center justify-center transition-all duration-300 transform hover:scale-110 hover:shadow-lg group">
-                            <i class="fab fa-youtube text-xl group-hover:scale-110 transition-transform duration-300"></i>
+                        <a href="#" class="w-10 h-10 bg-gray-700 hover:bg-red-600 rounded-lg flex items-center justify-center transition-colors duration-300">
+                            <i class="fab fa-youtube text-lg"></i>
                         </a>
                     </div>
 
                     <!-- Newsletter Subscription -->
-                    <div class="bg-gray-800 rounded-xl p-6 border border-gray-700">
+                    <div class="bg-gray-800 rounded-lg p-4 border border-gray-700">
                         <h4 class="text-lg font-semibold text-white mb-3">Stay Updated</h4>
-                        <p class="text-gray-300 text-sm mb-4">Subscribe to our newsletter for latest updates and announcements.</p>
+                        <p class="text-gray-300 text-sm mb-4">Subscribe for latest updates.</p>
                         <form class="space-y-3">
-                            <div class="relative">
-                                <input type="email" placeholder="Enter your email" 
-                                       class="w-full px-4 py-3 bg-gray-700 text-white rounded-lg border border-gray-600 focus:border-custom-green focus:ring-2 focus:ring-custom-green focus:ring-opacity-20 transition-all duration-300 placeholder-gray-400">
-                                <div class="absolute inset-y-0 right-0 flex items-center pr-3">
-                                    <i class="fas fa-envelope text-gray-400"></i>
-                                </div>
-                            </div>
-                            <button type="submit" class="w-full bg-gradient-to-r from-custom-green to-emerald-500 hover:from-emerald-600 hover:to-custom-green text-white px-6 py-3 rounded-lg font-semibold transition-all duration-300 transform hover:scale-105 hover:shadow-lg">
-                                <i class="fas fa-paper-plane mr-2"></i>
-                                Subscribe Now
+                            <input type="email" placeholder="Enter your email" 
+                                   class="w-full px-3 py-2 bg-gray-700 text-white rounded border border-gray-600 focus:border-custom-green focus:outline-none transition-colors placeholder-gray-400">
+                            <button type="submit" class="w-full bg-custom-green hover:bg-emerald-600 text-white px-4 py-2 rounded font-medium transition-colors duration-300">
+                                Subscribe
                             </button>
                         </form>
                     </div>
