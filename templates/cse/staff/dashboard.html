@@ -8,20 +8,20 @@
 <div class="min-h-screen ">
     <div class="max-w-full mx-auto px-0 sm:px-2 lg:px-2 py-8">
         <!-- Header -->
-        <div class="mb-8 flex justify-between items-center">
+        <div class="mb-8 flex flex-col lg:flex-row lg:justify-between lg:items-center space-y-4 lg:space-y-0">
             <div>
-                <h1 class="text-3xl font-bold text-green-500">Staff Dashboard</h1>
+                <h1 class="text-2xl sm:text-3xl font-bold text-green-500">Staff Dashboard</h1>
                 <p class="text-gray-600 mt-2">Welcome back, {{ request.user.get_full_name }}</p>
             </div>
             {% if temp_message %}
-                <div class="alert {% if temp_message.type == 'success' %}bg-green-50 border-l-4 border-green-400 text-green-700{% elif temp_message.type == 'error' %}bg-red-50 border-l-4 border-red-400 text-red-700{% else %}bg-blue-50 border-l-4 border-blue-400 text-blue-700{% endif %} p-4 mr-4 rounded shadow-sm" role="alert">
+                <div class="alert {% if temp_message.type == 'success' %}bg-green-50 border-l-4 border-green-400 text-green-700{% elif temp_message.type == 'error' %}bg-red-50 border-l-4 border-red-400 text-red-700{% else %}bg-blue-50 border-l-4 border-blue-400 text-blue-700{% endif %} p-4 rounded shadow-sm" role="alert">
                     <p class="font-medium">{{ temp_message.message }}</p>
                 </div>
             {% endif %}
             
-            <div class="flex items-center space-x-4">
-                <span class="text-sm text-gray-500">{{ current_date|date:"l, F j, Y" }}</span>
-                <a href="{% url 'staff_logout' %}" class="inline-flex items-center px-4 py-2 bg-red border-2 border-red-500 rounded-lg font-medium text-gray-900 
+            <div class="flex flex-col sm:flex-row sm:items-center space-y-2 sm:space-y-0 sm:space-x-4">
+                <span class="text-sm text-gray-500 hidden sm:block">{{ current_date|date:"l, F j, Y" }}</span>
+                <a href="{% url 'staff_logout' %}" class="inline-flex items-center justify-center px-4 py-2 bg-red border-2 border-red-500 rounded-lg font-medium text-gray-900 
                 hover:bg-red-500 hover:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-all duration-200 shadow-sm hover:shadow-md">
                     
                     Logout
@@ -102,24 +102,24 @@
 
         <div class="grid grid-cols-1 lg:grid-cols-4 gap-6">
             <!-- Profile Information -->
-            <div class="lg:col-span-1 space-y-6">
+            <div class="lg:col-span-1 order-2 lg:order-1 space-y-6">
                 <div class="bg-white rounded-xl shadow-sm overflow-hidden border border-gray-100">
-                    <div class="bg-green-500 px-6 py-5">
+                    <div class="bg-green-500 px-4 sm:px-6 py-5">
                         <h3 class="text-lg font-semibold text-white">Profile Information</h3>
                     </div>
-                    <div class="p-6">
+                    <div class="p-4 sm:p-6">
                         <div class="flex justify-center mb-5">
                             <div class="relative">
-                                <div class="w-32 h-32 rounded-full bg-gradient-to-r from-blue-100 to-indigo-100 flex items-center justify-center border-4 border-white shadow-lg">
+                                <div class="w-24 h-24 sm:w-32 sm:h-32 rounded-full bg-gradient-to-r from-blue-100 to-indigo-100 flex items-center justify-center border-4 border-white shadow-lg">
                                     {% if staff_profile.profile_image %}
                                         <img src="{{ staff_profile.profile_image.url }}" alt="Profile Picture" class="w-full h-full rounded-full object-cover">
                                     {% else %}
-                                        <span class="text-4xl font-bold text-blue-600">{{ request.user.get_full_name|first|upper }}</span>
+                                        <span class="text-2xl sm:text-4xl font-bold text-blue-600">{{ request.user.get_full_name|first|upper }}</span>
                                     {% endif %}
                                 </div>
                             </div>
                         </div>
-                        <h2 class="text-xl font-bold text-center text-gray-800 mb-5">{{ request.user.get_full_name }}</h2>
+                        <h2 class="text-lg sm:text-xl font-bold text-center text-gray-800 mb-5">{{ request.user.get_full_name }}</h2>
                         
                         <div class="space-y-3">
                             {% with profile_items=staff_profile %}
@@ -157,7 +157,7 @@
                                         <path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z" />
                                     </svg>
                                 </div>
-                                <p class="ml-3 text-sm text-gray-600"><span class="font-medium text-gray-900">Phone:</span> {{ staff_profile.phone_number }}</p>
+                                <p class="ml-3 text-sm text-gray-600 break-all"><span class="font-medium text-gray-900">Phone:</span> {{ staff_profile.phone_number }}</p>
                             </div>
 
                             <div class="flex items-start p-3 rounded-lg bg-gray-50 hover:bg-green-50 transition-colors duration-200">
@@ -167,7 +167,7 @@
                                         <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z" />
                                     </svg>
                                 </div>
-                                <p class="ml-3 text-sm text-gray-600"><span class="font-medium text-gray-900">Email:</span> {{ request.user.email }}</p>
+                                <p class="ml-3 text-sm text-gray-600 break-all"><span class="font-medium text-gray-900">Email:</span> {{ request.user.email }}</p>
                             </div>
                             {% endwith %}
                         </div>
@@ -176,15 +176,15 @@
             </div>
 
             <!-- Dashboard Content -->
-            <div class="lg:col-span-3 space-y-6">
+            <div class="lg:col-span-3 order-1 lg:order-2 space-y-6">
                 <!-- Forms Section -->
-                <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                <div class="grid grid-cols-1 xl:grid-cols-2 gap-6">
                     <!-- Create Notice Form -->
                     <div class="bg-white rounded-xl shadow-sm overflow-hidden border border-gray-100">
-                        <div class="bg-green-500 px-6 py-5">
+                        <div class="bg-green-500 px-4 sm:px-6 py-5">
                             <h3 class="text-lg font-semibold text-white">Create New Notice</h3>
                         </div>
-                        <div class="p-6">
+                        <div class="p-4 sm:p-6">
                             <form method="post" action="{% url 'create_notice' %}" enctype="multipart/form-data">
                                 {% csrf_token %}
                                 <div class="mb-5">
@@ -221,10 +221,10 @@
 
                     <!-- Create Scrolling Notice Form -->
                     <div class="bg-white rounded-xl shadow-sm overflow-hidden border border-gray-100">
-                        <div class="bg-green-500 px-6 py-5">
+                        <div class="bg-green-500 px-4 sm:px-6 py-5">
                             <h3 class="text-lg font-semibold text-white">Create Scrolling Notice</h3>
                         </div>
-                        <div class="p-6">
+                        <div class="p-4 sm:p-6">
                             <form method="post" action="{% url 'create_scrolling_notice' %}">
                                 {% csrf_token %}
                                 <div class="mb-5">
@@ -252,21 +252,21 @@
 
                 <!-- Your Notices -->
                 <div class="bg-white rounded-xl shadow-sm overflow-hidden border border-gray-100">
-                    <div class="bg-green-500 px-6 py-5 flex justify-between items-center">
+                    <div class="bg-green-500 px-4 sm:px-6 py-5 flex flex-col sm:flex-row sm:justify-between sm:items-center space-y-2 sm:space-y-0">
                         <h3 class="text-lg font-semibold text-white">Your Notices</h3>
-                        <span class="bg-white bg-opacity-20 text-white px-3 py-1 rounded-full text-sm">
+                        <span class="bg-white bg-opacity-20 text-white px-3 py-1 rounded-full text-sm w-fit">
                             Total: {{ staff_notices }}
                         </span>
                     </div>
                     <div class="divide-y divide-gray-100">
                         {% if user_notices %}
                             {% for notice in user_notices %}
-                                <div class="p-6 hover:bg-gray-50 transition duration-150">
-                                    <div class="flex justify-between items-start">
+                                <div class="p-4 sm:p-6 hover:bg-gray-50 transition duration-150">
+                                    <div class="flex flex-col lg:flex-row lg:justify-between lg:items-start space-y-4 lg:space-y-0">
                                         <div class="flex-grow">
                                             <h4 class="text-lg font-semibold text-gray-900 mb-2">{{ notice.title }}</h4>
                                             <div class="text-gray-600 text-sm mb-3">{{ notice.content|truncatewords:30|safe }}</div>
-                                            <div class="flex items-center gap-4 text-sm">
+                                            <div class="flex flex-wrap items-center gap-2 sm:gap-4 text-xs sm:text-sm">
                                                 <span class="flex items-center text-gray-500">
                                                     <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
@@ -291,25 +291,25 @@
                                                 {% endif %}
                                             </div>
                                         </div>
-                                        <div class="flex gap-2 ml-4">
+                                        <div class="flex flex-row lg:flex-col xl:flex-row gap-2 lg:ml-4 flex-shrink-0">
                                             <a href="{% url 'edit_notice' notice.pk %}" class="inline-flex items-center px-3 py-2 border border-blue-500 text-blue-500 hover:bg-blue-50 rounded-lg text-sm font-medium transition duration-150">
                                                 <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
                                                 </svg>
-                                                Edit
+                                                <span class="hidden sm:inline">Edit</span>
                                             </a>
                                             <a href="{% url 'delete_notice' notice.pk %}" class="inline-flex items-center px-3 py-2 border border-red-500 text-red-500 hover:bg-red-50 rounded-lg text-sm font-medium transition duration-150">
                                                 <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
                                                 </svg>
-                                                Delete
+                                                <span class="hidden sm:inline">Delete</span>
                                             </a>
                                         </div>
                                     </div>
                                 </div>
                             {% endfor %}
                         {% else %}
-                            <div class="p-6 text-center text-gray-500">
+                            <div class="p-4 sm:p-6 text-center text-gray-500">
                                 <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 mx-auto mb-3 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
                                 </svg>
@@ -321,20 +321,20 @@
 
                 <!-- Your Scrolling Notices -->
                 <div class="bg-white rounded-xl shadow-sm overflow-hidden border border-gray-100">
-                    <div class="bg-green-500 px-6 py-5 flex justify-between items-center">
+                    <div class="bg-green-500 px-4 sm:px-6 py-5 flex flex-col sm:flex-row sm:justify-between sm:items-center space-y-2 sm:space-y-0">
                         <h3 class="text-lg font-semibold text-white">Your Scrolling Notices</h3>
-                        <span class="bg-white bg-opacity-20 text-white px-3 py-1 rounded-full text-sm">
+                        <span class="bg-white bg-opacity-20 text-white px-3 py-1 rounded-full text-sm w-fit">
                             Total: {{ staff_scrolling_notices }}
                         </span>
                     </div>
                     <div class="divide-y divide-gray-100">
                         {% if user_scrolling_notices %}
                             {% for notice in user_scrolling_notices %}
-                                <div class="p-6 hover:bg-gray-50 transition duration-150">
-                                    <div class="flex justify-between items-start">
+                                <div class="p-4 sm:p-6 hover:bg-gray-50 transition duration-150">
+                                    <div class="flex flex-col lg:flex-row lg:justify-between lg:items-start space-y-4 lg:space-y-0">
                                         <div class="flex-grow">
-                                            <div class="text-gray-900 mb-2">{{ notice.text }}</div>
-                                            <div class="flex items-center gap-4 text-sm">
+                                            <div class="text-gray-900 mb-2 break-words">{{ notice.text }}</div>
+                                            <div class="flex flex-wrap items-center gap-2 sm:gap-4 text-xs sm:text-sm">
                                                 <span class="flex items-center text-gray-500">
                                                     <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
@@ -349,25 +349,25 @@
                                                 </span>
                                             </div>
                                         </div>
-                                        <div class="flex gap-2 ml-4">
+                                        <div class="flex flex-row lg:flex-col xl:flex-row gap-2 lg:ml-4 flex-shrink-0">
                                             <a href="{% url 'edit_scrolling_notice' notice.pk %}" class="inline-flex items-center px-3 py-2 border border-blue-500 text-blue-500 hover:bg-blue-50 rounded-lg text-sm font-medium transition duration-150">
                                                 <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
                                                 </svg>
-                                                Edit
+                                                <span class="hidden sm:inline">Edit</span>
                                             </a>
                                             <a href="{% url 'delete_scrolling_notice' notice.pk %}" class="inline-flex items-center px-3 py-2 border border-red-500 text-red-500 hover:bg-red-50 rounded-lg text-sm font-medium transition duration-150">
                                                 <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
                                                 </svg>
-                                                Delete
+                                                <span class="hidden sm:inline">Delete</span>
                                             </a>
                                         </div>
                                     </div>
                                 </div>
                             {% endfor %}
                         {% else %}
-                            <div class="p-6 text-center text-gray-500">
+                            <div class="p-4 sm:p-6 text-center text-gray-500">
                                 <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 mx-auto mb-3 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" />
                                 </svg>

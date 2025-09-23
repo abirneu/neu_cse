@@ -4,23 +4,23 @@
 {% block title %}Edit Scrolling Notice - NeU CSE{% endblock %}
 
 {% block content %}
-<div class="min-h-screen py-8 px-4 sm:px-6 lg:px-8">
-    <div class="max-w-3xl mx-auto">
+<div class="min-h-screen py-4 sm:py-8 px-4 sm:px-6 lg:px-8">
+    <div class="max-w-xl sm:max-w-2xl lg:max-w-3xl mx-auto">
         <!-- Header -->
-        <div class="text-center mb-8">
-            <h1 class="text-3xl font-bold text-gray-900">Edit Scrolling Notice</h1>
+        <div class="text-center mb-6 sm:mb-8">
+            <h1 class="text-2xl sm:text-3xl font-bold text-gray-900">Edit Scrolling Notice</h1>
             <p class="text-gray-600 mt-2">Update the text and status of your scrolling notice</p>
         </div>
 
         <div class="bg-white rounded-2xl shadow-xl overflow-hidden border border-gray-100">
             <!-- Card Header -->
-            <div class="bg-green-500 to-indigo-700 px-6 py-5">
-                <h2 class="text-xl font-semibold text-white">Edit Scrolling Notice</h2>
+            <div class="bg-green-500 px-4 sm:px-6 py-5">
+                <h2 class="text-lg sm:text-xl font-semibold text-white">Edit Scrolling Notice</h2>
             </div>
             
             <!-- Form Content -->
-            <div class="p-8">
-                <form method="post" action="{% url 'edit_scrolling_notice' notice.pk %}" class="space-y-6">
+            <div class="p-4 sm:p-6 lg:p-8">
+                <form method="post" action="{% url 'edit_scrolling_notice' notice.pk %}" class="space-y-4 sm:space-y-6">
                     {% csrf_token %}
                     
                     <!-- Text Field -->
@@ -33,7 +33,7 @@
                     </div>
                     
                     <!-- Active Toggle Switch -->
-                    <div class="flex items-center justify-between p-4 bg-gray-50 rounded-xl border border-gray-200">
+                    <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between p-4 bg-gray-50 rounded-xl border border-gray-200 space-y-2 sm:space-y-0">
                         <div>
                             <label for="{{ form.is_active.id_for_label }}" class="block text-sm font-medium text-gray-900 mb-1">Notice Status</label>
                             
@@ -45,7 +45,7 @@
                     </div>
 
                     <!-- Preview Section -->
-                    <div class="mt-6 p-4 bg-green-50 rounded-xl border border-green-200">
+                    <div class="mt-4 sm:mt-6 p-3 sm:p-4 bg-green-50 rounded-xl border border-green-200">
                         <h3 class="text-sm font-medium text-blue-900 mb-2">Live Preview</h3>
                         <div class="bg-white p-3 rounded-lg border border-green-100">
                             <div class="flex items-center">
@@ -54,8 +54,8 @@
                                         <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
                                     </svg>
                                 </div>
-                                <div class="ml-2">
-                                    <p class="text-sm text-green-800" id="preview-text">
+                                <div class="ml-2 flex-1 min-w-0">
+                                    <p class="text-sm text-green-800 break-words" id="preview-text">
                                         {% if form.text.value %}
                                             {{ form.text.value }}
                                         {% else %}
@@ -68,19 +68,19 @@
                     </div>
                     
                     <!-- Form Actions -->
-                    <div class="flex flex-col sm:flex-row gap-3 pt-6">
-                        <button type="submit" class="inline-flex items-center justify-center px-6 py-3 border border-transparent text-base font-medium rounded-xl
-                         text-white bg-green-500 hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500">
-                            <svg class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <div class="flex flex-col sm:flex-row gap-3 pt-4 sm:pt-6">
+                        <button type="submit" class="inline-flex items-center justify-center px-4 sm:px-6 py-2 sm:py-3 border border-transparent text-sm sm:text-base font-medium rounded-xl
+                         text-white bg-green-500 hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 transition-all duration-200 order-1 sm:order-1">
+                            <svg class="h-4 w-4 sm:h-5 sm:w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
                             </svg>
                             Save Changes
                         </button>
-                        <a href="{% url 'staff_dashboard' %}" class="inline-flex items-center justify-center px-6 py-3 border
-                         border-gray-300 text-base font-medium rounded-xl text-gray-700 bg-white hover:bg-gray-50
+                        <a href="{% url 'staff_dashboard' %}" class="inline-flex items-center justify-center px-4 sm:px-6 py-2 sm:py-3 border
+                         border-gray-300 text-sm sm:text-base font-medium rounded-xl text-gray-700 bg-white hover:bg-gray-50
                           focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500 
-                        ">
-                            <svg class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        transition-all duration-200 order-2 sm:order-2">
+                            <svg class="h-4 w-4 sm:h-5 sm:w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
                             </svg>
                             Cancel
@@ -95,7 +95,7 @@
 <style>
     /* Style form inputs to match Tailwind design */
     textarea {
-        @apply block w-full px-4 py-3 border border-gray-300 rounded-xl shadow-sm focus:ring-blue-500 focus:border-blue-500 transition duration-200;
+        @apply block w-full px-3 py-2 sm:px-4 sm:py-3 border border-gray-300 rounded-xl shadow-sm focus:ring-blue-500 focus:border-blue-500 transition duration-200 text-sm sm:text-base;
     }
     
     /* Custom toggle switch */

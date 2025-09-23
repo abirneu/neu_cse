@@ -3,38 +3,38 @@
 
 {% block title %}Delete Notice - NeU CSE{% endblock %}
 {% block content %}
-<div class="min-h-screen  py-12 px-4 sm:px-6 lg:px-8">
-    <div class="max-w-lg mx-auto">
+<div class="min-h-screen py-8 sm:py-12 px-4 sm:px-6 lg:px-8">
+    <div class="max-w-md sm:max-w-lg mx-auto">
         <div class="bg-white rounded-2xl shadow-xl overflow-hidden border border-gray-100">
             <!-- Header -->
-            <div class="bg-gradient-to-r from-red-600 to-red-700 px-6 py-5">
-                <h3 class="text-xl font-semibold text-white text-center">Delete Notice</h3>
+            <div class="bg-gradient-to-r from-red-600 to-red-700 px-4 sm:px-6 py-5">
+                <h3 class="text-lg sm:text-xl font-semibold text-white text-center">Delete Notice</h3>
             </div>
             
             <!-- Content -->
-            <div class="p-8 text-center">
+            <div class="p-4 sm:p-6 lg:p-8 text-center">
                 <!-- Warning Icon -->
-                <div class="mx-auto flex items-center justify-center h-16 w-16 rounded-full bg-red-100 mb-6">
-                    <svg class="h-10 w-10 text-red-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <div class="mx-auto flex items-center justify-center h-12 w-12 sm:h-16 sm:w-16 rounded-full bg-red-100 mb-4 sm:mb-6">
+                    <svg class="h-8 w-8 sm:h-10 sm:w-10 text-red-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
                     </svg>
                 </div>
                 
-                <h4 class="text-xl font-bold text-gray-900 mb-3">Confirm Deletion</h4>
-                <p class="text-gray-600 mb-6">
+                <h4 class="text-lg sm:text-xl font-bold text-gray-900 mb-3">Confirm Deletion</h4>
+                <p class="text-gray-600 mb-4 sm:mb-6 text-sm sm:text-base">
                     You are about to delete the notice titled 
-                    <span class="block font-medium text-gray-900 mt-1">"{{ notice.title }}"</span>
+                    <span class="block font-medium text-gray-900 mt-1 break-words">"{{ notice.title }}"</span>
                 </p>
                 
-                <div class="bg-red-50 border-l-4 border-red-500 p-4 mb-6 rounded-md">
+                <div class="bg-red-50 border-l-4 border-red-500 p-3 sm:p-4 mb-4 sm:mb-6 rounded-md text-left">
                     <div class="flex">
                         <div class="flex-shrink-0">
-                            <svg class="h-5 w-5 text-red-400" viewBox="0 0 20 20" fill="currentColor">
+                            <svg class="h-4 w-4 sm:h-5 sm:w-5 text-red-400" viewBox="0 0 20 20" fill="currentColor">
                                 <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd" />
                             </svg>
                         </div>
                         <div class="ml-3">
-                            <p class="text-sm text-red-700">
+                            <p class="text-xs sm:text-sm text-red-700">
                                 This action <span class="font-medium">cannot be undone</span>. The notice will be permanently removed from the system.
                             </p>
                         </div>
@@ -44,18 +44,18 @@
                 <form method="post" action="{% url 'delete_notice' notice.pk %}">
                     {% csrf_token %}
                     <div class="flex flex-col sm:flex-row gap-3 justify-center">
-                        <button type="submit" class="inline-flex items-center justify-center px-5 py-3 border border-transparent text-base font-medium rounded-xl 
+                        <button type="submit" class="inline-flex items-center justify-center px-4 sm:px-5 py-2 sm:py-3 border border-transparent text-sm sm:text-base font-medium rounded-xl 
                         text-white bg-gradient-to-r from-red-600 to-red-700 hover:from-red-700 hover:to-red-800 focus:outline-none focus:ring-2 
-                        focus:ring-offset-2 focus:ring-red-500 ">
-                            <svg class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        focus:ring-offset-2 focus:ring-red-500 transition-all duration-200 order-1 sm:order-1">
+                            <svg class="h-4 w-4 sm:h-5 sm:w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
                             </svg>
                             Delete Notice
                         </button>
-                        <a href="{% url 'staff_dashboard' %}" class="inline-flex items-center justify-center px-5 py-3 border border-gray-300 text-base
+                        <a href="{% url 'staff_dashboard' %}" class="inline-flex items-center justify-center px-4 sm:px-5 py-2 sm:py-3 border border-gray-300 text-sm sm:text-base
                          font-medium rounded-xl text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 
-                         focus:ring-gray-500 ">
-                            <svg class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                         focus:ring-gray-500 transition-all duration-200 order-2 sm:order-2">
+                            <svg class="h-4 w-4 sm:h-5 sm:w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
                             </svg>
                             Cancel
