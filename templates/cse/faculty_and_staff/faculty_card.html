@@ -6,7 +6,6 @@
             {% if faculty.image %}
                 <div class="relative">
                     <img src="{{ faculty.image.url }}" alt="{{ faculty.name }}" class="w-24 h-24 rounded-full object-cover border-4 border-blue-100 shadow-md">
-                    <div class="absolute -bottom-1 -right-1 w-6 h-6 bg-green-500 border-2 border-white rounded-full"></div>
                 </div>
             {% else %}
                 <div class="w-24 h-24 bg-gradient-to-br from-blue-100 to-blue-200 rounded-full flex items-center justify-center border-4 border-blue-100 shadow-md">
@@ -20,7 +19,7 @@
         <!-- Faculty Info -->
         <div class="text-center mb-4">
             <h3 class="text-xl font-bold text-gray-900 mb-1">{{ faculty.name }}</h3>
-            <div class="inline-block bg-gradient-to-r from-blue-500 to-blue-600 text-white px-3 py-1 rounded-full text-sm font-medium">
+            <div class="inline-block bg-green-600 text-white px-3 py-1 rounded-full text-sm font-medium">
                 {{ faculty.get_designation_display }}
             </div>
         </div>

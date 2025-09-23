@@ -3,6 +3,15 @@
 {% block content %}
 <!-- Ex Chairman Section -->
 <div class="container mx-auto px-4 py-8">
+      <!-- Back to Home Button -->
+    <div class="mb-8">
+      <a href="{% url 'home' %}" class="inline-flex items-center text-gray-600 hover:text-green-600 transition-colors duration-200">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
+        </svg>
+        Back to Home
+      </a>
+    </div>
     <div class="text-center mb-12">
         <h1 class="text-4xl font-bold mb-4 text-gray-800">Former Department Chairmen</h1>
         <div class="w-24 h-1 bg-blue-600 mx-auto mb-4"></div>
@@ -13,38 +22,76 @@
     <div class="mb-16">
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {% for chairman in ex_chairmen %}
-                <div class="bg-white border border-gray-200 shadow-md overflow-hidden">
-                    {% if chairman.image %}
-                        <img src="{{ chairman.image.url }}" alt="{{ chairman.name }}" class="w-full h-56 object-cover">
-                    {% else %}
-                        <div class="w-full h-56 bg-gray-100 flex items-center justify-center border-b border-gray-200">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-16 w-16 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
-                            </svg>
+                <div class="bg-white rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 border border-gray-100">
+                    <div class="p-6">
+                        <!-- Profile Image Section -->
+                        <div class="flex justify-center mb-4">
+                            {% if chairman.image %}
+                                <div class="relative">
+                                    <img src="{{ chairman.image.url }}" alt="{{ chairman.name }}" class="w-24 h-24 rounded-full object-cover border-4 border-blue-100 shadow-md">
+                                </div>
+                            {% else %}
+                                <div class="w-24 h-24 bg-gradient-to-br from-blue-100 to-blue-200 rounded-full flex items-center justify-center border-4 border-blue-100 shadow-md">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 text-blue-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                                    </svg>
+                                </div>
+                            {% endif %}
                         </div>
-                    {% endif %}
-                    <div class="p-5">
-                        <h3 class="text-lg font-bold text-gray-900 mb-2">{{ chairman.name }}</h3>
-                        <p class="text-blue-600 font-medium mb-3">{{ chairman.designation }}</p>
+
+                        <!-- Chairman Info -->
+                        <div class="text-center mb-4">
+                            <h3 class="text-xl font-bold text-gray-900 mb-1">{{ chairman.name }}</h3>
+                            <div class="inline-block bg-purple-600 text-white px-3 py-1 rounded-full text-sm font-medium">
+                                {{ chairman.designation }}
+                            </div>
+                        </div>
+
+                        <!-- Service Period Highlight -->
                         {% if chairman.tenure_start and chairman.tenure_end %}
-                            <p class="text-sm text-gray-700 mb-2">
-                                <i class="fas fa-calendar text-blue-600 mr-2"></i>
-                                Tenure: {{ chairman.tenure_start|date:"M Y" }} - {{ chairman.tenure_end|date:"M Y" }}
-                            </p>
+                            <div class="bg-gradient-to-r from-orange-50 to-orange-100 border border-orange-200 rounded-lg p-4 mb-4">
+                                <div class="flex items-center justify-center">
+                                    <div class="flex-shrink-0 w-8 h-8 bg-orange-500 rounded-full flex items-center justify-center">
+                                        <i class="fas fa-crown text-white text-sm"></i>
+                                    </div>
+                                    <div class="ml-3 text-center">
+                                        <p class="text-sm font-semibold text-orange-800">Service Period</p>
+                                        <p class="text-lg font-bold text-orange-900">
+                                            {{ chairman.tenure_start|date:"M Y" }} - {{ chairman.tenure_end|date:"M Y" }}
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
                         {% endif %}
+                        
+                        <!-- Contact Information -->
                         {% if chairman.email %}
-                            <p class="text-sm text-gray-700">
-                                <i class="fas fa-envelope text-blue-600 mr-2"></i>
-                                <a href="mailto:{{ chairman.email }}" class="text-blue-600 hover:text-blue-800">
-                                    {{ chairman.email }}
-                                </a>
-                            </p>
+                            <div class="space-y-3">
+                                <div class="flex items-center text-gray-600 bg-gray-50 rounded-lg p-3">
+                                    <div class="flex-shrink-0 w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center">
+                                        <i class="fas fa-envelope text-blue-600 text-sm"></i>
+                                    </div>
+                                    <div class="ml-3 flex-1">
+                                        <p class="text-sm font-medium text-gray-900">Email</p>
+                                        <p class="text-sm text-gray-600 truncate">
+                                            <a href="mailto:{{ chairman.email }}" class="text-blue-600 hover:text-blue-800">
+                                                {{ chairman.email }}
+                                            </a>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
                         {% endif %}
                     </div>
                 </div>
             {% empty %}
                 <div class="col-span-full text-center py-12">
-                    <p class="text-gray-600">No former chairmen records available at the moment.</p>
+                    <div class="bg-white rounded-xl shadow-lg p-8 border border-gray-100">
+                        <div class="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                            <i class="fas fa-user-tie text-gray-400 text-2xl"></i>
+                        </div>
+                        <p class="text-gray-600 text-lg">No former chairmen records available at the moment.</p>
+                    </div>
                 </div>
             {% endfor %}
         </div>
