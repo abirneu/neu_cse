@@ -1,7 +1,19 @@
 <style>
     @keyframes smooth-scroll {
-        0% { transform: translateX(100%); }
-        100% { transform: translateX(-100%); }
+        0% { 
+            transform: translate3d(100%, 0, 0); 
+            opacity: 0.8;
+        }
+        5% {
+            opacity: 1;
+        }
+        95% {
+            opacity: 1;
+        }
+        100% { 
+            transform: translate3d(-100%, 0, 0); 
+            opacity: 0.8;
+        }
     }
     .notice-container {
         width: 100%;
@@ -11,17 +23,26 @@
         border-left: 4px solid #6366f1;
         box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
         border-radius: 0;
+        will-change: transform;
     }
     .notice-wrapper {
         position: relative;
         overflow: hidden;
         padding: 0.875rem 0;
+        height: auto;
+        min-height: 2.5rem;
+        display: flex;
+        align-items: center;
     }
     .animate-scroll {
-        animation: smooth-scroll 25s linear infinite;
+        animation: smooth-scroll 30s ease-in-out infinite;
         display: inline-block;
         white-space: nowrap;
         padding-right: 2rem;
+        transition: animation-play-state 0.3s ease;
+        will-change: transform;
+        backface-visibility: hidden;
+        -webkit-font-smoothing: antialiased;
     }
     .animate-scroll:hover {
         animation-play-state: paused;
@@ -47,12 +68,44 @@
         color: #334155;
         font-weight: 500;
         font-size: 0.95rem;
+        line-height: 1.5;
+    }
+    
+    /* Responsive adjustments */
+    @media (max-width: 768px) {
+        .animate-scroll {
+            animation-duration: 35s !important;
+        }
+        .notice-text {
+            font-size: 0.875rem;
+        }
+        .notice-badge {
+            font-size: 0.7rem;
+            padding: 0.2rem 0.6rem;
+        }
+    }
+    
+    @media (max-width: 480px) {
+        .animate-scroll {
+            animation-duration: 40s !important;
+        }
+        .notice-wrapper {
+            padding: 0.75rem 0;
+        }
+    }
+    
+    /* Reduce motion for users who prefer it */
+    @media (prefers-reduced-motion: reduce) {
+        .animate-scroll {
+            animation-duration: 60s !important;
+            animation-timing-function: linear;
+        }
     }
 </style>
 
 <div class="notice-container" data-aos="slide-down" data-aos-duration="800" data-aos-delay="300">
     <div class="notice-wrapper">
-        <div class="animate-scroll">
+        <div class="animate-scroll" id="scrolling-notice-text">
             <span class="notice-badge">
                 <i class="fas fa-exclamation-circle"></i>
                 Notice
@@ -63,3 +116,83 @@
         </div>
     </div>
 </div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const scrollingElement = document.getElementById('scrolling-notice-text');
+    if (scrollingElement) {
+        const noticeText = scrollingElement.querySelector('.notice-text').textContent.trim();
+        const textLength = noticeText.length;
+        
+        // Function to calculate duration based on text length and screen size
+        function calculateDuration() {
+            const screenWidth = window.innerWidth;
+            let baseDuration = 30;
+            
+            // Adjust base duration for screen size
+            if (screenWidth <= 480) {
+                baseDuration = 40;
+            } else if (screenWidth <= 768) {
+                baseDuration = 35;
+            }
+            
+            // Calculate duration based on text length
+            let duration = Math.max(20, Math.min(60, (textLength / 50) * baseDuration));
+            
+            // Adjust for very short text (less than 20 chars)
+            if (textLength < 20) {
+                duration = baseDuration - 5;
+            }
+            
+            // For medium text (20-100 chars), ensure comfortable reading speed
+            if (textLength >= 20 && textLength <= 100) {
+                duration = Math.max(25, duration);
+            }
+            
+            return duration;
+        }
+        
+        // Apply the calculated duration
+        function updateAnimation() {
+            const duration = calculateDuration();
+            scrollingElement.style.animationDuration = duration + 's';
+        }
+        
+        // Initial setup
+        updateAnimation();
+        
+        // Update on window resize
+        let resizeTimeout;
+        window.addEventListener('resize', function() {
+            clearTimeout(resizeTimeout);
+            resizeTimeout = setTimeout(updateAnimation, 150);
+        });
+        
+        // Start immediately - no delay
+        scrollingElement.style.opacity = '1';
+        
+        // Improve hover behavior with smooth transitions
+        scrollingElement.addEventListener('mouseenter', function() {
+            this.style.animationPlayState = 'paused';
+        });
+        
+        scrollingElement.addEventListener('mouseleave', function() {
+            this.style.animationPlayState = 'running';
+        });
+        
+        // Handle focus for keyboard navigation
+        scrollingElement.addEventListener('focus', function() {
+            this.style.animationPlayState = 'paused';
+        });
+        
+        scrollingElement.addEventListener('blur', function() {
+            this.style.animationPlayState = 'running';
+        });
+        
+        // Make it keyboard accessible
+        scrollingElement.setAttribute('tabindex', '0');
+        scrollingElement.setAttribute('role', 'marquee');
+        scrollingElement.setAttribute('aria-label', 'Scrolling notice: ' + noticeText);
+    }
+});
+</script>
