@@ -378,8 +378,8 @@ def active_faculty(request):
         'faculty_members': active_faculty_members
     })
 def ex_chairman(request):
-    # Get all ex-chairmen ordered by most recent first
-    ex_chairmen = Chairman.objects.filter(is_current=False).order_by('-to_date')
+    # Get all ex-chairmen ordered by service start date (who served first appears first)
+    ex_chairmen = Chairman.objects.filter(is_current=False).order_by('from_date')
     
     # For each chairman, ensure we have their faculty details
     for chairman in ex_chairmen:
