@@ -2,6 +2,27 @@ from django.contrib import admin
 from .models import *
 from .models import ScrollingNotice, CarouselItem, ImageGallery, ComputerClubMember, StaffProfile
 
+@admin.register(Education)
+class EducationAdmin(admin.ModelAdmin):
+    list_display = ('faculty', 'degree_name', 'major_subject', 'board_institute', 'passing_year', 'country')
+    list_filter = ('degree_name', 'country', 'passing_year')
+    search_fields = ('faculty__name', 'degree_name', 'major_subject', 'board_institute')
+    list_select_related = ('faculty',)
+    ordering = ('faculty', 'order', '-passing_year')
+    
+    fieldsets = (
+        (None, {
+            'fields': ('faculty', 'degree_name', 'major_subject')
+        }),
+        ('Institution Details', {
+            'fields': ('board_institute', 'country', 'passing_year')
+        }),
+        ('Additional Information', {
+            'fields': ('grade_gpa', 'order'),
+            'classes': ('collapse',)
+        }),
+    )
+
 @admin.register(StaffProfile)
 class StaffProfileAdmin(admin.ModelAdmin):
     list_display = ('staff_id', 'get_full_name', 'designation', 'phone_number', 'is_active', 'join_date')
@@ -72,23 +93,53 @@ class ProjectAdmin(admin.ModelAdmin):
 
 @admin.register(FacultyMember)
 class FacultyMemberAdmin(admin.ModelAdmin):
-    list_display = ('name', 'designation', 'status', 'email', 'is_chairman')
-    list_filter = ('designation', 'status', 'is_chairman')
+    list_display = ('name', 'designation', 'status', 'member_type', 'email', 'is_chairman')
+    list_filter = ('designation', 'status', 'member_type', 'is_chairman', 'joined_date')
     search_fields = ('name', 'email', 'research_interest', 'bio')
+    filter_horizontal = ()
+    date_hierarchy = 'joined_date'
+    
     fieldsets = (
-        (None, {
-            'fields': ('name', 'designation', 'status', 'is_chairman')
+        ('Basic Information', {
+            'fields': ('name', 'designation', 'status', 'member_type', 'is_chairman', 'image')
         }),
         ('Contact Information', {
             'fields': ('email', 'phone', 'room_no')
         }),
-        ('Profile', {
-            'fields': ('bio', 'education', 'research_interest', 'image')
+        ('Professional Profile', {
+            'fields': ('bio', 'research_interest')
         }),
-        ('Dates', {
-            'fields': ('joined_date', 'end_date')
+        ('Academic Links', {
+            'fields': ('research_gate_url', 'google_scholar_url', 'orcid_url', 'linkedin_url', 'personal_website'),
+            'classes': ('collapse',)
+        }),
+        ('Academic Details', {
+            'fields': ('education', 'professional_experience', 'research_activities'),
+            'classes': ('collapse',)
+        }),
+        ('Publications & Teaching', {
+            'fields': ('publications', 'courses_taught'),
+            'classes': ('collapse',)
+        }),
+        ('Recognition & Membership', {
+            'fields': ('membership', 'awards_honors'),
+            'classes': ('collapse',)
+        }),
+        ('Additional Information', {
+            'fields': ('others', 'cv_file'),
+            'classes': ('collapse',)
+        }),
+        ('Administrative Dates', {
+            'fields': ('joined_date', 'end_date'),
+            'classes': ('collapse',)
         }),
     )
+    
+    readonly_fields = ()
+    
+    def get_form(self, request, obj=None, **kwargs):
+        form = super().get_form(request, obj, **kwargs)
+        return form
 
 @admin.register(Chairman)
 class ChairmanAdmin(admin.ModelAdmin):

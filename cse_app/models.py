@@ -103,6 +103,25 @@ class Project(models.Model):
         return self.title
 
 
+class Education(models.Model):
+    faculty = models.ForeignKey('FacultyMember', on_delete=models.CASCADE, related_name='educations')
+    degree_name = models.CharField(max_length=200, help_text="e.g., BSc, MSc, PhD, Diploma")
+    major_subject = models.CharField(max_length=200, help_text="Group/Major Subject")
+    board_institute = models.CharField(max_length=200, help_text="Board/Institute/University name")
+    country = models.CharField(max_length=100, default="Bangladesh")
+    passing_year = models.IntegerField(help_text="Year of graduation/completion")
+    grade_gpa = models.CharField(max_length=50, blank=True, help_text="Grade/GPA/Result (optional)")
+    order = models.IntegerField(default=0, help_text="Order for display (0 for latest)")
+    
+    def __str__(self):
+        return f"{self.faculty.name} - {self.degree_name}"
+    
+    class Meta:
+        ordering = ['order', '-passing_year']
+        verbose_name = 'Education'
+        verbose_name_plural = 'Education Records'
+
+
 class FacultyMember(models.Model):
     DESIGNATION_CHOICES = (
         ('professor', 'Professor'),
@@ -118,24 +137,63 @@ class FacultyMember(models.Model):
         ('ex_chairman', 'Ex-Chairman'),
         ('past_faculty', 'Past Faculty'),
     )
+
+    MEMBER_TYPE_CHOICES = (
+        ('full_time', 'Full-time'),
+        ('part_time', 'Part-time'),
+        ('visiting', 'Visiting'),
+        ('adjunct', 'Adjunct'),
+    )
     
+    # Basic Information
     user = models.OneToOneField(User, on_delete=models.CASCADE, null=True, blank=True)
     name = models.CharField(max_length=100)
     designation = models.CharField(max_length=30, choices=DESIGNATION_CHOICES)
     status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='active')
+    member_type = models.CharField(max_length=20, choices=MEMBER_TYPE_CHOICES, default='full_time')
     email = models.EmailField()
     phone = models.CharField(max_length=15, blank=True)
     room_no = models.CharField(max_length=10, blank=True)
     image = models.ImageField(upload_to='faculty/', blank=True)
     bio = models.TextField(blank=True)
-    education = RichTextField(blank=True)
+    
+    # Research and Academic Information
     research_interest = models.TextField(blank=True)
+    research_gate_url = models.URLField(blank=True, help_text="ResearchGate profile URL")
+    google_scholar_url = models.URLField(blank=True, help_text="Google Scholar profile URL")
+    orcid_url = models.URLField(blank=True, help_text="ORCID profile URL")
+    linkedin_url = models.URLField(blank=True, help_text="LinkedIn profile URL")
+    personal_website = models.URLField(blank=True, help_text="Personal website URL")
+    
+    # Education and Professional Experience
+    education = RichTextField(blank=True, help_text="Educational background")
+    professional_experience = RichTextField(blank=True, help_text="Professional experience")
+    research_activities = RichTextField(blank=True, help_text="Research activities and projects")
+    
+    # Publications and Courses
+    publications = RichTextField(blank=True, help_text="List of publications")
+    courses_taught = RichTextField(blank=True, help_text="Courses taught")
+    
+    # Memberships and Awards
+    membership = RichTextField(blank=True, help_text="Professional memberships")
+    awards_honors = RichTextField(blank=True, help_text="Awards and honors received")
+    
+    # Other Information
+    others = RichTextField(blank=True, help_text="Other relevant information")
+    cv_file = models.FileField(upload_to='faculty/cv/', blank=True, null=True, help_text="Upload CV/Resume")
+    
+    # Administrative Information
     joined_date = models.DateField(blank=True, null=True)
     end_date = models.DateField(blank=True, null=True)
     is_chairman = models.BooleanField(default=False)
     
     def __str__(self):
         return f"{self.name} - {self.get_designation_display()}"
+
+    class Meta:
+        ordering = ['designation', 'name']
+        verbose_name = 'Faculty Member'
+        verbose_name_plural = 'Faculty Members'
 
 class CarouselItem(models.Model):
     title = models.CharField(max_length=200)

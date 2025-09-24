@@ -558,7 +558,7 @@ def staff_list(request):
 
 def faculty_detail(request, pk):
     faculty = get_object_or_404(FacultyMember, pk=pk)
-    return render(request, 'cse/faculty_detail.html', {'faculty': faculty})
+    return render(request, 'cse/faculty_and_staff/faculty_detail.html', {'faculty': faculty})
 
 def chairman_message(request):
     # Get current chairman
