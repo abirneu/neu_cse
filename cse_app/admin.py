@@ -1,358 +1,138 @@
 from django.contrib import admin
+from django.utils.html import format_html
 from .models import *
-from .models import ScrollingNotice, CarouselItem, ImageGallery, ComputerClubMember, StaffProfile
 
-@admin.register(Education)
-class EducationAdmin(admin.ModelAdmin):
-    list_display = ('faculty', 'degree_name', 'major_subject', 'board_institute', 'passing_year', 'country')
-    list_filter = ('degree_name', 'country', 'passing_year')
-    search_fields = ('faculty__name', 'degree_name', 'major_subject', 'board_institute')
-    list_select_related = ('faculty',)
-    ordering = ('faculty', 'order', '-passing_year')
-    
-    fieldsets = (
-        (None, {
-            'fields': ('faculty', 'degree_name', 'major_subject')
-        }),
-        ('Institution Details', {
-            'fields': ('board_institute', 'country', 'passing_year')
-        }),
-        ('Additional Information', {
-            'fields': ('grade_gpa', 'order'),
-            'classes': ('collapse',)
-        }),
-    )
+# =====================================
+# FACULTY MANAGEMENT SECTION
+# =====================================
 
-@admin.register(StaffProfile)
-class StaffProfileAdmin(admin.ModelAdmin):
-    list_display = ('staff_id', 'get_full_name', 'designation', 'phone_number', 'is_active', 'join_date')
-    list_filter = ('is_active', 'designation', 'join_date')
-    search_fields = ('staff_id', 'user__first_name', 'user__last_name', 'phone_number')
-    ordering = ('user__first_name', 'user__last_name')
-    date_hierarchy = 'join_date'
+# Inline classes for Faculty-related models
+class EducationInline(admin.TabularInline):
+    model = Education
+    extra = 1
+    fields = ('degree_name', 'major_subject', 'board_institute', 'country', 'passing_year', 'grade_gpa', 'order')
 
-    def get_full_name(self, obj):
-        return obj.user.get_full_name()
-    get_full_name.short_description = 'Full Name'
+class ProfessionalExperienceInline(admin.TabularInline):
+    model = ProfessionalExperience
+    extra = 1
+    fields = ('organization', 'position_title', 'location', 'start_date', 'end_date', 'is_current', 'description', 'order')
 
-@admin.register(ComputerClubMember)
-class ComputerClubMemberAdmin(admin.ModelAdmin):
-    list_display = ('name', 'position', 'session')
-    list_filter = ('position',)
-    search_fields = ('name', 'session')
-    ordering = ('position', 'name')
+class PublicationRecordInline(admin.TabularInline):
+    model = PublicationRecord
+    extra = 1
+    fields = ('title', 'authors', 'publication_type', 'venue', 'year', 'order')
 
-@admin.register(ImageGallery)
-class ImageGalleryAdmin(admin.ModelAdmin):
-    list_display = ('title', 'upload_time')
-    search_fields = ('title',)
-    ordering = ('-upload_time',)
+class AwardRecordInline(admin.TabularInline):
+    model = AwardRecord
+    extra = 1
+    fields = ('award_title', 'award_type', 'awarding_organization', 'year', 'order')
 
-@admin.register(CarouselItem)
-class CarouselItemAdmin(admin.ModelAdmin):
-    list_display = ('title', 'order', 'is_active', 'created_at')
-    list_filter = ('is_active', 'created_at')
-    search_fields = ('title', 'description')
-    ordering = ('order', '-created_at')
+class CourseRecordInline(admin.TabularInline):
+    model = CourseRecord
+    extra = 1
+    fields = ('course_code', 'course_title', 'course_level', 'course_type', 'semester', 'credit_hours', 'order')
 
-@admin.register(ScrollingNotice)
-class ScrollingNoticeAdmin(admin.ModelAdmin):
-    list_display = ('text', 'is_active', 'created_at', 'updated_at')
-    list_filter = ('is_active', 'created_at')
-    search_fields = ('text',)
-
-@admin.register(Notice_Board)
-class NoticeAdmin(admin.ModelAdmin):
-    list_display = ('title', 'created_at', 'updated_at', 'is_important', 'created_by')
-    list_filter = ('created_at', 'is_important', 'created_by')
-    search_fields = ('title', 'content')
-    readonly_fields = ('created_at', 'updated_at')
-    fieldsets = (
-        (None, {
-            'fields': ('title', 'content', 'file', 'is_important', 'created_by')
-        }),
-        ('Timestamp Information', {
-            'fields': ('created_at', 'updated_at'),
-            'classes': ('collapse',),
-            'description': 'These fields are automatically managed by the system.'
-        })
-    )
-
-@admin.register(Publication)
-class PublicationAdmin(admin.ModelAdmin):
-    list_display = ('title', 'authors', 'publication_type', 'publication_date')
-    list_filter = ('publication_type', 'publication_date')
-    search_fields = ('title', 'authors')
-
-@admin.register(Project)
-class ProjectAdmin(admin.ModelAdmin):
-    list_display = ('title', 'project_type', 'start_date', 'is_ongoing')
-    list_filter = ('project_type', 'start_date', 'is_ongoing')
-    filter_horizontal = ('members',)
-    search_fields = ('title', 'description')
+class MembershipRecordInline(admin.TabularInline):
+    model = MembershipRecord
+    extra = 1
+    fields = ('organization_name', 'membership_type', 'position', 'start_date', 'end_date', 'is_current', 'order')
 
 @admin.register(FacultyMember)
 class FacultyMemberAdmin(admin.ModelAdmin):
-    list_display = ('name', 'designation', 'status', 'member_type', 'email', 'is_chairman')
+    list_display = (
+        'name', 
+        'designation', 
+        'status', 
+        'email', 
+        'phone', 
+        'joined_date',
+        'is_chairman'
+    )
     list_filter = ('designation', 'status', 'member_type', 'is_chairman', 'joined_date')
-    search_fields = ('name', 'email', 'research_interest', 'bio')
-    filter_horizontal = ()
-    date_hierarchy = 'joined_date'
+    search_fields = ('name', 'email', 'phone', 'research_interest', 'bio')
     
+    # Enhanced inlines for comprehensive faculty profile management
+    inlines = [
+        EducationInline,
+        ProfessionalExperienceInline, 
+        PublicationRecordInline,
+        AwardRecordInline,
+        CourseRecordInline,
+        MembershipRecordInline,
+    ]
+    
+    date_hierarchy = 'joined_date'
+    ordering = ('designation', 'name')
+    
+    # Organized fieldsets for better UX
     fieldsets = (
         ('Basic Information', {
-            'fields': ('name', 'designation', 'status', 'member_type', 'is_chairman', 'image')
+            'fields': (
+                ('name', 'designation'),
+                ('status', 'member_type'),
+                ('is_chairman', 'image')
+            ),
         }),
+        
+        ('Account Management', {
+            'fields': ('user',),
+            'classes': ('collapse',),
+            'description': 'Link this faculty member to a user account for login access (optional).'
+        }),
+        
         ('Contact Information', {
-            'fields': ('email', 'phone', 'room_no')
+            'fields': (
+                ('email', 'phone'),
+                'room_no'
+            ),
         }),
+        
         ('Professional Profile', {
-            'fields': ('bio', 'research_interest')
+            'fields': (
+                'bio',
+                'research_interest'
+            ),
         }),
-        ('Academic Links', {
-            'fields': ('research_gate_url', 'google_scholar_url', 'orcid_url', 'linkedin_url', 'personal_website'),
+        
+        ('Academic & Social Links', {
+            'fields': (
+                ('research_gate_url', 'google_scholar_url'),
+                ('orcid_url', 'linkedin_url'),
+                'personal_website'
+            ),
             'classes': ('collapse',)
         }),
-        ('Academic Details', {
-            'fields': ('education', 'professional_experience', 'research_activities'),
-            'classes': ('collapse',)
+        
+        ('Documents & Additional Info', {
+            'fields': (
+                'cv_file',
+                'others'
+            ),
+            'classes': ('collapse',),
+            'description': 'Upload CV/Resume and add any other relevant information not covered by the structured sections below.'
         }),
-        ('Publications & Teaching', {
-            'fields': ('publications', 'courses_taught'),
-            'classes': ('collapse',)
-        }),
-        ('Recognition & Membership', {
-            'fields': ('membership', 'awards_honors'),
-            'classes': ('collapse',)
-        }),
-        ('Additional Information', {
-            'fields': ('others', 'cv_file'),
-            'classes': ('collapse',)
-        }),
-        ('Administrative Dates', {
-            'fields': ('joined_date', 'end_date'),
-            'classes': ('collapse',)
-        }),
-    )
-    
-    readonly_fields = ()
-    
-    def get_form(self, request, obj=None, **kwargs):
-        form = super().get_form(request, obj, **kwargs)
-        return form
-
-@admin.register(Chairman)
-class ChairmanAdmin(admin.ModelAdmin):
-    list_display = ('faculty', 'from_date', 'to_date', 'is_current')
-    list_filter = ('is_current', 'from_date')
-
-@admin.register(TechNews)
-class TechNewsAdmin(admin.ModelAdmin):
-    list_display = ('title', 'source', 'published_date')
-    list_filter = ('published_date', 'source')
-    search_fields = ('title', 'content')
-
-@admin.register(ViewCount)
-class ViewCountAdmin(admin.ModelAdmin):
-    list_display = ('page_name', 'count', 'last_updated')
-    readonly_fields = ('page_name', 'count', 'last_updated')
-
-@admin.register(Event)
-class EventAdmin(admin.ModelAdmin):
-    list_display = ('title', 'event_type', 'start_date', 'end_date', 'location', 'is_upcoming')
-    list_filter = ('event_type', 'is_upcoming', 'start_date')
-    search_fields = ('title', 'description', 'location', 'organizer')
-    date_hierarchy = 'start_date'
-    ordering = ('-start_date',)
-    fieldsets = (
-        (None, {
-            'fields': ('title', 'description', 'event_type')
-        }),
-        ('Date & Time', {
-            'fields': ('start_date', 'end_date')
-        }),
-        ('Location & Organizer', {
-            'fields': ('location', 'organizer')
-        }),
-        ('Media & Links', {
-            'fields': ('image', 'registration_link')
-        }),
-    )
-
-@admin.register(Staff)
-class StaffAdmin(admin.ModelAdmin):
-    list_display = ('name', 'staff_type', 'designation', 'status', 'email')
-    list_filter = ('staff_type', 'status', 'designation')
-    search_fields = ('name', 'email', 'bio', 'responsibilities')
-    fieldsets = (
-        (None, {
-            'fields': ('name', 'staff_type', 'designation', 'status')
-        }),
-        ('Contact Information', {
-            'fields': ('email', 'phone', 'room_no')
-        }),
-        ('Details', {
-            'fields': ('bio', 'responsibilities', 'image')
-        }),
-        ('Dates', {
-            'fields': ('joined_date', 'end_date')
-        }),
-    )
-
-
-@admin.register(ProfessionalExperience)
-class ProfessionalExperienceAdmin(admin.ModelAdmin):
-    list_display = ('faculty', 'position_title', 'organization', 'start_date', 'is_current', 'location')
-    list_filter = ('is_current', 'start_date', 'organization')
-    search_fields = ('faculty__name', 'position_title', 'organization', 'location', 'description')
-    list_select_related = ('faculty',)
-    ordering = ('faculty', 'order', '-start_date')
-    date_hierarchy = 'start_date'
-    
-    fieldsets = (
-        (None, {
-            'fields': ('faculty', 'position_title', 'organization')
-        }),
-        ('Details', {
-            'fields': ('location', 'description')
-        }),
-        ('Duration', {
-            'fields': ('start_date', 'end_date', 'is_current')
-        }),
-        ('Display Options', {
-            'fields': ('order',),
+        
+        ('Administrative Information', {
+            'fields': (
+                ('joined_date', 'end_date'),
+            ),
             'classes': ('collapse',)
         }),
     )
 
 
-@admin.register(ResearchActivity)
-class ResearchActivityAdmin(admin.ModelAdmin):
-    list_display = ('faculty', 'title', 'activity_type', 'start_date', 'is_ongoing', 'funding_agency')
-    list_filter = ('activity_type', 'is_ongoing', 'start_date', 'funding_agency')
-    search_fields = ('faculty__name', 'title', 'description', 'collaborators', 'funding_agency')
-    list_select_related = ('faculty',)
-    ordering = ('faculty', 'order', '-start_date')
-    date_hierarchy = 'start_date'
-    
-    fieldsets = (
-        (None, {
-            'fields': ('faculty', 'title', 'activity_type')
-        }),
-        ('Details', {
-            'fields': ('description', 'collaborators')
-        }),
-        ('Duration', {
-            'fields': ('start_date', 'end_date', 'is_ongoing')
-        }),
-        ('Funding', {
-            'fields': ('funding_agency',),
-            'classes': ('collapse',)
-        }),
-        ('Display Options', {
-            'fields': ('order',),
-            'classes': ('collapse',)
-        }),
-    )
+# =====================================
+# OTHER MODELS - BASIC ADMIN
+# =====================================
 
-
-@admin.register(MembershipRecord)
-class MembershipRecordAdmin(admin.ModelAdmin):
-    list_display = ('faculty', 'organization_name', 'membership_type', 'position', 'start_date', 'is_current')
-    list_filter = ('membership_type', 'is_current', 'start_date')
-    search_fields = ('faculty__name', 'organization_name', 'position', 'description')
-    list_select_related = ('faculty',)
-    ordering = ('faculty', 'order', '-start_date')
-    date_hierarchy = 'start_date'
-    
-    fieldsets = (
-        (None, {
-            'fields': ('faculty', 'organization_name', 'membership_type')
-        }),
-        ('Role Details', {
-            'fields': ('position', 'description')
-        }),
-        ('Duration', {
-            'fields': ('start_date', 'end_date', 'is_current')
-        }),
-        ('Display Options', {
-            'fields': ('order',),
-            'classes': ('collapse',)
-        }),
-    )
-
-
-@admin.register(PublicationRecord)
-class PublicationRecordAdmin(admin.ModelAdmin):
-    list_display = ('faculty', 'title', 'publication_type', 'venue', 'year', 'authors')
-    list_filter = ('publication_type', 'year', 'venue')
-    search_fields = ('faculty__name', 'title', 'authors', 'venue', 'doi')
-    list_select_related = ('faculty',)
-    ordering = ('faculty', 'order', '-year')
-    date_hierarchy = None
-    
-    fieldsets = (
-        (None, {
-            'fields': ('faculty', 'title', 'authors')
-        }),
-        ('Publication Details', {
-            'fields': ('publication_type', 'venue', 'year')
-        }),
-        ('Additional Info', {
-            'fields': ('volume', 'pages', 'doi', 'url')
-        }),
-        ('Display Options', {
-            'fields': ('order',),
-            'classes': ('collapse',)
-        }),
-    )
-
-
-@admin.register(CourseRecord)
-class CourseRecordAdmin(admin.ModelAdmin):
-    list_display = ('faculty', 'course_code', 'course_title', 'course_level', 'course_type', 'semester', 'credit_hours')
-    list_filter = ('course_level', 'course_type', 'semester', 'credit_hours')
-    search_fields = ('faculty__name', 'course_code', 'course_title', 'description')
-    list_select_related = ('faculty',)
-    ordering = ('faculty', 'order', '-semester')
-    
-    fieldsets = (
-        (None, {
-            'fields': ('faculty', 'course_code', 'course_title')
-        }),
-        ('Course Details', {
-            'fields': ('course_level', 'course_type', 'credit_hours')
-        }),
-        ('Academic Info', {
-            'fields': ('semester', 'description')
-        }),
-        ('Display Options', {
-            'fields': ('order',),
-            'classes': ('collapse',)
-        }),
-    )
-
-
-@admin.register(AwardRecord)
-class AwardRecordAdmin(admin.ModelAdmin):
-    list_display = ('faculty', 'award_title', 'award_type', 'awarding_organization', 'year', 'amount')
-    list_filter = ('award_type', 'year', 'awarding_organization')
-    search_fields = ('faculty__name', 'award_title', 'awarding_organization', 'description')
-    list_select_related = ('faculty',)
-    ordering = ('faculty', 'order', '-year')
-    
-    fieldsets = (
-        (None, {
-            'fields': ('faculty', 'award_title', 'award_type')
-        }),
-        ('Award Details', {
-            'fields': ('awarding_organization', 'year', 'amount')
-        }),
-        ('Description', {
-            'fields': ('description',)
-        }),
-        ('Display Options', {
-            'fields': ('order',),
-            'classes': ('collapse',)
-        }),
-    )
+admin.site.register(Notice_Board)
+admin.site.register(ScrollingNotice)
+admin.site.register(Event)
+admin.site.register(Project)
+admin.site.register(Staff)
+admin.site.register(StaffProfile)
+admin.site.register(Chairman)
+admin.site.register(ComputerClubMember)
+admin.site.register(CarouselItem)
+admin.site.register(ImageGallery)
+admin.site.register(TechNews)
