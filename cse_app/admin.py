@@ -198,3 +198,161 @@ class StaffAdmin(admin.ModelAdmin):
             'fields': ('joined_date', 'end_date')
         }),
     )
+
+
+@admin.register(ProfessionalExperience)
+class ProfessionalExperienceAdmin(admin.ModelAdmin):
+    list_display = ('faculty', 'position_title', 'organization', 'start_date', 'is_current', 'location')
+    list_filter = ('is_current', 'start_date', 'organization')
+    search_fields = ('faculty__name', 'position_title', 'organization', 'location', 'description')
+    list_select_related = ('faculty',)
+    ordering = ('faculty', 'order', '-start_date')
+    date_hierarchy = 'start_date'
+    
+    fieldsets = (
+        (None, {
+            'fields': ('faculty', 'position_title', 'organization')
+        }),
+        ('Details', {
+            'fields': ('location', 'description')
+        }),
+        ('Duration', {
+            'fields': ('start_date', 'end_date', 'is_current')
+        }),
+        ('Display Options', {
+            'fields': ('order',),
+            'classes': ('collapse',)
+        }),
+    )
+
+
+@admin.register(ResearchActivity)
+class ResearchActivityAdmin(admin.ModelAdmin):
+    list_display = ('faculty', 'title', 'activity_type', 'start_date', 'is_ongoing', 'funding_agency')
+    list_filter = ('activity_type', 'is_ongoing', 'start_date', 'funding_agency')
+    search_fields = ('faculty__name', 'title', 'description', 'collaborators', 'funding_agency')
+    list_select_related = ('faculty',)
+    ordering = ('faculty', 'order', '-start_date')
+    date_hierarchy = 'start_date'
+    
+    fieldsets = (
+        (None, {
+            'fields': ('faculty', 'title', 'activity_type')
+        }),
+        ('Details', {
+            'fields': ('description', 'collaborators')
+        }),
+        ('Duration', {
+            'fields': ('start_date', 'end_date', 'is_ongoing')
+        }),
+        ('Funding', {
+            'fields': ('funding_agency',),
+            'classes': ('collapse',)
+        }),
+        ('Display Options', {
+            'fields': ('order',),
+            'classes': ('collapse',)
+        }),
+    )
+
+
+@admin.register(MembershipRecord)
+class MembershipRecordAdmin(admin.ModelAdmin):
+    list_display = ('faculty', 'organization_name', 'membership_type', 'position', 'start_date', 'is_current')
+    list_filter = ('membership_type', 'is_current', 'start_date')
+    search_fields = ('faculty__name', 'organization_name', 'position', 'description')
+    list_select_related = ('faculty',)
+    ordering = ('faculty', 'order', '-start_date')
+    date_hierarchy = 'start_date'
+    
+    fieldsets = (
+        (None, {
+            'fields': ('faculty', 'organization_name', 'membership_type')
+        }),
+        ('Role Details', {
+            'fields': ('position', 'description')
+        }),
+        ('Duration', {
+            'fields': ('start_date', 'end_date', 'is_current')
+        }),
+        ('Display Options', {
+            'fields': ('order',),
+            'classes': ('collapse',)
+        }),
+    )
+
+
+@admin.register(PublicationRecord)
+class PublicationRecordAdmin(admin.ModelAdmin):
+    list_display = ('faculty', 'title', 'publication_type', 'venue', 'year', 'authors')
+    list_filter = ('publication_type', 'year', 'venue')
+    search_fields = ('faculty__name', 'title', 'authors', 'venue', 'doi')
+    list_select_related = ('faculty',)
+    ordering = ('faculty', 'order', '-year')
+    date_hierarchy = None
+    
+    fieldsets = (
+        (None, {
+            'fields': ('faculty', 'title', 'authors')
+        }),
+        ('Publication Details', {
+            'fields': ('publication_type', 'venue', 'year')
+        }),
+        ('Additional Info', {
+            'fields': ('volume', 'pages', 'doi', 'url')
+        }),
+        ('Display Options', {
+            'fields': ('order',),
+            'classes': ('collapse',)
+        }),
+    )
+
+
+@admin.register(CourseRecord)
+class CourseRecordAdmin(admin.ModelAdmin):
+    list_display = ('faculty', 'course_code', 'course_title', 'course_level', 'course_type', 'semester', 'credit_hours')
+    list_filter = ('course_level', 'course_type', 'semester', 'credit_hours')
+    search_fields = ('faculty__name', 'course_code', 'course_title', 'description')
+    list_select_related = ('faculty',)
+    ordering = ('faculty', 'order', '-semester')
+    
+    fieldsets = (
+        (None, {
+            'fields': ('faculty', 'course_code', 'course_title')
+        }),
+        ('Course Details', {
+            'fields': ('course_level', 'course_type', 'credit_hours')
+        }),
+        ('Academic Info', {
+            'fields': ('semester', 'description')
+        }),
+        ('Display Options', {
+            'fields': ('order',),
+            'classes': ('collapse',)
+        }),
+    )
+
+
+@admin.register(AwardRecord)
+class AwardRecordAdmin(admin.ModelAdmin):
+    list_display = ('faculty', 'award_title', 'award_type', 'awarding_organization', 'year', 'amount')
+    list_filter = ('award_type', 'year', 'awarding_organization')
+    search_fields = ('faculty__name', 'award_title', 'awarding_organization', 'description')
+    list_select_related = ('faculty',)
+    ordering = ('faculty', 'order', '-year')
+    
+    fieldsets = (
+        (None, {
+            'fields': ('faculty', 'award_title', 'award_type')
+        }),
+        ('Award Details', {
+            'fields': ('awarding_organization', 'year', 'amount')
+        }),
+        ('Description', {
+            'fields': ('description',)
+        }),
+        ('Display Options', {
+            'fields': ('order',),
+            'classes': ('collapse',)
+        }),
+    )

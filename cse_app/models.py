@@ -416,3 +416,179 @@ class ComputerClubMember(models.Model):
 
     def __str__(self):
         return f"{self.name} - {self.get_position_display()}"
+
+
+class ProfessionalExperience(models.Model):
+    faculty = models.ForeignKey('FacultyMember', on_delete=models.CASCADE, related_name='professional_experiences')
+    position_title = models.CharField(max_length=200, help_text="Job title/position")
+    organization = models.CharField(max_length=200, help_text="Organization/Company name")
+    location = models.CharField(max_length=100, blank=True, help_text="Location (City, Country)")
+    start_date = models.DateField(help_text="Start date")
+    end_date = models.DateField(null=True, blank=True, help_text="End date (leave blank if current)")
+    is_current = models.BooleanField(default=False, help_text="Currently working here")
+    description = models.TextField(blank=True, help_text="Job description/responsibilities")
+    order = models.IntegerField(default=0, help_text="Order for display (0 for latest)")
+    
+    def __str__(self):
+        return f"{self.faculty.name} - {self.position_title} at {self.organization}"
+    
+    class Meta:
+        ordering = ['order', '-start_date']
+        verbose_name = 'Professional Experience'
+        verbose_name_plural = 'Professional Experiences'
+
+
+class ResearchActivity(models.Model):
+    ACTIVITY_TYPES = (
+        ('project', 'Research Project'),
+        ('publication', 'Publication'),
+        ('grant', 'Research Grant'),
+        ('collaboration', 'Research Collaboration'),
+        ('supervision', 'Student Supervision'),
+        ('other', 'Other'),
+    )
+    
+    faculty = models.ForeignKey('FacultyMember', on_delete=models.CASCADE, related_name='research_activity_records')
+    title = models.CharField(max_length=200, help_text="Research activity title")
+    activity_type = models.CharField(max_length=20, choices=ACTIVITY_TYPES)
+    description = models.TextField(help_text="Description of the research activity")
+    start_date = models.DateField(help_text="Start date")
+    end_date = models.DateField(null=True, blank=True, help_text="End date (leave blank if ongoing)")
+    is_ongoing = models.BooleanField(default=False, help_text="Currently ongoing")
+    funding_agency = models.CharField(max_length=200, blank=True, help_text="Funding agency (if any)")
+    collaborators = models.CharField(max_length=300, blank=True, help_text="Collaborators/Co-researchers")
+    order = models.IntegerField(default=0, help_text="Order for display (0 for latest)")
+    
+    def __str__(self):
+        return f"{self.faculty.name} - {self.title}"
+    
+    class Meta:
+        ordering = ['order', '-start_date']
+        verbose_name = 'Research Activity'
+        verbose_name_plural = 'Research Activities'
+
+
+class MembershipRecord(models.Model):
+    MEMBERSHIP_TYPES = (
+        ('professional', 'Professional Organization'),
+        ('academic', 'Academic Society'),
+        ('editorial', 'Editorial Board'),
+        ('committee', 'Committee Member'),
+        ('reviewer', 'Reviewer'),
+        ('other', 'Other'),
+    )
+    
+    faculty = models.ForeignKey('FacultyMember', on_delete=models.CASCADE, related_name='membership_records')
+    organization_name = models.CharField(max_length=200, help_text="Organization/Society name")
+    membership_type = models.CharField(max_length=20, choices=MEMBERSHIP_TYPES)
+    position = models.CharField(max_length=100, blank=True, help_text="Position/Role (if any)")
+    start_date = models.DateField(help_text="Start date")
+    end_date = models.DateField(null=True, blank=True, help_text="End date (leave blank if ongoing)")
+    is_current = models.BooleanField(default=True, help_text="Currently active membership")
+    description = models.TextField(blank=True, help_text="Additional details about the membership")
+    order = models.IntegerField(default=0, help_text="Order for display (0 for latest)")
+    
+    def __str__(self):
+        return f"{self.faculty.name} - {self.organization_name}"
+    
+    class Meta:
+        ordering = ['order', '-start_date']
+        verbose_name = 'Membership Record'
+        verbose_name_plural = 'Membership Records'
+
+
+class PublicationRecord(models.Model):
+    PUBLICATION_TYPES = (
+        ('journal', 'Journal Article'),
+        ('conference', 'Conference Paper'),
+        ('book', 'Book'),
+        ('chapter', 'Book Chapter'),
+        ('thesis', 'Thesis'),
+        ('report', 'Technical Report'),
+        ('other', 'Other'),
+    )
+    
+    faculty = models.ForeignKey('FacultyMember', on_delete=models.CASCADE, related_name='publication_records')
+    title = models.CharField(max_length=300, help_text="Publication title")
+    authors = models.CharField(max_length=500, help_text="All authors (comma-separated)")
+    publication_type = models.CharField(max_length=20, choices=PUBLICATION_TYPES)
+    venue = models.CharField(max_length=200, help_text="Journal/Conference/Publisher name")
+    year = models.IntegerField(help_text="Publication year")
+    volume = models.CharField(max_length=20, blank=True, help_text="Volume (if applicable)")
+    pages = models.CharField(max_length=20, blank=True, help_text="Page numbers (if applicable)")
+    doi = models.CharField(max_length=100, blank=True, help_text="DOI (if available)")
+    url = models.URLField(blank=True, help_text="Publication URL (if available)")
+    order = models.IntegerField(default=0, help_text="Order for display (0 for latest)")
+    
+    def __str__(self):
+        return f"{self.faculty.name} - {self.title}"
+    
+    class Meta:
+        ordering = ['order', '-year']
+        verbose_name = 'Publication Record'
+        verbose_name_plural = 'Publication Records'
+
+
+class CourseRecord(models.Model):
+    COURSE_LEVELS = (
+        ('undergraduate', 'Undergraduate'),
+        ('graduate', 'Graduate'),
+        ('postgraduate', 'Postgraduate'),
+        ('professional', 'Professional Development'),
+    )
+    
+    COURSE_TYPES = (
+        ('theory', 'Theory'),
+        ('lab', 'Laboratory'),
+        ('project', 'Project'),
+        ('seminar', 'Seminar'),
+        ('thesis', 'Thesis Supervision'),
+    )
+    
+    faculty = models.ForeignKey('FacultyMember', on_delete=models.CASCADE, related_name='course_records')
+    course_code = models.CharField(max_length=20, help_text="Course code (e.g., CSE101)")
+    course_title = models.CharField(max_length=200, help_text="Course title")
+    course_level = models.CharField(max_length=20, choices=COURSE_LEVELS)
+    course_type = models.CharField(max_length=20, choices=COURSE_TYPES)
+    semester = models.CharField(max_length=20, help_text="Semester/Term (e.g., Fall 2023)")
+    credit_hours = models.DecimalField(max_digits=3, decimal_places=1, help_text="Credit hours")
+    description = models.TextField(blank=True, help_text="Course description")
+    order = models.IntegerField(default=0, help_text="Order for display (0 for latest)")
+    
+    def __str__(self):
+        return f"{self.faculty.name} - {self.course_code}: {self.course_title}"
+    
+    class Meta:
+        ordering = ['order', '-semester']
+        verbose_name = 'Course Record'
+        verbose_name_plural = 'Course Records'
+
+
+class AwardRecord(models.Model):
+    AWARD_TYPES = (
+        ('academic', 'Academic Award'),
+        ('research', 'Research Award'),
+        ('teaching', 'Teaching Award'),
+        ('service', 'Service Award'),
+        ('fellowship', 'Fellowship'),
+        ('scholarship', 'Scholarship'),
+        ('recognition', 'Recognition'),
+        ('other', 'Other'),
+    )
+    
+    faculty = models.ForeignKey('FacultyMember', on_delete=models.CASCADE, related_name='award_records')
+    award_title = models.CharField(max_length=200, help_text="Award/Honor title")
+    award_type = models.CharField(max_length=20, choices=AWARD_TYPES)
+    awarding_organization = models.CharField(max_length=200, help_text="Organization that gave the award")
+    year = models.IntegerField(help_text="Year received")
+    description = models.TextField(blank=True, help_text="Description of the award")
+    amount = models.CharField(max_length=50, blank=True, help_text="Award amount (if applicable)")
+    order = models.IntegerField(default=0, help_text="Order for display (0 for latest)")
+    
+    def __str__(self):
+        return f"{self.faculty.name} - {self.award_title}"
+    
+    class Meta:
+        ordering = ['order', '-year']
+        verbose_name = 'Award Record'
+        verbose_name_plural = 'Award Records'
