@@ -22,18 +22,16 @@
     {% for faculty in faculty_members %}
         {% if faculty.is_chairman %}
         <div class="mb-16 ">
-            {% comment %} <h2 class="text-2xl font-semibold text-center mb-8 text-green-800 border-b-2 border-green-200 pb-2 inline-block">
-                Department Chairman 
-            </h2> {% endcomment %}
+            
             <div class="flex justify-center">
                 <div class="w-full sm:w-[calc(50%-12px)] lg:w-[calc(33.333%-16px)] max-w-sm">
-                    <div class="bg-white rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 border border-gray-100">
+                    <div class=" rounded-xl  border-2 border-green-500">
                         <div class="p-6">
                             <!-- Profile Image Section -->
                             <div class="flex justify-center mb-4">
                                 {% if faculty.image %}
                                     <div class="relative">
-                                        <img src="{{ faculty.image.url }}" alt="{{ faculty.name }}" class="w-32 h-32 rounded-full object-cover border-4 border-green-200 shadow-lg">                                        
+                                        <img src="{{ faculty.image.url }}" alt="{{ faculty.name }}" class="w-32 h-32 rounded-full object-cover border-4 border-gray-500 shadow-lg">                                        
                                     </div>
                                 {% else %}
                                     <div class="w-32 h-32 bg-gradient-to-br from-yellow-100 to-yellow-200 rounded-full flex items-center justify-center border-4 border-yellow-200 shadow-lg relative">
@@ -45,51 +43,41 @@
                             </div>
 
                             <!-- Faculty Info -->
-                            <div class="text-center mb-6">
+                            <div class="text-center mb-6 flex flex-col items-center">
                                 <h3 class="text-xl font-bold text-gray-900 mb-2">{{ faculty.name }}</h3>
                                 <div class="inline-block bg-gradient-to-r from-yellow-500 to-yellow-600 text-white px-4 py-2 rounded-full text-sm font-medium shadow-md mb-2">
                                     <i class="fas fa-crown mr-2"></i>
                                     Department Chairman
                                 </div>
-                                <div class="inline-block bg-gradient-to-r from-green-500 to-green-600 text-white px-4 py-2 rounded-full text-sm font-medium shadow-md">
+                                <div class=" text-black   text-sm font-medium ">
                                     {{ faculty.get_designation_display }}
                                 </div>
                             </div>
                             
                             <!-- Contact Information -->
-                            <div class="space-y-3 mb-6">
+                            <div class="space-y-2 mb-6">
                                 {% if faculty.email %}
-                                    <div class="flex items-center text-gray-600 bg-gradient-to-r from-gray-50 to-blue-50 rounded-lg p-3 border border-gray-100">
+                                    <div class="flex items-center text-gray-600 bg-gradient-to-r from-gray-50 to-blue-50 rounded-lg p-1 border border-gray-100">
                                         <div class="flex-shrink-0 w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center">
                                             <i class="fas fa-envelope text-blue-600 text-sm"></i>
                                         </div>
                                         <div class="ml-3 flex-1">
-                                            <p class="text-sm font-medium text-gray-900">Email</p>
-                                            <p class="text-sm text-gray-600 truncate">{{ faculty.email }}</p>
+                                            <p class="text-sm font-medium text-gray-900">Email: {{ faculty.email }}</p>
+                                            {% comment %} <p class="text-sm text-gray-600 truncate">{{ faculty.email }}</p> {% endcomment %}
                                         </div>
                                     </div>
                                 {% endif %}
                                 
-                                {% if faculty.phone %}
-                                    <div class="flex items-center text-gray-600 bg-gradient-to-r from-gray-50 to-green-50 rounded-lg p-3 border border-gray-100">
-                                        <div class="flex-shrink-0 w-8 h-8 bg-green-100 rounded-full flex items-center justify-center">
-                                            <i class="fas fa-phone text-green-600 text-sm"></i>
-                                        </div>
-                                        <div class="ml-3 flex-1">
-                                            <p class="text-sm font-medium text-gray-900">Phone</p>
-                                            <p class="text-sm text-gray-600">{{ faculty.phone }}</p>
-                                        </div>
-                                    </div>
-                                {% endif %}
+                               
                                 
                                 {% if faculty.room_no %}
-                                    <div class="flex items-center text-gray-600 bg-gradient-to-r from-gray-50 to-purple-50 rounded-lg p-3 border border-gray-100">
+                                    <div class="flex items-center text-gray-600 bg-gradient-to-r from-gray-50 to-purple-50 rounded-lg p-1 border border-gray-100">
                                         <div class="flex-shrink-0 w-8 h-8 bg-purple-100 rounded-full flex items-center justify-center">
                                             <i class="fas fa-door-open text-purple-600 text-sm"></i>
                                         </div>
                                         <div class="ml-3 flex-1">
-                                            <p class="text-sm font-medium text-gray-900">Office</p>
-                                            <p class="text-sm text-gray-600">Room {{ faculty.room_no }}</p>
+                                            <p class="text-sm font-medium text-gray-900">Office : {{ faculty.room_no }}</p>
+                                            {% comment %} <p class="text-sm text-gray-600">Room {{ faculty.room_no }}</p> {% endcomment %}
                                         </div>
                                     </div>
                                 {% endif %}
@@ -98,7 +86,7 @@
                             <!-- View Profile Button -->
                             <div class="text-center">
                                 <a href="{% url 'faculty_detail' faculty.id %}" 
-                                   class="inline-flex items-center px-6 py-3 bg-gradient-to-r from-blue-500 to-blue-600 text-white text-sm font-medium rounded-lg hover:from-blue-600 hover:to-blue-700 transition-all duration-200 shadow-md hover:shadow-lg transform hover:scale-105">
+                                   class="inline-flex items-center px-6 py-3 bg-green-500  text-white text-sm font-medium rounded-lg hover:from-blue-600  transition-all duration-200  transform hover:scale-105">
                                     <i class="fas fa-user-circle mr-2"></i>
                                     View Profile
                                 </a>
@@ -190,9 +178,7 @@
                 {% if not faculty.is_chairman %}
                     {% if forloop.first %}
                         <div class="mb-16">
-                            <h2 class="text-2xl font-semibold text-center mb-8 text-green-800 border-b-2 border-green-200 pb-2 inline-block">
-                                Lecturers
-                            </h2>
+                            
                             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                     {% endif %}
                     {% include "cse/faculty_and_staff/faculty_card.html" with faculty=faculty %}
