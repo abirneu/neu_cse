@@ -32,7 +32,7 @@
         <!-- Statistics Section -->
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 mb-8">
             <!-- My Publications Card -->
-            <div class=" rounded-xl  border-2 border-green-500 overflow-hidden ">
+            <div class="rounded-xl border-2 border-green-500 overflow-hidden">
                 <div class="p-6">
                     <div class="flex items-center">
                         <div class="p-3 rounded-xl bg-blue-50 mr-4">
@@ -49,7 +49,7 @@
             </div>
 
             <!-- My Projects Card -->
-            <div class="rounded-xl border-2 border-green-500 overflow-hidden ">
+            <div class="rounded-xl border-2 border-green-500 overflow-hidden">
                 <div class="p-6">
                     <div class="flex items-center">
                         <div class="p-3 rounded-xl bg-green-50 mr-4">
@@ -66,7 +66,7 @@
             </div>
 
             <!-- Profile Completion -->
-            <div class=" rounded-xl border-2 border-green-500 overflow-hidden ">
+            <div class="rounded-xl border-2 border-green-500 overflow-hidden">
                 <div class="p-6">
                     <div class="flex items-center">
                         <div class="p-3 rounded-xl bg-purple-50 mr-4">
@@ -83,7 +83,7 @@
             </div>
 
             <!-- Status Card -->
-            <div class=" rounded-xl border-2 border-green-500 overflow-hidden ">
+            <div class="rounded-xl border-2 border-green-500 overflow-hidden">
                 <div class="p-6">
                     <div class="flex items-center">
                         <div class="p-3 rounded-xl bg-yellow-50 mr-4">
@@ -125,14 +125,7 @@
                         </div>
 
                         <div class="space-y-3">
-                            <div class="flex items-start p-3 rounded-lg bg-gray-50 hover:bg-green-50 transition-colors duration-200">
-                                <div class="flex-shrink-0 h-5 w-5 text-custom-green mt-0.5">
-                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
-                                        <path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd" />
-                                    </svg>
-                                </div>
-                                <p class="ml-3 text-sm text-gray-600"><span class="font-medium text-gray-900">Faculty ID:</span> {{ faculty_member.id }}</p>
-                            </div>
+                           
                             
                             <div class="flex items-start p-3 rounded-lg bg-gray-50 hover:bg-green-50 transition-colors duration-200">
                                 <div class="flex-shrink-0 h-5 w-5 text-custom-green mt-0.5">
@@ -519,33 +512,7 @@
                                 </div>
                             {% endif %}
 
-                            <!-- Projects Section -->
-                            {% if faculty_projects %}
-                                <div class="mb-6">
-                                    <h4 class="font-semibold text-gray-900 mb-3 flex items-center">
-                                        <svg class="h-5 w-5 text-green-600 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
-                                        </svg>
-                                        Current Projects ({{ faculty_projects|length }} total)
-                                    </h4>
-                                    <div class="space-y-3">
-                                        {% for project in faculty_projects|slice:":3" %}
-                                            <div class="border-l-4 border-green-500 pl-4 py-2 bg-green-50 rounded-r-lg">
-                                                <div class="text-sm font-medium text-gray-900">{{ project.title|truncatewords:6 }}</div>
-                                                <div class="text-xs text-gray-600">{{ project.get_project_type_display }} • Started {{ project.start_date|date:"M d, Y" }}</div>
-                                                {% if project.is_ongoing %}
-                                                    <div class="text-xs text-green-600 font-medium">● Ongoing</div>
-                                                {% elif project.end_date %}
-                                                    <div class="text-xs text-gray-500">Completed {{ project.end_date|date:"M d, Y" }}</div>
-                                                {% endif %}
-                                            </div>
-                                        {% endfor %}
-                                        {% if faculty_projects|length > 3 %}
-                                            <div class="text-xs text-gray-500 text-center">... and {{ faculty_projects|length|add:"-3" }} more project{{ faculty_projects|length|add:"-3"|pluralize }}</div>
-                                        {% endif %}
-                                    </div>
-                                </div>
-                            {% endif %}
+                            
 
                             <!-- Empty State -->
                             {% if not faculty_member.bio and not faculty_member.research_interest and not faculty_publications and not faculty_projects and not faculty_member.educations.exists and not faculty_member.professional_experiences.exists %}
@@ -584,18 +551,6 @@
                     alert.remove();
                 }, 300);
             }, 5000);
-        });
-
-        // Add hover effects to cards
-        const cards = document.querySelectorAll('.bg-white');
-        cards.forEach(card => {
-            card.addEventListener('mouseenter', function() {
-                this.classList.add('transform', 'scale-105', 'transition-transform', 'duration-200');
-            });
-            
-            card.addEventListener('mouseleave', function() {
-                this.classList.remove('transform', 'scale-105');
-            });
         });
 
         // Profile completion calculation (simple example)
@@ -637,15 +592,6 @@
     
     .fade-in {
         animation: fadeIn 0.6s ease-out;
-    }
-    
-    /* Enhanced card hover effects */
-    .bg-white {
-        transition: all 0.3s ease;
-    }
-    
-    .bg-white:hover {
-        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
     }
     
     /* Custom scrollbar */

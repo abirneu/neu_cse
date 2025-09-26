@@ -21,8 +21,8 @@
     <!-- Past Faculty Grid -->
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {% for faculty in faculty_members %}
-        <div class="bg-white rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 border border-gray-100">
-            <div class="p-6">
+        <div class="bg-white rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 border border-gray-100 h-[450px] flex flex-col">
+            <div class="p-6 flex flex-col h-full">
                 <!-- Profile Image Section -->
                 <div class="flex justify-center mb-4">
                     {% if faculty.image %}
@@ -47,47 +47,49 @@
                 </div>
 
                 <!-- Service Period Highlight -->
-                {% if faculty.end_date %}
-                    <div class="bg-gradient-to-r from-red-50 to-red-100 border border-red-200 rounded-lg p-4 mb-4">
-                        <div class="flex items-center justify-center">
-                            <div class="flex-shrink-0 w-8 h-8 bg-red-500 rounded-full flex items-center justify-center">
-                                <i class="fas fa-calendar-check text-white text-sm"></i>
-                            </div>
-                            <div class="ml-3 text-center">
-                                <p class="text-sm font-semibold text-red-800">Served Until</p>
-                                <p class="text-lg font-bold text-red-900">{{ faculty.end_date|date:"F Y" }}</p>
-                            </div>
-                        </div>
-                    </div>
-                {% endif %}
-                
-                <!-- Contact Information -->
-                {% if faculty.email %}
-                    <div class="space-y-3 mb-4">
-                        <div class="flex items-center text-gray-600 bg-gray-50 rounded-lg p-3">
-                            <div class="flex-shrink-0 w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center">
-                                <i class="fas fa-envelope text-blue-600 text-sm"></i>
-                            </div>
-                            <div class="ml-3 flex-1">
-                                <p class="text-sm font-medium text-gray-900">Email</p>
-                                <p class="text-sm text-gray-600 truncate">{{ faculty.email }}</p>
+                <div class="flex-grow">
+                    {% if faculty.end_date %}
+                        <div class="bg-gradient-to-r from-red-50 to-red-100 border border-red-200 rounded-lg p-4 mb-4">
+                            <div class="flex items-center justify-center">
+                                <div class="flex-shrink-0 w-8 h-8 bg-red-500 rounded-full flex items-center justify-center">
+                                    <i class="fas fa-calendar-check text-white text-sm"></i>
+                                </div>
+                                <div class="ml-3 text-center">
+                                    <p class="text-sm font-semibold text-red-800">Served Until</p>
+                                    <p class="text-lg font-bold text-red-900">{{ faculty.end_date|date:"F Y" }}</p>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                {% endif %}
+                    {% endif %}
+                    
+                    <!-- Contact Information -->
+                    {% if faculty.email %}
+                        <div class="space-y-3 mb-4">
+                            <div class="flex items-center text-gray-600 bg-gray-50 rounded-lg p-3">
+                                <div class="flex-shrink-0 w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center">
+                                    <i class="fas fa-envelope text-blue-600 text-sm"></i>
+                                </div>
+                                <div class="ml-3 flex-1">
+                                    <p class="text-sm font-medium text-gray-900">Email</p>
+                                    <p class="text-sm text-gray-600 truncate">{{ faculty.email }}</p>
+                                </div>
+                            </div>
+                        </div>
+                    {% endif %}
 
-                <!-- Bio Section -->
-                {% if faculty.bio %}
-                    <div class="border-t border-gray-200 pt-4">
-                        <div class="flex items-center mb-2">
-                            <div class="flex-shrink-0 w-6 h-6 bg-green-100 rounded-full flex items-center justify-center">
-                                <i class="fas fa-user text-green-600 text-xs"></i>
+                    <!-- Bio Section -->
+                    {% if faculty.bio %}
+                        <div class="border-t border-gray-200 pt-4">
+                            <div class="flex items-center mb-2">
+                                <div class="flex-shrink-0 w-6 h-6 bg-green-100 rounded-full flex items-center justify-center">
+                                    <i class="fas fa-user text-green-600 text-xs"></i>
+                                </div>
+                                <h4 class="ml-2 text-sm font-semibold text-gray-800">About</h4>
                             </div>
-                            <h4 class="ml-2 text-sm font-semibold text-gray-800">About</h4>
+                            <p class="text-sm text-gray-700 leading-relaxed pl-8">{{ faculty.bio|truncatewords:20 }}</p>
                         </div>
-                        <p class="text-sm text-gray-700 leading-relaxed pl-8">{{ faculty.bio|truncatewords:20 }}</p>
-                    </div>
-                {% endif %}
+                    {% endif %}
+                </div>
             </div>
         </div>
         {% empty %}

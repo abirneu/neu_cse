@@ -1,0 +1,323 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Academic Programs - Department of CSE, NEU{% endblock %}
+
+{% block content %}
+<div class="min-h-screen ">
+  
+
+    <!-- Programs Overview -->
+    <section class="container mx-auto px-6 py-20">
+        <div class="text-center max-w-4xl mx-auto mb-20" data-aos="fade-up">
+            <h2 class="text-4xl lg:text-5xl font-bold text-gray-900 mb-6">Degree Programs</h2>
+            <p class="text-lg text-gray-600 leading-relaxed">
+                The Department of Computer Science and Engineering offers comprehensive undergraduate and graduate programs 
+                designed to prepare students for leadership roles in the rapidly evolving technology landscape.
+            </p>
+        </div>
+
+        <!-- BSc Program Section -->
+        <div class="mb-16" data-aos="fade-up">
+            <div class="bg-white rounded-3xl  overflow-hidden border border-gray-100 ">
+                <div class="p-8 lg:p-12">
+                    <!-- Header Section -->
+                    <div class="mb-8 text-center">
+                        <span class="inline-flex items-center gap-2 bg-green-100 text-green-800 text-sm font-semibold px-6 py-3 rounded-full mb-4">
+                            <i class="fas fa-graduation-cap"></i>
+                            Bachelor's Degree Program
+                        </span>
+                        <h3 class="text-3xl lg:text-4xl font-bold text-gray-900 mb-4 leading-tight">
+                            Bachelor of Science in Computer Science and Engineering
+                        </h3>
+                        <div class="flex flex-wrap justify-center gap-6 mt-6">
+                            <div class="flex items-center gap-3 text-gray-700">
+                                <div class="w-12 h-12 bg-green-100 rounded-xl flex items-center justify-center">
+                                    <i class="fas fa-clock text-green-600 text-lg"></i>
+                                </div>
+                                <div class="text-left">
+                                    <div class="font-bold text-lg">4 Years</div>
+                                    <div class="text-gray-500 text-sm">Duration</div>
+                                </div>
+                            </div>
+                            <div class="flex items-center gap-3 text-gray-700">
+                                <div class="w-12 h-12 bg-green-100 rounded-xl flex items-center justify-center">
+                                    <i class="fas fa-book text-green-600 text-lg"></i>
+                                </div>
+                                <div class="text-left">
+                                    <div class="font-bold text-lg">162 Credits</div>
+                                    <div class="text-gray-500 text-sm">Total Hours</div>
+                                </div>
+                            </div>
+                            <div class="flex items-center gap-3 text-gray-700">
+                                <div class="w-12 h-12 bg-green-100 rounded-xl flex items-center justify-center">
+                                    <i class="fas fa-users text-green-600 text-lg"></i>
+                                </div>
+                                <div class="text-left">
+                                    <div class="font-bold text-lg">20:1 Ratio</div>
+                                    <div class="text-gray-500 text-sm">Student-Faculty</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="grid lg:grid-cols-2 gap-8">
+                        <!-- Left Column -->
+                        <div class="space-y-8">
+                            <div>
+                                <h4 class="text-xl font-semibold text-gray-900 mb-4 flex items-center gap-3">
+                                    <span class="w-3 h-3 bg-green-600 rounded-full"></span>
+                                    Program Overview
+                                </h4>
+                                <p class="text-gray-600 leading-relaxed">
+                                    Our comprehensive 4-year BSc program provides students with a solid foundation in theoretical 
+                                    concepts and practical skills essential for modern computing. The curriculum integrates 
+                                    international standards with local industry needs.
+                                </p>
+                            </div>
+
+                            <div>
+                                <h4 class="text-xl font-semibold text-gray-900 mb-4 flex items-center gap-3">
+                                    <span class="w-3 h-3 bg-green-600 rounded-full"></span>
+                                    Key Features
+                                </h4>
+                                <ul class="space-y-3">
+                                    <li class="flex items-start gap-3">
+                                        <i class="fas fa-check-circle text-green-500 mt-1 flex-shrink-0"></i>
+                                        <span class="text-gray-600">162 credit hours with balanced theory-practice ratio</span>
+                                    </li>
+                                    <li class="flex items-start gap-3">
+                                        <i class="fas fa-check-circle text-green-500 mt-1 flex-shrink-0"></i>
+                                        <span class="text-gray-600">Industry-aligned emerging technologies curriculum</span>
+                                    </li>
+                                    <li class="flex items-start gap-3">
+                                        <i class="fas fa-check-circle text-green-500 mt-1 flex-shrink-0"></i>
+                                        <span class="text-gray-600">Mandatory  capstone project</span>
+                                    </li>
+                                    <li class="flex items-start gap-3">
+                                        <i class="fas fa-check-circle text-green-500 mt-1 flex-shrink-0"></i>
+                                        <span class="text-gray-600">State-of-the-art laboratories and research facilities</span>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <!-- Right Column -->
+                        <div class="space-y-8">
+                            <div>
+                                <h4 class="text-xl font-semibold text-gray-900 mb-4 flex items-center gap-3">
+                                    <span class="w-3 h-3 bg-green-600 rounded-full"></span>
+                                    Core Competencies
+                                </h4>
+                                <div class="grid grid-cols-2 gap-3">
+                                    <span class="bg-green-50 text-green-700 px-4 py-3 rounded-xl text-sm font-medium border border-green-200 text-center">
+                                        AI & Machine Learning
+                                    </span>
+                                    <span class="bg-green-50 text-green-700 px-4 py-3 rounded-xl text-sm font-medium border border-green-200 text-center">
+                                        Data Structures & Algorithms
+                                    </span>
+                                    <span class="bg-green-50 text-green-700 px-4 py-3 rounded-xl text-sm font-medium border border-green-200 text-center">
+                                        Cybersecurity
+                                    </span>
+                                    <span class="bg-green-50 text-green-700 px-4 py-3 rounded-xl text-sm font-medium border border-green-200 text-center">
+                                        Machine Learning
+                                    </span>
+                                    <span class="bg-green-50 text-green-700 px-4 py-3 rounded-xl text-sm font-medium border border-green-200 text-center">
+                                        Automata & Theory
+                                    </span>
+                                    <span class="bg-green-50 text-green-700 px-4 py-3 rounded-xl text-sm font-medium border border-green-200 text-center">
+                                        Database Systems
+                                    </span>
+                                </div>
+                            </div>
+
+                            <div>
+                                <h4 class="text-xl font-semibold text-gray-900 mb-4 flex items-center gap-3">
+                                    <span class="w-3 h-3 bg-orange-600 rounded-full"></span>
+                                    Learning Outcomes
+                                </h4>
+                                <ul class="space-y-2 text-gray-600">
+                                    <li class="flex items-start gap-2">
+                                        <i class="fas fa-arrow-right text-orange-500 mt-1 text-xs"></i>
+                                        <span>Design and implement complex software systems</span>
+                                    </li>
+                                    <li class="flex items-start gap-2">
+                                        <i class="fas fa-arrow-right text-orange-500 mt-1 text-xs"></i>
+                                        <span>Apply AI/ML techniques to real-world problems</span>
+                                    </li>
+                                    <li class="flex items-start gap-2">
+                                        <i class="fas fa-arrow-right text-orange-500 mt-1 text-xs"></i>
+                                        <span>Develop secure and scalable applications</span>
+                                    </li>
+                                    <li class="flex items-start gap-2">
+                                        <i class="fas fa-arrow-right text-orange-500 mt-1 text-xs"></i>
+                                        <span>Lead technology projects and teams effectively</span>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    
+                </div>
+            </div>
+        </div>
+
+        <!-- MSc Program Section -->
+        <div class="mb-16" data-aos="fade-up">
+            <div class="bg-white rounded-3xl  overflow-hidden border border-gray-100 ">
+                <div class="p-8 lg:p-12">
+                    <!-- Header Section -->
+                    <div class="mb-8 text-center">
+                        <span class="inline-flex items-center gap-2 bg-green-100 text-green-800 text-sm font-semibold px-6 py-3 rounded-full mb-4">
+                            <i class="fas fa-user-graduate"></i>
+                            Master's Degree Program
+                        </span>
+                        <h3 class="text-3xl lg:text-4xl font-bold text-gray-900 mb-4 leading-tight">
+                            Master of Science in Computer Science and Engineering
+                        </h3>
+                        <div class="flex flex-wrap justify-center gap-6 mt-6">
+                            <div class="flex items-center gap-3 text-gray-700">
+                                <div class="w-12 h-12 bg-green-100 rounded-xl flex items-center justify-center">
+                                    <i class="fas fa-clock text-green-600 text-lg"></i>
+                                </div>
+                                <div class="text-left">
+                                    <div class="font-bold text-lg">1.5-2 Years</div>
+                                    <div class="text-gray-500 text-sm">Duration</div>
+                                </div>
+                            </div>
+                            <div class="flex items-center gap-3 text-gray-700">
+                                <div class="w-12 h-12 bg-green-100 rounded-xl flex items-center justify-center">
+                                    <i class="fas fa-book text-green-600 text-lg"></i>
+                                </div>
+                                <div class="text-left">
+                                    <div class="font-bold text-lg">36 Credits</div>
+                                    <div class="text-gray-500 text-sm">Total Hours</div>
+                                </div>
+                            </div>
+                            <div class="flex items-center gap-3 text-gray-700">
+                                <div class="w-12 h-12 bg-green-100 rounded-xl flex items-center justify-center">
+                                    <i class="fas fa-microscope text-green-600 text-lg"></i>
+                                </div>
+                                <div class="text-left">
+                                    <div class="font-bold text-lg">Research Focus</div>
+                                    <div class="text-gray-500 text-sm">Advanced Study</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="grid lg:grid-cols-2 gap-8">
+                        <!-- Left Column -->
+                        <div class="space-y-8">
+                            <div>
+                                <h4 class="text-xl font-semibold text-gray-900 mb-4 flex items-center gap-3">
+                                    <span class="w-3 h-3 bg-green-600 rounded-full"></span>
+                                    Program Overview
+                                </h4>
+                                <p class="text-gray-600 leading-relaxed">
+                                    Our MSc program is designed for professionals seeking to deepen their expertise in specialized 
+                                    areas of computer science. Emphasizing research, innovation, and advanced problem-solving 
+                                    skills required for technology leadership.
+                                </p>
+                            </div>
+
+                            <div>
+                                <h4 class="text-xl font-semibold text-gray-900 mb-4 flex items-center gap-3">
+                                    <span class="w-3 h-3 bg-green-600 rounded-full"></span>
+                                    Program Tracks
+                                </h4>
+                                <div class="space-y-4">
+                                    <div class="bg-green-50 rounded-xl p-4 border-l-4 border-green-500">
+                                        <h5 class="font-semibold text-gray-900 flex items-center gap-2">
+                                            <i class="fas fa-file-contract text-green-600"></i>
+                                            Thesis Track
+                                        </h5>
+                                        <p class="text-gray-600 text-sm mt-2">Research-focused program with independent thesis project and publication opportunities</p>
+                                    </div>
+                                    <div class="bg-green-50 rounded-xl p-4 border-l-4 border-green-500">
+                                        <h5 class="font-semibold text-gray-900 flex items-center gap-2">
+                                            <i class="fas fa-briefcase text-green-600"></i>
+                                            Coursework Track
+                                        </h5>
+                                        <p class="text-gray-600 text-sm mt-2">Industry-oriented program with comprehensive coursework and practical projects</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Right Column -->
+                        <div class="space-y-8">
+                            <div>
+                                <h4 class="text-xl font-semibold text-gray-900 mb-4 flex items-center gap-3">
+                                    <span class="w-3 h-3 bg-blue-600 rounded-full"></span>
+                                    Research Areas
+                                </h4>
+                                <div class="grid grid-cols-2 gap-3">
+                                    <span class="bg-green-50 text-green-700 px-4 py-3 rounded-xl text-sm font-medium border border-green-200 text-center">
+                                        AI & ML Research
+                                    </span>
+                                    <span class="bg-green-50 text-green-700 px-4 py-3 rounded-xl text-sm font-medium border border-green-200 text-center">
+                                        Cybersecurity
+                                    </span>
+                                    <span class="bg-green-50 text-green-700 px-4 py-3 rounded-xl text-sm font-medium border border-green-200 text-center">
+                                        Data Science
+                                    </span>
+                                    <span class="bg-green-50 text-green-700 px-4 py-3 rounded-xl text-sm font-medium border border-green-200 text-center">
+                                        Cloud Systems
+                                    </span>
+                                    <span class="bg-green-50 text-green-700 px-4 py-3 rounded-xl text-sm font-medium border border-green-200 text-center">
+                                        IoT & Robotics
+                                    </span>
+                                    <span class="bg-green-50 text-green-700 px-4 py-3 rounded-xl text-sm font-medium border border-green-200 text-center">
+                                        Bioinformatics
+                                    </span>
+                                </div>
+                            </div>
+
+                            <div>
+                                <h4 class="text-xl font-semibold text-gray-900 mb-4 flex items-center gap-3">
+                                    <span class="w-3 h-3 bg-orange-600 rounded-full"></span>
+                                    Research Opportunities
+                                </h4>
+                                <h4 class="text-lg font-semibold text-gray-900 mb-2">Explore our research and Industry level projects opportunities</h4>
+                                <ul class="space-y-2 text-gray-600">
+                                    <li class="flex items-start gap-2">
+                                        <i class="fas fa-star text-orange-500 mt-1 text-xs"></i>
+                                        <span>Faculty-mentored research projects</span>
+                                    </li>
+                                    <li>
+                                        <i class="fas fa-star text-orange-500 mt-1 text-xs"></i>
+                                        <span>Internships with leading tech companies</span>
+                                    </li>
+                                    <li class="flex items-start gap-2">
+                                        <i class="fas fa-star text-orange-500 mt-1 text-xs"></i>
+                                        <span>Industry collaboration programs</span>
+                                    </li>
+                                    <li class="flex items-start gap-2">
+                                        <i class="fas fa-star text-orange-500 mt-1 text-xs"></i>
+                                        <span>Conference publications support</span>
+                                    </li>
+                                    <li class="flex items-start gap-2">
+                                        <i class="fas fa-star text-orange-500 mt-1 text-xs"></i>
+                                        <span>International research partnerships</span>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    
+                </div>
+            </div>
+        </div>
+
+
+       
+    </section>
+</div>
+
+
+
+
+{% endblock %}

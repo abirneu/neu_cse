@@ -61,6 +61,7 @@ urlpatterns = [
     path('events/all/', views.all_events, name='all_events'),
     path('events/<int:event_id>/', views.event_detail, name='event_detail'),
     
+    #About URLs
     path('why-neu-cse/', views.why_neu_cse, name='why_neu_cse'),
     path('message-from-department/', views.message_from_department, name='message_from_department'),
     path('message-from-chairman/', views.message_from_chairman, name='message_from_chairman'),
@@ -69,6 +70,11 @@ urlpatterns = [
     path('mission-vision/', views.mission_vision, name='mission_vision'),
     path('history-neu/', views.history_neu, name='history_neu'),
     path('achievements/', views.achievements, name='achievements'),
+    
+    # Academics URLs
+    path('academics/', views.academic_programs, name='academic_programs'),
+    path('curriculum/', views.curriculum, name='curriculum'),
+    path('academic-calendar/', views.academic_calendar, name='academic_calendar'),
     
     path('faculty/active/', views.active_faculty, name='active_faculty'),
     path('faculty/ex-chairman/', views.ex_chairman, name='ex_chairman'),
@@ -82,7 +88,6 @@ urlpatterns = [
     path('clubs/programming/', views.programming_club, name='programming_club'),
 
     path('contact-us/', views.contact_us, name='contact_us'),
-    
     # Image Gallery URLs
     path('gallery/', views.image_gallery_home, name='image_gallery_home'),
     path('gallery/all/', views.all_images, name='all_images'),

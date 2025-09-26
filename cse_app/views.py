@@ -509,6 +509,14 @@ def history_neu(request):
 def achievements(request):
     return render(request, 'cse/about/achievements.html')
 
+#Academis nav bar
+def academic_programs(request):
+    return render(request, 'cse/academics/academic_programs.html')
+def curriculum(request):
+    return render(request, 'cse/academics/curriculum.html')
+def academic_calendar(request):
+    return render(request, 'cse/academics/academic_calendar.html')
+
 #faculty and staff nav bar
 def active_faculty(request):
     active_faculty_members = FacultyMember.objects.filter(status='active')
