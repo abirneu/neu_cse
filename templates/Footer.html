@@ -174,13 +174,16 @@
                 </div>
                 <div class="text-center md:text-right">
                     <p class="text-sm text-gray-400">
-                        Developed  by 
+                        Developed by 
                         <a href="https://abirsportfolio.netlify.app/" 
-                           class="text-custom-green font-semibold hover:text-emerald-400 transition-colors duration-300 hover:underline" 
-                           target="_blank" rel="noopener noreferrer">
+                           class="inline-flex items-center gap-1 text-custom-green font-bold hover:text-emerald-400 transition-all duration-300 hover:underline hover:scale-105 hover:shadow-lg hover:shadow-custom-green/20 px-2 py-1 rounded-md hover:bg-custom-green/10 border border-transparent hover:border-custom-green/30" 
+                           target="_blank" rel="noopener noreferrer"
+                           title="Visit Abir Hasan's Portfolio">
+                            <i class="fas fa-user-graduate text-xs"></i>
                             Abir Hasan
+                            <i class="fas fa-external-link-alt text-xs opacity-70"></i>
                         </a>
-                        <span class="text-gray-300">• Maintained by NeU CSE Department</span>
+                        <span class="text-gray-300 ml-2">• Maintained by NeU CSE Department</span>
                     </p>
                 </div>
             </div>
@@ -347,6 +350,46 @@
     footer .w-12.h-12:hover {
         transform: translateY(-2px) scale(1.1);
         box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+    }
+
+    /* Enhanced developer credit styling */
+    footer a[href*="abirsportfolio"] {
+        position: relative;
+        overflow: hidden;
+    }
+
+    footer a[href*="abirsportfolio"]::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(90deg, transparent, rgba(2, 100, 74, 0.3), transparent);
+        transition: left 0.6s ease;
+    }
+
+    footer a[href*="abirsportfolio"]:hover::before {
+        left: 100%;
+    }
+
+    footer a[href*="abirsportfolio"]:hover {
+        text-shadow: 0 0 8px rgba(2, 100, 74, 0.6);
+        transform: translateY(-1px);
+    }
+
+    /* Pulse animation for developer name */
+    @keyframes developerPulse {
+        0%, 100% { 
+            box-shadow: 0 0 0 0 rgba(2, 100, 74, 0.4);
+        }
+        50% { 
+            box-shadow: 0 0 0 8px rgba(2, 100, 74, 0);
+        }
+    }
+
+    footer a[href*="abirsportfolio"]:hover {
+        animation: developerPulse 2s infinite;
     }
 
     /* Enhanced gradient animation */
