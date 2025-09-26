@@ -15,7 +15,7 @@ from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.core.exceptions import PermissionDenied
-from .forms import NoticeForm, ScrollingNoticeForm
+from .forms import NoticeForm, ScrollingNoticeForm, FacultyMemberForm, EducationForm, ProfessionalExperienceForm
 
 def staff_login(request):
     if request.method == 'POST':
@@ -271,6 +271,144 @@ def delete_scrolling_notice(request, pk):
     return render(request, 'cse/staff/delete_scrolling_notice_confirm.html', {
         'notice': notice
     })
+
+# Faculty Login System Views
+def faculty_login(request):
+    if request.method == 'POST':
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+        user = authenticate(request, username=username, password=password)
+        
+        if user is not None:
+            try:
+                faculty_member = FacultyMember.objects.get(user=user)
+                if faculty_member.status in ['active', 'ex_chairman']:  # Allow active and ex-chairman to login
+                    login(request, user)
+                    return redirect('faculty_dashboard')
+                else:
+                    messages.error(request, 'Your account is not active. Please contact the administrator.')
+            except FacultyMember.DoesNotExist:
+                messages.error(request, 'You are not registered as faculty.')
+        else:
+            messages.error(request, 'Invalid username or password.')
+    
+    return render(request, 'cse/faculty_and_staff/faculty_login.html')
+
+@login_required
+def faculty_logout(request):
+    # Clear any pending messages before logout
+    if 'dashboard_message' in request.session:
+        del request.session['dashboard_message']
+    request.session.flush()
+    logout(request)
+    return redirect('faculty_login')
+
+@login_required(login_url='faculty_login')
+def faculty_dashboard(request):
+    try:
+        faculty_member = FacultyMember.objects.get(user=request.user)
+        if faculty_member.status not in ['active', 'ex_chairman']:
+            messages.error(request, 'Your account is not active. Please contact the administrator.')
+            logout(request)
+            return redirect('faculty_login')
+        
+        # Get faculty's publications and projects
+        faculty_publications = Publication.objects.filter(authors__icontains=faculty_member.name).order_by('-publication_date')
+        faculty_projects = faculty_member.projects.all().order_by('-start_date')
+        
+        # Calculate profile completion percentage
+        profile_fields = [
+            faculty_member.name,
+            faculty_member.email,
+            faculty_member.phone,
+            faculty_member.bio,
+            faculty_member.research_interest,
+            faculty_member.research_activities,
+            faculty_member.publications,
+            faculty_member.courses_taught,
+            faculty_member.membership,
+            faculty_member.awards_honors,
+            faculty_member.image.name if faculty_member.image else None,
+            faculty_member.cv_file.name if faculty_member.cv_file else None,
+        ]
+        
+        # Add URL fields
+        url_fields = [
+            faculty_member.research_gate_url,
+            faculty_member.google_scholar_url,
+            faculty_member.orcid_url,
+            faculty_member.linkedin_url,
+            faculty_member.personal_website,
+        ]
+        
+        # Count URL fields - consider profile complete if at least 2 URLs are provided
+        filled_urls = sum(1 for url in url_fields if url and str(url).strip())
+        if filled_urls >= 2:
+            profile_fields.append("social_links_sufficient")
+        
+        # Add education and experience record counts
+        education_count = faculty_member.educations.count()
+        experience_count = faculty_member.professional_experiences.count()
+        
+        # Consider education and experience as "filled" if they have any records
+        if education_count > 0:
+            profile_fields.append("education_records_exist")
+        if experience_count > 0:
+            profile_fields.append("professional_experience_records_exist")
+            
+        completed_fields = sum(1 for field in profile_fields if field and str(field).strip())
+        profile_completion = int((completed_fields / len(profile_fields)) * 100)
+        
+        # Get temporary message and remove it from session
+        temp_message = None
+        if 'temp_message' in request.session:
+            temp_message = request.session.pop('temp_message')
+            request.session.modified = True
+
+        context = {
+            'faculty_member': faculty_member,
+            'faculty_publications': faculty_publications,
+            'faculty_projects': faculty_projects,
+            'profile_completion': profile_completion,
+            'current_date': timezone.now(),
+            'temp_message': temp_message,
+        }
+        return render(request, 'cse/faculty_and_staff/faculty_dashboard.html', context)
+    except FacultyMember.DoesNotExist:
+        logout(request)
+        messages.error(request, 'You are not registered as faculty.')
+        return redirect('faculty_login')
+
+@login_required(login_url='faculty_login')
+def edit_faculty_profile(request):
+    try:
+        faculty_member = FacultyMember.objects.get(user=request.user)
+        
+        if request.method == 'POST':
+            form = FacultyMemberForm(request.POST, request.FILES, instance=faculty_member)
+            if form.is_valid():
+                # Save the form but don't change the user field
+                updated_faculty = form.save(commit=False)
+                updated_faculty.user = request.user  # Ensure user field remains the same
+                updated_faculty.save()
+                form.save_m2m()  # Save many-to-many relationships if any
+                
+                messages.success(request, 'Your profile has been updated successfully!')
+                return redirect('faculty_dashboard')
+            else:
+                messages.error(request, 'Please correct the errors below.')
+        else:
+            form = FacultyMemberForm(instance=faculty_member)
+        
+        context = {
+            'form': form,
+            'faculty_member': faculty_member,
+        }
+        return render(request, 'cse/faculty_and_staff/faculty_edit_profile.html', context)
+    except FacultyMember.DoesNotExist:
+        logout(request)
+        messages.error(request, 'You are not registered as faculty.')
+        return redirect('faculty_login')
 
 def home(request):
     # Get active carousel items ordered by their specified order
@@ -832,3 +970,173 @@ def all_images(request):
         images = paginator.page(paginator.num_pages)
     
     return render(request, 'cse/image_gallery/all_image.html', {'images': images})
+
+
+# Faculty Education Management Views
+@login_required(login_url='faculty_login')
+def add_education(request):
+    try:
+        faculty_member = FacultyMember.objects.get(user=request.user)
+        
+        if request.method == 'POST':
+            form = EducationForm(request.POST)
+            if form.is_valid():
+                education = form.save(commit=False)
+                education.faculty = faculty_member
+                education.save()
+                messages.success(request, 'Education record added successfully!')
+                return redirect('faculty_dashboard')
+            else:
+                messages.error(request, 'Please correct the errors below.')
+        else:
+            form = EducationForm()
+        
+        context = {
+            'form': form,
+            'faculty_member': faculty_member,
+            'form_title': 'Add Education Record',
+            'form_action': 'Add'
+        }
+        return render(request, 'cse/faculty_and_staff/manage_education.html', context)
+    except FacultyMember.DoesNotExist:
+        logout(request)
+        messages.error(request, 'You are not registered as faculty.')
+        return redirect('faculty_login')
+
+
+@login_required(login_url='faculty_login')
+def edit_education(request, pk):
+    try:
+        faculty_member = FacultyMember.objects.get(user=request.user)
+        education = get_object_or_404(Education, pk=pk, faculty=faculty_member)
+        
+        if request.method == 'POST':
+            form = EducationForm(request.POST, instance=education)
+            if form.is_valid():
+                form.save()
+                messages.success(request, 'Education record updated successfully!')
+                return redirect('faculty_dashboard')
+            else:
+                messages.error(request, 'Please correct the errors below.')
+        else:
+            form = EducationForm(instance=education)
+        
+        context = {
+            'form': form,
+            'faculty_member': faculty_member,
+            'education': education,
+            'form_title': 'Edit Education Record',
+            'form_action': 'Update'
+        }
+        return render(request, 'cse/faculty_and_staff/manage_education.html', context)
+    except FacultyMember.DoesNotExist:
+        logout(request)
+        messages.error(request, 'You are not registered as faculty.')
+        return redirect('faculty_login')
+
+
+@login_required(login_url='faculty_login')
+def delete_education(request, pk):
+    try:
+        faculty_member = FacultyMember.objects.get(user=request.user)
+        education = get_object_or_404(Education, pk=pk, faculty=faculty_member)
+        
+        if request.method == 'POST':
+            education.delete()
+            messages.success(request, 'Education record deleted successfully!')
+            return redirect('faculty_dashboard')
+        
+        context = {
+            'education': education,
+            'faculty_member': faculty_member
+        }
+        return render(request, 'cse/faculty_and_staff/confirm_delete_education.html', context)
+    except FacultyMember.DoesNotExist:
+        logout(request)
+        messages.error(request, 'You are not registered as faculty.')
+        return redirect('faculty_login')
+
+
+# Faculty Professional Experience Management Views
+@login_required(login_url='faculty_login')
+def add_professional_experience(request):
+    try:
+        faculty_member = FacultyMember.objects.get(user=request.user)
+        
+        if request.method == 'POST':
+            form = ProfessionalExperienceForm(request.POST)
+            if form.is_valid():
+                experience = form.save(commit=False)
+                experience.faculty = faculty_member
+                experience.save()
+                messages.success(request, 'Professional experience record added successfully!')
+                return redirect('faculty_dashboard')
+            else:
+                messages.error(request, 'Please correct the errors below.')
+        else:
+            form = ProfessionalExperienceForm()
+        
+        context = {
+            'form': form,
+            'faculty_member': faculty_member,
+            'form_title': 'Add Professional Experience',
+            'form_action': 'Add'
+        }
+        return render(request, 'cse/faculty_and_staff/manage_experience.html', context)
+    except FacultyMember.DoesNotExist:
+        logout(request)
+        messages.error(request, 'You are not registered as faculty.')
+        return redirect('faculty_login')
+
+
+@login_required(login_url='faculty_login')
+def edit_professional_experience(request, pk):
+    try:
+        faculty_member = FacultyMember.objects.get(user=request.user)
+        experience = get_object_or_404(ProfessionalExperience, pk=pk, faculty=faculty_member)
+        
+        if request.method == 'POST':
+            form = ProfessionalExperienceForm(request.POST, instance=experience)
+            if form.is_valid():
+                form.save()
+                messages.success(request, 'Professional experience updated successfully!')
+                return redirect('faculty_dashboard')
+            else:
+                messages.error(request, 'Please correct the errors below.')
+        else:
+            form = ProfessionalExperienceForm(instance=experience)
+        
+        context = {
+            'form': form,
+            'faculty_member': faculty_member,
+            'experience': experience,
+            'form_title': 'Edit Professional Experience',
+            'form_action': 'Update'
+        }
+        return render(request, 'cse/faculty_and_staff/manage_experience.html', context)
+    except FacultyMember.DoesNotExist:
+        logout(request)
+        messages.error(request, 'You are not registered as faculty.')
+        return redirect('faculty_login')
+
+
+@login_required(login_url='faculty_login')
+def delete_professional_experience(request, pk):
+    try:
+        faculty_member = FacultyMember.objects.get(user=request.user)
+        experience = get_object_or_404(ProfessionalExperience, pk=pk, faculty=faculty_member)
+        
+        if request.method == 'POST':
+            experience.delete()
+            messages.success(request, 'Professional experience deleted successfully!')
+            return redirect('faculty_dashboard')
+        
+        context = {
+            'experience': experience,
+            'faculty_member': faculty_member
+        }
+        return render(request, 'cse/faculty_and_staff/confirm_delete_experience.html', context)
+    except FacultyMember.DoesNotExist:
+        logout(request)
+        messages.error(request, 'You are not registered as faculty.')
+        return redirect('faculty_login')

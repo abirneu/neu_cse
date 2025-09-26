@@ -1,7 +1,11 @@
 from django.urls import path
 from . import views
+from .test_views import test_faculty_form
 
 urlpatterns = [
+    # Test URL
+    path('test-faculty-form/', test_faculty_form, name='test_faculty_form'),
+    
     # Staff URLs
     path('staff/login/', views.staff_login, name='staff_login'),
     path('staff/logout/', views.staff_logout, name='staff_logout'),
@@ -12,6 +16,27 @@ urlpatterns = [
     path('staff/create-scrolling-notice/', views.create_scrolling_notice, name='create_scrolling_notice'),
     path('staff/edit-scrolling-notice/<int:pk>/', views.edit_scrolling_notice, name='edit_scrolling_notice'),
     path('staff/delete-scrolling-notice/<int:pk>/', views.delete_scrolling_notice, name='delete_scrolling_notice'),
+    
+    # Faculty URLs
+    path('faculty/login/', views.faculty_login, name='faculty_login'),
+    path('faculty/logout/', views.faculty_logout, name='faculty_logout'),
+    path('faculty/dashboard/', views.faculty_dashboard, name='faculty_dashboard'),
+    
+    # Faculty URLs
+    path('faculty/login/', views.faculty_login, name='faculty_login'),
+    path('faculty/logout/', views.faculty_logout, name='faculty_logout'),
+    path('faculty/dashboard/', views.faculty_dashboard, name='faculty_dashboard'),
+    path('faculty/edit-profile/', views.edit_faculty_profile, name='edit_faculty_profile'),
+    
+    # Faculty Education Management
+    path('faculty/education/add/', views.add_education, name='add_education'),
+    path('faculty/education/edit/<int:pk>/', views.edit_education, name='edit_education'),
+    path('faculty/education/delete/<int:pk>/', views.delete_education, name='delete_education'),
+    
+    # Faculty Professional Experience Management
+    path('faculty/experience/add/', views.add_professional_experience, name='add_professional_experience'),
+    path('faculty/experience/edit/<int:pk>/', views.edit_professional_experience, name='edit_professional_experience'),
+    path('faculty/experience/delete/<int:pk>/', views.delete_professional_experience, name='delete_professional_experience'),
     
     path('', views.home, name='home'),
     path('notices/', views.notice_list, name='notice_list'),

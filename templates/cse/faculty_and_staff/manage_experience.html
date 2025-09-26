@@ -1,0 +1,201 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}{{ form_title }} - NeU CSE{% endblock %}
+
+{% block content %}
+<div class="min-h-screen bg-gray-50 py-8">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+        <!-- Header -->
+        <div class="mb-8">
+            <div class="flex items-center justify-between">
+                <div>
+                    <h1 class="text-3xl font-bold text-gray-900">{{ form_title }}</h1>
+                    <p class="text-gray-600 mt-2">{{ faculty_member.name }} - {{ faculty_member.get_designation_display }}</p>
+                </div>
+                <a href="{% url 'faculty_dashboard' %}" class="bg-gray-500 hover:bg-gray-600 text-white px-4 py-2 rounded-lg font-medium transition-colors duration-200">
+                    ← Back to Dashboard
+                </a>
+            </div>
+        </div>
+
+        <!-- Messages -->
+        {% if messages %}
+            {% for message in messages %}
+                <div class="mb-6 rounded-lg px-4 py-3 {% if message.tags == 'error' %}bg-red-100 text-red-700 border border-red-200{% elif message.tags == 'success' %}bg-green-100 text-green-700 border border-green-200{% else %}bg-blue-100 text-blue-700 border border-blue-200{% endif %}">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        {% endif %}
+
+        <!-- Form -->
+        <form method="post" class="space-y-8">
+            {% csrf_token %}
+            
+            <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
+                <div class="bg-gradient-to-r from-yellow-500 to-orange-600 px-6 py-4">
+                    <h2 class="text-lg font-semibold text-white flex items-center">
+                        <svg class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2-2v2m8 0V6a2 2 0 012 2v6a2 2 0 01-2 2H6a2 2 0 01-2-2V8a2 2 0 012-2V6z" />
+                        </svg>
+                        Professional Experience Details
+                    </h2>
+                </div>
+                <div class="p-6">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">{{ form.position_title.label }}</label>
+                            {{ form.position_title }}
+                            {% if form.position_title.errors %}
+                                <p class="text-red-500 text-sm mt-1">{{ form.position_title.errors.0 }}</p>
+                            {% endif %}
+                        </div>
+                        
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">{{ form.organization.label }}</label>
+                            {{ form.organization }}
+                            {% if form.organization.errors %}
+                                <p class="text-red-500 text-sm mt-1">{{ form.organization.errors.0 }}</p>
+                            {% endif %}
+                        </div>
+                        
+                        <div class="md:col-span-2">
+                            <label class="block text-sm font-medium text-gray-700 mb-2">{{ form.location.label }}</label>
+                            {{ form.location }}
+                            {% if form.location.errors %}
+                                <p class="text-red-500 text-sm mt-1">{{ form.location.errors.0 }}</p>
+                            {% endif %}
+                        </div>
+                        
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">{{ form.start_date.label }}</label>
+                            {{ form.start_date }}
+                            {% if form.start_date.errors %}
+                                <p class="text-red-500 text-sm mt-1">{{ form.start_date.errors.0 }}</p>
+                            {% endif %}
+                        </div>
+                        
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">{{ form.end_date.label }}</label>
+                            {{ form.end_date }}
+                            {% if form.end_date.errors %}
+                                <p class="text-red-500 text-sm mt-1">{{ form.end_date.errors.0 }}</p>
+                            {% endif %}
+                        </div>
+                        
+                        <div class="md:col-span-2">
+                            <div class="flex items-center">
+                                {{ form.is_current }}
+                                <label class="ml-2 text-sm text-gray-700">{{ form.is_current.label }}</label>
+                            </div>
+                            {% if form.is_current.errors %}
+                                <p class="text-red-500 text-sm mt-1">{{ form.is_current.errors.0 }}</p>
+                            {% endif %}
+                        </div>
+                        
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">{{ form.order.label }}</label>
+                            {{ form.order }}
+                            {% if form.order.errors %}
+                                <p class="text-red-500 text-sm mt-1">{{ form.order.errors.0 }}</p>
+                            {% endif %}
+                            <p class="text-xs text-gray-500 mt-1">Use 0 for latest position, 1 for second latest, etc.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="mt-6">
+                        <label class="block text-sm font-medium text-gray-700 mb-2">{{ form.description.label }}</label>
+                        {{ form.description }}
+                        {% if form.description.errors %}
+                            <p class="text-red-500 text-sm mt-1">{{ form.description.errors.0 }}</p>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+
+            <!-- Submit Button -->
+            <div class="flex justify-end space-x-4 pt-6">
+                <a href="{% url 'faculty_dashboard' %}" class="px-6 py-3 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50 font-medium transition-colors duration-200">
+                    Cancel
+                </a>
+                <button type="submit" class="px-6 py-3 bg-custom-green hover:bg-emerald-600 text-white rounded-lg font-medium transition-colors duration-200 flex items-center">
+                    <svg class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                    </svg>
+                    {{ form_action }} Experience
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Auto-dismiss messages after 5 seconds
+    const messages = document.querySelectorAll('.bg-red-100, .bg-green-100, .bg-blue-100');
+    messages.forEach(message => {
+        setTimeout(() => {
+            message.style.opacity = '0';
+            message.style.transition = 'opacity 0.3s ease';
+            setTimeout(() => {
+                message.remove();
+            }, 300);
+        }, 5000);
+    });
+
+    // Handle current position checkbox
+    const isCurrentCheckbox = document.querySelector('input[name="is_current"]');
+    const endDateInput = document.querySelector('input[name="end_date"]');
+    
+    if (isCurrentCheckbox && endDateInput) {
+        isCurrentCheckbox.addEventListener('change', function() {
+            if (this.checked) {
+                endDateInput.value = '';
+                endDateInput.disabled = true;
+                endDateInput.classList.add('bg-gray-100');
+            } else {
+                endDateInput.disabled = false;
+                endDateInput.classList.remove('bg-gray-100');
+            }
+        });
+        
+        // Set initial state
+        if (isCurrentCheckbox.checked) {
+            endDateInput.disabled = true;
+            endDateInput.classList.add('bg-gray-100');
+        }
+    }
+
+    // Form validation enhancement
+    const form = document.querySelector('form');
+    const requiredFields = form.querySelectorAll('input[required], select[required]');
+    
+    form.addEventListener('submit', function(e) {
+        let hasErrors = false;
+        requiredFields.forEach(field => {
+            if (!field.value.trim()) {
+                hasErrors = true;
+                field.classList.add('border-red-500');
+                field.classList.remove('border-gray-300');
+            } else {
+                field.classList.remove('border-red-500');
+                field.classList.add('border-gray-300');
+            }
+        });
+        
+        if (hasErrors) {
+            e.preventDefault();
+            alert('Please fill in all required fields.');
+        }
+    });
+});
+</script>
+
+<style>
+/* Enhanced focus states */
+input:focus, select:focus, textarea:focus {
+    transform: translateY(-1px);
+    box-shadow: 0 0 0 2px rgba(2, 100, 74, 0.2), 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+}
+</style>
+{% endblock %}

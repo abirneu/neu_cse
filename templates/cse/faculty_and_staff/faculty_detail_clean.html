@@ -1,0 +1,501 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ faculty.name }} - Faculty Detail{% endblock %}
+
+{% load custom_filters %}
+
+{% block content %}
+<div class="min-h-screen bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <!-- Header Section -->
+        <div class="bg-white shadow-xl rounded-2xl overflow-hidden mb-8">
+            <div class="bg-gradient-to-r from-blue-600 to-indigo-700 px-6 sm:px-8 lg:px-12 py-8">
+                <div class="flex flex-col lg:flex-row items-start lg:items-center space-y-6 lg:space-y-0 lg:space-x-8">
+                    <!-- Profile Image -->
+                    <div class="flex-shrink-0">
+                        {% if faculty.image %}
+                            <img src="{{ faculty.image.url }}" alt="{{ faculty.name }}" class="w-32 h-32 lg:w-40 lg:h-40 rounded-2xl shadow-2xl border-4 border-white object-cover">
+                        {% else %}
+                            <div class="w-32 h-32 lg:w-40 lg:h-40 bg-gray-300 rounded-2xl shadow-2xl border-4 border-white flex items-center justify-center">
+                                <i class="fas fa-user text-6xl text-gray-600"></i>
+                            </div>
+                        {% endif %}
+                    </div>
+                    
+                    <!-- Basic Info -->
+                    <div class="flex-1 min-w-0">
+                        <h1 class="text-2xl sm:text-3xl lg:text-4xl font-bold text-white mb-2">{{ faculty.name }}</h1>
+                        <p class="text-lg sm:text-xl text-blue-100 mb-4">{{ faculty.designation }}</p>
+                        
+                        <!-- Contact Info Grid -->
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-sm">
+                            {% if faculty.email %}
+                            <div class="flex items-center space-x-2 text-blue-100">
+                                <i class="fas fa-envelope w-4"></i>
+                                <a href="mailto:{{ faculty.email }}" class="hover:text-white transition-colors">{{ faculty.email }}</a>
+                            </div>
+                            {% endif %}
+                            {% if faculty.phone %}
+                            <div class="flex items-center space-x-2 text-blue-100">
+                                <i class="fas fa-phone w-4"></i>
+                                <span>{{ faculty.phone }}</span>
+                            </div>
+                            {% endif %}
+                            {% if faculty.room_no %}
+                            <div class="flex items-center space-x-2 text-blue-100">
+                                <i class="fas fa-map-marker-alt w-4"></i>
+                                <span>Room {{ faculty.room_no }}</span>
+                            </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main Content -->
+        <div class="bg-white shadow-xl rounded-2xl overflow-hidden">
+            <!-- Tab Navigation -->
+            <div class="border-b border-gray-200">
+                <nav class="flex space-x-8 px-6 sm:px-8 lg:px-12" aria-label="Tabs">
+                    <button onclick="showTab('about')" class="tab-button active whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm text-green-600 border-green-600">
+                        <i class="fas fa-user mr-2"></i>About
+                    </button>
+                    <button onclick="showTab('education')" class="tab-button whitespace-nowrap py-4 px-1 border-b-2 border-transparent font-medium text-sm text-gray-700 hover:text-gray-900 hover:border-gray-300">
+                        <i class="fas fa-graduation-cap mr-2"></i>Education
+                    </button>
+                    <button onclick="showTab('experience')" class="tab-button whitespace-nowrap py-4 px-1 border-b-2 border-transparent font-medium text-sm text-gray-700 hover:text-gray-900 hover:border-gray-300">
+                        <i class="fas fa-briefcase mr-2"></i>Experience
+                    </button>
+                    <button onclick="showTab('research')" class="tab-button whitespace-nowrap py-4 px-1 border-b-2 border-transparent font-medium text-sm text-gray-700 hover:text-gray-900 hover:border-gray-300">
+                        <i class="fas fa-flask mr-2"></i>Research
+                    </button>
+                    <button onclick="showTab('publications')" class="tab-button whitespace-nowrap py-4 px-1 border-b-2 border-transparent font-medium text-sm text-gray-700 hover:text-gray-900 hover:border-gray-300">
+                        <i class="fas fa-book mr-2"></i>Publications
+                    </button>
+                    <button onclick="showTab('courses')" class="tab-button whitespace-nowrap py-4 px-1 border-b-2 border-transparent font-medium text-sm text-gray-700 hover:text-gray-900 hover:border-gray-300">
+                        <i class="fas fa-chalkboard-teacher mr-2"></i>Courses
+                    </button>
+                    <button onclick="showTab('awards')" class="tab-button whitespace-nowrap py-4 px-1 border-b-2 border-transparent font-medium text-sm text-gray-700 hover:text-gray-900 hover:border-gray-300">
+                        <i class="fas fa-trophy mr-2"></i>Awards
+                    </button>
+                    <button onclick="showTab('others')" class="tab-button whitespace-nowrap py-4 px-1 border-b-2 border-transparent font-medium text-sm text-gray-700 hover:text-gray-900 hover:border-gray-300">
+                        <i class="fas fa-plus-circle mr-2"></i>Others
+                    </button>
+                </nav>
+            </div>
+
+            <!-- Tab Content -->
+            <div class="px-6 sm:px-8 lg:px-12 py-8">
+                <!-- About Tab -->
+                <div id="about" class="tab-content">
+                    {% if faculty.bio %}
+                        <div class="prose prose-lg max-w-none">
+                            {{ faculty.bio|safe }}
+                        </div>
+                    {% endif %}
+                    
+                    {% if faculty.research_interest %}
+                        <div class="mt-8">
+                            <h3 class="text-xl font-bold text-gray-800 mb-4 flex items-center">
+                                <i class="fas fa-lightbulb text-yellow-500 mr-3"></i>Research Interests
+                            </h3>
+                            <div class="prose prose-lg max-w-none">
+                                {{ faculty.research_interest|safe }}
+                            </div>
+                        </div>
+                    {% endif %}
+                    
+                    <!-- Social Links -->
+                    {% if faculty.research_gate_url or faculty.google_scholar_url or faculty.orcid_url or faculty.linkedin_url or faculty.personal_website %}
+                    <div class="mt-8">
+                        <h3 class="text-xl font-bold text-gray-800 mb-4 flex items-center">
+                            <i class="fas fa-link text-blue-500 mr-3"></i>Professional Links
+                        </h3>
+                        <div class="flex flex-wrap gap-4">
+                            {% if faculty.research_gate_url %}
+                                <a href="{{ faculty.research_gate_url }}" target="_blank" class="inline-flex items-center px-4 py-2 border border-gray-300 rounded-lg shadow-sm bg-white hover:bg-gray-50 text-gray-700 hover:text-gray-900 transition-colors">
+                                    <i class="fab fa-researchgate mr-2"></i>ResearchGate
+                                </a>
+                            {% endif %}
+                            {% if faculty.google_scholar_url %}
+                                <a href="{{ faculty.google_scholar_url }}" target="_blank" class="inline-flex items-center px-4 py-2 border border-gray-300 rounded-lg shadow-sm bg-white hover:bg-gray-50 text-gray-700 hover:text-gray-900 transition-colors">
+                                    <i class="fas fa-graduation-cap mr-2"></i>Google Scholar
+                                </a>
+                            {% endif %}
+                            {% if faculty.orcid_url %}
+                                <a href="{{ faculty.orcid_url }}" target="_blank" class="inline-flex items-center px-4 py-2 border border-gray-300 rounded-lg shadow-sm bg-white hover:bg-gray-50 text-gray-700 hover:text-gray-900 transition-colors">
+                                    <i class="fab fa-orcid mr-2"></i>ORCID
+                                </a>
+                            {% endif %}
+                            {% if faculty.linkedin_url %}
+                                <a href="{{ faculty.linkedin_url }}" target="_blank" class="inline-flex items-center px-4 py-2 border border-gray-300 rounded-lg shadow-sm bg-white hover:bg-gray-50 text-gray-700 hover:text-gray-900 transition-colors">
+                                    <i class="fab fa-linkedin mr-2"></i>LinkedIn
+                                </a>
+                            {% endif %}
+                            {% if faculty.personal_website %}
+                                <a href="{{ faculty.personal_website }}" target="_blank" class="inline-flex items-center px-4 py-2 border border-gray-300 rounded-lg shadow-sm bg-white hover:bg-gray-50 text-gray-700 hover:text-gray-900 transition-colors">
+                                    <i class="fas fa-globe mr-2"></i>Personal Website
+                                </a>
+                            {% endif %}
+                        </div>
+                    </div>
+                    {% endif %}
+                </div>
+
+                <!-- Education Tab -->
+                <div id="education" class="tab-content hidden">
+                    {% if faculty.education_records.all %}
+                        <!-- Desktop Table View -->
+                        <div class="hidden lg:block overflow-x-auto rounded-lg border border-gray-200 shadow-sm">
+                            <table class="min-w-full bg-white">
+                                <thead class="bg-emerald-600 text-white">
+                                    <tr>
+                                        <th class="px-6 py-4 text-left text-sm font-semibold uppercase tracking-wider border-r border-emerald-500">
+                                            <i class="fas fa-graduation-cap mr-2"></i>Degree
+                                        </th>
+                                        <th class="px-6 py-4 text-left text-sm font-semibold uppercase tracking-wider border-r border-emerald-500">
+                                            <i class="fas fa-university mr-2"></i>Institution
+                                        </th>
+                                        <th class="px-6 py-4 text-left text-sm font-semibold uppercase tracking-wider border-r border-emerald-500">
+                                            <i class="fas fa-calendar mr-2"></i>Year
+                                        </th>
+                                        <th class="px-6 py-4 text-left text-sm font-semibold uppercase tracking-wider">
+                                            <i class="fas fa-info-circle mr-2"></i>Details
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody class="divide-y divide-gray-200">
+                                    {% for education in faculty.education_records.all %}
+                                    <tr class="{% if forloop.counter0|divisibleby:2 %}bg-gray-100{% else %}bg-white{% endif %} hover:bg-emerald-50 transition-all duration-300 border-l-4 border-l-transparent hover:border-l-emerald-500">
+                                        <td class="px-6 py-4 border-r border-gray-200">
+                                            <div class="flex items-center">
+                                                <div class="w-3 h-3 bg-emerald-500 rounded-full mr-3 flex-shrink-0"></div>
+                                                <div class="text-sm font-medium text-gray-900">{{ education.degree }}</div>
+                                            </div>
+                                        </td>
+                                        <td class="px-6 py-4 border-r border-gray-200">
+                                            <div class="text-sm text-gray-900 font-medium">{{ education.institution }}</div>
+                                            {% if education.location %}
+                                            <div class="text-xs text-gray-500 mt-1">{{ education.location }}</div>
+                                            {% endif %}
+                                        </td>
+                                        <td class="px-6 py-4 border-r border-gray-200">
+                                            <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-emerald-100 text-emerald-800">
+                                                <i class="fas fa-calendar-alt mr-1"></i>
+                                                {{ education.graduation_year }}
+                                            </span>
+                                        </td>
+                                        <td class="px-6 py-4">
+                                            {% if education.specialization %}
+                                            <div class="text-sm text-gray-900">{{ education.specialization }}</div>
+                                            {% endif %}
+                                            {% if education.result %}
+                                            <div class="text-xs text-gray-500 mt-1">{{ education.result }}</div>
+                                            {% endif %}
+                                        </td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                        
+                        <!-- Mobile Card View -->
+                        <div class="lg:hidden space-y-4">
+                            {% for education in faculty.education_records.all %}
+                            <div class="bg-white border border-gray-200 rounded-lg shadow-sm p-4 hover:shadow-md transition-shadow duration-300">
+                                <div class="flex items-start space-x-3">
+                                    <div class="w-3 h-3 bg-emerald-500 rounded-full mt-1 flex-shrink-0"></div>
+                                    <div class="flex-1 min-w-0">
+                                        <h4 class="text-lg font-semibold text-gray-900 mb-2">{{ education.degree }}</h4>
+                                        
+                                        <div class="space-y-2 text-sm">
+                                            <div class="flex items-center space-x-2">
+                                                <i class="fas fa-university text-gray-400 w-4"></i>
+                                                <span class="text-gray-900 font-medium">{{ education.institution }}</span>
+                                            </div>
+                                            
+                                            {% if education.location %}
+                                            <div class="flex items-center space-x-2">
+                                                <i class="fas fa-map-marker-alt text-gray-400 w-4"></i>
+                                                <span class="text-gray-700 text-sm">{{ education.location }}</span>
+                                            </div>
+                                            {% endif %}
+                                            
+                                            <div class="flex items-center space-x-2">
+                                                <i class="fas fa-calendar text-gray-400 w-4"></i>
+                                                <span class="inline-flex items-center px-2 py-1 rounded text-xs font-medium bg-emerald-100 text-emerald-800">
+                                                    {{ education.graduation_year }}
+                                                </span>
+                                            </div>
+                                            
+                                            {% if education.specialization %}
+                                            <div class="flex items-start space-x-2 mt-3">
+                                                <i class="fas fa-book-open text-gray-400 w-4 mt-0.5"></i>
+                                                <span class="text-gray-700 text-sm">{{ education.specialization }}</span>
+                                            </div>
+                                            {% endif %}
+                                            
+                                            {% if education.result %}
+                                            <div class="flex items-center space-x-2">
+                                                <i class="fas fa-star text-gray-400 w-4"></i>
+                                                <span class="text-gray-700 text-sm">{{ education.result }}</span>
+                                            </div>
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        <div class="text-center py-12 text-gray-500">
+                            <i class="fas fa-graduation-cap text-4xl mb-4 text-gray-300"></i>
+                            <p class="text-lg">No education information available</p>
+                        </div>
+                    {% endif %}
+                </div>
+
+                <!-- Professional Experience Tab -->
+                <div id="experience" class="tab-content hidden">
+                    {% if faculty.professional_experience_records.all %}
+                        <!-- Desktop Table View -->
+                        <div class="hidden lg:block overflow-x-auto rounded-lg border border-gray-200 shadow-sm">
+                            <table class="min-w-full bg-white">
+                                <thead class="bg-blue-600 text-white">
+                                    <tr>
+                                        <th class="px-6 py-4 text-left text-sm font-semibold uppercase tracking-wider border-r border-blue-500">
+                                            <i class="fas fa-briefcase mr-2"></i>Position
+                                        </th>
+                                        <th class="px-6 py-4 text-left text-sm font-semibold uppercase tracking-wider border-r border-blue-500">
+                                            <i class="fas fa-building mr-2"></i>Organization
+                                        </th>
+                                        <th class="px-6 py-4 text-left text-sm font-semibold uppercase tracking-wider border-r border-blue-500">
+                                            <i class="fas fa-calendar mr-2"></i>Duration
+                                        </th>
+                                        <th class="px-6 py-4 text-left text-sm font-semibold uppercase tracking-wider">
+                                            <i class="fas fa-info-circle mr-2"></i>Details
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody class="divide-y divide-gray-200">
+                                    {% for experience in faculty.professional_experience_records.all %}
+                                    <tr class="{% if forloop.counter0|divisibleby:2 %}bg-gray-100{% else %}bg-white{% endif %} hover:bg-blue-50 transition-colors duration-200">
+                                        <td class="px-6 py-4 border-r border-gray-200">
+                                            <div class="flex items-start">
+                                                <div class="w-2 h-2 bg-blue-500 rounded-full mr-3 mt-2 flex-shrink-0"></div>
+                                                <div class="text-sm font-medium text-gray-900">{{ experience.position }}</div>
+                                            </div>
+                                        </td>
+                                        <td class="px-6 py-4 border-r border-gray-200">
+                                            <div class="text-sm text-gray-900 font-medium">{{ experience.organization }}</div>
+                                            {% if experience.location %}
+                                            <div class="text-xs text-gray-500 mt-1">{{ experience.location }}</div>
+                                            {% endif %}
+                                        </td>
+                                        <td class="px-6 py-4 border-r border-gray-200">
+                                            <div class="text-sm">
+                                                <span class="text-gray-900">{{ experience.start_date|date:"M Y" }}</span>
+                                                <span class="text-gray-500"> - </span>
+                                                <span class="text-gray-900">
+                                                    {% if experience.is_current %}Present{% else %}{{ experience.end_date|date:"M Y" }}{% endif %}
+                                                </span>
+                                            </div>
+                                            {% if experience.is_current %}
+                                            <span class="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-green-100 text-green-800 mt-1">
+                                                <i class="fas fa-circle text-green-400 mr-1"></i>Current
+                                            </span>
+                                            {% endif %}
+                                        </td>
+                                        <td class="px-6 py-4">
+                                            {% if experience.description %}
+                                            <div class="text-sm text-gray-700">{{ experience.description|truncatewords:20 }}</div>
+                                            {% endif %}
+                                        </td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                        
+                        <!-- Mobile Card View -->
+                        <div class="lg:hidden space-y-4">
+                            {% for experience in faculty.professional_experience_records.all %}
+                            <div class="bg-white border border-gray-200 rounded-lg shadow-sm p-4">
+                                <div class="flex items-start space-x-3">
+                                    <div class="w-3 h-3 bg-blue-500 rounded-full mt-1 flex-shrink-0"></div>
+                                    <div class="flex-1 min-w-0">
+                                        <div class="flex items-center space-x-2 mb-2">
+                                            <h4 class="text-lg font-semibold text-gray-900">{{ experience.position }}</h4>
+                                            {% if experience.is_current %}
+                                            <span class="inline-flex items-center px-2 py-1 rounded text-xs font-medium bg-green-100 text-green-800">
+                                                <i class="fas fa-circle text-green-400 mr-1"></i>Current
+                                            </span>
+                                            {% endif %}
+                                        </div>
+                                        
+                                        <div class="space-y-2 text-sm">
+                                            <div class="flex items-center space-x-2">
+                                                <i class="fas fa-building text-gray-400 w-4"></i>
+                                                <span class="text-gray-900 font-medium">{{ experience.organization }}</span>
+                                            </div>
+                                            
+                                            {% if experience.location %}
+                                            <div class="flex items-center space-x-2">
+                                                <i class="fas fa-map-marker-alt text-gray-400 w-4"></i>
+                                                <span class="text-gray-700 text-sm">{{ experience.location }}</span>
+                                            </div>
+                                            {% endif %}
+                                            
+                                            <div class="flex items-center space-x-2">
+                                                <i class="fas fa-calendar text-gray-400 w-4"></i>
+                                                <span class="text-gray-700 text-sm">
+                                                    {{ experience.start_date|date:"M Y" }} - 
+                                                    {% if experience.is_current %}Present{% else %}{{ experience.end_date|date:"M Y" }}{% endif %}
+                                                </span>
+                                            </div>
+                                            
+                                            {% if experience.description %}
+                                            <div class="mt-3">
+                                                <p class="text-gray-700 text-sm">{{ experience.description|truncatewords:30 }}</p>
+                                            </div>
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        <div class="text-center py-12 text-gray-500">
+                            <i class="fas fa-briefcase text-4xl mb-4 text-gray-300"></i>
+                            <p class="text-lg">No professional experience information available</p>
+                        </div>
+                    {% endif %}
+                </div>
+
+                <!-- Research Activities Tab -->
+                <div id="research" class="tab-content hidden">
+                    {% if faculty.research_activities %}
+                        <div class="max-w-none prose prose-lg">
+                            {{ faculty.research_activities|safe }}
+                        </div>
+                    {% else %}
+                        <div class="text-center py-12 text-gray-500">
+                            <i class="fas fa-flask text-4xl mb-4 text-gray-300"></i>
+                            <p class="text-lg">No research activities information available</p>
+                        </div>
+                    {% endif %}
+                </div>
+
+                <!-- Publications Tab -->
+                <div id="publications" class="tab-content hidden">
+                    {% if faculty.publications %}
+                        <div class="max-w-none prose prose-lg">
+                            {{ faculty.publications|safe }}
+                        </div>
+                    {% else %}
+                        <div class="text-center py-12 text-gray-500">
+                            <i class="fas fa-book text-4xl mb-4 text-gray-300"></i>
+                            <p class="text-lg">No publications information available</p>
+                        </div>
+                    {% endif %}
+                </div>
+
+                <!-- Courses Taught Tab -->
+                <div id="courses" class="tab-content hidden">
+                    {% if faculty.courses_taught %}
+                        <div class="max-w-none prose prose-lg">
+                            {{ faculty.courses_taught|safe }}
+                        </div>
+                    {% else %}
+                        <div class="text-center py-12 text-gray-500">
+                            <i class="fas fa-chalkboard-teacher text-4xl mb-4 text-gray-300"></i>
+                            <p class="text-lg">No courses taught information available</p>
+                        </div>
+                    {% endif %}
+                </div>
+
+                <!-- Awards, Honors Tab -->
+                <div id="awards" class="tab-content hidden">
+                    {% if faculty.awards_honors %}
+                        <div class="max-w-none prose prose-lg">
+                            {{ faculty.awards_honors|safe }}
+                        </div>
+                    {% else %}
+                        <div class="text-center py-12 text-gray-500">
+                            <i class="fas fa-trophy text-4xl mb-4 text-gray-300"></i>
+                            <p class="text-lg">No awards or honors information available</p>
+                        </div>
+                    {% endif %}
+                </div>
+
+                <!-- Others Tab -->
+                <div id="others" class="tab-content hidden">
+                    {% if faculty.others %}
+                        <div class="max-w-none prose prose-lg">
+                            {{ faculty.others|safe }}
+                        </div>
+                    {% else %}
+                        <div class="text-center py-12 text-gray-500">
+                            <i class="fas fa-plus-circle text-4xl mb-4 text-gray-300"></i>
+                            <p class="text-lg">No additional information available</p>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+
+        <!-- CV Download Section -->
+        {% if faculty.cv_file %}
+        <div class="bg-white shadow-lg p-6 lg:p-8 mt-8 border border-gray-100 rounded-lg">
+            <div class="max-w-7xl mx-auto">
+                <div class="text-center">
+                    <h3 class="text-xl font-bold text-gray-800 mb-4">Download CV</h3>
+                    <a href="{{ faculty.cv_file.url }}" target="_blank" class="inline-flex items-center justify-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 transition-colors duration-200">
+                        <i class="fas fa-download mr-2"></i>
+                        Download CV (PDF)
+                    </a>
+                </div>
+            </div>
+        </div>
+        {% endif %}
+    </div>
+</div>
+
+<script>
+function showTab(tabName) {
+    // Hide all tab contents
+    const tabContents = document.querySelectorAll('.tab-content');
+    tabContents.forEach(content => {
+        content.classList.add('hidden');
+    });
+    
+    // Remove active class from all tab buttons
+    const tabButtons = document.querySelectorAll('.tab-button');
+    tabButtons.forEach(button => {
+        button.classList.remove('active');
+        button.classList.remove('text-green-600');
+        button.classList.remove('border-green-600');
+        button.classList.add('text-gray-700');
+        button.classList.add('border-transparent');
+    });
+    
+    // Show selected tab content
+    document.getElementById(tabName).classList.remove('hidden');
+    
+    // Add active class to clicked button
+    const activeButton = document.querySelector(`button[onclick="showTab('${tabName}')"]`);
+    activeButton.classList.add('active');
+    activeButton.classList.add('text-green-600');
+    activeButton.classList.add('border-green-600');
+    activeButton.classList.remove('text-gray-700');
+    activeButton.classList.remove('border-transparent');
+}
+
+// Initialize first tab as active
+document.addEventListener('DOMContentLoaded', function() {
+    showTab('about');
+});
+</script>
+{% endblock %}
