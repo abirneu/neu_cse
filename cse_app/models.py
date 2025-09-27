@@ -181,6 +181,7 @@ class FacultyMember(models.Model):
     # Administrative Information
     joined_date = models.DateField(blank=True, null=True)
     end_date = models.DateField(blank=True, null=True)
+    is_current = models.BooleanField(default=True, help_text="Is this faculty member currently active?")
     is_chairman = models.BooleanField(default=False)
     
     def __str__(self):

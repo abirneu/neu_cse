@@ -519,7 +519,11 @@ def academic_calendar(request):
 
 #faculty and staff nav bar
 def active_faculty(request):
-    active_faculty_members = FacultyMember.objects.filter(status='active')
+    # Filter by both status='active' and is_current=True, ordered by joined_date (earliest first)
+    active_faculty_members = FacultyMember.objects.filter(
+        status='active', 
+        is_current=True
+    ).order_by('joined_date', 'name')
     return render(request, 'cse/faculty_and_staff/active_faculty.html', {
         'faculty_members': active_faculty_members
     })

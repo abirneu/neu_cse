@@ -93,6 +93,7 @@
     {% endfor %}
 
     <!-- Faculty Sections by Designation in Academic Hierarchy Order -->
+    <!-- Faculty are ordered by join date (earliest first) within each designation -->
     {% regroup faculty_members by designation as grouped_faculty %}
     
     <!-- Professors Section -->
@@ -101,9 +102,7 @@
             {% with professors=group.list %}
                 {% if professors %}
                     <div class="mb-16">
-                        <h2 class="text-2xl font-semibold text-center mb-8 text-green-600 border-b-2 border-green-300 pb-2 inline-block">
-                            Professors
-                        </h2>
+                       
                         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                             {% for faculty in professors %}
                                 {% if not faculty.is_chairman %}
@@ -123,9 +122,7 @@
             {% with associate_professors=group.list %}
                 {% if associate_professors %}
                     <div class="mb-16">
-                        <h2 class="text-2xl font-semibold text-center mb-8 text-green-600 border-b-2 border-green-300 pb-2 inline-block">
-                            Associate Professors
-                        </h2>
+                        
                         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                             {% for faculty in associate_professors %}
                                 {% if not faculty.is_chairman %}
@@ -145,9 +142,7 @@
             {% with assistant_professors=group.list %}
                 {% if assistant_professors %}
                     <div class="mb-16">
-                        <h2 class="text-2xl font-semibold text-center mb-8 text-green-600 border-b-2 border-green-300 pb-2 inline-block">
-                            Assistant Professors
-                        </h2>
+                       
                         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                             {% for faculty in assistant_professors %}
                                 {% if not faculty.is_chairman %}
@@ -167,9 +162,7 @@
             {% with lecturers=group.list %}
                 {% if lecturers %}
                     <div class="mb-16">
-                        <h2 class="text-2xl font-semibold text-center mb-8 text-green-600 border-b-2 border-green-300 pb-2 inline-block">
-                            Lecturers
-                        </h2>
+                       
                         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                             {% for faculty in lecturers %}
                                 {% if not faculty.is_chairman %}

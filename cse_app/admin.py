@@ -73,9 +73,10 @@ class FacultyMemberAdmin(admin.ModelAdmin):
         'phone', 
         'linked_user',
         'joined_date',
+        'is_current',
         'is_chairman'
     )
-    list_filter = ('designation', 'status', 'member_type', 'is_chairman', 'joined_date')
+    list_filter = ('designation', 'status', 'member_type', 'is_current', 'is_chairman', 'joined_date')
     search_fields = ('name', 'email', 'phone', 'research_interest', 'bio', 'user__username')
     
     # Enhanced inlines for comprehensive faculty profile management
