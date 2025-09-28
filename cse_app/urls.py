@@ -17,6 +17,11 @@ urlpatterns = [
     path('staff/edit-scrolling-notice/<int:pk>/', views.edit_scrolling_notice, name='edit_scrolling_notice'),
     path('staff/delete-scrolling-notice/<int:pk>/', views.delete_scrolling_notice, name='delete_scrolling_notice'),
     
+    # Staff URLs
+    # path('staff/login/', views.staff_login, name='staff_login'),
+    # path('staff/dashboard/', views.staff_dashboard, name='staff_dashboard'),
+    # path('staff/logout/', views.staff_logout, name='staff_logout'),
+    
     # Faculty URLs
     path('faculty/login/', views.faculty_login, name='faculty_login'),
     path('faculty/logout/', views.faculty_logout, name='faculty_logout'),
@@ -92,8 +97,5 @@ urlpatterns = [
     path('gallery/', views.image_gallery_home, name='image_gallery_home'),
     path('gallery/all/', views.all_images, name='all_images'),
 
-    # Staff URLs
-    path('staff/login/', views.staff_login, name='staff_login'),
-    path('staff/dashboard/', views.staff_dashboard, name='staff_dashboard'),
-    path('staff/logout/', views.staff_logout, name='staff_logout'),
+    
 ]
