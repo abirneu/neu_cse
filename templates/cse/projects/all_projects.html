@@ -21,10 +21,10 @@
     {% if projects %}
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
       {% for project in projects %}
-      <div class="bg-white rounded-xl overflow-hidden shadow-lg
+      <div class="bg-white rounded-xl overflow-hidden transition-all duration-300 hover:shadow-xl 
         flex flex-col h-full">
         <!-- Project Image -->
-        <div class="relative h-56">
+        <div class="relative h-48 mb-4 rounded-t-xl overflow-hidden">
           {% if project.image %}
             <div class="overflow-hidden w-full h-full">
               <img src="{{ project.image.url }}" alt="{{ project.title }}" 
