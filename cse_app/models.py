@@ -164,11 +164,7 @@ class FacultyMember(models.Model):
     orcid_url = models.URLField(blank=True, help_text="ORCID profile URL")
     linkedin_url = models.URLField(blank=True, help_text="LinkedIn profile URL")
     personal_website = models.URLField(blank=True, help_text="Personal website URL")
-    
-    # Education and Professional Experience - Now using structured tables only
-    # education = RichTextField(blank=True, help_text="Educational background")  # Deprecated - use Education model
-    # professional_experience = RichTextField(blank=True, help_text="Professional experience")  # Deprecated - use ProfessionalExperience model
-    
+  
     # Rich text fields for information display
     research_activities = RichTextField(blank=True, help_text="Research activities and projects")
     publications = RichTextField(blank=True, help_text="List of publications")

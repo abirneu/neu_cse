@@ -1,85 +1,222 @@
 {% extends 'base.html' %}
-{% block content %}
-<section class="py-12 px-4 md:px-8 lg:px-16 bg-gray-50">
-  <div class="max-w-6xl mx-auto">
-    <!-- Breadcrumb -->
-    <nav class="mb-8">
-      <ol class="flex items-center space-x-2 text-sm">
-        <li><a href="{% url 'home' %}" class="text-blue-600 hover:text-blue-800 transition-colors">Home</a></li>
-        <li class="flex items-center">
-          <svg class="h-4 w-4 mx-2 text-gray-400" fill="currentColor" viewBox="0 0 20 20">
-            <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"></path>
-          </svg>
-        </li>
-        <li><a href="{% url 'all_projects' %}" class="text-blue-600 hover:text-blue-800 transition-colors">Projects</a></li>
-        <li class="flex items-center">
-          <svg class="h-4 w-4 mx-2 text-gray-400" fill="currentColor" viewBox="0 0 20 20">
-            <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"></path>
-          </svg>
-        </li>
-        <li class="text-gray-500 truncate">{{ project.title|truncatewords:4 }}</li>
-      </ol>
-    </nav>
+{% load custom_filters %}
 
-    <div class="flex flex-col lg:flex-row gap-8">
-      <!-- Main Content -->
-      <div class="w-full lg:w-8/12">
-        <h1 class="text-4xl font-bold text-gray-800 mb-6">{{ project.title }}</h1>
+{% block content %}
+<section class="py-8 px-4 md:px-8 lg:px-18 min-h-screen ">
+  <div class="max-w-7xl mx-auto">
+    
+  
+
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+      
+      <!-- Main Content Area -->
+      <div class="lg:col-span-2 space-y-6">
         
+        <!-- Project Title & Type -->
+        <div class="bg-white rounded-md p-6 border border-gray-100">
+          <div class="border-l-4 border-[#02644A] pl-6 mb-4">
+            <span class="text-sm font-semibold text-[#02644A] uppercase tracking-wide">
+              {{ project.get_project_type_display }}
+            </span>
+            <h1 class="text-3xl md:text-4xl font-bold text-gray-900 mt-2 leading-tight">
+              {{ project.title }}
+            </h1>
+          </div>
+          
+          <!-- Status Badge -->
+          <div class="mt-4">
+            {% if project.is_ongoing %}
+              <span class="inline-flex items-center px-3.5 py-1.5 rounded-full text-sm font-semibold uppercase tracking-wider bg-blue-100 text-blue-800">
+                <i class="fas fa-circle-notch fa-spin mr-2"></i>Ongoing
+              </span>
+            {% else %}
+              <span class="inline-flex items-center px-3.5 py-1.5 rounded-full text-sm font-semibold uppercase tracking-wider bg-green-100 text-green-800">
+                <i class="fas fa-check-circle mr-2"></i>Completed
+              </span>
+            {% endif %}
+          </div>
+        </div>
+
         <!-- Project Image -->
-        <div class="rounded-xl overflow-hidden shadow-lg mb-8">
-          {% if project.image %}
-          <img src="{{ project.image.url }}" alt="{{ project.title }}" class="w-full h-auto object-cover">
-          {% else %}
-          <div class="w-full h-64 bg-gradient-to-r from-blue-50 to-indigo-100 flex items-center justify-center rounded-xl">
-            <svg class="w-16 h-16 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
-            </svg>
+        {% if project.image %}
+        <div class="bg-white rounded-md shadow-sm overflow-hidden ">
+            <div class="relative w-full" style="padding-bottom: 56.25%;">
+          <img 
+            src="{{ project.image.url }}" 
+            alt="{{ project.title }}" 
+            class="absolute inset-0 w-full h-full object-cover"
+          />
+          </div>
+        </div>
+        {% endif %}
+
+        <!-- Project Information Card -->
+        <div class="bg-white rounded-lg shadow-sm p-6 border border-gray-100">
+          
+          <!-- Project Description -->
+          <div class="mb-8">
+            <h2 class="text-2xl font-bold text-gray-900 mb-4 flex items-center">
+              <i class="fas fa-align-left text-[#02644A] mr-3"></i>
+              Description
+            </h2>
+            <div class="h-0.5 bg-gradient-to-r from-[#02644A] to-transparent mb-6"></div>
+            <div class="prose prose-slate max-w-none text-gray-700 leading-relaxed">
+              {{ project.description|safe }}
+            </div>
+          </div>
+
+          <!-- Project Outcome -->
+          {% if project.outcome %}
+          <div class="mb-8 pt-8 border-t border-gray-200">
+            <h2 class="text-2xl font-bold text-gray-900 mb-4 flex items-center">
+              <i class="fas fa-trophy text-[#02644A] mr-3"></i>
+              Outcome & Impact
+            </h2>
+            <div class="h-0.5 bg-gradient-to-r from-[#02644A] to-transparent mb-6"></div>
+            <div class="prose prose-slate max-w-none text-gray-700 leading-relaxed">
+              {{ project.outcome|safe }}
+            </div>
           </div>
           {% endif %}
-        </div>
-        
-        <!-- Project Description -->
-        <div class="bg-white rounded-xl shadow-sm p-6 mb-8">
-          <h3 class="text-2xl font-semibold text-gray-800 mb-4 pb-2 border-b border-gray-200">Project Description</h3>
-          <div class="prose max-w-none text-gray-700">
-            {{ project.description|linebreaks }}
+
+          <!-- Project Members -->
+          {% if project.members.all %}
+          <div class="pt-8 border-t border-gray-200">
+            <h2 class="text-2xl font-bold text-gray-900 mb-4 flex items-center">
+              <i class="fas fa-users text-[#02644A] mr-3"></i>
+              Project Team
+            </h2>
+            <div class="h-0.5 bg-gradient-to-r from-[#02644A] to-transparent mb-6"></div>
+            <div class="space-y-3">
+              {% for member in project.members.all %}
+              <div class="p-4 rounded-lg border border-gray-200 flex items-center transition-all duration-300 ease-in-out hover:translate-x-1 hover:bg-gray-50">
+                <div class="flex-shrink-0 w-12 h-12 bg-[#02644A] rounded-full flex items-center justify-center text-white font-bold text-lg">
+                  {{ member.name|first }}
+                </div>
+                <div class="ml-4">
+                  <h3 class="text-lg font-semibold text-gray-900">{{ member.name }}</h3>
+                  <p class="text-sm text-gray-600">{{ member.designation }}</p>
+                </div>
+              </div>
+              {% endfor %}
+            </div>
           </div>
+          {% endif %}
+
         </div>
+
       </div>
-      
+
       <!-- Sidebar -->
-      <div class="w-full lg:w-4/12">
-        <div class="bg-white rounded-xl shadow-lg p-6 sticky top-6">
-          <h3 class="text-xl font-semibold text-gray-800 mb-4 pb-3 border-b border-gray-200">Project Information</h3>
-          <ul class="space-y-4 mb-6">
-            <li class="flex items-start">
-              <svg class="w-5 h-5 text-blue-500 mt-0.5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
-              </svg>
-              <div>
-                <p class="text-sm text-gray-500">Created Date</p>
-                <p class="font-medium text-gray-800">{{ project.created_at|date:"F d, Y" }}</p>
+      <div class="lg:col-span-1">
+        <div class="bg-white rounded-lg shadow-sm border border-gray-100 sticky top-6">
+          
+          <!-- Project Information Header -->
+          <div class="bg-gradient-to-r from-[#02644A] to-[#00916a] text-white p-6 rounded-t-lg">
+            <h2 class="text-xl font-bold flex items-center">
+              <i class="fas fa-info-circle mr-2"></i>
+              Project Details
+            </h2>
+          </div>
+
+          <!-- Project Info Items -->
+          <div class="p-6 space-y-5">
+            
+            <!-- Project Type -->
+            <div class="info-item">
+              <div class="flex items-start">
+                <div class="flex-shrink-0 w-10 h-10 bg-blue-50 rounded-lg flex items-center justify-center">
+                  <i class="fas fa-folder-open text-[#02644A]"></i>
+                </div>
+                <div class="ml-3 flex-1">
+                  <p class="text-xs font-medium text-gray-500 uppercase tracking-wide">Type</p>
+                  <p class="mt-1 text-sm font-semibold text-gray-900">{{ project.get_project_type_display }}</p>
+                </div>
               </div>
-            </li>
-            <li class="flex items-start">
-              <svg class="w-5 h-5 text-blue-500 mt-0.5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-              </svg>
-              <div>
-                <p class="text-sm text-gray-500">Status</p>
-                <p class="font-medium text-gray-800">{{ project.status }}</p>
+            </div>
+
+            <hr class="border-gray-200">
+
+            <!-- Start Date -->
+            <div class="info-item">
+              <div class="flex items-start">
+                <div class="flex-shrink-0 w-10 h-10 bg-green-50 rounded-lg flex items-center justify-center">
+                  <i class="fas fa-calendar-plus text-[#02644A]"></i>
+                </div>
+                <div class="ml-3 flex-1">
+                  <p class="text-xs font-medium text-gray-500 uppercase tracking-wide">Start Date</p>
+                  <p class="mt-1 text-sm font-semibold text-gray-900">{{ project.start_date|date:"F d, Y" }}</p>
+                </div>
               </div>
-            </li>
-          </ul>
-          <a href="{% url 'all_projects' %}" class="w-full flex items-center justify-center px-4 py-3 bg-blue-600 text-white font-medium rounded-lg hover:bg-blue-700 transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
-            <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path>
-            </svg>
-            Back to Projects
-          </a>
+            </div>
+
+            <hr class="border-gray-200">
+
+            <!-- End Date -->
+            <div class="info-item">
+              <div class="flex items-start">
+                <div class="flex-shrink-0 w-10 h-10 bg-purple-50 rounded-lg flex items-center justify-center">
+                  <i class="fas fa-calendar-check text-[#02644A]"></i>
+                </div>
+                <div class="ml-3 flex-1">
+                  <p class="text-xs font-medium text-gray-500 uppercase tracking-wide">End Date</p>
+                  <p class="mt-1 text-sm font-semibold text-gray-900">
+                    {% if project.end_date %}
+                      {{ project.end_date|date:"F d, Y" }}
+                    {% else %}
+                      <span class="text-blue-600">Ongoing</span>
+                    {% endif %}
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Funding Agency -->
+            {% if project.funding_agency %}
+            <hr class="border-gray-200">
+            <div class="info-item">
+              <div class="flex items-start">
+                <div class="flex-shrink-0 w-10 h-10 bg-yellow-50 rounded-lg flex items-center justify-center">
+                  <i class="fas fa-building text-[#02644A]"></i>
+                </div>
+                <div class="ml-3 flex-1">
+                  <p class="text-xs font-medium text-gray-500 uppercase tracking-wide">Funding Agency</p>
+                  <p class="mt-1 text-sm font-semibold text-gray-900">{{ project.funding_agency }}</p>
+                </div>
+              </div>
+            </div>
+            {% endif %}
+
+            <!-- Budget -->
+            {% if project.budget %}
+            <hr class="border-gray-200">
+            <div class="info-item">
+              <div class="flex items-start">
+                <div class="flex-shrink-0 w-10 h-10 bg-red-50 rounded-lg flex items-center justify-center">
+                  <i class="fas fa-money-bill-wave text-[#02644A]"></i>
+                </div>
+                <div class="ml-3 flex-1">
+                  <p class="text-xs font-medium text-gray-500 uppercase tracking-wide">Budget</p>
+                  <p class="mt-1 text-sm font-semibold text-gray-900">৳{{ project.budget|floatformat:2 }}</p>
+                </div>
+              </div>
+            </div>
+            {% endif %}
+
+          </div>
+
+          <!-- Back Button -->
+          <div class="p-6 pt-0">
+            <a href="{% url 'all_projects' %}" 
+               class="w-full flex items-center justify-center px-4 py-3 bg-gradient-to-r from-[#02644A] to-[#00916a] text-white font-semibold rounded-lg hover:shadow-lg transition-all duration-300 transform hover:-translate-y-0.5">
+              <i class="fas fa-arrow-left mr-2"></i>
+              Back to Projects
+            </a>
+          </div>
+
         </div>
       </div>
+
     </div>
   </div>
 </section>

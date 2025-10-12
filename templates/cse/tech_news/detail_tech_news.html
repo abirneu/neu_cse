@@ -2,71 +2,204 @@
 {% load static %}
 
 {% block content %}
-<div class="container mx-auto px-4 py-8 max-w-4xl">
-    <div class="mb-2">
-        <div class="text-sm text-gray-500 mb-1">
-            <a href="{% url 'home' %}" class="text-green-600 hover:underline">Home</a>
-            <span class="mx-1">/</span>
-            <a href="{% url 'all_tech_news' %}" class="text-green-600 hover:underline">Tech News</a>
-            <span class="mx-1">/</span>
-            <span>News Details</span>
-        </div>
-    </div>
-    
-    <h1 class="text-3xl font-bold text-center mb-8 text-green-600">Tech News Details</h1>
-    
-    <article class="bg-white rounded-lg shadow-md overflow-hidden">
-        {% if news.image %}
-        <img src="{{ news.image.url }}" alt="{{ news.title }}" class="w-full h-64 object-cover">
-        {% else %}
-        <div class="w-full h-64 bg-gray-200 flex items-center justify-center">
-            <span class="text-gray-500 text-lg">No image available</span>
-        </div>
-        {% endif %}
+<!-- Background with subtle gradient -->
+<div class="min-h-screen ">
+     <!-- Breadcrumb Navigation -->
+        <nav class="mb-6" aria-label="Breadcrumb">
+            <ol class="flex items-center space-x-2 text-sm text-gray-600">
+                <li>
+                    <a href="{% url 'home' %}" class="hover:text-[#02644A] transition-colors flex items-center">
+                        <svg class="w-4 h-4 mr-1" fill="currentColor" viewBox="0 0 20 20">
+                            <path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z"></path>
+                        </svg>
+                        Home
+                    </a>
+                </li>
+                <li><span class="text-gray-400">/</span></li>
+                <li>
+                    <a href="{% url 'all_tech_news' %}" class="hover:text-[#02644A] transition-colors">Tech News</a>
+                </li>
+                <li><span class="text-gray-400">/</span></li>
+                <li class="text-gray-800 font-medium">Article</li>
+            </ol>
+        </nav>
+    <div class="container mx-auto px-4 py-8 max-w-5xl">
         
-        <div class="p-6">
-            <span class="inline-block px-3 py-1 bg-blue-100 text-blue-800 text-sm font-semibold rounded-full mb-4">
-                Tech News
-            </span>
+       
+        
+        <!-- Main Article Card -->
+        <article class="bg-white rounded-2xl overflow-hidden border border-gray-100 hover:shadow-sm transition-shadow duration-300">
             
-            <h1 class="text-3xl font-bold text-gray-800 mb-4">{{ news.title }}</h1>
-            
-            <div class="flex items-center text-gray-700 mb-6">
-                <svg class="w-5 h-5 mr-3 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
-                </svg>
-                <div>
-                    <p class="font-semibold">Published Date</p>
-                    <p>{{ news.created_at|date:"M d, Y, h:i A" }}</p>
+            <!-- Featured Image -->
+            {% if news.image %}
+            <div class="relative h-96 overflow-hidden">
+                <img src="{{ news.image.url }}" 
+                     alt="{{ news.title }}" 
+                     class="w-full h-full object-cover transform hover:scale-105 transition-transform duration-700">
+                <div class="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent"></div>
+            </div>
+            {% else %}
+            <div class="relative h-96 bg-green-500 flex items-center justify-center">
+                <div class="text-center text-white">
+                    <svg class="w-20 h-20 mx-auto mb-3 opacity-70" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z"></path>
+                    </svg>
+                    <span class="text-lg font-medium">Tech News Article</span>
                 </div>
             </div>
-            
-            <div class="prose max-w-none mb-6 text-gray-700 leading-relaxed">
-                {{ news.content|safe }}
-            </div>
-            
-            {% if news.source %}
-            <div class="border-t border-gray-200 pt-4 mt-6">
-                <p class="text-sm text-gray-600">
-                    <span class="font-semibold">Source:</span> 
-                    {% if news.source_url %}
-                    <a href="{{ news.source_url }}" target="_blank" class="text-blue-600 hover:text-blue-800 hover:underline">{{ news.source }}</a>
-                    {% else %}
-                    {{ news.source }}
-                    {% endif %}
-                </p>
-            </div>
             {% endif %}
+            
+            <!-- Article Content -->
+            <div class="p-8 md:p-12">
+                
+                <!-- Category Badge -->
+                <div class="mb-6">
+                    <span class="inline-flex items-center px-4 py-1.5 bg-green-600 text-white text-sm font-semibold rounded-full shadow-md">
+                        <svg class="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                            <path d="M13 7H7v6h6V7z"></path>
+                            <path fill-rule="evenodd" d="M7 2a1 1 0 012 0v1h2V2a1 1 0 112 0v1h2a2 2 0 012 2v2h1a1 1 0 110 2h-1v2h1a1 1 0 110 2h-1v2a2 2 0 01-2 2h-2v1a1 1 0 11-2 0v-1H9v1a1 1 0 11-2 0v-1H5a2 2 0 01-2-2v-2H2a1 1 0 110-2h1V9H2a1 1 0 010-2h1V5a2 2 0 012-2h2V2zM5 5h10v10H5V5z" clip-rule="evenodd"></path>
+                        </svg>
+                        Technology News
+                    </span>
+                </div>
+                
+                <!-- Article Title -->
+                <h1 class="text-3xl md:text-3xl font-bold text-gray-900 mb-6 leading-tight tracking-tight">
+                    {{ news.title }}
+                </h1>
+                
+                <!-- Meta Information -->
+                <div class="flex flex-wrap items-center gap-6 py-6 mb-8 border-y border-gray-200">
+                    <div class="flex items-center text-gray-600">
+                        <div class="flex items-center justify-center w-10 h-10 rounded-full bg-[#02644A]/10 mr-3">
+                            <svg class="w-5 h-5 text-[#02644A]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+                            </svg>
+                        </div>
+                        <div>
+                            <p class="text-xs text-gray-500 uppercase tracking-wide font-medium">Published</p>
+                            <p class="text-sm font-semibold text-gray-800">{{ news.published_date|date:"F d, Y" }}</p>
+                        </div>
+                    </div>
+                    
+                    <div class="flex items-center text-gray-600">
+                        <div class="flex items-center justify-center w-10 h-10 rounded-full bg-blue-50 mr-3">
+                            <svg class="w-5 h-5 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                            </svg>
+                        </div>
+                        <div>
+                            <p class="text-xs text-gray-500 uppercase tracking-wide font-medium">Time</p>
+                            <p class="text-sm font-semibold text-gray-800">{{ news.published_date|date:"g:i A" }}</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Article Body -->
+                <div class="max-w-none mb-10 text-gray-700 leading-relaxed">
+                    <div class="text-base md:text-lg space-y-4 [&>p]:mb-5 [&>p]:leading-[1.8] [&>h2]:text-3xl [&>h2]:font-bold [&>h2]:mt-8 [&>h2]:mb-4 [&>h2]:text-gray-900 [&>h3]:text-2xl [&>h3]:font-semibold [&>h3]:mt-7 [&>h3]:mb-3.5 [&>h3]:text-gray-800 [&>ul]:ml-6 [&>ul]:mb-5 [&>ul]:list-disc [&>ol]:ml-6 [&>ol]:mb-5 [&>ol]:list-decimal [&>li]:mb-2 [&>li]:leading-[1.7] [&>a]:text-[#02644A] [&>a]:underline [&>a]:transition-colors hover:[&>a]:text-[#00916a] [&>img]:rounded-lg [&>img]:my-6 [&>img]:shadow-md [&>blockquote]:border-l-4 [&>blockquote]:border-[#02644A] [&>blockquote]:pl-6 [&>blockquote]:my-6 [&>blockquote]:italic [&>blockquote]:text-gray-600 [&>blockquote]:bg-gray-50 [&>blockquote]:py-4 [&>blockquote]:rounded-md [&>code]:bg-gray-100 [&>code]:px-1.5 [&>code]:py-0.5 [&>code]:rounded [&>code]:text-sm [&>code]:text-red-600 [&>pre]:bg-gray-800 [&>pre]:text-gray-100 [&>pre]:p-4 [&>pre]:rounded-lg [&>pre]:overflow-x-auto [&>pre]:my-6 [&>pre>code]:bg-transparent [&>pre>code]:text-inherit [&>pre>code]:p-0">
+                        {{ news.content|safe }}
+                    </div>
+                </div>
+                
+                <!-- Source Information -->
+                {% if news.source %}
+                <div class="mt-10 p-6 bg-gradient-to-r from-gray-50 to-gray-100 rounded-xl border-l-4 border-[#02644A]">
+                    <div class="flex items-start">
+                        <svg class="w-6 h-6 text-[#02644A] mr-3 mt-1 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                        </svg>
+                        <div>
+                            <p class="text-sm font-semibold text-gray-700 mb-1 uppercase tracking-wide">Source</p>
+                            {% if news.url %}
+                            <a href="{{ news.url }}" 
+                               target="_blank" 
+                               rel="noopener noreferrer"
+                               class="text-[#02644A] hover:text-[#00916a] font-medium inline-flex items-center group transition-colors">
+                                {{ news.source }}
+                                <svg class="w-4 h-4 ml-1 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path>
+                                </svg>
+                            </a>
+                            {% else %}
+                            <p class="text-gray-800 font-medium">{{ news.source }}</p>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+                {% endif %}
+                
+                <!-- Social Share Section -->
+                <div class="mt-10 pt-8 border-t border-gray-200">
+                    <p class="text-sm font-semibold text-gray-700 mb-3 uppercase tracking-wide">Share This Article</p>
+                    <div class="flex gap-3">
+                        <button onclick="shareOnFacebook()" class="flex items-center justify-center w-10 h-10 rounded-full bg-blue-600 hover:bg-blue-700 text-white transition-colors shadow-md hover:shadow-lg transform hover:scale-110 duration-200">
+                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"></path>
+                            </svg>
+                        </button>
+                        <button onclick="shareOnTwitter()" class="flex items-center justify-center w-10 h-10 rounded-full bg-sky-500 hover:bg-sky-600 text-white transition-colors shadow-md hover:shadow-lg transform hover:scale-110 duration-200">
+                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M23 3a10.9 10.9 0 01-3.14 1.53 4.48 4.48 0 00-7.86 3v1A10.66 10.66 0 013 4s-4 9 5 13a11.64 11.64 0 01-7 2c9 5 20 0 20-11.5a4.5 4.5 0 00-.08-.83A7.72 7.72 0 0023 3z"></path>
+                            </svg>
+                        </button>
+                        <button onclick="shareOnLinkedIn()" class="flex items-center justify-center w-10 h-10 rounded-full bg-blue-700 hover:bg-blue-800 text-white transition-colors shadow-md hover:shadow-lg transform hover:scale-110 duration-200">
+                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6zM2 9h4v12H2z"></path>
+                                <circle cx="4" cy="4" r="2"></circle>
+                            </svg>
+                        </button>
+                        <button onclick="copyLink()" class="flex items-center justify-center w-10 h-10 rounded-full bg-gray-600 hover:bg-gray-700 text-white transition-colors shadow-md hover:shadow-lg transform hover:scale-110 duration-200">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </article>
+        
+        <!-- Navigation Button -->
+        <div class="mt-10 flex justify-center">
+            <a href="{% url 'all_tech_news' %}" 
+               class="group inline-flex items-center px-6 py-3 bg-[#02644A] hover:bg-[#00916a] text-white font-semibold rounded-lg shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-0.5">
+                <svg class="w-5 h-5 mr-2 group-hover:-translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path>
+                </svg>
+                Back to All Tech News
+            </a>
         </div>
-    </article>
-    
-    <div class="mt-8 text-center">
-        <a href="{% url 'all_tech_news' %}" class="inline-flex items-center text-blue-600 hover:text-blue-800 transition-colors">
-            <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path>
-            </svg>
-            Back to Tech News
-        </a>
     </div>
 </div>
+
+<!-- Social Share Scripts -->
+<script>
+function shareOnFacebook() {
+    const url = encodeURIComponent(window.location.href);
+    window.open(`https://www.facebook.com/sharer/sharer.php?u=${url}`, '_blank', 'width=600,height=400');
+}
+
+function shareOnTwitter() {
+    const url = encodeURIComponent(window.location.href);
+    const text = encodeURIComponent('{{ news.title|escapejs }}');
+    window.open(`https://twitter.com/intent/tweet?url=${url}&text=${text}`, '_blank', 'width=600,height=400');
+}
+
+function shareOnLinkedIn() {
+    const url = encodeURIComponent(window.location.href);
+    window.open(`https://www.linkedin.com/sharing/share-offsite/?url=${url}`, '_blank', 'width=600,height=400');
+}
+
+function copyLink() {
+    navigator.clipboard.writeText(window.location.href).then(() => {
+        // Show a temporary notification
+        const btn = event.currentTarget;
+        const originalHTML = btn.innerHTML;
+        btn.innerHTML = '<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>';
+        setTimeout(() => {
+            btn.innerHTML = originalHTML;
+        }, 2000);
+    });
+}
+</script>
 {% endblock %}

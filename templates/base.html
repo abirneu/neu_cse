@@ -62,7 +62,6 @@
     scroll-behavior: smooth;
   }
   
-  /* Enhanced animation performance */
   [data-aos] {
     pointer-events: none;
   }
@@ -71,12 +70,10 @@
     pointer-events: auto;
   }
   
-  /* Custom professional hover effects */
   .aos-animate {
     transition: transform 0.3s ease, box-shadow 0.3s ease;
   }
   
-  /* Ensure animations work well with reduced motion preferences */
   @media (prefers-reduced-motion: reduce) {
     [data-aos] {
       animation-duration: 0.1s !important;
@@ -84,7 +81,6 @@
     }
   }
   
-  /* Line clamp utilities for text truncation */
   .line-clamp-2 {
     overflow: hidden;
     display: -webkit-box;
@@ -99,7 +95,6 @@
     -webkit-line-clamp: 3;
   }
   
-  /* Enhanced focus states for accessibility */
   .focus-visible:focus-visible {
     outline: 2px solid var(--custom-green);
     outline-offset: 2px;
@@ -107,11 +102,9 @@
 </style>
 
 </head>
-<body class="bg-gray-200 font-sans">
-    <!-- AOS JS -->
+<body class="bg-gray-100 font-sans">
 <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 <script>
-  // Initialize AOS
   document.addEventListener('DOMContentLoaded', function() {
     AOS.init({
       duration: 800, // Animation duration in milliseconds (optimized for readability)
