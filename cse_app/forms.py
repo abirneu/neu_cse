@@ -1,5 +1,5 @@
 from django import forms
-from .models import Notice_Board, ScrollingNotice, FacultyMember, Education, ProfessionalExperience
+from .models import Notice_Board, ScrollingNotice, FacultyMember, Education, ProfessionalExperience, StaffProfile
 from ckeditor.widgets import CKEditorWidget
 
 class NoticeForm(forms.ModelForm):
@@ -249,3 +249,65 @@ class ProfessionalExperienceForm(forms.ModelForm):
             'description': 'Job Description',
             'order': 'Order (0 for latest)',
         }
+
+
+class StaffProfileForm(forms.ModelForm):
+    # Add fields for User model
+    first_name = forms.CharField(
+        max_length=150,
+        widget=forms.TextInput(attrs={
+            'class': 'w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500 transition-colors',
+            'placeholder': 'First Name'
+        })
+    )
+    last_name = forms.CharField(
+        max_length=150,
+        widget=forms.TextInput(attrs={
+            'class': 'w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500 transition-colors',
+            'placeholder': 'Last Name'
+        })
+    )
+    email = forms.EmailField(
+        widget=forms.EmailInput(attrs={
+            'class': 'w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500 transition-colors',
+            'placeholder': 'Email Address'
+        })
+    )
+    
+    class Meta:
+        model = StaffProfile
+        fields = ['designation', 'phone_number', 'address', 'profile_image']
+        
+        widgets = {
+            'designation': forms.TextInput(attrs={
+                'class': 'w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500 transition-colors',
+                'placeholder': 'Designation'
+            }),
+            'phone_number': forms.TextInput(attrs={
+                'class': 'w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500 transition-colors',
+                'placeholder': 'Phone Number'
+            }),
+            'address': forms.Textarea(attrs={
+                'class': 'w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500 transition-colors',
+                'rows': 3,
+                'placeholder': 'Full Address'
+            }),
+            'profile_image': forms.FileInput(attrs={
+                'class': 'w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500 transition-colors',
+                'accept': 'image/*'
+            }),
+        }
+        
+        labels = {
+            'designation': 'Designation',
+            'phone_number': 'Phone Number',
+            'address': 'Address',
+            'profile_image': 'Profile Image',
+        }
+    
+    def __init__(self, *args, **kwargs):
+        super(StaffProfileForm, self).__init__(*args, **kwargs)
+        if self.instance and self.instance.user:
+            self.fields['first_name'].initial = self.instance.user.first_name
+            self.fields['last_name'].initial = self.instance.user.last_name
+            self.fields['email'].initial = self.instance.user.email

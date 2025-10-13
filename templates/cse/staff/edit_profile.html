@@ -1,0 +1,183 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Edit Profile - Staff Dashboard{% endblock %}
+
+{% block content %}
+<div class="min-h-screen bg-gray-50">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <!-- Header -->
+        <div class="mb-8">
+            <div class="flex items-center mb-4">
+                <a href="{% url 'staff_dashboard' %}" class="mr-4 text-green-500 hover:text-green-600 transition-colors">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+                    </svg>
+                </a>
+                <h1 class="text-2xl sm:text-3xl font-bold text-green-500">Edit Profile</h1>
+            </div>
+            <p class="text-gray-600">Update your personal information and profile details</p>
+        </div>
+
+        <!-- Profile Edit Form -->
+        <div class="bg-white rounded-xl shadow-sm overflow-hidden border border-gray-100">
+            <div class="bg-green-500 px-6 py-5">
+                <h3 class="text-lg font-semibold text-white">Profile Information</h3>
+            </div>
+            
+            <form method="post" enctype="multipart/form-data" class="p-6">
+                {% csrf_token %}
+                
+                <!-- Current Profile Image -->
+                {% if staff_profile.profile_image %}
+                <div class="mb-6">
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Current Profile Image</label>
+                    <div class="flex items-center space-x-4">
+                        <img src="{{ staff_profile.profile_image.url }}" alt="Profile" class="w-24 h-24 rounded-full object-cover border-4 border-gray-200">
+                        <p class="text-sm text-gray-500">Upload a new image to replace this one</p>
+                    </div>
+                </div>
+                {% endif %}
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <!-- First Name -->
+                    <div>
+                        <label for="{{ form.first_name.id_for_label }}" class="block text-sm font-medium text-gray-700 mb-2">
+                            First Name <span class="text-red-500">*</span>
+                        </label>
+                        {{ form.first_name }}
+                        {% if form.first_name.errors %}
+                            <p class="mt-1 text-sm text-red-600">{{ form.first_name.errors.0 }}</p>
+                        {% endif %}
+                    </div>
+
+                    <!-- Last Name -->
+                    <div>
+                        <label for="{{ form.last_name.id_for_label }}" class="block text-sm font-medium text-gray-700 mb-2">
+                            Last Name <span class="text-red-500">*</span>
+                        </label>
+                        {{ form.last_name }}
+                        {% if form.last_name.errors %}
+                            <p class="mt-1 text-sm text-red-600">{{ form.last_name.errors.0 }}</p>
+                        {% endif %}
+                    </div>
+
+                    <!-- Email -->
+                    <div>
+                        <label for="{{ form.email.id_for_label }}" class="block text-sm font-medium text-gray-700 mb-2">
+                            Email Address <span class="text-red-500">*</span>
+                        </label>
+                        {{ form.email }}
+                        {% if form.email.errors %}
+                            <p class="mt-1 text-sm text-red-600">{{ form.email.errors.0 }}</p>
+                        {% endif %}
+                    </div>
+
+                    <!-- Phone Number -->
+                    <div>
+                        <label for="{{ form.phone_number.id_for_label }}" class="block text-sm font-medium text-gray-700 mb-2">
+                            Phone Number <span class="text-red-500">*</span>
+                        </label>
+                        {{ form.phone_number }}
+                        {% if form.phone_number.errors %}
+                            <p class="mt-1 text-sm text-red-600">{{ form.phone_number.errors.0 }}</p>
+                        {% endif %}
+                    </div>
+
+                    <!-- Designation -->
+                    <div>
+                        <label for="{{ form.designation.id_for_label }}" class="block text-sm font-medium text-gray-700 mb-2">
+                            Designation <span class="text-red-500">*</span>
+                        </label>
+                        {{ form.designation }}
+                        {% if form.designation.errors %}
+                            <p class="mt-1 text-sm text-red-600">{{ form.designation.errors.0 }}</p>
+                        {% endif %}
+                    </div>
+
+                    <!-- Profile Image -->
+                    <div>
+                        <label for="{{ form.profile_image.id_for_label }}" class="block text-sm font-medium text-gray-700 mb-2">
+                            Profile Image
+                        </label>
+                        {{ form.profile_image }}
+                        {% if form.profile_image.errors %}
+                            <p class="mt-1 text-sm text-red-600">{{ form.profile_image.errors.0 }}</p>
+                        {% endif %}
+                        <p class="mt-1 text-sm text-gray-500">Recommended: Square image, at least 400x400px</p>
+                    </div>
+                </div>
+
+                <!-- Address (Full Width) -->
+                <div class="mt-6">
+                    <label for="{{ form.address.id_for_label }}" class="block text-sm font-medium text-gray-700 mb-2">
+                        Address <span class="text-red-500">*</span>
+                    </label>
+                    {{ form.address }}
+                    {% if form.address.errors %}
+                        <p class="mt-1 text-sm text-red-600">{{ form.address.errors.0 }}</p>
+                    {% endif %}
+                </div>
+
+                <!-- Read-Only Fields Info -->
+                <div class="mt-6 p-4 bg-blue-50 border border-blue-200 rounded-lg">
+                    <div class="flex items-start">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-blue-600 mr-2 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        </svg>
+                        <div>
+                            <p class="text-sm font-medium text-blue-900">Read-Only Information</p>
+                            <p class="text-sm text-blue-700 mt-1">
+                                <strong>Staff ID:</strong> {{ staff_profile.staff_id }} | 
+                                <strong>Join Date:</strong> {{ staff_profile.join_date|date:"M d, Y" }}
+                            </p>
+                            <p class="text-xs text-blue-600 mt-1">These fields cannot be changed. Contact administrator if correction is needed.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Form Actions -->
+                <div class="mt-8 flex flex-col sm:flex-row gap-4">
+                    <button type="submit" class="flex-1 inline-flex items-center justify-center px-6 py-3 bg-green-500 border border-transparent rounded-xl font-semibold text-white hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 transition-all duration-200 shadow-sm hover:shadow-md">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                        </svg>
+                        Update Profile
+                    </button>
+                    <a href="{% url 'staff_dashboard' %}" class="flex-1 inline-flex items-center justify-center px-6 py-3 bg-gray-200 border border-gray-300 rounded-xl font-semibold text-gray-700 hover:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500 transition-all duration-200">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                        </svg>
+                        Cancel
+                    </a>
+                </div>
+            </form>
+        </div>
+
+        <!-- Help Section -->
+        <div class="mt-6 bg-white rounded-xl shadow-sm overflow-hidden border border-gray-100 p-6">
+            <h3 class="text-lg font-semibold text-gray-900 mb-4">Profile Tips</h3>
+            <ul class="space-y-2 text-sm text-gray-600">
+                <li class="flex items-start">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-green-500 mr-2 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                    <span>Use a professional profile photo for better recognition</span>
+                </li>
+                <li class="flex items-start">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-green-500 mr-2 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                    <span>Keep your contact information up-to-date for easy communication</span>
+                </li>
+                <li class="flex items-start">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-green-500 mr-2 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                    <span>Profile images should be in JPG, PNG, or GIF format</span>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -15,7 +15,7 @@ from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.core.exceptions import PermissionDenied
-from .forms import NoticeForm, ScrollingNoticeForm, FacultyMemberForm, EducationForm, ProfessionalExperienceForm
+from .forms import NoticeForm, ScrollingNoticeForm, FacultyMemberForm, EducationForm, ProfessionalExperienceForm, StaffProfileForm
 
 def staff_login(request):
     if request.method == 'POST':
@@ -271,6 +271,55 @@ def delete_scrolling_notice(request, pk):
     return render(request, 'cse/staff/delete_scrolling_notice_confirm.html', {
         'notice': notice
     })
+
+@login_required(login_url='staff_login')
+def edit_staff_profile(request):
+    try:
+        staff_profile = StaffProfile.objects.get(user=request.user)
+        
+        if not staff_profile.is_active:
+            messages.error(request, 'Your account is not active.')
+            logout(request)
+            return redirect('staff_login')
+        
+        if request.method == 'POST':
+            form = StaffProfileForm(request.POST, request.FILES, instance=staff_profile)
+            if form.is_valid():
+                # Update User model fields
+                user = request.user
+                user.first_name = form.cleaned_data['first_name']
+                user.last_name = form.cleaned_data['last_name']
+                user.email = form.cleaned_data['email']
+                user.save()
+                
+                # Update StaffProfile
+                form.save()
+                
+                request.session['temp_message'] = {
+                    'type': 'success',
+                    'message': 'Profile updated successfully!'
+                }
+                request.session.modified = True
+                return redirect('staff_dashboard')
+            else:
+                request.session['temp_message'] = {
+                    'type': 'error',
+                    'message': 'Error updating profile. Please check the form.'
+                }
+                request.session.modified = True
+        else:
+            form = StaffProfileForm(instance=staff_profile)
+        
+        context = {
+            'form': form,
+            'staff_profile': staff_profile,
+        }
+        return render(request, 'cse/staff/edit_profile.html', context)
+        
+    except StaffProfile.DoesNotExist:
+        logout(request)
+        messages.error(request, 'You are not registered as staff.')
+        return redirect('staff_login')
 
 # Faculty Login System Views
 def faculty_login(request):
