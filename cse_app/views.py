@@ -1201,3 +1201,7 @@ def delete_professional_experience(request, pk):
         logout(request)
         messages.error(request, 'You are not registered as faculty.')
         return redirect('faculty_login')
+
+# Custom 404 Error Handler
+def custom_404_view(request, exception):
+    return render(request, 'cse/404.html', status=404)
