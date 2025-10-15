@@ -10,8 +10,9 @@ venv/
 env/
 ENV/
 
-# Django stuff
-.sqlite3
+# Django stuff 
+*.sqlite3
+db.sqlite3
 *.log
 /staticfiles/
 

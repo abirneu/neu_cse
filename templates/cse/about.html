@@ -1,3 +1,5 @@
+{% load static %}
+
 <!-- About Us Section -->
     <section class="pt-8 pb-16 px-4 md:px-8 lg:px-16" data-aos="fade-up" data-aos-duration="1000">
         <div class="max-w-6xl mx-auto">
@@ -21,13 +23,13 @@
                         Our department attracts talented students from across the region and offers comprehensive Bachelor's and Master's degrees in Computer Science and Engineering. Our curriculum is regularly updated to meet international standards and industry demands, ensuring our graduates are well-prepared for the rapidly evolving tech landscape.
                     </p>
                     
-                    <div class="grid grid-cols-2 gap-6 mt-8">
+                    <div class="grid grid-cols-2 md:grid-cols-3 gap-6 mt-8">
                         <div class="flex items-center" data-aos="zoom-in" data-aos-delay="1000">
                             <div class="bg-blue-100 p-3 rounded-full mr-4">
                                 <i class="fas fa-graduation-cap text-emerald-400 text-xl"></i>
                             </div>
                             <div>
-                                <h4 class="font-semibold text-gray-800 counter" data-target="150">0</h4>
+                                <h4 class="font-semibold text-gray-800 counter" data-target="{{ total_students }}">0</h4>
                                 <p class="text-sm text-gray-600">Students</p>
                             </div>
                         </div>
@@ -36,27 +38,44 @@
                                 <i class="fas fa-chalkboard-teacher text-emerald-400 text-xl"></i>
                             </div>
                             <div>
-                                <h4 class="font-semibold text-gray-800 counter" data-target="7">0</h4>
+                                <h4 class="font-semibold text-gray-800 counter" data-target="{{ total_faculty }}">0</h4>
                                 <p class="text-sm text-gray-600">Faculty Members</p>
                             </div>
                         </div>
-                        <div class="flex items-center">
+                        <div class="flex items-center" data-aos="zoom-in" data-aos-delay="1400">
                             <div class="bg-blue-100 p-3 rounded-full mr-4">
                                 <i class="fas fa-laptop-code text-emerald-400 text-xl"></i>
                             </div>
                             <div>
-                                <h4 class="font-semibold text-gray-800 counter" data-target="3">0</h4>
+                                <h4 class="font-semibold text-gray-800 counter" data-target="{{ total_labs }}">0</h4>
                                 <p class="text-sm text-gray-600">Labs</p>
                             </div>
                         </div>
-                        <div class="flex items-center">
+                        <div class="flex items-center" data-aos="zoom-in" data-aos-delay="1600">
                             <div class="bg-blue-100 p-3 rounded-full mr-4">
                                 <i class="fas fa-book-open text-emerald-400 text-xl"></i>
                             </div>
                             <div>
-                                
-                                <h4 class="font-semibold text-gray-800 counter" data-target="8">0</h4>
+                                <h4 class="font-semibold text-gray-800 counter" data-target="{{ total_research_areas }}">0</h4>
                                 <p class="text-sm text-gray-600">Research Areas</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center" data-aos="zoom-in" data-aos-delay="1800">
+                            <div class="bg-blue-100 p-3 rounded-full mr-4">
+                                <i class="fas fa-file-alt text-emerald-400 text-xl"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold text-gray-800 counter" data-target="{{ total_publications }}">0</h4>
+                                <p class="text-sm text-gray-600">Publications</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center" data-aos="zoom-in" data-aos-delay="2000">
+                            <div class="bg-blue-100 p-3 rounded-full mr-4">
+                                <i class="fas fa-project-diagram text-emerald-400 text-xl"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold text-gray-800 counter" data-target="{{ total_projects }}">0</h4>
+                                <p class="text-sm text-gray-600">Projects</p>
                             </div>
                         </div>
                     </div>
@@ -67,7 +86,7 @@
                 <!-- Image/Illustration -->
                 <div class="relative">
                     <div class="bg-blue-600 rounded-2xl overflow-hidden shadow-xl hover-lift">
-                        <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1000&q=80" 
+                        <img src="{% static 'images/random_img/lab.jpg' %}" 
                              alt="CSE Students at Netrokona University" class="w-full h-96 object-cover">
                         <div class="absolute inset-0 bg-gradient-to-t from-blue-900 to-transparent opacity-70"></div>
                     </div>

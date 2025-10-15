@@ -444,3 +444,111 @@ class ProfessionalExperience(models.Model):
 
 
 # AwardRecord model removed - use rich text field 'awards_honors' instead
+
+
+class DepartmentStatistics(models.Model):
+    """
+    Model to manage department statistics displayed on the About page.
+    Only one instance should exist (Singleton pattern).
+    """
+    # Basic Statistics
+    total_students = models.IntegerField(
+        default=150,
+        help_text="Total number of enrolled students in the department"
+    )
+    total_faculty = models.IntegerField(
+        default=0,
+        help_text="Total number of active faculty members (auto-calculated if set to 0)"
+    )
+    total_labs = models.IntegerField(
+        default=3,
+        help_text="Number of computer labs in the department"
+    )
+    total_research_areas = models.IntegerField(
+        default=0,
+        help_text="Number of research focus areas (auto-calculated if set to 0)"
+    )
+    
+    # Additional Statistics
+    total_publications = models.IntegerField(
+        default=0,
+        help_text="Total research publications (auto-calculated if set to 0)"
+    )
+    total_projects = models.IntegerField(
+        default=0,
+        help_text="Total research/academic projects (auto-calculated if set to 0)"
+    )
+    
+    # Optional Custom Statistics
+    total_alumni = models.IntegerField(
+        default=0,
+        blank=True,
+        help_text="Total number of alumni (optional)"
+    )
+    established_year = models.IntegerField(
+        default=2019,
+        help_text="Year the department was established"
+    )
+    
+    # Metadata
+    last_updated = models.DateTimeField(auto_now=True)
+    updated_by = models.ForeignKey(
+        User, 
+        on_delete=models.SET_NULL, 
+        null=True, 
+        blank=True,
+        help_text="Last user who updated the statistics"
+    )
+    
+    # Notes
+    notes = models.TextField(
+        blank=True,
+        help_text="Internal notes about statistics updates"
+    )
+    
+    class Meta:
+        verbose_name = "Department Statistics"
+        verbose_name_plural = "Department Statistics"
+    
+    def __str__(self):
+        return f"Department Statistics (Last updated: {self.last_updated.strftime('%Y-%m-%d %H:%M')})"
+    
+    def save(self, *args, **kwargs):
+        """
+        Ensure only one instance exists (Singleton pattern)
+        """
+        # Allow updates to existing instance
+        if self.pk:
+            return super().save(*args, **kwargs)
+        
+        # Check if trying to create a new instance when one already exists
+        if DepartmentStatistics.objects.exists():
+            raise ValidationError('Only one Department Statistics instance is allowed. Please edit the existing one.')
+        
+        return super().save(*args, **kwargs)
+    
+    def get_faculty_count(self):
+        """Calculate active faculty count"""
+        from .models import FacultyMember
+        return FacultyMember.objects.filter(is_current=True, status='active').count()
+    
+    def get_research_areas_count(self):
+        """Calculate unique research areas from faculty"""
+        from .models import FacultyMember
+        research_areas = set()
+        faculty_members = FacultyMember.objects.filter(is_current=True, status='active')
+        for faculty in faculty_members:
+            if faculty.research_interest:
+                areas = [area.strip() for area in faculty.research_interest.replace(',', ';').split(';') if area.strip()]
+                research_areas.update(areas)
+        return len(research_areas) if research_areas else 0
+    
+    def get_publications_count(self):
+        """Calculate total publications"""
+        from .models import Publication
+        return Publication.objects.count()
+    
+    def get_projects_count(self):
+        """Calculate total projects"""
+        from .models import Project
+        return Project.objects.count()

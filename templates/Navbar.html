@@ -492,7 +492,7 @@
                     </svg>
                 </button>
                 <div id="academic-mobile-dropdown" class="hidden bg-slate-800/50 rounded-xl mt-2 ml-6 overflow-hidden">
-                    <a href="#" class="block py-3 px-4 text-slate-300 text-sm hover:bg-slate-700/50 hover:text-white transition-all duration-200">
+                    <a href="{% url 'academic_programs' %}" class="block py-3 px-4 text-slate-300 text-sm hover:bg-slate-700/50 hover:text-white transition-all duration-200">
                         <div class="flex items-center space-x-3">
                             <i class="fas fa-graduation-cap text-emerald-400 text-xs w-4"></i>
                             <span>Program</span>
@@ -504,13 +504,13 @@
                             <span>Admission</span>
                         </div>
                     </a>
-                    <a href="#" class="block py-3 px-4 text-slate-300 text-sm hover:bg-slate-700/50 hover:text-white transition-all duration-200">
+                    <a href="{% url 'curriculum' %}" class="block py-3 px-4 text-slate-300 text-sm hover:bg-slate-700/50 hover:text-white transition-all duration-200">
                         <div class="flex items-center space-x-3">
                             <i class="fas fa-book-open text-emerald-400 text-xs w-4"></i>
                             <span>Curriculum</span>
                         </div>
                     </a>
-                    <a href="#" class="block py-3 px-4 text-slate-300 text-sm hover:bg-slate-700/50 hover:text-white transition-all duration-200">
+                    <a href="{% url 'academic_calendar' %}" class="block py-3 px-4 text-slate-300 text-sm hover:bg-slate-700/50 hover:text-white transition-all duration-200">
                         <div class="flex items-center space-x-3">
                             <i class="fas fa-calendar-alt text-emerald-400 text-xs w-4"></i>
                             <span>Calendar</span>

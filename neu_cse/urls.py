@@ -25,7 +25,7 @@ admin.site.site_title = "NeU CSE Portal"
 admin.site.index_title = "Welcome to NeU CSE Admin Panel"
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
+    path('aDmin_neU_cse/', admin.site.urls),
     path('', include('cse_app.urls')),  # Include URLs from cse_app
 ]
 if settings.DEBUG:

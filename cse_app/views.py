@@ -506,7 +506,33 @@ def home(request):
         ).order_by('-start_date')[:3 - len(upcoming_events)]
         upcoming_events.extend(latest_events)
 
+    # Get department statistics for About section
+    try:
+        stats = DepartmentStatistics.objects.first()
+        if not stats:
+            stats = DepartmentStatistics.objects.create()
+    except Exception:
+        stats = None
+    
+    # Get statistics with auto-calculation for zero values
+    if stats:
+        total_students = stats.total_students
+        total_faculty = stats.get_faculty_count() if stats.total_faculty == 0 else stats.total_faculty
+        total_labs = stats.total_labs
+        total_research_areas = stats.get_research_areas_count() if stats.total_research_areas == 0 else stats.total_research_areas
+        total_publications = stats.get_publications_count() if stats.total_publications == 0 else stats.total_publications
+        total_projects = stats.get_projects_count() if stats.total_projects == 0 else stats.total_projects
+    else:
+        total_students = 150
+        total_faculty = FacultyMember.objects.filter(is_current=True, status='active').count()
+        total_labs = 3
+        total_research_areas = 8
+        total_publications = Publication.objects.count()
+        total_projects = Project.objects.count()
+    
     # Update view count for home page
+    page_view, created = ViewCount.objects.get_or_create(page_name='home')
+    page_view.increment()
     
     context = {
         'carousel_items': carousel_items,
@@ -519,14 +545,14 @@ def home(request):
         'latest_projects': latest_projects,
         'latest_publications': latest_publications,
         'images': latest_images,
-        
+        # Department statistics for About section
+        'total_students': total_students,
+        'total_faculty': total_faculty,
+        'total_labs': total_labs,
+        'total_research_areas': total_research_areas,
+        'total_publications': total_publications,
+        'total_projects': total_projects,
     }
-    
-    page_view, created = ViewCount.objects.get_or_create(page_name='home')
-    page_view.increment()
-    
-    # Add latest images to context
-    # context['images'] = latest_images
     
     return render(request, 'cse/home.html', context)
 
@@ -884,7 +910,49 @@ def about(request):
     page_view, created = ViewCount.objects.get_or_create(page_name='about')
     page_view.increment()
     
-    return render(request, 'cse/about.html')
+    # Get or create department statistics
+    try:
+        stats = DepartmentStatistics.objects.first()
+        if not stats:
+            # Create default statistics if none exist
+            stats = DepartmentStatistics.objects.create()
+            print("Created new statistics instance")
+        else:
+            print(f"Found existing statistics: Students={stats.total_students}, Faculty={stats.total_faculty}")
+    except Exception as e:
+        # Fallback to default values if model doesn't exist yet
+        print(f"Error getting statistics: {e}")
+        stats = None
+    
+    # Get statistics with auto-calculation for zero values
+    if stats:
+        total_students = stats.total_students
+        total_faculty = stats.get_faculty_count() if stats.total_faculty == 0 else stats.total_faculty
+        total_labs = stats.total_labs
+        total_research_areas = stats.get_research_areas_count() if stats.total_research_areas == 0 else stats.total_research_areas
+        total_publications = stats.get_publications_count() if stats.total_publications == 0 else stats.total_publications
+        total_projects = stats.get_projects_count() if stats.total_projects == 0 else stats.total_projects
+    else:
+        # Fallback values
+        total_students = 150
+        total_faculty = FacultyMember.objects.filter(is_current=True, status='active').count()
+        total_labs = 3
+        total_research_areas = 8
+        total_publications = Publication.objects.count()
+        total_projects = Project.objects.count()
+    
+    print(f"Context values: Students={total_students}, Faculty={total_faculty}, Labs={total_labs}")
+    
+    context = {
+        'total_students': total_students,
+        'total_faculty': total_faculty,
+        'total_labs': total_labs,
+        'total_research_areas': total_research_areas,
+        'total_publications': total_publications,
+        'total_projects': total_projects,
+    }
+    
+    return render(request, 'cse/about.html', context)
 
 def events(request):
     # Get all upcoming events

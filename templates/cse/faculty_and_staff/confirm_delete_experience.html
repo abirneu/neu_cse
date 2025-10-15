@@ -1,14 +1,14 @@
 {% extends 'base.html' %}
 {% load static %}
 
-{% block title %}Delete Notice - NeU CSE{% endblock %}
+{% block title %}Delete Professional Experience - NeU CSE{% endblock %}
 {% block content %}
 <div class="min-h-screen py-8 sm:py-12 px-4 sm:px-6 lg:px-8">
     <div class="max-w-md sm:max-w-lg mx-auto">
-        <div class=" bg-white rounded-xl  overflow-hidden border border-gray-100">
+        <div class="bg-white rounded-2xl shadow-xl overflow-hidden border border-gray-100">
             <!-- Header -->
             <div class="bg-gradient-to-r from-red-600 to-red-700 px-4 sm:px-6 py-5">
-                <h3 class="text-lg sm:text-xl font-semibold text-white text-center">Delete Notice</h3>
+                <h3 class="text-lg sm:text-xl font-semibold text-white text-center">Delete Professional Experience</h3>
             </div>
             
             <!-- Content -->
@@ -22,8 +22,21 @@
                 
                 <h4 class="text-lg sm:text-xl font-bold text-gray-900 mb-3">Confirm Deletion</h4>
                 <p class="text-gray-600 mb-4 sm:mb-6 text-sm sm:text-base">
-                    You are about to delete the notice titled 
-                    <span class="block font-medium text-gray-900 mt-1 break-words">"{{ notice.title }}"</span>
+                    You are about to delete the professional experience:
+                    <span class="block font-medium text-gray-900 mt-2 break-words">
+                        {{ experience.position_title }}
+                    </span>
+                    <span class="block text-sm text-gray-500 mt-1">
+                        {{ experience.organization }}
+                        {% if experience.start_date %}
+                            ({{ experience.start_date|date:"M Y" }} - 
+                            {% if experience.is_current %}
+                                Present
+                            {% elif experience.end_date %}
+                                {{ experience.end_date|date:"M Y" }}
+                            {% endif %})
+                        {% endif %}
+                    </span>
                 </p>
                 
                 <div class="bg-red-50 border-l-4 border-red-500 p-3 sm:p-4 mb-4 sm:mb-6 rounded-md text-left">
@@ -35,13 +48,13 @@
                         </div>
                         <div class="ml-3">
                             <p class="text-xs sm:text-sm text-red-700">
-                                This action <span class="font-medium">cannot be undone</span>. The notice will be permanently removed from the system.
+                                This action <span class="font-medium">cannot be undone</span>. The professional experience will be permanently removed from your profile.
                             </p>
                         </div>
                     </div>
                 </div>
                 
-                <form method="post" action="{% url 'delete_notice' notice.pk %}">
+                <form method="post" action="{% url 'delete_professional_experience' experience.pk %}">
                     {% csrf_token %}
                     <div class="flex flex-col sm:flex-row gap-3 justify-center">
                         <button type="submit" class="inline-flex items-center justify-center px-4 sm:px-5 py-2 sm:py-3 border border-transparent text-sm sm:text-base font-medium rounded-xl 
@@ -50,9 +63,9 @@
                             <svg class="h-4 w-4 sm:h-5 sm:w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
                             </svg>
-                            Delete Notice
+                            Delete Experience
                         </button>
-                        <a href="{% url 'staff_dashboard' %}" class="inline-flex items-center justify-center px-4 sm:px-5 py-2 sm:py-3 border border-gray-300 text-sm sm:text-base
+                        <a href="{% url 'faculty_dashboard' %}" class="inline-flex items-center justify-center px-4 sm:px-5 py-2 sm:py-3 border border-gray-300 text-sm sm:text-base
                          font-medium rounded-xl text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 
                          focus:ring-gray-500 transition-all duration-200 order-2 sm:order-2">
                             <svg class="h-4 w-4 sm:h-5 sm:w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
