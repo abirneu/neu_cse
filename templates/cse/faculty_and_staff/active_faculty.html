@@ -141,8 +141,7 @@
         {% if group.grouper == 'assistant_professor' %}
             {% with assistant_professors=group.list %}
                 {% if assistant_professors %}
-                    <div class="mb-16">
-                       
+                    <div class="mb-16">                      
                         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                             {% for faculty in assistant_professors %}
                                 {% if not faculty.is_chairman %}
@@ -161,9 +160,8 @@
         {% if group.grouper == 'lecturer' %}
             {% with lecturers=group.list %}
                 {% if lecturers %}
-                    <div class="mb-16">
-                       
-                        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <div class="mb-16">                      
+                        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-2">
                             {% for faculty in lecturers %}
                                 {% if not faculty.is_chairman %}
                                     {% include "cse/faculty_and_staff/faculty_card.html" with faculty=faculty %}
