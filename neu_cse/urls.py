@@ -28,8 +28,9 @@ urlpatterns = [
     path('aDmin_neU_cse/', admin.site.urls),
     path('', include('cse_app.urls')),  # Include URLs from cse_app
 ]
-if settings.DEBUG:
-    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
+# Serve media files in both development and production
+urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 # Custom error handlers
 handler404 = 'cse_app.views.custom_404_view'

@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/5.2/ref/settings/
 
 import os
 from pathlib import Path
+import dj_database_url
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -21,13 +22,13 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-5a7d#@f%)%5)&l92i#j1h2_&%9cd=zup(3mf39yl_ukn^w$-!j'
+SECRET_KEY = os.environ.get('SECRET_KEY', 'django-insecure-5a7d#@f%)%5)&l92i#j1h2_&%9cd=zup(3mf39yl_ukn^w$-!j')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True  # Set to True for development to serve static files
+DEBUG = os.environ.get('DEBUG', 'False') == 'True'
 
 # ALLOWED_HOSTS = ['cse.neu.ac.bd']
-ALLOWED_HOSTS = ['127.0.0.1', 'localhost', 'cse.neu.ac.bd', '*']
+ALLOWED_HOSTS = os.environ.get('ALLOWED_HOSTS', '127.0.0.1,localhost,cse.neu.ac.bd,neu-cse.onrender.com').split(',')
 
 # Application definition
 
@@ -79,12 +80,20 @@ WSGI_APPLICATION = 'neu_cse.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
 
+# Default to SQLite for local development
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
+
+# Override with PostgreSQL if DATABASE_URL is set (for production on Render)
+if 'DATABASE_URL' in os.environ:
+    DATABASES['default'] = dj_database_url.config(
+        conn_max_age=600,
+        conn_health_checks=True,
+    )
 
 
 # Password validation
@@ -125,6 +134,7 @@ STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
 
+# WhiteNoise configuration for static files
 STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 
 # Media files
