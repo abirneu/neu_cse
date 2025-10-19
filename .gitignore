@@ -11,10 +11,12 @@ env/
 ENV/
 
 # Django stuff 
-*.sqlite3
-db.sqlite3
 *.log
 /staticfiles/
+
+# Database - Allow db.sqlite3 to be committed for deployment
+# *.sqlite3
+# db.sqlite3
 
 # IDEs
 .vscode/

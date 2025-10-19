@@ -25,7 +25,6 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = os.environ.get('SECRET_KEY', 'django-insecure-5a7d#@f%)%5)&l92i#j1h2_&%9cd=zup(3mf39yl_ukn^w$-!j')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-# Default to True for local development, set DEBUG=False in production
 DEBUG = os.environ.get('DEBUG', 'True') == 'True'
 #DEBUG = os.environ.get('DEBUG', 'False') == 'True'
 
@@ -83,20 +82,13 @@ WSGI_APPLICATION = 'neu_cse.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
 
-# Default to SQLite for local development
+# Use SQLite for both local and production
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
-
-# Override with PostgreSQL if DATABASE_URL is set (for production on Render)
-if 'DATABASE_URL' in os.environ:
-    DATABASES['default'] = dj_database_url.config(
-        conn_max_age=600,
-        conn_health_checks=True,
-    )
 
 
 # Password validation
