@@ -54,7 +54,6 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'cse_app.middleware.Custom404Middleware',  # Custom 404 for DEBUG=True only
 ]
 
 ROOT_URLCONF = 'neu_cse.urls'

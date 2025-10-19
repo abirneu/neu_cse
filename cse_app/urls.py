@@ -1,4 +1,4 @@
-from django.urls import path
+from django.urls import path, re_path
 from . import views
 from .test_views import test_faculty_form
 
@@ -95,5 +95,6 @@ urlpatterns = [
     path('gallery/', views.image_gallery_home, name='image_gallery_home'),
     path('gallery/all/', views.all_images, name='all_images'),
 
-    
+    # Fallback for any other route to force custom 404 template even when DEBUG=True.
+    re_path(r'^(?!static/|media/|favicon\.ico$).+', views.fallback_404_view, name='fallback_404'),
 ]

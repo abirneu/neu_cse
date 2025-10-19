@@ -1277,3 +1277,8 @@ def custom_404_view(request, exception=None):
     Works on production (cse.neu.ac.bd, neu-cse.onrender.com) and development.
     """
     return render(request, 'cse/404.html', status=404)
+
+
+def fallback_404_view(request, unmatched_path=None):
+    """Render the custom 404 template for any unmatched URL when DEBUG=True."""
+    return custom_404_view(request)
