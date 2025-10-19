@@ -1271,5 +1271,9 @@ def delete_professional_experience(request, pk):
         return redirect('faculty_login')
 
 # Custom 404 Error Handler
-def custom_404_view(request, exception):
+def custom_404_view(request, exception=None):
+    """
+    Custom 404 error handler for all environments.
+    Works on production (cse.neu.ac.bd, neu-cse.onrender.com) and development.
+    """
     return render(request, 'cse/404.html', status=404)

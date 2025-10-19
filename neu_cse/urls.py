@@ -34,5 +34,6 @@ if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
     urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 
-# Custom error handlers
+# Custom error handlers for all environments (production: cse.neu.ac.bd, neu-cse.onrender.com)
 handler404 = 'cse_app.views.custom_404_view'
+handler500 = 'cse_app.views.custom_404_view'  # Use same template for 500 errors
